@@ -1,157 +1,90 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vudovn/ag-kit/main/web/public/images/logo.png" width="128" height="128" alt="AGKIT">
-</p>
+# Dự Án Redesign & Việt Hóa Website Sophpower Việt Nam
 
-<h1 align="center">AG KIT</h1>
+Kho lưu trữ này chứa mã nguồn cho dự án clone, nâng cấp thiết kế (redesign) và Việt hóa website **Sophchem** (https://www.sophchem.com/) dành riêng cho **Công ty TNHH Công nghiệp Sophpower Việt Nam** (Pioneer Herb Industrial Co., Ltd.), được thực hiện bởi **Betech JSC**.
 
-<p align="center">
-    Bộ template AI Agent đi kèm Skills, Agents, và Workflows — tích hợp sẵn Coordinator Mode, Bộ nhớ Dài hạn (Persistent Memory), và Nén Ngữ cảnh (Context Compression).
-</p>
-
-<div align="center">
-    <a href="https://unikorn.vn/p/antigravity-kit?ref=unikorn" target="_blank"><img src="https://unikorn.vn/api/widgets/badge/antigravity-kit?theme=dark" alt="AG Kit - Nổi bật trên Unikorn.vn" style="width: 210px; height: 54px;" width="210" height="54" /></a>
-    <a href="https://trendshift.io/repositories/21490" target="_blank"><img src="https://trendshift.io/api/badge/repositories/21490" alt="vudovn%2Fantigravity-kit | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-    <a href="https://launch.j2team.dev/products/antigravity-kit" target="_blank"><img src="https://launch.j2team.dev/badge/antigravity-kit/dark" alt="AG Kit on J2TEAM Launch" width="250" height="54" /></a>
-</div>
-
-<p align="center">
-  <strong>🇬🇧 <a href="./README.md">English Version (Bản Tiếng Anh)</a></strong>
-</p>
+Dự án chuyển đổi cổng thông tin phức tạp ban đầu thành một trang web danh mục và giới thiệu sản phẩm B2B gọn gàng, phẳng và tối ưu hóa cao cho thị trường Việt Nam.
 
 ---
 
-## ⚡ Bắt đầu nhanh
+## 🎯 Mục tiêu Dự án
 
-Cài đặt và khởi tạo AG Kit để tích hợp thư mục cấu hình chuyên sâu `.agents/` trực tiếp vào dự án cục bộ của bạn.
+*   **Việt hóa toàn diện:** Toàn bộ thông số sản phẩm, tài liệu kỹ thuật, bài viết tin tức và thông tin giới thiệu được chuyển đổi sang ngôn ngữ tiếng Việt chuẩn ngành hóa chất/thực phẩm.
+*   **Thiết kế B2B phẳng tối giản:** Bố cục dạng lưới phẳng, bo góc cứng cáp (`rounded-xl`), loại bỏ các icon/đồ họa thừa, tối ưu hóa không gian đọc thông số kỹ thuật cho đối tác doanh nghiệp.
+*   **Đồng bộ màu sắc thương hiệu:** Thay thế hoàn toàn màu xanh Navy gốc bằng tông màu **Xanh Lá Cây Thương Hiệu** của Sophpower (`#106d38`) ở Menu chính, thanh công cụ, các nút liên hệ và chỉ báo.
+*   **Tối ưu công nghệ & SEO:** Triển khai trên Next.js 16 (App Router) + Tailwind CSS v4 giúp trang tải nhanh, tối ưu SEO onpage và khắc phục triệt để lỗi hiển thị font chữ tiếng Việt.
 
-### Cách 1: Chạy trực tiếp (Khuyên dùng)
+---
 
-```bash
-npx @vudovn/ag-kit init
+## 💻 Tech Stack (Công nghệ)
+
+*   **Framework:** Next.js 16.1.3 (React 19, App Router)
+*   **Styling:** Tailwind CSS v4 (sử dụng cấu hình `@theme` trực tiếp)
+*   **Typography:** **Roboto** Google Font (cấu hình subsets `latin` và `vietnamese` tránh lỗi font chữ tiếng Việt, hỗ trợ fallback font hệ thống cho khả năng đa ngôn ngữ trong tương lai).
+*   **Icons:** Lucide React
+*   **Deployment:** Vercel (cấu hình thư mục con `web/`)
+
+---
+
+## 🗺️ Cấu trúc Trang & Sitemap đã triển khai
+
+Ứng dụng được chia thành các phân hệ trang cụ thể:
+
+1.  **Trang chủ (`/`):** Banner trượt tối giản giới thiệu nguyên liệu, lưới tab phân loại sản phẩm, và các thẻ thế mạnh doanh nghiệp.
+2.  **Giới thiệu (`/about`):** Lịch sử phát triển, năng lực và các chứng nhận chất lượng quốc tế (ISO, HACCP, HALAL, Kosher, FDA).
+3.  **Danh mục Nguyên liệu (`/list_2` - Thực phẩm & `/list_3` - Mỹ phẩm):** Danh sách dạng lưới các nguyên liệu (Beta-carotene, Carmine, Niacinamide, Panthenol, Ectoin, v.v.) với thiết kế card có thể click toàn vùng.
+4.  **Chi tiết Sản phẩm (`/list_2/[id]` & `/list_3/[id]`):** Hiển thị chi tiết mô tả, ứng dụng kỹ thuật và quy cách đóng gói của nguyên liệu.
+5.  **Trung tâm Tin tức (`/news` & `/news/[id]`):** Banner hình ảnh lớn, lưới bài viết tin tức phẳng (ẩn tóm tắt và tác giả), bộ lọc danh mục và ô tìm kiếm nhanh.
+6.  **Liên hệ (`/page_5`):** Form gửi yêu cầu báo giá/mẫu thử, thông tin liên hệ độ tương phản cao, và bản đồ chỉ đường.
+7.  **Tuyển dụng (`/recruitment` & `/recruitment/[id]`):** Bảng tin tuyển dụng các vị trí kỹ thuật và sales.
+8.  **Tìm kiếm (`/search`):** Trang hiển thị kết quả lọc tìm kiếm theo từ khóa.
+9.  **Trang Quản trị (`/admin`):** Giao diện quản trị danh mục, bài viết tin tức và phản hồi từ khách hàng (Mock Client-Side).
+
+---
+
+## 📁 Cấu trúc Thư mục
+
 ```
-
-### Cách 2: Cài đặt toàn cục (Global)
-
-```bash
-npm install -g @vudovn/ag-kit
-ag-kit init
+├── .agents/                 # Thư mục cấu hình workflow của trợ lý AI
+├── web/                     # Mã nguồn dự án Next.js (ứng dụng web chính)
+│   ├── public/              # Hình ảnh tĩnh, icon và tài nguyên logo
+│   └── src/
+│       ├── app/             # Các trang (pages) và layouts Next.js
+│       └── components/      # Các thành phần giao diện dùng chung (Header, Footer)
+├── BRAND_COLORS.md          # Hướng dẫn bảng màu thương hiệu chính thức
+└── PROJECT_OVERVIEW.md      # Tài liệu tổng quan dự án tiếng Việt
 ```
 
 ---
 
-## 🌍 Cấu hình Symlink Toàn cục (Global Shared Setup)
+## 🚀 Khởi chạy Cục bộ (Local)
 
-Nếu bạn làm việc trên nhiều dự án khác nhau và muốn tránh sao chép thư mục `.agents/` lặp đi lặp lại, bạn có thể tập trung hóa cấu hình AG Kit và sử dụng các liên kết tượng trưng (Symbolic Links).
-
-1. **Cài đặt tập trung** (ví dụ: tạo thư mục toàn cục tại `~/.ag-kit`):
+1. Mở cửa sổ dòng lệnh và di chuyển vào thư mục `web`:
    ```bash
-   mkdir -p ~/.ag-kit && cd ~/.ag-kit
-   npx @vudovn/ag-kit init
+   cd web
    ```
-
-2. **Liên kết cục bộ** từ thư mục gốc của dự án bạn đang làm việc:
-   - **macOS / Linux:**
-     ```bash
-     ln -s ~/.ag-kit/.agents .agent
-     ```
-   - **Windows (CMD - Chạy với quyền Administrator):**
-     ```cmd
-     mklink /D .agents "%USERPROFILE%\.ag-kit\.agents"
-     ```
-   - **Windows (PowerShell - Chạy với quyền Administrator):**
-     ```powershell
-     New-Item -ItemType SymbolicLink -Path ".agents" -Target "$env:USERPROFILE\.ag-kit\.agents"
-     ```
+2. Cài đặt các gói phụ thuộc:
+   ```bash
+   npm install
+   ```
+3. Khởi chạy máy chủ phát triển Next.js:
+   ```bash
+   npm run dev
+   ```
+4. Truy cập địa chỉ: [http://localhost:3000](http://localhost:3000) trên trình duyệt.
 
 ---
 
-## ⚠️ Lưu ý Quan trọng về `.gitignore`
+## ☁️ Triển khai lên Vercel
 
-Nếu bạn đang sử dụng các trình soạn thảo mã nguồn tích hợp sẵn AI (như **Cursor** hoặc **Windsurf**), việc thêm thư mục `.agents/` vào file `.gitignore` sẽ khiến trình phân tích ngôn ngữ của trình soạn thảo không thể lập chỉ mục (index) các workflow. Điều này sẽ làm mất tính năng gợi ý tự động (autocomplete) cho các lệnh slash (ví dụ: `/plan`, `/debug`).
+Vì mã nguồn chính nằm ở thư mục con `web/`, khi cấu hình dự án trên Vercel, anh/chị **BẮT BUỘC** phải chỉnh thiết lập **Root Directory**:
 
-### Giải pháp tối ưu:
-Để thư mục `.agents/` vừa không bị đẩy lên Git remote, vừa giữ nguyên khả năng hỗ trợ đắc lực từ AI editor:
-1. Đảm bảo thư mục `.agents/` **KHÔNG** nằm trong file `.gitignore` của dự án.
-2. Thay vào đó, hãy thêm `.agents/` vào file loại trừ cục bộ của Git: `.git/info/exclude`
-
----
-
-## 📦 Các thành phần đi kèm
-
-AG Kit đóng gói sẵn kho tri thức chuyên sâu cho từng domain cụ thể, các vai trò Agent chuyên biệt, và các quy trình phát triển tự động hóa tối ưu cho các công cụ lập trình AI hiện đại.
-
-| Thành phần | Số lượng | Mô tả |
-| :--- | :--- | :--- |
-| **Agents** | 20 | Các chuyên gia AI độc lập (Frontend, Backend, Security, PM, QA, v.v.) |
-| **Skills** | 45 | Các mô-đun tri thức chuyên sâu đi kèm các quy tắc kích hoạt tự động |
-| **Workflows** | 13 | Quy trình tương tác tự động hóa lập trình viên (lệnh Slash) |
-
----
-
-## 🛠️ Hướng dẫn Sử dụng
-
-### 1. Cơ chế Tự động Điều hướng Agent (Zero-Setup)
-
-Bạn không cần chỉ định Agent một cách thủ công. Hệ thống sẽ tự động phân tích yêu cầu của bạn, điều hướng thông minh đến đúng chuyên gia phù hợp và áp dụng các nguyên tắc lập trình của họ ngay lập tức:
-
-```
-You: "Thêm xác thực JWT vào API đăng nhập"
-Agent: Applying @security-auditor + @backend-specialist...
-
-You: "Căn giữa nút thanh toán và sửa lỗi giao diện tối"
-Agent: Using @frontend-specialist...
-```
-
-### 2. Các Quy trình Tương tác (Slash Commands)
-
-Thực hiện các quy trình phát triển mã nguồn bài bản bằng cách gõ trực tiếp các lệnh slash trong khung trò chuyện với AI:
-
-| Lệnh | Mô tả chi tiết |
-| :--- | :--- |
-| `/brainstorm` | Lên ý tưởng, phân tích kiến trúc và giải pháp tối ưu trước khi viết code |
-| `/coordinate` | Điều phối song song nhiều Agent chuyên gia cho các tác vụ kiểm tra phức tạp |
-| `/create` | Tạo mới một tính năng hoặc xây dựng toàn bộ ứng dụng từ đầu |
-| `/debug` | Kích hoạt quy trình gỡ lỗi chuyên sâu và có bằng chứng xác thực |
-| `/deploy` | Thực hiện các kiểm tra an toàn pre-flight và triển khai lên production |
-| `/enhance` | Thêm mới hoặc cải tiến các tính năng trong codebase hiện tại một cách an toàn |
-| `/plan` | Lập kế hoạch chi tiết và tạo checklist triển khai công việc |
-| `/preview` | Khởi động, dừng hoặc kiểm tra trạng thái máy chủ xem trước cục bộ |
-| `/remember` | Ghi nhớ các quy chuẩn riêng của dự án vào bộ nhớ dài hạn |
-| `/status` | Báo cáo chi tiết tiến độ công việc đang chạy của AI |
-| `/test` | Tự động tạo và thực thi các bộ kiểm thử (test suite) toàn diện |
-| `/verify` | Chứng minh code hoạt động thông qua chạy thực tế thay vì chỉ kiểm tra lý thuyết |
-
----
-
-## 🧠 Triết lý Kiến trúc Cốt lõi
-
-AG Kit được xây dựng dựa trên các mô hình thiết kế AI Agent đã qua kiểm chứng thực tế, giúp giảm lượng tiêu thụ token từ **13% đến 33%** đồng thời cải thiện chất lượng phản hồi:
-
-*   **Coordinator Mode:** Cơ chế điều phối đa tác vụ song song, tránh việc thử lại tuần tự tốn kém tài nguyên.
-*   **Bộ nhớ Dài hạn (Persistent Memory):** Cơ chế phân loại và lập chỉ mục qua `MEMORY.md`, loại bỏ việc phải giải thích lại các quy tắc dự án trong mỗi phiên chat mới.
-*   **Nén Ngữ cảnh (Context Compression):** Tự động tóm tắt và thu gọn dữ liệu lịch sử để ngăn chặn hiện tượng tràn bộ nhớ trong các phiên làm việc kéo dài.
-*   **Kích hoạt Skill có Điều kiện:** Chỉ tải các nguyên tắc lập trình có liên quan đến ngữ cảnh hiện tại nhờ cấu hình frontmatter thông minh, giữ cho cửa sổ ngữ cảnh luôn nhẹ nhàng nhất.
-
----
-
-## 📚 Tham chiếu & Bản quyền
-
-AG Kit là sản phẩm nghiên cứu và phát triển độc lập trong lĩnh vực kỹ nghệ prompt và luật thiết kế markdown. Dự án được tối ưu hóa dựa trên việc phân tích các mô hình AI Agent hàng đầu trong môi trường production:
-*   *Không sao chép bất kỳ mã nguồn hay file bảo mật thương mại nào.*
-*   Toàn bộ mã nguồn, cấu hình và kịch bản đều là phiên bản viết mới hoàn toàn, được phân phối dưới dạng mã nguồn mở theo giấy phép MIT.
-
----
-
-## ☕ Ủng hộ Dự án
-
-Nếu AG Kit giúp cho tiến trình lập trình với AI của bạn hiệu quả và năng suất hơn, hãy ủng hộ nhà phát triển:
-
-| ☕ Ủng hộ & Quyên góp | 🚀 Đồng AGKIT Memecoin |
-| :---: | :---: |
-| <a href="https://buymeacoffee.com/vudovn" target="_blank"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee" /></a><br/><br/>**Ngân hàng Việt Nam (MBBank QR):**<br/><img src="https://img.vietqr.io/image/mbbank-0779440918-compact.jpg" alt="Donate QR" width="140" style="border-radius: 8px; margin-top: 10px;" /> | **Địa chỉ Hợp đồng BASE (CA):**<br/><br/>`0x1b145dbee7c63394b512a2f7b76181c94a314ba3`<br/>|
+1. Liên kết dự án Vercel tới repository này.
+2. Tại màn hình cấu hình dự án (hoặc vào **Project Settings > General**):
+   * Chỉnh phần **Root Directory** thành: `web`
+3. Bấm **Save** (Lưu) và tiến hành Deploy. Vercel sẽ tự động cấu hình các lệnh build phù hợp.
 
 ---
 
 ## 📄 Giấy phép
 
-Được phát hành dưới [Giấy phép MIT](LICENSE) © [Vudovn](https://github.com/vudovn).
+Được phát hành dưới [Giấy phép MIT](LICENSE). Thiết kế và phát triển dành riêng cho Sophpower Việt Nam.
