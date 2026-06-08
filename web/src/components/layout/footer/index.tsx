@@ -1,160 +1,134 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import { useI18n } from "@/i18n/provider";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 export default function Footer() {
-    const { t } = useI18n();
-    const f = t.footer;
-    return (
-        <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-auto">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                    {/* Product */}
-                    <div>
-                        <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-4">{f.product}</h3>
-                        <ul className="space-y-3 text-sm">
-                            <li>
-                                <Link href="/docs" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.documentation}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/docs/agents" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.agents}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/docs/skills" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.skills}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/docs/workflows" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.workflows}
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-                    {/* Resources */}
-                    <div>
-                        <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-4">{f.resources}</h3>
-                        <ul className="space-y-3 text-sm">
-                            <li>
-                                <Link href="/docs/installation" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.installation}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/docs/cli" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.cliReference}
-                                </Link>
-                            </li>
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.examples}
-                                </a>
-                            </li>
-                            <li>
-                                <Link href="/docs/changelog" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.changelog}
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setSubmitted(true);
+      setEmail("");
+      setTimeout(() => setSubmitted(false), 3000);
+    }
+  };
 
-                    {/* Community */}
-                    <div>
-                        <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-4">{f.community}</h3>
-                        <ul className="space-y-3 text-sm">
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.github}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit/issues" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.issues}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit/discussions" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.discussions}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.contributing}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+  const quickLinks = [
+    { name: "TRANG CHỦ", path: "/" },
+    { name: "ABOUT US", path: "/about" },
+    { name: "FOOD INGREDIENTS", path: "/list_2" },
+    { name: "COSMETIC INGREDIENTS", path: "/list_3" },
+    { name: "NEWS CENTER", path: "/news" },
+    { name: "CONTACT", path: "/page_5" },
+  ];
 
-                    {/* Legal */}
-                    <div>
-                        <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-4">{f.legal}</h3>
-                        <ul className="space-y-3 text-sm">
-                            <li>
-                                <a href="https://github.com/vudovn/ag-kit/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.license}
-                                </a>
-                            </li>
-                            <li>
-                                <Link href="#1" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.privacy}
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#1" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors">
-                                    {f.terms}
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    {/* Copyright */}
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                        © {new Date().getFullYear()} AG Kit by{" "}
-                        <a
-                            href="https://github.com/vudovn"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium text-zinc-900 dark:text-zinc-50 hover:underline">
-                            @vudovn
-                        </a>. {f.rights}
-                    </p>
-
-                    {/* Social Links */}
-                    <div className="flex items-center gap-4">
-                        <a
-                            href="https://github.com/vudovn/ag-kit"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
-                            aria-label="GitHub"
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                            </svg>
-                        </a>
-                        <a
-                            href="https://facebook.com/vudovn.354"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
-                            aria-label="Facebook"
-                        >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+  return (
+    <footer className="mt-auto bg-brand-green text-white border-t border-brand-green-hover">
+      {/* Contact Banner */}
+      <div className="bg-brand-green-hover py-10 text-white border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4 text-center md:text-left">
+              <Mail className="hidden sm:block h-12 w-12 text-white/80" />
+              <div>
+                <p className="text-xl font-bold">Hãy liên hệ với chúng tôi!</p>
+                <p className="text-sm text-white/85">Chúng tôi sẽ mang đến giải pháp phù hợp nhất cho bạn!</p>
+              </div>
             </div>
-        </footer>
-    );
+            
+            <form onSubmit={handleSubscribe} className="flex w-full max-w-md items-center gap-2">
+              <input
+                type="email"
+                required
+                placeholder="Nhập email của bạn..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-lg bg-brand-green px-4 py-3 text-white placeholder-white/60 border border-white/10 focus:outline-hidden focus:ring-1 focus:ring-white/80"
+              />
+              <button
+                type="submit"
+                className="flex items-center gap-2 rounded-lg bg-brand-green-light text-brand-blue px-6 py-3 font-bold hover:bg-brand-green-light/90 transition-colors cursor-pointer whitespace-nowrap"
+              >
+                <Send className="h-4 w-4" />
+                {submitted ? "ĐÃ GỬI" : "GỬI"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Links */}
+      <div className="mx-auto max-w-7xl px-3 py-12 sm:px-4 lg:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {/* Logo & Description */}
+          <div className="space-y-4">
+            <img
+              src="/images/f_logo.png"
+              alt="Sophpower Pioneer Herb Footer Logo"
+              className="h-14 w-auto object-contain brightness-0 invert"
+            />
+            <p className="text-sm text-white/85 leading-relaxed">
+              Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, kết nối nhà sản xuất với nguồn nguyên liệu chất lượng cao phục vụ ngành thực phẩm và mỹ phẩm.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-sm font-bold text-white tracking-wider mb-6">TRUY CẬP NHANH</h3>
+            <ul className="grid grid-cols-2 gap-3">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.path}
+                    className="text-sm text-white/80 hover:text-brand-green-light transition-colors font-medium"
+                  >
+                    &gt; {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Details */}
+          <div>
+            <h3 className="text-sm font-bold text-white tracking-wider mb-6">LIÊN HỆ CHÚNG TÔI</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail className="h-5 w-5 text-brand-green-light shrink-0 mt-0.5" />
+                <a
+                  href="mailto:vnsp4@sophpower.com"
+                  className="text-sm text-white/80 hover:text-brand-green-light transition-colors"
+                >
+                  Email: vnsp4@sophpower.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-brand-green-light shrink-0 mt-0.5" />
+                <span className="text-sm text-white/80">
+                  Tel / Zalo: 0969 700 520
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-brand-green-light shrink-0 mt-0.5" />
+                <span className="text-sm text-white/80 leading-relaxed">
+                  Địa chỉ: No. 37, 19E Street, An Lac Ward, Binh Tan Dist, Ho Chi Minh City, Vietnam
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-white/10 text-center">
+          <p className="text-sm text-white/50">
+            COPYRIGHT © {new Date().getFullYear()} Pioneer Herb Industrial Co., Ltd. Bảo lưu mọi quyền.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
 }

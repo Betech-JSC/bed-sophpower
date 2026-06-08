@@ -1,52 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { I18nProvider } from "@/i18n/provider";
+import SophchemHeader from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import Toolbar from "@/components/layout/toolbar";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700", "900"],
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-roboto",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#106d38",
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "AG Kit - AI Agent Capability Expansion Toolkit",
+  title: "Pioneer Herb Industrial Co., Ltd. - Sophpower Vietnam",
   description:
-    "A comprehensive collection of skills, rules, and workflows for modern AI coding assistants. 35+ skills, 57 UI Styles, production-ready workflows.",
-  metadataBase: new URL("https://ag-kit.unikorn.vn/"),
+    "Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, chuyên cung cấp các giải pháp nguyên liệu thực phẩm và mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế.",
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/images/logo.svg", type: "image/svg+xml" },
-    ],
-    apple: [{ url: "/images/logo.png", sizes: "1024x1024", type: "image/png" }],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://ag-kit.unikorn.vn/",
-    siteName: "AG Kit",
-    images: ["/images/logo.png"],
+    icon: "/favicon.ico",
   },
 };
 
@@ -56,17 +34,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body
-        className="antialiased"
-      >
+    <html lang="vi" suppressHydrationWarning className={roboto.variable}>
+      <body className="antialiased font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <I18nProvider>{children}</I18nProvider>
+          <div className="flex min-h-screen flex-col bg-white text-gray-900">
+            <SophchemHeader />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <Toolbar />
+          </div>
         </ThemeProvider>
       </body>
     </html>

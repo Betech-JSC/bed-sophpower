@@ -19,7 +19,7 @@ export default function DocsLayout({
             {/* Header */}
             <Header />
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-1">
+            <div className="container mx-auto px-3 sm:px-4 lg:px-6 flex-1">
                 <div className="flex gap-8 lg:gap-12">
                     {/* Sidebar Navigation - Desktop */}
                     <aside className="hidden lg:block w-64 shrink-0 sticky top-[57px] h-[calc(100vh-3.5rem)] overflow-y-auto py-8 scrollbar-thin">

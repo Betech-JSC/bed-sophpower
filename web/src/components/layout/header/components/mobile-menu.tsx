@@ -68,7 +68,7 @@ export default function MobileMenu() {
 
             {isOpen && (
                 <div className="lg:hidden absolute left-0 right-0 top-full border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-lg animate-in slide-in-from-top-2 max-h-[calc(100vh-3.5rem)] overflow-y-auto">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-6">
                         <nav className="space-y-6">
                             {navSections.map((section) => (
                                 <div key={section.titleKey}>
