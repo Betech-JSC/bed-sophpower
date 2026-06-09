@@ -1,4 +1,5 @@
-import { Cpu, FlaskConical } from "lucide-react";
+import Link from "next/link";
+import { Cpu, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function About() {
   return (
@@ -191,6 +192,87 @@ export default function About() {
 
           </div>
           
+        </div>
+      </section>
+
+      {/* Section 4: Discover More */}
+      <section className="py-24 bg-[#f8f9fa] border-t border-gray-150">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Centered Section Header */}
+          <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 tracking-tight">
+              Discover more
+            </h2>
+            <div className="h-1 w-12 bg-brand-green mx-auto" />
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            
+            {/* Card 1: Food Ingredients */}
+            <div className="aspect-square bg-white border border-gray-200 rounded-lg p-8 flex flex-col justify-between items-start hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 tracking-tight leading-snug">
+                Nguyên liệu<br />Thực phẩm
+              </h3>
+              <Link
+                href="/list_2"
+                className="inline-flex items-center justify-center border border-gray-300 hover:border-brand-green hover:bg-brand-green hover:text-white text-gray-800 text-sm font-semibold px-6 py-2.5 rounded transition-all"
+              >
+                Explore
+              </Link>
+            </div>
+
+            {/* Card 2: Cosmetic Ingredients (Highlighted with visual background) */}
+            <div 
+              className="relative aspect-square rounded-lg p-8 flex flex-col justify-between items-start overflow-hidden hover:shadow-md transition-all group"
+              style={{ backgroundImage: "url('/images/banner-cosmetic.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+            >
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/35 z-0" />
+              
+              <h3 className="relative z-10 text-xl font-bold text-white tracking-tight leading-snug">
+                Nguyên liệu<br />Mỹ phẩm
+              </h3>
+              
+              <Link
+                href="/list_3"
+                className="relative z-10 inline-flex items-center justify-center bg-white hover:bg-brand-green hover:text-white text-gray-900 text-sm font-semibold px-6 py-2.5 rounded transition-all border border-transparent"
+              >
+                Explore
+              </Link>
+            </div>
+
+            {/* Card 3: News Center */}
+            <div className="aspect-square bg-white border border-gray-200 rounded-lg p-8 flex flex-col justify-between items-start hover:shadow-md transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 tracking-tight leading-snug">
+                Trung tâm<br />Tin tức
+              </h3>
+              <Link
+                href="/news"
+                className="inline-flex items-center justify-center border border-gray-300 hover:border-brand-green hover:bg-brand-green hover:text-white text-gray-800 text-sm font-semibold px-6 py-2.5 rounded transition-all"
+              >
+                Explore
+              </Link>
+            </div>
+
+          </div>
+
+          {/* Decorative Carousel Controls */}
+          <div className="flex items-center justify-center gap-4 mt-12">
+            <button className="text-gray-300 hover:text-gray-650 transition-colors p-2 cursor-not-allowed" disabled>
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <div className="flex gap-2 items-center">
+              <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
+              <span className="h-2 w-2 rounded-full bg-gray-800" />
+              <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
+            </div>
+            <button className="text-gray-600 hover:text-brand-green transition-colors p-2">
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
         </div>
       </section>
     </div>
