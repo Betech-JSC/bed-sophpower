@@ -33,12 +33,12 @@ export default function Contact() {
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
+        style={{ backgroundImage: "url('/images/banner-contact.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
-            CONTACT
+            LIÊN HỆ
           </h1>
         </div>
       </section>
@@ -202,6 +202,24 @@ export default function Contact() {
                 </form>
               )}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Google Maps */}
+      <section className="py-12 bg-gray-50 border-t border-gray-150">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+            <iframe
+              title="Sophpower Vietnam Office Location"
+              src="https://maps.google.com/maps?q=No.+37,+19E+Street,+An+Lac+Ward,+Binh+Tan+District,+Ho+Chi+Minh+City,+Vietnam&output=embed&z=16"
+              width="100%"
+              height="420"
+              style={{ border: 0, display: "block" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
