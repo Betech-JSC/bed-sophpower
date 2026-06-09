@@ -19,6 +19,18 @@ import argparse
 import subprocess
 from pathlib import Path
 
+# Force UTF-8 stdout/stderr to avoid encoding errors on Windows
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+if hasattr(sys.stderr, 'reconfigure'):
+    try:
+        sys.stderr.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 # Detect agent directory name dynamically
 AGENT_DIR = Path(".agents") if Path(".agents").exists() else Path(".agents")
 PID_FILE = AGENT_DIR / "preview.pid"
@@ -36,18 +48,26 @@ def is_running(pid):
 
 def get_start_command(root):
     pkg_file = root / "package.json"
-    if not pkg_file.exists():
-        return None
+    if pkg_file.exists():
+        with open(pkg_file, 'r') as f:
+            data = json.load(f)
+        scripts = data.get("scripts", {})
+        if "dev" in scripts:
+            return ["npm", "run", "dev"], root
+        elif "start" in scripts:
+            return ["npm", "start"], root
     
-    with open(pkg_file, 'r') as f:
-        data = json.load(f)
-    
-    scripts = data.get("scripts", {})
-    if "dev" in scripts:
-        return ["npm", "run", "dev"]
-    elif "start" in scripts:
-        return ["npm", "start"]
-    return None
+    web_pkg_file = root / "web" / "package.json"
+    if web_pkg_file.exists():
+        with open(web_pkg_file, 'r') as f:
+            data = json.load(f)
+        scripts = data.get("scripts", {})
+        if "dev" in scripts:
+            return ["npm", "run", "dev"], root / "web"
+        elif "start" in scripts:
+            return ["npm", "start"], root / "web"
+            
+    return None, None
 
 def start_server(port=3000):
     if PID_FILE.exists():
@@ -60,10 +80,10 @@ def start_server(port=3000):
             pass # Invalid PID file
 
     root = get_project_root()
-    cmd = get_start_command(root)
+    cmd, run_dir = get_start_command(root)
     
     if not cmd:
-        print("❌ No 'dev' or 'start' script found in package.json")
+        print("❌ No 'dev' or 'start' script found in package.json or web/package.json")
         sys.exit(1)
     
     # Add port env var if needed (simple heuristic)
@@ -72,10 +92,11 @@ def start_server(port=3000):
     
     print(f"🚀 Starting preview on port {port}...")
     
+    cmd_str = " ".join(cmd) if isinstance(cmd, list) else cmd
     with open(LOG_FILE, "w") as log:
         process = subprocess.Popen(
-            cmd,
-            cwd=str(root),
+            cmd_str,
+            cwd=str(run_dir),
             stdout=log,
             stderr=log,
             env=env,

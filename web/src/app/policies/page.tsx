@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { FileText, ShieldCheck, ArrowRight } from "lucide-react";
+import { FileText, ArrowRight } from "lucide-react";
 
 interface Policy {
   id: string;
@@ -35,15 +35,14 @@ export default function Policies() {
     <div className="flex flex-col min-h-screen">
       {/* Banner */}
       <section
-        className="relative py-20 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/about-ban.jpg')" }}
+        className="relative py-28 lg:py-36 bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
       >
-        <div className="absolute inset-0 bg-gray-950/60" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
             POLICIES
           </h1>
-          <div className="h-1 w-16 bg-brand-green mx-auto mt-4" />
         </div>
       </section>
 
@@ -72,7 +71,7 @@ export default function Policies() {
                 {/* Content */}
                 <div className="flex-1 space-y-3">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                       Cập nhật: {policy.updatedAt}
                     </span>
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">

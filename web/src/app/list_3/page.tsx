@@ -53,15 +53,14 @@ export default function CosmeticIngredients() {
     <div className="flex flex-col min-h-screen">
       {/* Banner */}
       <section
-        className="relative py-20 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/about-ban.jpg')" }}
+        className="relative py-28 lg:py-36 bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/images/banner-cosmetic.png')" }}
       >
-        <div className="absolute inset-0 bg-gray-950/60" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
             COSMETIC INGREDIENTS
           </h1>
-          <div className="h-1 w-16 bg-brand-green mx-auto mt-4" />
         </div>
       </section>
 

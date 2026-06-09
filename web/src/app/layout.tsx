@@ -49,7 +49,10 @@ export default function RootLayout({
             <Toolbar />
           </div>
         </ThemeProvider>
-      </body>
+      {/* impeccable-live-start */}
+<script async src="http://localhost:8400/live.js"></script>
+{/* impeccable-live-end */}
+</body>
     </html>
   );
 }

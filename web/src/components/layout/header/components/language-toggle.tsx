@@ -14,8 +14,6 @@ import type { Locale } from '@/i18n/locale-store';
 const LOCALES = [
     { value: 'en', label: 'English', flag: '/flags/gb.svg' },
     { value: 'vi', label: 'Tiếng Việt', flag: '/flags/vn.svg' },
-    { value: 'zh', label: '中文', flag: '/flags/cn.svg' },
-    { value: 'ja', label: '日本語', flag: '/flags/jp.svg' },
 ] as const;
 
 export default function LanguageToggle() {
@@ -35,13 +33,17 @@ export default function LanguageToggle() {
                     </Button>
                 }
             />
-            <DropdownMenuContent align="end" className="min-w-36">
+            <DropdownMenuContent align="end" className="min-w-36 bg-white border border-gray-200">
                 <DropdownMenuRadioGroup
                     value={locale}
                     onValueChange={(v) => setLocale(v as Locale)}
                 >
                     {LOCALES.map((l) => (
-                        <DropdownMenuRadioItem key={l.value} value={l.value}>
+                        <DropdownMenuRadioItem
+                            key={l.value}
+                            value={l.value}
+                            className="text-neutral-800 dark:text-neutral-200 font-medium cursor-pointer data-highlighted:text-white data-highlighted:bg-brand-green"
+                        >
                             <span className="flex items-center gap-2">
                                 <img src={l.flag} alt="" className="w-5 h-auto rounded-[2px] shrink-0" />
                                 {l.label}

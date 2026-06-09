@@ -66,7 +66,7 @@
   
   --color-brand-green: #106d38;
   --color-brand-green-hover: #0a4f27;
-  --color-brand-green-light: #10e660;
+  --color-brand-green-light: #5cb87e;
   --color-brand-green-subtle: #f0f7f3;
   --color-brand-blue: #002962;
   --color-brand-blue-hover: #001f4c;
@@ -200,4 +200,18 @@ body {
 
 .heading-anchor:hover {
   text-decoration: none;
+}
+
+.bg-dot-matrix {
+  background-image: url("data:image/svg+xml,%3Csvg width='480' height='480' viewBox='0 0 480 480' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dash' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect width='2.5' height='0.5' fill='%235cb87e' fill-opacity='0.08'/%3E%3C/pattern%3E%3Cpattern id='dot' width='8' height='8' patternUnits='userSpaceOnUse'%3E%3Crect width='2.5' height='2.5' fill='%235cb87e'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='480' height='480' fill='url(%23dash)'/%3E%3Crect x='160' y='0' width='80' height='80' fill='url(%23dot)' fill-opacity='0.22'/%3E%3Crect x='240' y='0' width='80' height='80' fill='url(%23dot)' fill-opacity='0.15'/%3E%3Crect x='160' y='80' width='80' height='80' fill='url(%23dot)' fill-opacity='0.28'/%3E%3Crect x='320' y='80' width='80' height='80' fill='url(%23dot)' fill-opacity='0.32'/%3E%3Crect x='400' y='80' width='80' height='80' fill='url(%23dot)' fill-opacity='0.12'/%3E%3Crect x='80' y='160' width='80' height='80' fill='url(%23dot)' fill-opacity='0.10'/%3E%3Crect x='160' y='160' width='80' height='80' fill='url(%23dot)' fill-opacity='0.06'/%3E%3Crect x='240' y='160' width='80' height='80' fill='url(%23dot)' fill-opacity='0.25'/%3E%3Crect x='400' y='160' width='80' height='80' fill='url(%23dot)' fill-opacity='0.38'/%3E%3Crect x='80' y='240' width='80' height='80' fill='url(%23dot)' fill-opacity='0.18'/%3E%3Crect x='240' y='240' width='80' height='80' fill='url(%23dot)' fill-opacity='0.20'/%3E%3Crect x='320' y='240' width='80' height='80' fill='url(%23dot)' fill-opacity='0.28'/%3E%3Crect x='400' y='240' width='80' height='80' fill='url(%23dot)' fill-opacity='0.08'/%3E%3Crect x='0' y='320' width='80' height='80' fill='url(%23dot)' fill-opacity='0.05'/%3E%3Crect x='80' y='320' width='80' height='80' fill='url(%23dot)' fill-opacity='0.15'/%3E%3Crect x='160' y='320' width='80' height='80' fill='url(%23dot)' fill-opacity='0.30'/%3E%3Crect x='320' y='320' width='80' height='80' fill='url(%23dot)' fill-opacity='0.18'/%3E%3Crect x='400' y='320' width='80' height='80' fill='url(%23dot)' fill-opacity='0.25'/%3E%3Crect x='160' y='400' width='80' height='80' fill='url(%23dot)' fill-opacity='0.25'/%3E%3Crect x='240' y='400' width='80' height='80' fill='url(%23dot)' fill-opacity='0.08'/%3E%3Crect x='320' y='400' width='80' height='80' fill='url(%23dot)' fill-opacity='0.15'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right -30px bottom 10px;
+  background-size: 320px 320px;
+}
+
+@media (min-width: 1024px) {
+  .bg-dot-matrix {
+    background-position: right -40px bottom 15%;
+    background-size: 480px 480px;
+  }
 }

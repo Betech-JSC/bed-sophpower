@@ -1,99 +1,196 @@
-import React from "react";
-import { Award, ShieldCheck, Globe, Star } from "lucide-react";
+import { Cpu, FlaskConical } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Banner Section */}
       <section
-        className="relative py-24 bg-cover bg-center text-white"
+        className="relative py-28 lg:py-36 bg-cover bg-center text-white"
         style={{ backgroundImage: "url('/images/about-ban.jpg')" }}
       >
-        <div className="absolute inset-0 bg-gray-950/60" />
-        <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight uppercase">ABOUT US</h1>
-          <div className="h-1 w-16 bg-brand-green mx-auto mt-4" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight uppercase">
+            VỀ CHÚNG TÔI
+          </h1>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section
-        className="py-20 bg-no-repeat bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/abbg_02.jpg')" }}
-      >
-        <div className="mx-auto max-w-5xl px-3 sm:px-4 lg:px-6">
-          <div className="rounded-2xl bg-white/95 p-8 sm:p-12 shadow-xl border border-gray-100 backdrop-blur-xs space-y-8">
-            <h2 className="text-3xl font-extrabold text-brand-green tracking-tight">VỀ CHÚNG TÔI</h2>
-            
-            <div className="space-y-6 text-gray-700 leading-relaxed text-base">
-              <p>
-                <strong className="text-brand-green text-lg">Sophpower</strong> là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, với hoạt động cốt lõi được chia thành hai phân khúc sản phẩm chính:
-              </p>
+      {/* Section 1: Introduction & Product Segments */}
+      <section className="py-20 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Text Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="space-y-2">
+                <span className="text-sm font-bold text-brand-green uppercase tracking-wider">
+                  Tổng quan doanh nghiệp
+                </span>
+                <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                  Sophpower Vietnam
+                </h2>
+              </div>
               
-              <ul className="space-y-4 pl-4 border-l-2 border-brand-green">
-                <li>
-                  <strong className="text-gray-900">Sản phẩm Công nghiệp:</strong> Tập trung vào các thiết bị nguồn công nghiệp và các sản phẩm phụ trợ liên quan.
-                </li>
-                <li>
-                  <strong className="text-gray-900">Sản phẩm Hóa chất:</strong> Cung cấp các nhóm nguyên liệu thực phẩm và nguyên liệu thô cho ngành mỹ phẩm.
-                </li>
-              </ul>
-
-              <p className="text-justify">
-                Trong phân khúc sản phẩm hóa chất, chúng tôi tận dụng mạng lưới chuỗi cung ứng toàn cầu vững chắc cùng sự thấu hiểu sâu sắc về thị trường địa phương để kết nối các nhà sản xuất với nguồn nguyên liệu và thành phần chất lượng cao. Tất cả các sản phẩm đều được tuyển chọn kỹ lưỡng và kiểm soát chất lượng nghiêm ngặt trong suốt quá trình cung ứng, tuân thủ đầy đủ các tiêu chuẩn quốc tế như <strong>ISO, HACCP, HALAL, Kosher, và FDA</strong>, đảm bảo chất lượng đồng đều, an toàn và truy xuất nguồn gốc rõ ràng.
+              <p className="text-gray-600 leading-relaxed text-justify text-sm sm:text-base">
+                Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, với hoạt động cốt lõi được chia thành hai phân khúc sản phẩm chính:
               </p>
 
-              <p className="text-justify">
-                Là đối tác thương mại tin cậy của khách hàng, lấy triết lý "khách hàng làm trung tâm" làm định hướng cốt lõi, chúng tôi luôn cam kết đảm bảo nguồn cung ổn định, hệ thống giá cả cạnh tranh cao cùng mô hình dịch vụ linh hoạt, đáp ứng nhanh chóng các nhu cầu thực tế. Chúng tôi hỗ trợ đắc lực giúp đối tác tối ưu hóa chi phí, nâng cao hiệu quả mua hàng và tăng cường lợi thế cạnh tranh trên thị trường biến động không ngừng.
-              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                {/* Segment 1 */}
+                <div className="p-6 rounded-xl border border-gray-150 bg-gray-50/50 hover:border-brand-green/20 hover:shadow-[0_4px_12px_rgba(16,109,56,0.04)] transition-all duration-300 flex flex-col gap-4">
+                  <div className="p-3 bg-brand-green/10 text-brand-green rounded-lg w-fit">
+                    <Cpu className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-gray-950 text-base">Sản phẩm Công nghiệp</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Tập trung vào các thiết bị nguồn công nghiệp và các sản phẩm phụ trợ liên quan.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Segment 2 */}
+                <div className="p-6 rounded-xl border border-gray-150 bg-gray-50/50 hover:border-brand-green/20 hover:shadow-[0_4px_12px_rgba(16,109,56,0.04)] transition-all duration-300 flex flex-col gap-4">
+                  <div className="p-3 bg-brand-green/10 text-brand-green rounded-lg w-fit">
+                    <FlaskConical className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-gray-950 text-base">Sản phẩm Hóa chất</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Cung cấp các nhóm nguyên liệu thực phẩm và nguyên liệu thô cho ngành mỹ phẩm.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Related Image */}
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl overflow-hidden bg-gray-50 border border-gray-200 shadow-sm relative group">
+                <img
+                  src="/images/about-global-trade.png"
+                  alt="Sophpower Global Trade Network"
+                  className="w-full h-auto object-cover max-h-[450px] group-hover:scale-102 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 border border-black/5 rounded-2xl pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Corporate Highlights */}
-      <section className="bg-gray-50 py-20 border-t border-gray-200">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Advantage 1 */}
-            <div className="rounded-2xl bg-white p-8 border border-gray-100 shadow-sm flex items-start gap-4">
-              <div className="p-3 bg-brand-green/10 text-brand-green rounded-xl">
-                <Globe className="h-6 w-6" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-bold text-gray-900 text-lg">Năng lực chuyên sâu</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất quy mô lớn.
-                </p>
-              </div>
-            </div>
-
-            {/* Advantage 2 */}
-            <div className="rounded-2xl bg-white p-8 border border-gray-100 shadow-sm flex items-start gap-4">
-              <div className="p-3 bg-brand-green/10 text-brand-green rounded-xl">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-bold text-gray-900 text-lg">Niềm tin từ thị trường</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và chất lượng vượt trội.
-                </p>
+      {/* Section 2: Chemical Supply Chain & Partnership */}
+      <section className="py-20 bg-gray-50 border-t border-b border-gray-150">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Related Image */}
+            <div className="lg:col-span-5 lg:order-1 order-2">
+              <div className="rounded-2xl overflow-hidden bg-gray-50 border border-gray-200 shadow-sm relative group">
+                <img
+                  src="/images/about-lab-quality.png"
+                  alt="Sophpower Chemical Laboratory Quality Control"
+                  className="w-full h-auto object-cover max-h-[450px] group-hover:scale-102 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 border border-black/5 rounded-2xl pointer-events-none" />
               </div>
             </div>
 
-            {/* Advantage 3 */}
-            <div className="rounded-2xl bg-white p-8 border border-gray-100 shadow-sm flex items-start gap-4">
-              <div className="p-3 bg-brand-green/10 text-brand-green rounded-xl">
-                <Award className="h-6 w-6" />
-              </div>
+            {/* Text Content */}
+            <div className="lg:col-span-7 lg:order-2 order-1 space-y-6">
               <div className="space-y-2">
-                <h3 className="font-bold text-gray-900 text-lg">Định hướng đổi mới</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) đã được cấp bằng sáng chế.
+                <span className="text-sm font-bold text-brand-green uppercase tracking-wider">
+                  Mạng lưới & Chất lượng
+                </span>
+                <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                  Liên kết Giá trị Toàn diện
+                </h2>
+              </div>
+
+              <div className="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed text-justify">
+                <p>
+                  Trong phân khúc sản phẩm hóa chất, chúng tôi tận dụng mạng lưới chuỗi cung ứng toàn cầu vững chắc cùng sự thấu hiểu sâu sắc về thị trường địa phương để kết nối các nhà sản xuất với nguồn nguyên liệu và thành phần chất lượng cao. Tất cả các sản phẩm đều được tuyển chọn kỹ lưỡng và kiểm soát chất lượng nghiêm ngặt trong suốt quá trình cung ứng, tuân thủ đầy đủ các tiêu chuẩn quốc tế như{" "}
+                  <strong className="text-gray-950 font-bold">ISO, HACCP, HALAL, Kosher, và FDA</strong>, đảm bảo chất lượng đồng đều, an toàn và truy xuất nguồn gốc rõ ràng.
+                </p>
+
+                <p className="border-l-4 border-brand-green pl-4 italic text-gray-650 bg-brand-green/5 py-4 pr-4 rounded-r-xl">
+                  Là đối tác thương mại tin cậy của khách hàng, lấy triết lý &quot;khách hàng làm trung tâm&quot; làm định hướng cốt lõi, chúng tôi luôn cam kết đảm bảo nguồn cung ổn định, hệ thống giá cả cạnh tranh cao cùng mô hình dịch vụ linh hoạt, đáp ứng nhanh chóng các nhu cầu thực tế. Chúng tôi hỗ trợ đắc lực giúp đối tác tối ưu hóa chi phí, nâng cao hiệu quả mua hàng và tăng cường lợi thế cạnh tranh trên thị trường biến động không ngừng.
                 </p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Corporate Highlights (Giá trị cốt lõi) */}
+      <section 
+        className="bg-[#062013] py-24 text-white relative overflow-hidden border-t border-white/5"
+        style={{ backgroundImage: "radial-gradient(ellipse at top, #0c3a21, #062013, #020b06)" }}
+      >
+        {/* Subtle dot matrix pattern in the background of the dark section */}
+        <div className="absolute inset-0 bg-dot-matrix opacity-10 pointer-events-none" />
+        
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Top Section: Split Title & Subtext */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-16">
+            <div className="space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Giá trị Cốt lõi<br />của Sophpower
+              </h2>
+            </div>
+            
+            <div className="lg:max-w-md">
+              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
+                Chúng tôi xây dựng năng lực cạnh tranh và niềm tin bền vững thông qua việc làm chủ quy trình công nghệ cao, cam kết chất lượng sản phẩm chuẩn quốc tế và tiên phong phát triển các giải pháp đột phá.
+              </p>
+            </div>
+          </div>
+
+          {/* Central Mockup/Dashboard Image Container */}
+          <div className="relative mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#082918]/60 p-2 sm:p-4 mb-16 transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20">
+            <div className="rounded-xl overflow-hidden aspect-[4/3] md:aspect-[16/9] relative bg-emerald-950">
+              <img
+                src="/images/biotech-core-values.png"
+                alt="Sophpower Biotech Systems & Analysis"
+                className="absolute inset-0 w-full h-full object-cover opacity-95"
+              />
+              {/* Overlay shadow to integrate the image with the card */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+            </div>
+          </div>
+
+          {/* Bottom Columns: 3 Core Values */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-8">
+            
+            {/* Value 1 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Năng lực chuyên sâu</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.
+              </p>
+            </div>
+
+            {/* Value 2 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Niềm tin từ thị trường</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.
+              </p>
+            </div>
+
+            {/* Value 3 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Định hướng đổi mới</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.
+              </p>
+            </div>
+
+          </div>
+          
         </div>
       </section>
     </div>

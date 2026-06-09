@@ -51,7 +51,7 @@ export default function Toc() {
       text: node.textContent ?? "",
       level: Number(node.tagName[1]),
     }));
-    setHeadings(items);
+    setTimeout(() => setHeadings(items), 0);
 
     if (items.length === 0) return;
 

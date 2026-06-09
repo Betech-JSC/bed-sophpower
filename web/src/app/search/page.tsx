@@ -131,12 +131,12 @@ export default async function SearchPage({
     <div className="flex flex-col min-h-screen">
       {/* Banner */}
       <section
-        className="relative py-16 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/about-ban.jpg')" }}
+        className="relative py-28 lg:py-36 bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
       >
-        <div className="absolute inset-0 bg-gray-950/60" />
+        <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
-          <h1 className="text-3xl font-extrabold tracking-tight uppercase">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
             KẾT QUẢ TÌM KIẾM
           </h1>
           <p className="mt-2 text-white/80 text-sm">
@@ -159,7 +159,7 @@ export default async function SearchPage({
                   {/* Content */}
                   <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
-                      <span className="inline-block rounded-md bg-brand-green/10 px-2.5 py-0.5 text-[10px] font-bold text-brand-green uppercase tracking-wide">
+                      <span className="inline-block rounded-md bg-brand-green/10 px-2.5 py-0.5 text-xs font-bold text-brand-green uppercase tracking-wide">
                         {prod.type === "food" ? "Nguyên liệu thực phẩm" : "Nguyên liệu mỹ phẩm"}
                       </span>
                       <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">

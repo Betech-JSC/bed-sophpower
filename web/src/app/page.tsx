@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronRight, ArrowRight, Calendar, Users, Eye, Settings, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Calendar, Users, Eye, Settings, Heart } from "lucide-react";
 
 interface Product {
   id: string;
@@ -16,6 +16,19 @@ interface Product {
 export default function Home() {
   const [activeBanner, setActiveBanner] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [activeCosmeticTab, setActiveCosmeticTab] = useState(0);
+  const cosmeticCarouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCosmetic = (direction: "left" | "right") => {
+    if (cosmeticCarouselRef.current) {
+      const { scrollLeft } = cosmeticCarouselRef.current;
+      const scrollAmount = 240;
+      cosmeticCarouselRef.current.scrollTo({
+        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const banners = [
     {
@@ -30,7 +43,7 @@ export default function Home() {
     },
   ];
 
-  const products: Product[] = [
+  const foodProducts: Product[] = [
     {
       id: "16",
       name: "Bột Beta-carotene",
@@ -94,6 +107,57 @@ export default function Home() {
       number: "08",
       image: "/images/products/juice-stabilizer.jpg",
       category: "food",
+    },
+  ];
+
+  const cosmeticProducts: Product[] = [
+    {
+      id: "3",
+      name: "Niacinamide (Vitamin B3)",
+      desc: "Niacinamide là một dạng Vitamin B3 tan trong nước, được biết đến rộng rãi với khả năng cải thiện tình trạng da toàn diện và củng cố hàng rào bảo vệ da.",
+      number: "01",
+      image: "/images/products/niacinamide.jpg",
+      category: "cosmetic",
+    },
+    {
+      id: "4",
+      name: "Panthenol",
+      desc: "Panthenol là tiền chất của Vitamin B5, nổi tiếng với các đặc tính dưỡng ẩm, làm dịu, hỗ trợ phục hồi làn da bị tổn thương đồng thời mang lại độ đàn hồi mịn màng.",
+      number: "02",
+      image: "/images/products/panthenol.jpg",
+      category: "cosmetic",
+    },
+    {
+      id: "5",
+      name: "Tranexamic Acid",
+      desc: "Tranexamic Acid là một hoạt chất được ứng dụng rộng rãi trong các sản phẩm làm sáng da, mờ thâm nám và cải thiện các vùng da không đều màu.",
+      number: "03",
+      image: "/images/products/tranexamic-acid.jpg",
+      category: "cosmetic",
+    },
+    {
+      id: "6",
+      name: "Proxylane",
+      desc: "Proxylane là một hoạt chất đa năng có khả năng chống lão hóa hiệu quả cao, kích thích tổng hợp collagen, tăng mật độ và độ đàn hồi cho da.",
+      number: "04",
+      image: "/images/products/proxylane.jpg",
+      category: "cosmetic",
+    },
+    {
+      id: "7",
+      name: "Ectoin",
+      desc: "Ectoin là một dẫn xuất axit amin tự nhiên mạnh mẽ, giúp bảo vệ và ổn định các tế bào da trước các tác nhân gây hại từ môi trường bên ngoài.",
+      number: "05",
+      image: "/images/products/ectoin.jpg",
+      category: "cosmetic",
+    },
+    {
+      id: "8",
+      name: "Rosa Damascena Flower Water",
+      desc: "Nước hoa hồng Damask chưng cất tự nhiên, giàu hoạt chất hỗ trợ cấp ẩm sâu, chống oxy hóa và nuôi dưỡng làn da tươi sáng rạng ngời.",
+      number: "06",
+      image: "/images/products/rosa-water.jpg",
+      category: "cosmetic",
     },
   ];
 
@@ -163,18 +227,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Main Products (Sản phẩm chính) */}
+      {/* Food Ingredients Section (Nguyên liệu Thực phẩm) */}
       <section className="bg-gray-50 py-20">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           {/* Header Title Section */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-3xl space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-                SẢN PHẨM CHÍNH
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight uppercase">
+                NGUYÊN LIỆU THỰC PHẨM
               </h2>
               <div className="h-1 w-20 bg-brand-green" />
               <p className="text-gray-600 leading-relaxed">
-                Chúng tôi tận dụng mạng lưới chuỗi cung ứng toàn cầu đã được xây dựng vững chắc cùng sự am hiểu sâu sắc về thị trường địa phương để kết nối các nhà sản xuất với nguồn nguyên liệu và thành phần chất lượng cao.
+                Chúng tôi hợp tác với các nhà cung ứng toàn cầu uy tín để mang đến các giải pháp nguyên liệu thực phẩm, chất tạo màu tự nhiên và chất ổn định an toàn cho các nhà sản xuất tại Việt Nam.
               </p>
             </div>
             <Link
@@ -190,7 +254,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-8 items-stretch">
             {/* Tabs List (Left) */}
             <div className="w-full lg:w-[45%] grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {products.map((prod, index) => (
+              {foodProducts.map((prod, index) => (
                 <button
                   key={prod.id}
                   onClick={() => setActiveTab(index)}
@@ -222,21 +286,21 @@ export default function Home() {
             </div>
 
             {/* Tabs Content Display (Right) */}
-            <div className="w-full lg:w-[55%] flex flex-col md:flex-row rounded-2xl bg-brand-green overflow-hidden text-white shadow-xl">
+            <div className="w-full lg:w-[55%] flex flex-col md:flex-row rounded-2xl bg-white border border-gray-200 overflow-hidden text-gray-900 shadow-xl">
               {/* Text Area */}
               <div className="flex-1 p-8 sm:p-10 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold border-b border-brand-green pb-4">
-                    {products[activeTab].name}
+                  <h3 className="text-2xl font-extrabold text-gray-900 border-b border-gray-100 pb-4">
+                    {foodProducts[activeTab].name}
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed min-h-[60px]">
-                    {products[activeTab].desc}
+                  <p className="text-gray-600 text-sm leading-relaxed min-h-[60px]">
+                    {foodProducts[activeTab].desc}
                   </p>
                 </div>
                 <div className="pt-4">
                   <Link
-                    href={`/list_2/${products[activeTab].id}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-brand-green px-5 py-2.5 text-xs font-semibold hover:bg-brand-green/90 transition-colors"
+                    href={`/list_2/${foodProducts[activeTab].id}`}
+                    className="inline-flex items-center gap-2 rounded-lg bg-brand-green hover:bg-brand-green-hover px-5 py-2.5 text-xs font-bold text-white transition-colors shadow-md shadow-brand-green/10"
                   >
                     XEM THÊM CHI TIẾT
                     <ArrowRight className="h-4 w-4" />
@@ -247,11 +311,132 @@ export default function Home() {
               {/* Image Area */}
               <div className="w-full md:w-[45%] h-64 md:h-auto relative bg-gray-100">
                 <img
-                  src={products[activeTab].image}
-                  alt={products[activeTab].name}
+                  src={foodProducts[activeTab].image}
+                  alt={foodProducts[activeTab].name}
                   className="absolute inset-0 h-full w-full object-cover transition-all duration-300"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cosmetic Ingredients Section (Nguyên liệu Mỹ phẩm) */}
+      <section className="bg-white py-20 border-t border-gray-150">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+          {/* Header Title Section */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="max-w-3xl space-y-3">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight uppercase">
+                NGUYÊN LIỆU MỸ PHẨM
+              </h2>
+              <div className="h-1 w-20 bg-brand-green" />
+              <p className="text-gray-600 leading-relaxed">
+                Chúng tôi cung cấp các hoạt chất tiên tiến và chiết xuất tự nhiên cao cấp, đáp ứng hoàn hảo xu hướng phát triển mỹ phẩm sạch, an toàn và hiệu quả sinh học cao.
+              </p>
+            </div>
+            <Link
+              href="/list_3"
+              className="inline-flex items-center gap-2 text-brand-green font-bold hover:underline"
+            >
+              Xem chi tiết
+              <ChevronRight className="h-5 w-5" />
+            </Link>
+          </div>
+
+          {/* Horizontal Tab Carousel Wrapper with Arrows */}
+          <div className="relative group/carousel w-full">
+            {/* Left Scroll Button */}
+            <button
+              onClick={() => scrollCosmetic("left")}
+              className="absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 hover:bg-brand-green hover:border-brand-green hover:text-white text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            {/* Right Scroll Button */}
+            <button
+              onClick={() => scrollCosmetic("right")}
+              className="absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-200 hover:bg-brand-green hover:border-brand-green hover:text-white text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all duration-200 opacity-0 group-hover/carousel:opacity-100"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Carousel Container (with hidden scrollbar) */}
+            <div
+              ref={cosmeticCarouselRef}
+              className="flex overflow-x-auto gap-4 pb-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              {cosmeticProducts.map((prod, index) => (
+                <button
+                  key={prod.id}
+                  onClick={() => setActiveCosmeticTab(index)}
+                  className={`group relative flex-none w-44 sm:w-52 h-28 rounded-xl border overflow-hidden text-left cursor-pointer transition-all ${
+                    activeCosmeticTab === index
+                      ? "border-brand-green shadow-lg ring-2 ring-brand-green"
+                      : "border-gray-200 bg-white hover:border-brand-green/50"
+                  }`}
+                >
+                  {/* Background Image (fully visible, no grayscale filter) */}
+                  <div
+                    className={`absolute inset-0 bg-cover bg-center transition-all duration-300 ${
+                      activeCosmeticTab === index
+                        ? "opacity-100 scale-105"
+                        : "opacity-80 group-hover:opacity-100 group-hover:scale-102"
+                    }`}
+                    style={{ backgroundImage: `url(${prod.image})` }}
+                  />
+
+                  {/* Slanted Green Ribbon Tag (Top-left, matching ref) */}
+                  <div
+                    className="absolute top-0 left-0 bg-brand-green text-white text-[11px] font-extrabold pl-3 pr-6 py-1.5 tracking-wide uppercase shrink-0 max-w-[85%] truncate z-10 shadow-sm"
+                    style={{ clipPath: "polygon(0 0, 100% 0, 88% 100%, 0 100%)" }}
+                  >
+                    {prod.name}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Magnified Detail Card (Bottom, matching ref) */}
+          <div className="group mt-8 flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border border-gray-150 hover:border-brand-green/20 hover:-translate-y-1 transition-all duration-300 bg-white">
+            {/* Left Panel: Solid Green background, white text */}
+            <div className="relative overflow-hidden w-full md:w-[60%] bg-brand-green text-white p-8 sm:p-12 flex flex-col justify-between items-start space-y-6">
+              {/* Subtle background pattern overlay */}
+              <div className="absolute inset-0 bg-dot-matrix opacity-15 pointer-events-none transition-opacity duration-300 group-hover:opacity-25" />
+
+              <div className="relative z-10 space-y-4 w-full">
+                {/* Title */}
+                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight border-b border-white/20 pb-4">
+                  {cosmeticProducts[activeCosmeticTab].name}
+                </h3>
+                {/* Description */}
+                <p className="text-white/95 text-sm sm:text-base leading-relaxed min-h-[80px]">
+                  {cosmeticProducts[activeCosmeticTab].desc}
+                </p>
+              </div>
+              {/* CTA Button: Bordered transparent style */}
+              <div className="relative z-10 pt-4">
+                <Link
+                  href={`/list_3/${cosmeticProducts[activeCosmeticTab].id}`}
+                  className="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-brand-green text-white px-6 py-2.5 text-xs font-extrabold transition-all duration-300 tracking-wider uppercase rounded-lg shadow-sm"
+                >
+                  TÌM HIỂU THÊM
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Panel: Large Product Image */}
+            <div className="w-full md:w-[40%] h-64 md:h-auto relative bg-gray-50 shrink-0">
+              <img
+                src={cosmeticProducts[activeCosmeticTab].image}
+                alt={cosmeticProducts[activeCosmeticTab].name}
+                className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+              />
             </div>
           </div>
         </div>
@@ -320,8 +505,13 @@ export default function Home() {
       </section>
 
       {/* News Highlight Section (Trung tâm tin tức) */}
-      <section className="py-20 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+      <section 
+        className="relative py-20 bg-[#f4f6f8] border-t border-gray-150 overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/news_dna_horizontal.png')" }}
+      >
+        {/* Soft white overlay to keep the abstract illustrations faint and ensure readability */}
+        <div className="absolute inset-0 bg-white/80 pointer-events-none" />
+        <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="max-w-3xl space-y-3 mb-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
               TRUNG TÂM TIN TỨC
@@ -350,7 +540,7 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-colors duration-300">
                       <Calendar className="h-4 w-4 text-brand-green group-hover:text-white/95 transition-colors duration-300 shrink-0" />
-                      <span className="text-gray-500 group-hover:text-white/95">{art.date}</span>
+                      <span className="text-gray-600 group-hover:text-white/95">{art.date}</span>
                       <span className="text-gray-300 group-hover:text-white/60">&nbsp;•&nbsp;</span>
                       <span className="text-brand-green group-hover:text-white/95">{art.category}</span>
                     </div>

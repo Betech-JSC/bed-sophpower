@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search } from "lucide-react";
+import LanguageToggle from "./components/language-toggle";
 
 export default function Header() {
   const pathname = usePathname();
@@ -12,12 +13,11 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const menuItems = [
-    { name: "TRANG CHỦ", path: "/" },
-    { name: "ABOUT US", path: "/about" },
-    { name: "FOOD INGREDIENTS", path: "/list_2" },
-    { name: "COSMETIC INGREDIENTS", path: "/list_3" },
-    { name: "NEWS CENTER", path: "/news" },
-    { name: "CONTACT", path: "/page_5" },
+    { name: "GIỚI THIỆU", path: "/about" },
+    { name: "NGUYÊN LIỆU THỰC PHẨM", path: "/list_2" },
+    { name: "NGUYÊN LIỆU MỸ PHẨM", path: "/list_3" },
+    { name: "TIN TỨC", path: "/news" },
+    { name: "LIÊN HỆ", path: "/page_5" },
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -37,8 +37,12 @@ export default function Header() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="text-2xl font-black tracking-widest text-white hover:opacity-90 transition-opacity">
-                SOPHPOWER
+              <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
+                <img
+                  src="/images/f_logo.png"
+                  alt="Sophpower Logo"
+                  className="h-10 w-auto brightness-0 invert"
+                />
               </Link>
             </div>
 
@@ -61,6 +65,9 @@ export default function Header() {
 
             {/* Actions */}
             <div className="flex items-center gap-4">
+              {/* Language Toggle */}
+              <LanguageToggle />
+
               {/* Search Toggle */}
               <button
                 onClick={toggleSearch}
