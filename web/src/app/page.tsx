@@ -251,69 +251,62 @@ export default function Home() {
           </div>
 
           {/* Interactive Products Grid Tabs */}
-          <div className="flex flex-col lg:flex-row gap-8 items-stretch">
-            {/* Tabs List (Left) */}
-            <div className="w-full lg:w-[45%] grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {foodProducts.map((prod, index) => (
-                <button
-                  key={prod.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`group relative flex items-center justify-between p-4 rounded-xl border transition-all text-left cursor-pointer ${
-                    activeTab === index
-                      ? "bg-brand-green border-brand-green text-white shadow-lg shadow-brand-green/20"
-                      : "bg-white border-gray-200 text-gray-800 hover:border-brand-green/40 hover:bg-gray-50"
-                  }`}
-                >
-                  <div className="space-y-1">
-                    <span
-                      className={`text-xs font-mono font-bold uppercase tracking-wider ${
-                        activeTab === index ? "text-white/60" : "text-gray-400 group-hover:text-brand-green/60"
-                      }`}
-                    >
-                      {prod.number}
-                    </span>
-                    <h3 className="font-bold text-sm tracking-wide line-clamp-1">
+          <div className="flex flex-col lg:flex-row rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-xl items-stretch">
+            {/* Tabs List (Left Panel) — single scrollable column */}
+            <div className="w-full lg:w-[28%] bg-white border-b lg:border-b-0 lg:border-r border-gray-200 shrink-0 flex flex-col">
+              <div className="overflow-y-auto max-h-[420px] flex flex-col gap-px p-4">
+                {foodProducts.map((prod, index) => (
+                  <button
+                    key={prod.id}
+                    onClick={() => setActiveTab(index)}
+                    className={`group flex items-center justify-between px-4 py-3 rounded-lg border transition-all text-left cursor-pointer ${
+                      activeTab === index
+                        ? "bg-brand-green border-brand-green text-white"
+                        : "bg-transparent border-transparent text-gray-700 hover:bg-white hover:border-gray-200"
+                    }`}
+                  >
+                    <h3 className="font-semibold text-sm line-clamp-1">
                       {prod.name}
                     </h3>
-                  </div>
-                  <ChevronRight
-                    className={`h-5 w-5 transition-transform group-hover:translate-x-1 ${
-                      activeTab === index ? "text-white/80" : "text-gray-400"
-                    }`}
-                  />
-                </button>
-              ))}
+                    <ChevronRight
+                      className={`h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 ${
+                        activeTab === index ? "text-white/80" : "text-gray-400"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Tabs Content Display (Right) */}
-            <div className="w-full lg:w-[55%] flex flex-col md:flex-row rounded-2xl bg-white border border-gray-200 overflow-hidden text-gray-900 shadow-xl">
+            {/* Tabs Content Display (Right Panel) */}
+            <div className="w-full lg:w-[72%] flex flex-col md:flex-row text-gray-900 bg-white">
               {/* Text Area */}
-              <div className="flex-1 p-8 sm:p-10 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-extrabold text-gray-900 border-b border-gray-100 pb-4">
+              <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-extrabold text-gray-900 border-b border-gray-100 pb-3">
                     {foodProducts[activeTab].name}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed min-h-[60px]">
+                  <p className="text-gray-650 text-sm leading-relaxed min-h-[60px]">
                     {foodProducts[activeTab].desc}
                   </p>
                 </div>
-                <div className="pt-4">
+                <div className="pt-2">
                   <Link
                     href={`/list_2/${foodProducts[activeTab].id}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-brand-green hover:bg-brand-green-hover px-5 py-2.5 text-xs font-bold text-white transition-colors shadow-md shadow-brand-green/10"
+                    className="inline-flex items-center gap-2 rounded-lg bg-brand-green hover:bg-brand-green-hover px-4 py-2 text-xs font-bold text-white transition-colors"
                   >
-                    XEM THÊM CHI TIẾT
-                    <ArrowRight className="h-4 w-4" />
+                    XEM CHI TIẾT
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
 
-              {/* Image Area */}
-              <div className="w-full md:w-[45%] h-64 md:h-auto relative bg-gray-100">
+              {/* Image Area — fills full column height */}
+              <div className="w-full md:w-[52%] shrink-0 relative min-h-[220px]">
                 <img
                   src={foodProducts[activeTab].image}
                   alt={foodProducts[activeTab].name}
-                  className="absolute inset-0 h-full w-full object-cover transition-all duration-300"
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-300"
                 />
               </div>
             </div>
