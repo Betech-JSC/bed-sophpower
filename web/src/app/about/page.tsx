@@ -195,82 +195,87 @@ export default function About() {
         </div>
       </section>
 
-      {/* Section 4: Discover More */}
+      {/* Section 4: Khám phá thêm */}
       <section className="py-24 bg-[#f8f9fa] border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          {/* Centered Section Header */}
-          <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 tracking-tight">
-              Discover more
-            </h2>
-            <div className="h-1 w-12 bg-brand-green mx-auto" />
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Card 1: Food Ingredients */}
-            <div className="aspect-square bg-white border border-gray-200 rounded-lg p-8 flex flex-col justify-between items-start hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 tracking-tight leading-snug">
-                Nguyên liệu<br />Thực phẩm
-              </h3>
+            {/* Left Column: Title */}
+            <div className="lg:col-span-3">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 tracking-tight leading-tight">
+                Khám phá<br className="hidden lg:block" /> thêm
+              </h2>
+            </div>
+
+            {/* Right Column: 3 Cards */}
+            <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Card 1: Food Ingredients */}
               <Link
                 href="/list_2"
-                className="inline-flex items-center justify-center border border-gray-300 hover:border-brand-green hover:bg-brand-green hover:text-white text-gray-800 text-sm font-semibold px-6 py-2.5 rounded transition-all"
+                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
               >
-                Explore
+                {/* Hover Background Image & Overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                  style={{ backgroundImage: "url('/images/banner-food.png')" }}
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+                
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                  Nguyên liệu<br />Thực phẩm
+                </h3>
+                
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                  Khám phá
+                </span>
               </Link>
-            </div>
 
-            {/* Card 2: Cosmetic Ingredients (Highlighted with visual background) */}
-            <div 
-              className="relative aspect-square rounded-lg p-8 flex flex-col justify-between items-start overflow-hidden hover:shadow-md transition-all group"
-              style={{ backgroundImage: "url('/images/banner-cosmetic.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}
-            >
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/35 z-0" />
-              
-              <h3 className="relative z-10 text-xl font-bold text-white tracking-tight leading-snug">
-                Nguyên liệu<br />Mỹ phẩm
-              </h3>
-              
+              {/* Card 2: Cosmetic Ingredients */}
               <Link
                 href="/list_3"
-                className="relative z-10 inline-flex items-center justify-center bg-white hover:bg-brand-green hover:text-white text-gray-900 text-sm font-semibold px-6 py-2.5 rounded transition-all border border-transparent"
+                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
               >
-                Explore
+                {/* Hover Background Image & Overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                  style={{ backgroundImage: "url('/images/banner-cosmetic.png')" }}
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+                
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                  Nguyên liệu<br />Mỹ phẩm
+                </h3>
+                
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                  Khám phá
+                </span>
               </Link>
-            </div>
 
-            {/* Card 3: News Center */}
-            <div className="aspect-square bg-white border border-gray-200 rounded-lg p-8 flex flex-col justify-between items-start hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 tracking-tight leading-snug">
-                Trung tâm<br />Tin tức
-              </h3>
+              {/* Card 3: News Center */}
               <Link
                 href="/news"
-                className="inline-flex items-center justify-center border border-gray-300 hover:border-brand-green hover:bg-brand-green hover:text-white text-gray-800 text-sm font-semibold px-6 py-2.5 rounded transition-all"
+                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
               >
-                Explore
+                {/* Hover Background Image & Overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                  style={{ backgroundImage: "url('/images/banner-news.png')" }}
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
+                
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                  Trung tâm<br />Tin tức
+                </h3>
+                
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                  Khám phá
+                </span>
               </Link>
+
             </div>
 
-          </div>
-
-          {/* Decorative Carousel Controls */}
-          <div className="flex items-center justify-center gap-4 mt-12">
-            <button className="text-gray-300 hover:text-gray-650 transition-colors p-2 cursor-not-allowed" disabled>
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <div className="flex gap-2 items-center">
-              <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-              <span className="h-2 w-2 rounded-full bg-gray-800" />
-              <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-            </div>
-            <button className="text-gray-600 hover:text-brand-green transition-colors p-2">
-              <ChevronRight className="h-5 w-5" />
-            </button>
           </div>
 
         </div>
