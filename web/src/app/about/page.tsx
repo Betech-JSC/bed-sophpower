@@ -199,7 +199,7 @@ export default function About() {
       <section className="py-24 bg-[#f8f9fa] border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Left Column: Title */}
             <div className="lg:col-span-3">
@@ -227,7 +227,7 @@ export default function About() {
                   Nguyên liệu<br />Thực phẩm
                 </h3>
                 
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
                   Khám phá
                 </span>
               </Link>
@@ -248,7 +248,7 @@ export default function About() {
                   Nguyên liệu<br />Mỹ phẩm
                 </h3>
                 
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
                   Khám phá
                 </span>
               </Link>
@@ -269,7 +269,7 @@ export default function About() {
                   Trung tâm<br />Tin tức
                 </h3>
                 
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-xs font-semibold px-5 py-2 rounded transition-all duration-300">
+                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
                   Khám phá
                 </span>
               </Link>
