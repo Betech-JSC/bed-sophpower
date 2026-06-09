@@ -444,63 +444,83 @@ export default function Home() {
 
       {/* About Us Highlights (Về chúng tôi) */}
       <section
-        className="relative py-24 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/home-about.jpg')" }}
+        className="bg-[#062013] py-24 text-white relative overflow-hidden border-t border-white/5"
+        style={{ backgroundImage: "radial-gradient(ellipse at top, #0c3a21, #062013, #020b06)" }}
       >
-        <div className="absolute inset-0 bg-gray-950/70" />
-        <div className="relative mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-          <div className="max-w-3xl mx-auto text-center space-y-6 mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">VỀ CHÚNG TÔI</h2>
-            <div className="h-1 w-20 bg-brand-green mx-auto" />
-            <p className="text-white/85 text-sm sm:text-base leading-relaxed">
-              Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
-            </p>
-            <div className="pt-4">
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-2.5 font-bold hover:bg-white hover:text-gray-900 transition-colors"
-              >
-                TÌM HIỂU VỀ CHÚNG TÔI
-                <ChevronRight className="h-4 w-4" />
-              </Link>
+        {/* Subtle dot matrix pattern in the background of the dark section */}
+        <div className="absolute inset-0 bg-dot-matrix opacity-10 pointer-events-none" />
+        
+        <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+          
+          {/* Top Section: Split Title & Subtext */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-16">
+            <div className="space-y-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight uppercase">
+                VỀ CHÚNG TÔI
+              </h2>
+            </div>
+            
+            <div className="lg:max-w-md space-y-6">
+              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
+                Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-2.5 font-bold hover:bg-white hover:text-gray-900 transition-colors text-white"
+                >
+                  TÌM HIỂU VỀ CHÚNG TÔI
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </div>
 
-          {/* Advantages Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#235236]/70 border border-brand-green/60 hover:bg-[#106d38] transition-colors duration-300">
-              <div className="mb-4 transition-transform duration-500 hover:rotate-y-180">
-                <img src="/images/icons/ys1.png" alt="Năng lực" className="h-14 w-auto" />
-              </div>
-              <h3 className="text-lg font-bold mb-3">Năng lực chuyên sâu</h3>
-              <p className="text-sm text-white/80 leading-relaxed">
-                Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất quy mô lớn.
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#235236]/70 border border-brand-green/60 hover:bg-[#106d38] transition-colors duration-300">
-              <div className="mb-4 transition-transform duration-500 hover:rotate-y-180">
-                <img src="/images/icons/ys2.png" alt="Niềm tin" className="h-14 w-auto" />
-              </div>
-              <h3 className="text-lg font-bold mb-3">Niềm tin từ thị trường</h3>
-              <p className="text-sm text-white/80 leading-relaxed">
-                Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và chất lượng vượt trội.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-[#235236]/70 border border-brand-green/60 hover:bg-[#106d38] transition-colors duration-300">
-              <div className="mb-4 transition-transform duration-500 hover:rotate-y-180">
-                <img src="/images/icons/ys3.png" alt="Sáng tạo" className="h-14 w-auto" />
-              </div>
-              <h3 className="text-lg font-bold mb-3">Định hướng đổi mới</h3>
-              <p className="text-sm text-white/80 leading-relaxed">
-                Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) đã được cấp bằng sáng chế.
-              </p>
+          {/* Central Mockup/Dashboard Image Container */}
+          <div className="relative mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#082918]/60 p-2 sm:p-4 mb-16 transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20">
+            <div className="rounded-xl overflow-hidden aspect-[4/3] md:aspect-[16/9] relative bg-emerald-950">
+              <img
+                src="/images/biotech-core-values.png"
+                alt="Sophpower About Us Macro Visual"
+                className="absolute inset-0 w-full h-full object-cover opacity-95"
+              />
+              {/* Overlay shadow to integrate the image with the card */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
             </div>
           </div>
+
+          {/* Bottom Columns: 3 Core Values */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-8">
+            
+            {/* Value 1 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Năng lực chuyên sâu</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.
+              </p>
+            </div>
+
+            {/* Value 2 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Niềm tin từ thị trường</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.
+              </p>
+            </div>
+
+            {/* Value 3 */}
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-emerald-500 rounded" />
+              <h3 className="text-lg sm:text-xl font-bold text-white">Định hướng đổi mới</h3>
+              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
+                Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.
+              </p>
+            </div>
+
+          </div>
+          
         </div>
       </section>
 
