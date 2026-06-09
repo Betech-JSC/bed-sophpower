@@ -453,17 +453,11 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           
           {/* Top Section: Split Title & Subtext */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-16">
-            <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight uppercase">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16">
+            <div className="space-y-6">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight uppercase">
                 VỀ CHÚNG TÔI
               </h2>
-            </div>
-            
-            <div className="lg:max-w-md space-y-6">
-              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
-                Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
-              </p>
               <div className="pt-2">
                 <Link
                   href="/about"
@@ -473,6 +467,12 @@ export default function Home() {
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
+            </div>
+            
+            <div className="lg:max-w-md">
+              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
+                Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
+              </p>
             </div>
           </div>
 
