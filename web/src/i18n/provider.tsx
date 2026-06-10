@@ -35,8 +35,8 @@ export function useI18n(): I18nValue {
     if (!ctx) {
         // Fallback so components used outside the provider still render (English).
         return {
-            locale: "en",
-            t: dictionaries.en,
+            locale: "vi",
+            t: dictionaries.vi,
             setLocale: setStoredLocale,
         };
     }

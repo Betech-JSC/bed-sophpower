@@ -7,7 +7,7 @@ import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-re
 export default function Footer() {
   const categories = {
     ingredients: {
-      title: "NGUYÊN LIỆU",
+      title: "SẢN PHẨM",
       links: [
         { name: "Nguyên liệu Thực phẩm", path: "/list_2" },
         { name: "Nguyên liệu Mỹ phẩm", path: "/list_3" },
@@ -191,7 +191,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mt-12 text-xs text-gray-400 leading-relaxed">
           <div className="space-y-3 max-w-2xl">
             <p className="font-semibold text-gray-300">
-              © {new Date().getFullYear()} Pioneer Herb Industrial Co., Ltd. / Sophpower Vietnam. Bảo lưu mọi quyền.
+              © {new Date().getFullYear()} Sophpower Vietnam. Bảo lưu mọi quyền.
             </p>
             <p className="text-justify text-gray-400">
               Sophpower là đối tác cung ứng nguyên liệu công nghiệp & hóa chất đa quốc gia uy tín. Chúng tôi cam kết cung cấp nguồn nguyên liệu chất lượng cao tuân thủ các quy trình kiểm định nghiêm ngặt theo tiêu chuẩn quốc tế như ISO, HACCP, HALAL, Kosher và FDA.

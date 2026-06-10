@@ -15,11 +15,11 @@ export function subscribe(callback: () => void) {
 
 export function getStoredLocale(): Locale {
     const stored = localStorage.getItem(LOCALE_KEY);
-    return isLocale(stored) ? stored : "en";
+    return isLocale(stored) ? stored : "vi";
 }
 
 export function getServerLocale(): Locale {
-    return "en";
+    return "vi";
 }
 
 export function setStoredLocale(next: Locale) {

@@ -122,78 +122,84 @@ export default function About() {
         </div>
       </section>
 
-      {/* Corporate Highlights (Giá trị cốt lõi) */}
-      <section 
-        className="bg-[#062013] py-24 text-white relative overflow-hidden border-t border-white/5"
-        style={{ backgroundImage: "radial-gradient(ellipse at top, #0c3a21, #062013, #020b06)" }}
+      {/* Corporate Highlights — same layout as homepage About section */}
+      <section
+        className="relative py-20 text-white overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #041a0e 0%, #062013 40%, #0a3020 100%)" }}
       >
-        {/* Subtle dot matrix pattern in the background of the dark section */}
-        <div className="absolute inset-0 bg-dot-matrix opacity-10 pointer-events-none" />
-        
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
-          {/* Top Section: Split Title & Subtext */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-16">
-            <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Giá trị Cốt lõi<br />của Sophpower
-              </h2>
-            </div>
-            
-            <div className="lg:max-w-md">
-              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
-                Chúng tôi xây dựng năng lực cạnh tranh và niềm tin bền vững thông qua việc làm chủ quy trình công nghệ cao, cam kết chất lượng sản phẩm chuẩn quốc tế và tiên phong phát triển các giải pháp đột phá.
-              </p>
-            </div>
+        {/* Full-bleed background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25"
+          style={{ backgroundImage: "url('/images/home-about.jpg')" }}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+          {/* Centered heading */}
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-white uppercase mb-6">
+              GIÁ TRỊ CỐT LÕI
+            </h2>
+            <p className="max-w-3xl mx-auto text-white/75 text-sm sm:text-base leading-relaxed">
+              Chúng tôi xây dựng năng lực cạnh tranh và niềm tin bền vững thông qua việc làm chủ quy trình công nghệ cao, cam kết chất lượng sản phẩm chuẩn quốc tế và tiên phong phát triển các giải pháp đột phá.
+            </p>
           </div>
 
-          {/* Central Mockup/Dashboard Image Container */}
-          <div className="relative mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#082918]/60 p-2 sm:p-4 mb-16 transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20">
-            <div className="rounded-xl overflow-hidden aspect-[4/3] md:aspect-[16/9] relative bg-emerald-950">
-              <img
-                src="/images/biotech-core-values.png"
-                alt="Sophpower Biotech Systems & Analysis"
-                className="absolute inset-0 w-full h-full object-cover opacity-95"
-              />
-              {/* Overlay shadow to integrate the image with the card */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            </div>
-          </div>
+          {/* 3 Value Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-px bg-white/10 rounded-lg overflow-hidden border border-white/10">
 
-          {/* Bottom Columns: 3 Core Values */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-8">
-            
             {/* Value 1 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Năng lực chuyên sâu</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group">
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys1.png" alt="Năng lực chuyên sâu" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Năng lực chuyên sâu</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.
+                </p>
+              </div>
             </div>
 
             {/* Value 2 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Niềm tin từ thị trường</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys2.png" alt="Niềm tin từ thị trường" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Niềm tin từ thị trường</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.
+                </p>
+              </div>
             </div>
 
             {/* Value 3 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Định hướng đổi mới</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys3.png" alt="Định hướng đổi mới sáng tạo" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Định hướng đổi mới sáng tạo</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.
+                </p>
+              </div>
             </div>
 
           </div>
-          
         </div>
       </section>
+
+
 
       {/* Section 4: Khám phá thêm */}
       <section className="py-24 bg-[#f8f9fa] border-t border-gray-150">
@@ -214,65 +220,73 @@ export default function About() {
               {/* Card 1: Food Ingredients */}
               <Link
                 href="/list_2"
-                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
+                className="relative aspect-[4/5] md:aspect-square rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Hover Background Image & Overlay */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                {/* Always-visible Background Image */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center scale-100 group-hover:scale-105 transition-transform duration-500 z-0"
                   style={{ backgroundImage: "url('/images/banner-food.png')" }}
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
-                
-                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                {/* Dark overlay — always on, darkens on hover */}
+                <div className="absolute inset-0 bg-black/45 group-hover:bg-black/60 transition-colors duration-300 z-0" />
+
+                {/* Title — always visible */}
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-white tracking-tight leading-snug p-6">
                   Nguyên liệu<br />Thực phẩm
                 </h3>
-                
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
-                  Khám phá
-                </span>
+
+                {/* Button — slides up on hover */}
+                <div className="absolute bottom-6 left-6 z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <span className="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg shadow-md">
+                    Xem thêm
+                  </span>
+                </div>
               </Link>
 
               {/* Card 2: Cosmetic Ingredients */}
               <Link
                 href="/list_3"
-                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
+                className="relative aspect-[4/5] md:aspect-square rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Hover Background Image & Overlay */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                <div
+                  className="absolute inset-0 bg-cover bg-center scale-100 group-hover:scale-105 transition-transform duration-500 z-0"
                   style={{ backgroundImage: "url('/images/banner-cosmetic.png')" }}
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
-                
-                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                <div className="absolute inset-0 bg-black/45 group-hover:bg-black/60 transition-colors duration-300 z-0" />
+
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-white tracking-tight leading-snug p-6">
                   Nguyên liệu<br />Mỹ phẩm
                 </h3>
-                
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
-                  Khám phá
-                </span>
+
+                <div className="absolute bottom-6 left-6 z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <span className="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg shadow-md">
+                    Xem thêm
+                  </span>
+                </div>
               </Link>
 
               {/* Card 3: News Center */}
               <Link
                 href="/news"
-                className="relative aspect-[4/5] md:aspect-square bg-white border border-gray-200 rounded-lg p-6 flex flex-col justify-between items-start overflow-hidden group transition-all duration-300"
+                className="relative aspect-[4/5] md:aspect-square rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Hover Background Image & Overlay */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                <div
+                  className="absolute inset-0 bg-cover bg-center scale-100 group-hover:scale-105 transition-transform duration-500 z-0"
                   style={{ backgroundImage: "url('/images/banner-news.png')" }}
                 />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
-                
-                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-gray-950 group-hover:text-white tracking-tight leading-snug transition-colors duration-300">
+                <div className="absolute inset-0 bg-black/45 group-hover:bg-black/60 transition-colors duration-300 z-0" />
+
+                <h3 className="relative z-10 text-lg sm:text-xl font-bold text-white tracking-tight leading-snug p-6">
                   Trung tâm<br />Tin tức
                 </h3>
-                
-                <span className="relative z-10 inline-flex items-center justify-center border border-gray-300 group-hover:border-transparent group-hover:bg-white group-hover:text-gray-900 text-gray-800 text-sm font-semibold px-5 py-2.5 rounded transition-all duration-300">
-                  Khám phá
-                </span>
+
+                <div className="absolute bottom-6 left-6 z-10 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <span className="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg shadow-md">
+                    Xem thêm
+                  </span>
+                </div>
               </Link>
+
 
             </div>
 

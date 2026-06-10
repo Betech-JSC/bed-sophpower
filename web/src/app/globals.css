@@ -34,7 +34,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --color-term-green: var(--foreground);
   --color-term-cyan: var(--foreground);

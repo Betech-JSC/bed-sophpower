@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight, Calendar, Users, Eye, Settings, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, Calendar } from "lucide-react";
+
 
 interface Product {
   id: string;
@@ -33,7 +34,7 @@ export default function Home() {
   const banners = [
     {
       image: "/images/banner1.jpg",
-      title: "Pioneer Herb Industrial",
+      title: "Sophpower Vietnam",
       desc: "Nguồn cung cấp nguyên liệu thực phẩm và mỹ phẩm chất lượng hàng đầu.",
     },
     {
@@ -196,7 +197,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Banner Section */}
-      <section className="relative h-[60vh] min-h-[400px] w-full overflow-hidden bg-gray-900">
+      <section className="relative h-[80vh] min-h-[500px] w-full overflow-hidden bg-gray-900">
         {banners.map((banner, index) => (
           <div
             key={index}
@@ -227,13 +228,14 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Food Ingredients Section (Nguyên liệu Thực phẩm) */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-white py-20 border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           {/* Header Title Section */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-3xl space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight uppercase">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight uppercase">
                 NGUYÊN LIỆU THỰC PHẨM
               </h2>
               <div className="h-1 w-20 bg-brand-green" />
@@ -243,93 +245,6 @@ export default function Home() {
             </div>
             <Link
               href="/list_2"
-              className="inline-flex items-center gap-2 text-brand-green font-bold hover:underline"
-            >
-              Xem chi tiết
-              <ChevronRight className="h-5 w-5" />
-            </Link>
-          </div>
-
-          {/* Interactive Products Grid Tabs */}
-          <div className="flex flex-col lg:flex-row rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-xl items-stretch">
-            {/* Tabs List (Left Panel) — single scrollable column */}
-            <div className="w-full lg:w-[28%] bg-white border-b lg:border-b-0 lg:border-r border-gray-200 shrink-0 flex flex-col">
-              <div className="overflow-y-auto max-h-[420px] flex flex-col gap-px p-4">
-                {foodProducts.map((prod, index) => (
-                  <button
-                    key={prod.id}
-                    onClick={() => setActiveTab(index)}
-                    className={`group flex items-center justify-between px-4 py-3 rounded-lg border transition-all text-left cursor-pointer ${
-                      activeTab === index
-                        ? "bg-brand-green border-brand-green text-white"
-                        : "bg-transparent border-transparent text-gray-700 hover:bg-white hover:border-gray-200"
-                    }`}
-                  >
-                    <h3 className="font-semibold text-sm line-clamp-1">
-                      {prod.name}
-                    </h3>
-                    <ChevronRight
-                      className={`h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 ${
-                        activeTab === index ? "text-white/80" : "text-gray-400"
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Tabs Content Display (Right Panel) */}
-            <div className="w-full lg:w-[72%] flex flex-col md:flex-row text-gray-900 bg-white">
-              {/* Text Area */}
-              <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between space-y-5">
-                <div className="space-y-3">
-                  <h3 className="text-xl font-extrabold text-gray-900 border-b border-gray-100 pb-3">
-                    {foodProducts[activeTab].name}
-                  </h3>
-                  <p className="text-gray-650 text-sm leading-relaxed min-h-[60px]">
-                    {foodProducts[activeTab].desc}
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <Link
-                    href={`/list_2/${foodProducts[activeTab].id}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-brand-green hover:bg-brand-green-hover px-4 py-2 text-xs font-bold text-white transition-colors"
-                  >
-                    XEM CHI TIẾT
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Image Area — fills full column height */}
-              <div className="w-full md:w-[52%] shrink-0 relative min-h-[220px]">
-                <img
-                  src={foodProducts[activeTab].image}
-                  alt={foodProducts[activeTab].name}
-                  className="absolute inset-0 w-full h-full object-cover transition-all duration-300"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Cosmetic Ingredients Section (Nguyên liệu Mỹ phẩm) */}
-      <section className="bg-white py-20 border-t border-gray-150">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-          {/* Header Title Section */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div className="max-w-3xl space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight uppercase">
-                NGUYÊN LIỆU MỸ PHẨM
-              </h2>
-              <div className="h-1 w-20 bg-brand-green" />
-              <p className="text-gray-600 leading-relaxed">
-                Chúng tôi cung cấp các hoạt chất tiên tiến và chiết xuất tự nhiên cao cấp, đáp ứng hoàn hảo xu hướng phát triển mỹ phẩm sạch, an toàn và hiệu quả sinh học cao.
-              </p>
-            </div>
-            <Link
-              href="/list_3"
               className="inline-flex items-center gap-2 text-brand-green font-bold hover:underline"
             >
               Xem chi tiết
@@ -357,32 +272,32 @@ export default function Home() {
               <ChevronRight className="h-6 w-6" />
             </button>
 
-            {/* Carousel Container (with hidden scrollbar) */}
+            {/* Carousel Container */}
             <div
               ref={cosmeticCarouselRef}
               className="flex overflow-x-auto gap-4 pb-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             >
-              {cosmeticProducts.map((prod, index) => (
+              {foodProducts.map((prod, index) => (
                 <button
                   key={prod.id}
-                  onClick={() => setActiveCosmeticTab(index)}
+                  onClick={() => setActiveTab(index)}
                   className={`group relative flex-none w-44 sm:w-52 h-28 rounded-xl border overflow-hidden text-left cursor-pointer transition-all ${
-                    activeCosmeticTab === index
-                      ? "border-brand-green shadow-lg ring-2 ring-brand-green"
+                    activeTab === index
+                      ? "border-brand-green shadow-lg outline outline-2 outline-brand-green outline-offset-[-2px]"
                       : "border-gray-200 bg-white hover:border-brand-green/50"
                   }`}
                 >
-                  {/* Background Image (fully visible, no grayscale filter) */}
+                  {/* Background Image */}
                   <div
                     className={`absolute inset-0 bg-cover bg-center transition-all duration-300 ${
-                      activeCosmeticTab === index
+                      activeTab === index
                         ? "opacity-100 scale-105"
                         : "opacity-80 group-hover:opacity-100 group-hover:scale-102"
                     }`}
                     style={{ backgroundImage: `url(${prod.image})` }}
                   />
 
-                  {/* Slanted Green Ribbon Tag (Top-left, matching ref) */}
+                  {/* Slanted Green Ribbon Tag */}
                   <div
                     className="absolute top-0 left-0 bg-brand-green text-white text-[11px] font-extrabold pl-3 pr-6 py-1.5 tracking-wide uppercase shrink-0 max-w-[85%] truncate z-10 shadow-sm"
                     style={{ clipPath: "polygon(0 0, 100% 0, 88% 100%, 0 100%)" }}
@@ -394,27 +309,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Magnified Detail Card (Bottom, matching ref) */}
+          {/* Magnified Detail Card */}
           <div className="group mt-8 flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl border border-gray-150 hover:border-brand-green/20 hover:-translate-y-1 transition-all duration-300 bg-white">
             {/* Left Panel: Solid Green background, white text */}
             <div className="relative overflow-hidden w-full md:w-[60%] bg-brand-green text-white p-8 sm:p-12 flex flex-col justify-between items-start space-y-6">
-              {/* Subtle background pattern overlay */}
               <div className="absolute inset-0 bg-dot-matrix opacity-15 pointer-events-none transition-opacity duration-300 group-hover:opacity-25" />
 
               <div className="relative z-10 space-y-4 w-full">
-                {/* Title */}
-                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight border-b border-white/20 pb-4">
-                  {cosmeticProducts[activeCosmeticTab].name}
+                <h3 className="text-2xl sm:text-3xl font-bold tracking-tight border-b border-white/20 pb-4">
+                  {foodProducts[activeTab].name}
                 </h3>
-                {/* Description */}
                 <p className="text-white/95 text-sm sm:text-base leading-relaxed min-h-[80px]">
-                  {cosmeticProducts[activeCosmeticTab].desc}
+                  {foodProducts[activeTab].desc}
                 </p>
               </div>
-              {/* CTA Button: Bordered transparent style */}
               <div className="relative z-10 pt-4">
                 <Link
-                  href={`/list_3/${cosmeticProducts[activeCosmeticTab].id}`}
+                  href={`/list_2/${foodProducts[activeTab].id}`}
                   className="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-brand-green text-white px-6 py-2.5 text-xs font-extrabold transition-all duration-300 tracking-wider uppercase rounded-lg shadow-sm"
                 >
                   TÌM HIỂU THÊM
@@ -426,94 +337,102 @@ export default function Home() {
             {/* Right Panel: Large Product Image */}
             <div className="w-full md:w-[40%] h-64 md:h-auto relative bg-gray-50 shrink-0">
               <img
-                src={cosmeticProducts[activeCosmeticTab].image}
-                alt={cosmeticProducts[activeCosmeticTab].name}
-                className="absolute inset-0 h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+                src={foodProducts[activeTab].image}
+                alt={foodProducts[activeTab].name}
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Us Highlights (Về chúng tôi) */}
+
+      {/* About Us Highlights (Về chúng tôi) — sophchem.com style */}
       <section
-        className="bg-[#062013] py-24 text-white relative overflow-hidden border-t border-white/5"
-        style={{ backgroundImage: "radial-gradient(ellipse at top, #0c3a21, #062013, #020b06)" }}
+        className="relative py-20 text-white overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #041a0e 0%, #062013 40%, #0a3020 100%)" }}
       >
-        {/* Subtle dot matrix pattern in the background of the dark section */}
-        <div className="absolute inset-0 bg-dot-matrix opacity-10 pointer-events-none" />
-        
-        <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-          
-          {/* Top Section: Split Title & Subtext */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16">
-            <div className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight uppercase">
-                VỀ CHÚNG TÔI
-              </h2>
-              <div className="pt-2">
-                <Link
-                  href="/about"
-                  className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-2.5 font-bold hover:bg-white hover:text-gray-900 transition-colors text-white"
-                >
-                  TÌM HIỂU VỀ CHÚNG TÔI
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-            
-            <div className="lg:max-w-md">
-              <p className="text-emerald-100/70 text-sm sm:text-base leading-relaxed text-justify">
-                Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
-              </p>
-            </div>
+        {/* Full-bleed background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25"
+          style={{ backgroundImage: "url('/images/home-about.jpg')" }}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+          {/* Centered heading */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-white uppercase mb-6">
+              VỀ CHÚNG TÔI
+            </h2>
+            <p className="max-w-3xl mx-auto text-white/75 text-sm sm:text-base leading-relaxed">
+              Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
+            </p>
           </div>
 
-          {/* Central Mockup/Dashboard Image Container */}
-          <div className="relative mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#082918]/60 p-2 sm:p-4 mb-16 transition-all duration-300 hover:scale-[1.01] hover:border-emerald-500/20">
-            <div className="rounded-xl overflow-hidden aspect-[4/3] md:aspect-[16/9] relative bg-emerald-950">
-              <img
-                src="/images/biotech-core-values.png"
-                alt="Sophpower About Us Macro Visual"
-                className="absolute inset-0 w-full h-full object-cover opacity-95"
-              />
-              {/* Overlay shadow to integrate the image with the card */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            </div>
+          {/* CTA button centered — plain Link, no design-system variant conflicts */}
+          <div className="flex justify-center mb-14">
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 border border-white/60 text-white bg-transparent hover:bg-white hover:text-brand-green px-8 py-2.5 font-bold tracking-widest uppercase text-sm transition-all duration-300 rounded-lg"
+            >
+              VỀ CHÚNG TÔI
+              <ChevronRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          {/* Bottom Columns: 3 Core Values */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 pt-8">
-            
+          {/* 3 Value Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-px bg-white/10 rounded-lg overflow-hidden border border-white/10">
+
             {/* Value 1 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Năng lực chuyên sâu</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group">
+              {/* Perspective wrapper for 3D flip */}
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys1.png" alt="Năng lực chuyên sâu" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Năng lực chuyên sâu</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất quy mô lớn.
+                </p>
+              </div>
             </div>
 
             {/* Value 2 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Niềm tin từ thị trường</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys2.png" alt="Niềm tin từ thị trường" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Niềm tin từ thị trường</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và chất lượng vượt trội.
+                </p>
+              </div>
             </div>
 
             {/* Value 3 */}
-            <div className="space-y-4">
-              <div className="h-1 w-12 bg-emerald-500 rounded" />
-              <h3 className="text-lg sm:text-xl font-bold text-white">Định hướng đổi mới</h3>
-              <p className="text-sm text-emerald-100/70 leading-relaxed text-justify">
-                Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.
-              </p>
+            <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
+              <div className="w-24 h-24 shrink-0 [perspective:600px]">
+                <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                  <img src="/images/icons/ys3.png" alt="Định hướng đổi mới sáng tạo" className="w-24 h-24 object-contain" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Định hướng đổi mới sáng tạo</h3>
+                <p className="text-sm text-white/80 leading-relaxed">
+                  Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) đã được cấp bằng sáng chế.
+                </p>
+              </div>
             </div>
 
           </div>
-          
         </div>
       </section>
 
@@ -526,7 +445,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-white/80 pointer-events-none" />
         <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="max-w-3xl space-y-3 mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
               TRUNG TÂM TIN TỨC
             </h2>
             <div className="h-1 w-20 bg-brand-green" />

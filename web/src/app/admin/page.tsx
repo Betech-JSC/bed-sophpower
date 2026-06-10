@@ -379,7 +379,7 @@ export default function AdminDashboard() {
                   <label className="text-xs font-bold text-gray-700 block">META TITLE TRANG CHỦ</label>
                   <input
                     type="text"
-                    defaultValue="Pioneer Herb Industrial Co., Ltd. - Sophpower Vietnam"
+                    defaultValue="Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-brand-green focus:outline-hidden"
                   />
                 </div>
@@ -395,7 +395,7 @@ export default function AdminDashboard() {
                   <label className="text-xs font-bold text-gray-700 block">TỪ KHÓA SEO (KEYWORDS)</label>
                   <input
                     type="text"
-                    defaultValue="Sophpower, Pioneer Herb, nguyên liệu mỹ phẩm, Beta-carotene"
+                    defaultValue="Sophpower Vietnam, nguyên liệu mỹ phẩm, Beta-carotene, hóa chất thực phẩm"
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-brand-green focus:outline-hidden"
                   />
                 </div>
