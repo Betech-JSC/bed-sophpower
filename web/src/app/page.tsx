@@ -168,7 +168,7 @@ export default function Home() {
   useEffect(() => {
     api.getBanners().then((data) => {
       const mapped = data.map((b) => ({
-        image: b.image || '/images/banner1.jpg',
+        image: b.image ? api.getImageUrl(b.image) : '/images/banner1.jpg',
         title: getVal(b.title, locale),
         desc: getVal(b.desc, locale),
       }));
@@ -191,7 +191,7 @@ export default function Home() {
         name: getVal(p.name, locale),
         desc: getVal(p.desc, locale),
         number: String(idx + 1).padStart(2, '0'),
-        image: p.image || '/images/placeholder.jpg',
+        image: p.image ? api.getImageUrl(p.image) : '/images/placeholder.jpg',
         category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
       }));
 
@@ -208,7 +208,7 @@ export default function Home() {
         id: String(art.id),
         title: getVal(art.title, locale),
         date: art.date || (art.created_at ? new Date(art.created_at).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : '2026.06.08'),
-        image: art.image || '/images/placeholder.jpg',
+        image: art.image ? api.getImageUrl(art.image) : '/images/placeholder.jpg',
         category: getVal(art.category, locale),
       }));
       if (latest.length > 0) {

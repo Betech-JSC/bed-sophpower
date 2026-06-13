@@ -6,6 +6,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import { api } from "@/lib/api";
 
 interface Article {
   id: number;
@@ -102,7 +103,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
                 {/* Image */}
                 <div className="w-full lg:w-[50%] h-64 sm:h-80 lg:h-auto relative bg-gray-55 overflow-hidden shrink-0">
                   <img
-                    src={featuredArticle.image}
+                    src={api.getImageUrl(featuredArticle.image)}
                     alt={featuredArticle.title}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
@@ -171,7 +172,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
                   {/* Card Image */}
                   <div className="h-48 relative bg-gray-55 overflow-hidden shrink-0">
                     <img
-                      src={art.image}
+                      src={api.getImageUrl(art.image)}
                       alt={art.title}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
