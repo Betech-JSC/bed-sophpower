@@ -7,6 +7,11 @@ use App\Models\Page;
 
 class PageApiController extends Controller
 {
+    public function index()
+    {
+        return response()->json(Page::all());
+    }
+
     public function show($slug)
     {
         $page = Page::where('slug', $slug)->first();

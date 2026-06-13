@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useI18n } from "@/i18n/provider";
@@ -21,6 +21,13 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    api.getSettings()
+      .then(setSettings)
+      .catch((err) => console.error("Failed to load settings on contact page:", err));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,10 +114,10 @@ export default function Contact() {
                   <div>
                     <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.email}</h3>
                     <a
-                      href="mailto:vnsp4@sophpower.com"
+                      href={`mailto:${settings?.contact_email || "vnsp4@sophpower.com"}`}
                       className="text-sm font-semibold hover:text-brand-green-light transition-colors"
                     >
-                      vnsp4@sophpower.com
+                      {settings?.contact_email || "vnsp4@sophpower.com"}
                     </a>
                   </div>
                 </div>
@@ -122,7 +129,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.hotlineZalo}</h3>
-                    <span className="text-sm font-semibold">0969 700 520</span>
+                    <span className="text-sm font-semibold">{settings?.contact_phone || "0969 700 520"}</span>
                   </div>
                 </div>
 
@@ -135,8 +142,8 @@ export default function Contact() {
                     <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.officeAddress}</h3>
                     <span className="text-sm font-semibold leading-relaxed block">
                       {locale === "vi"
-                        ? "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam"
-                        : "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam"}
+                        ? (settings?.contact_address_vi || "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam")
+                        : (settings?.contact_address_en || "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam")}
                     </span>
                   </div>
                 </div>

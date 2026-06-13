@@ -41,12 +41,16 @@ class BannerController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'image_file' => ['required', 'image', 'max:2048'],
             'link' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('banners', 'public');
@@ -74,12 +78,16 @@ class BannerController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'link' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             // Delete old image if it's in storage

@@ -24,7 +24,7 @@ class ArticleApiController extends Controller
             });
         }
 
-        return response()->json($query->orderBy('date', 'desc')->get());
+        return response()->json($query->orderBy('date', 'desc')->latest()->get());
     }
 
     public function show($id)

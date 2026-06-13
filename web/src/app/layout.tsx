@@ -22,14 +22,38 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export const metadata: Metadata = {
-  title: "Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm",
-  description:
-    "Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, chuyên cung cấp các giải pháp nguyên liệu thực phẩm và mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế.",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+import { getLocaleServer } from "@/lib/get-locale-server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocaleServer();
+  let settings: any = null;
+  try {
+    settings = await api.getSettings();
+  } catch (e) {
+    console.error("Failed to load settings for metadata:", e);
+  }
+
+  const title = locale === "vi"
+    ? (settings?.meta_title_vi || "Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm")
+    : (settings?.meta_title_en || "Sophpower Vietnam - Premium Food & Cosmetic Ingredients");
+
+  const description = locale === "vi"
+    ? (settings?.meta_desc_vi || "Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, chuyên cung cấp các giải pháp nguyên liệu thực phẩm và mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế.")
+    : (settings?.meta_desc_en || "Sophpower is a multinational trading company based in Vietnam, supplying premium, safe, and internationally certified food and cosmetic ingredients.");
+
+  const keywords = locale === "vi"
+    ? (settings?.meta_keywords_vi || "phụ gia thực phẩm, nguyên liệu mỹ phẩm, Beta-carotene, Carmine, Niacinamide")
+    : (settings?.meta_keywords_en || "food additives, cosmetic ingredients, Beta-carotene, Carmine, Niacinamide");
+
+  return {
+    title,
+    description,
+    keywords,
+    icons: {
+      icon: "/favicon.ico",
+    },
+  };
+}
 
 export default async function RootLayout({
   children,

@@ -24,6 +24,7 @@ Route::post('/contact', [LeadApiController::class, 'store']);
 
 Route::get('/banners', [BannerApiController::class, 'index']);
 Route::get('/faqs', [FaqApiController::class, 'index']);
+Route::get('/pages', [PageApiController::class, 'index']);
 Route::get('/pages/{slug}', [PageApiController::class, 'show']);
 Route::get('/settings', [SettingApiController::class, 'index']);
 Route::post('/product-questions', [ProductQuestionApiController::class, 'store']);

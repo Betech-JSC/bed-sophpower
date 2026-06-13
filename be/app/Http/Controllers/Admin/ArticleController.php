@@ -44,21 +44,34 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
-            'summary.en' => ['required', 'string'],
+            'summary.en' => ['nullable', 'string'],
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
-            'content.en' => ['required', 'string'],
+            'content.en' => ['nullable', 'string'],
             'date' => ['required', 'date'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['summary']['en'])) {
+            $validated['summary']['en'] = $validated['summary']['vi'];
+        }
+        if (empty($validated['content']['en'])) {
+            $validated['content']['en'] = $validated['content']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('news', 'public');
@@ -85,21 +98,34 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
-            'summary.en' => ['required', 'string'],
+            'summary.en' => ['nullable', 'string'],
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
-            'content.en' => ['required', 'string'],
+            'content.en' => ['nullable', 'string'],
             'date' => ['required', 'date'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['summary']['en'])) {
+            $validated['summary']['en'] = $validated['summary']['vi'];
+        }
+        if (empty($validated['content']['en'])) {
+            $validated['content']['en'] = $validated['content']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             if ($article->image && str_starts_with($article->image, '/storage/')) {

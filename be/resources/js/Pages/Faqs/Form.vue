@@ -21,21 +21,21 @@
               <!-- Category VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nhóm danh mục (VI) *</label>
-                <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Chứng nhận sản phẩm, Giao hàng & Thanh toán..." required size="large" />
+                <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Chứng nhận sản phẩm, Giao hàng & Thanh toán..." size="large" />
                 <p v-if="form.errors['category.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.vi'] }}</p>
               </div>
 
               <!-- Question VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Câu hỏi (VI) *</label>
-                <a-input v-model:value="form.question.vi" placeholder="Nhập câu hỏi bằng Tiếng Việt..." required size="large" />
+                <a-input v-model:value="form.question.vi" placeholder="Nhập câu hỏi bằng Tiếng Việt..." size="large" />
                 <p v-if="form.errors['question.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['question.vi'] }}</p>
               </div>
 
               <!-- Answer VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Câu trả lời (VI) *</label>
-                <a-textarea v-model:value="form.answer.vi" placeholder="Nhập câu trả lời chi tiết bằng Tiếng Việt..." :rows="6" required size="large" />
+                <a-textarea v-model:value="form.answer.vi" placeholder="Nhập câu trả lời chi tiết bằng Tiếng Việt..." :rows="6" size="large" />
                 <p v-if="form.errors['answer.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['answer.vi'] }}</p>
               </div>
             </div>
@@ -47,21 +47,21 @@
               <!-- Category EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nhóm danh mục (EN) *</label>
-                <a-input v-model:value="form.category.en" placeholder="Ví dụ: Certifications, Shipping & Payment..." required size="large" />
+                <a-input v-model:value="form.category.en" placeholder="Ví dụ: Certifications, Shipping & Payment..." size="large" />
                 <p v-if="form.errors['category.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.en'] }}</p>
               </div>
 
               <!-- Question EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Câu hỏi (EN) *</label>
-                <a-input v-model:value="form.question.en" placeholder="Nhập câu hỏi bằng Tiếng Anh..." required size="large" />
+                <a-input v-model:value="form.question.en" placeholder="Nhập câu hỏi bằng Tiếng Anh..." size="large" />
                 <p v-if="form.errors['question.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['question.en'] }}</p>
               </div>
 
               <!-- Answer EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Câu trả lời (EN) *</label>
-                <a-textarea v-model:value="form.answer.en" placeholder="Nhập câu trả lời chi tiết bằng Tiếng Anh..." :rows="6" required size="large" />
+                <a-textarea v-model:value="form.answer.en" placeholder="Nhập câu trả lời chi tiết bằng Tiếng Anh..." :rows="6" size="large" />
                 <p v-if="form.errors['answer.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['answer.en'] }}</p>
               </div>
             </div>

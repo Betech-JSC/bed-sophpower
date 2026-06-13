@@ -42,15 +42,25 @@ class FaqController extends Controller
         $validated = $request->validate([
             'question' => ['required', 'array'],
             'question.vi' => ['required', 'string'],
-            'question.en' => ['required', 'string'],
+            'question.en' => ['nullable', 'string'],
             'answer' => ['required', 'array'],
             'answer.vi' => ['required', 'string'],
-            'answer.en' => ['required', 'string'],
+            'answer.en' => ['nullable', 'string'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
         ]);
+
+        if (empty($validated['question']['en'])) {
+            $validated['question']['en'] = $validated['question']['vi'];
+        }
+        if (empty($validated['answer']['en'])) {
+            $validated['answer']['en'] = $validated['answer']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
 
         $faq = Faq::create($validated);
 
@@ -72,15 +82,25 @@ class FaqController extends Controller
         $validated = $request->validate([
             'question' => ['required', 'array'],
             'question.vi' => ['required', 'string'],
-            'question.en' => ['required', 'string'],
+            'question.en' => ['nullable', 'string'],
             'answer' => ['required', 'array'],
             'answer.vi' => ['required', 'string'],
-            'answer.en' => ['required', 'string'],
+            'answer.en' => ['nullable', 'string'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
         ]);
+
+        if (empty($validated['question']['en'])) {
+            $validated['question']['en'] = $validated['question']['vi'];
+        }
+        if (empty($validated['answer']['en'])) {
+            $validated['answer']['en'] = $validated['answer']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
 
         $faq->update($validated);
 

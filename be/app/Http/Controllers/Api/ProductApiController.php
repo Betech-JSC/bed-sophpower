@@ -28,7 +28,7 @@ class ProductApiController extends Controller
             });
         }
 
-        return response()->json($query->get());
+        return response()->json($query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get());
     }
 
     public function show($id)

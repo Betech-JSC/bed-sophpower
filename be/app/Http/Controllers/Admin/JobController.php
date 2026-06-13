@@ -43,20 +43,20 @@ class JobController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'department' => ['required', 'array'],
             'department.vi' => ['required', 'string', 'max:255'],
-            'department.en' => ['required', 'string', 'max:255'],
+            'department.en' => ['nullable', 'string', 'max:255'],
             'location' => ['required', 'array'],
             'location.vi' => ['required', 'string', 'max:255'],
-            'location.en' => ['required', 'string', 'max:255'],
+            'location.en' => ['nullable', 'string', 'max:255'],
             'salary' => ['required', 'array'],
             'salary.vi' => ['required', 'string', 'max:255'],
-            'salary.en' => ['required', 'string', 'max:255'],
+            'salary.en' => ['nullable', 'string', 'max:255'],
             'deadline' => ['required', 'date'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
-            'summary.en' => ['required', 'string'],
+            'summary.en' => ['nullable', 'string'],
             'requirements' => ['nullable', 'array'],
             'requirements.vi' => ['nullable', 'array'],
             'requirements.en' => ['nullable', 'array'],
@@ -67,6 +67,22 @@ class JobController extends Controller
             'benefits.vi' => ['nullable', 'array'],
             'benefits.en' => ['nullable', 'array'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['department']['en'])) {
+            $validated['department']['en'] = $validated['department']['vi'];
+        }
+        if (empty($validated['location']['en'])) {
+            $validated['location']['en'] = $validated['location']['vi'];
+        }
+        if (empty($validated['salary']['en'])) {
+            $validated['salary']['en'] = $validated['salary']['vi'];
+        }
+        if (empty($validated['summary']['en'])) {
+            $validated['summary']['en'] = $validated['summary']['vi'];
+        }
 
         RecruitmentJob::create($validated);
 
@@ -86,20 +102,20 @@ class JobController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'department' => ['required', 'array'],
             'department.vi' => ['required', 'string', 'max:255'],
-            'department.en' => ['required', 'string', 'max:255'],
+            'department.en' => ['nullable', 'string', 'max:255'],
             'location' => ['required', 'array'],
             'location.vi' => ['required', 'string', 'max:255'],
-            'location.en' => ['required', 'string', 'max:255'],
+            'location.en' => ['nullable', 'string', 'max:255'],
             'salary' => ['required', 'array'],
             'salary.vi' => ['required', 'string', 'max:255'],
-            'salary.en' => ['required', 'string', 'max:255'],
+            'salary.en' => ['nullable', 'string', 'max:255'],
             'deadline' => ['required', 'date'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
-            'summary.en' => ['required', 'string'],
+            'summary.en' => ['nullable', 'string'],
             'requirements' => ['nullable', 'array'],
             'requirements.vi' => ['nullable', 'array'],
             'requirements.en' => ['nullable', 'array'],
@@ -110,6 +126,22 @@ class JobController extends Controller
             'benefits.vi' => ['nullable', 'array'],
             'benefits.en' => ['nullable', 'array'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['department']['en'])) {
+            $validated['department']['en'] = $validated['department']['vi'];
+        }
+        if (empty($validated['location']['en'])) {
+            $validated['location']['en'] = $validated['location']['vi'];
+        }
+        if (empty($validated['salary']['en'])) {
+            $validated['salary']['en'] = $validated['salary']['vi'];
+        }
+        if (empty($validated['summary']['en'])) {
+            $validated['summary']['en'] = $validated['summary']['vi'];
+        }
 
         $job->update($validated);
 

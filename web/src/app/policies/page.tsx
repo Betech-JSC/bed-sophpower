@@ -3,21 +3,21 @@ import Link from "next/link";
 import { FileText, ArrowRight } from "lucide-react";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import { api } from "@/lib/api";
+import { getVal } from "@/lib/i18n-utils";
 
 interface Policy {
   id: string;
-  title: { vi: string; en: string };
-  summary: { vi: string; en: string };
-  updatedAt: string;
+  title: string;
+  summary: string;
 }
 
 export default async function Policies() {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
-  // Map zh/ja to 'en' for static bilingual policy data
   const policyLocale: "vi" | "en" = locale === "vi" ? "vi" : "en";
 
-  const policies: Policy[] = [
+  const fallbackPolicies = [
     {
       id: "quality-standards",
       title: {
@@ -28,7 +28,6 @@ export default async function Policies() {
         vi: "Mô tả quy trình kiểm soát chất lượng từ khâu tuyển chọn nhà sản xuất nước ngoài, kiểm định mẫu COA, MSDS đến bàn giao trực tiếp tại kho của khách hàng Việt Nam.",
         en: "Describes the quality control process from selecting foreign manufacturers, verifying COA/MSDS samples, to direct delivery at Vietnamese customers' warehouses.",
       },
-      updatedAt: "2026-06-01",
     },
     {
       id: "privacy-policy",
@@ -40,7 +39,6 @@ export default async function Policies() {
         vi: "Cam kết bảo mật toàn bộ thông tin đơn hàng, công thức mẫu thử nghiệm chuyển giao công nghệ và thông tin hợp đồng kinh tế theo đúng quy định.",
         en: "Commitment to protecting all order information, formula testing samples for technology transfer, and economic contract details in compliance with regulations.",
       },
-      updatedAt: "2026-06-01",
     },
     {
       id: "cooperation-terms",
@@ -52,9 +50,31 @@ export default async function Policies() {
         vi: "Quy định chi tiết về các điều khoản công nợ thanh toán, phương thức giao nhận hàng hóa nội địa và quy trình xử lý đổi trả nguyên liệu lỗi phát sinh.",
         en: "Details payment debt terms, domestic delivery methods, and the handling process for returning defective raw materials.",
       },
-      updatedAt: "2026-06-01",
     },
   ];
+
+  let displayPolicies: Policy[] = [];
+
+  try {
+    const pages = await api.getPages();
+    displayPolicies = pages.map((p) => {
+      const titleStr = getVal(p.title, locale);
+      const contentStr = getVal(p.content, locale);
+      const summaryStr = contentStr.split('\n').filter((p) => p.trim() !== '')[0] || "";
+      return {
+        id: p.slug,
+        title: titleStr,
+        summary: summaryStr.length > 180 ? summaryStr.substring(0, 180) + "..." : summaryStr,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to load policies dynamically on policies listing, falling back:", error);
+    displayPolicies = fallbackPolicies.map((p) => ({
+      id: p.id,
+      title: p.title[policyLocale] || p.title.vi,
+      summary: p.summary[policyLocale] || p.summary.vi,
+    }));
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -82,7 +102,7 @@ export default async function Policies() {
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
-            {policies.map((policy) => (
+            {displayPolicies.map((policy) => (
               <Link
                 key={policy.id}
                 href={`/policies/${policy.id}`}
@@ -97,10 +117,10 @@ export default async function Policies() {
                 <div className="flex-1 space-y-3">
                   <div className="space-y-1">
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">
-                      {policy.title[policyLocale] || policy.title.vi}
+                      {policy.title}
                     </h3>
                   </div>
-                  <p className="text-gray-550 text-sm leading-relaxed">{policy.summary[policyLocale] || policy.summary.vi}</p>
+                  <p className="text-gray-550 text-sm leading-relaxed">{policy.summary}</p>
                   <div className="pt-2">
                     <span
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors"

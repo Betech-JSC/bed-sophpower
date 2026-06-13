@@ -6,7 +6,7 @@
         <!-- Slug -->
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn tĩnh (Slug) *</label>
-          <a-input v-model:value="form.slug" placeholder="Ví dụ: ve-chung-toi, dieu-khoan-su-dung" required size="large" :disabled="isEdit" />
+          <a-input v-model:value="form.slug" placeholder="Ví dụ: ve-chung-toi, dieu-khoan-su-dung" size="large" :disabled="isEdit" />
           <p class="text-xs text-gray-400 mt-1">Định danh duy nhất viết liền không dấu, ngăn cách bằng dấu gạch ngang.</p>
           <p v-if="form.errors.slug" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.slug }}</p>
         </div>
@@ -19,14 +19,14 @@
               <!-- Title VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề (VI) *</label>
-                <a-input v-model:value="form.title.vi" placeholder="Nhập tiêu đề trang bằng Tiếng Việt..." required size="large" />
+                <a-input v-model:value="form.title.vi" placeholder="Nhập tiêu đề trang bằng Tiếng Việt..." size="large" />
                 <p v-if="form.errors['title.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.vi'] }}</p>
               </div>
 
               <!-- Content VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung trang (VI) *</label>
-                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung chi tiết bằng Tiếng Việt (Hỗ trợ định dạng văn bản/MD)..." :rows="12" required size="large" />
+                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung chi tiết bằng Tiếng Việt (Hỗ trợ định dạng văn bản/MD)..." :rows="12" size="large" />
                 <p v-if="form.errors['content.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['content.vi'] }}</p>
               </div>
             </div>
@@ -38,14 +38,14 @@
               <!-- Title EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề (EN) *</label>
-                <a-input v-model:value="form.title.en" placeholder="Nhập tiêu đề trang bằng Tiếng Anh..." required size="large" />
+                <a-input v-model:value="form.title.en" placeholder="Nhập tiêu đề trang bằng Tiếng Anh..." size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
 
               <!-- Content EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung trang (EN) *</label>
-                <a-textarea v-model:value="form.content.en" placeholder="Nhập nội dung chi tiết bằng Tiếng Anh..." :rows="12" required size="large" />
+                <a-textarea v-model:value="form.content.en" placeholder="Nhập nội dung chi tiết bằng Tiếng Anh..." :rows="12" size="large" />
                 <p v-if="form.errors['content.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['content.en'] }}</p>
               </div>
             </div>

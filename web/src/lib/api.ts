@@ -199,6 +199,10 @@ export const api = {
   },
 
   // Static Pages
+  async getPages(): Promise<StaticPage[]> {
+    return await fetchAPI('/pages');
+  },
+
   async getPage(slug: string): Promise<StaticPage> {
     return await fetchAPI(`/pages/${slug}`);
   },

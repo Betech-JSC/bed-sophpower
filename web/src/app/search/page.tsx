@@ -22,6 +22,13 @@ export default async function SearchPage({
     return [];
   });
 
+  allProducts.sort((a, b) => {
+    const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+    const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+    if (dateB !== dateA) return dateB - dateA;
+    return b.id - a.id;
+  });
+
   const results = allProducts.filter((p) => {
     const name = getVal(p.name, locale).toLowerCase();
     const desc = getVal(p.desc, locale).toLowerCase();

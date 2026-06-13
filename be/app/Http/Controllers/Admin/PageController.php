@@ -42,11 +42,18 @@ class PageController extends Controller
             'slug' => ['required', 'string', 'max:255', 'unique:pages,slug'],
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
-            'content.en' => ['required', 'string'],
+            'content.en' => ['nullable', 'string'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['content']['en'])) {
+            $validated['content']['en'] = $validated['content']['vi'];
+        }
 
         $page = Page::create($validated);
 
@@ -69,11 +76,18 @@ class PageController extends Controller
             'slug' => ['required', 'string', 'max:255', 'unique:pages,slug,' . $page->id],
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
-            'title.en' => ['required', 'string', 'max:255'],
+            'title.en' => ['nullable', 'string', 'max:255'],
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
-            'content.en' => ['required', 'string'],
+            'content.en' => ['nullable', 'string'],
         ]);
+
+        if (empty($validated['title']['en'])) {
+            $validated['title']['en'] = $validated['title']['vi'];
+        }
+        if (empty($validated['content']['en'])) {
+            $validated['content']['en'] = $validated['content']['vi'];
+        }
 
         $page->update($validated);
 

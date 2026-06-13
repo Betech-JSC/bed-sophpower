@@ -1,14 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import { api } from "@/lib/api";
 
 export default function Footer() {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
+
+  const [settings, setSettings] = useState<any>(null);
+
+  useEffect(() => {
+    api.getSettings()
+      .then(setSettings)
+      .catch((err) => console.error("Failed to load settings in footer:", err));
+  }, []);
+
+  const rawPhone = settings?.contact_phone || "0969 700 520";
+  const sanitizedPhone = rawPhone.replace(/[^0-9]/g, "");
 
   const categories = {
     ingredients: {
@@ -168,7 +180,7 @@ export default function Footer() {
             {/* Capsule Pill Buttons */}
             <div className="flex flex-col gap-3 w-full sm:w-auto">
               <a
-                href="https://zalo.me/0969700520"
+                href={`https://zalo.me/${sanitizedPhone}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"
@@ -179,7 +191,7 @@ export default function Footer() {
                 </span>
               </a>
               <a
-                href="tel:0969700520"
+                href={`tel:${sanitizedPhone}`}
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"
               >
                 <span>{t.footer.hotline}</span>
@@ -204,8 +216,12 @@ export default function Footer() {
           </div>
           
           <div className="space-y-1.5 md:text-right text-gray-400 shrink-0">
-            <p className="font-medium text-gray-300">Email: vnsp4@sophpower.com</p>
-            <p>{t.footer.address}</p>
+            <p className="font-medium text-gray-300">Email: {settings?.contact_email || "vnsp4@sophpower.com"}</p>
+            <p>
+              {locale === "vi"
+                ? (settings?.contact_address_vi || t.footer.address)
+                : (settings?.contact_address_en || t.footer.address)}
+            </p>
           </div>
         </div>
 

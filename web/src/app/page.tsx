@@ -119,8 +119,8 @@ export default function Home() {
   const mockArticles = [
     {
       id: "1",
-      title: locale === 'vi' 
-        ? "Xu Hướng Mỹ Phẩm Thiên Nhiên 2026 – Vì Sao Rosa Damascena Flower Water Được Ưa Chuộng Trong Các Dòng Skincare Hiện Đại?" 
+      title: locale === 'vi'
+        ? "Xu Hướng Mỹ Phẩm Thiên Nhiên 2026 – Vì Sao Rosa Damascena Flower Water Được Ưa Chuộng Trong Các Dòng Skincare Hiện Đại?"
         : "Natural Cosmetics Trend 2026 – Why Rosa Damascena Flower Water Is Favored in Modern Skincare?",
       date: "2026.06.08",
       image: "/images/news/news1.png",
@@ -128,8 +128,8 @@ export default function Home() {
     },
     {
       id: "2",
-      title: locale === 'vi' 
-        ? "Vì Sao Tranexamic Acid Được Nhiều Thương Hiệu Skincare Ứng Dụng Trong Mỹ Phẩm Hiện Đại?" 
+      title: locale === 'vi'
+        ? "Vì Sao Tranexamic Acid Được Nhiều Thương Hiệu Skincare Ứng Dụng Trong Mỹ Phẩm Hiện Đại?"
         : "Why Is Tranexamic Acid Widely Used by Skincare Brands in Modern Cosmetics?",
       date: "2026.06.07",
       image: "/images/products/tranexamic-acid.jpg",
@@ -137,8 +137,8 @@ export default function Home() {
     },
     {
       id: "3",
-      title: locale === 'vi' 
-        ? "Thị Trường Mỹ Phẩm Việt Nam Đang Thay Đổi Theo Xu Hướng Nào?" 
+      title: locale === 'vi'
+        ? "Thị Trường Mỹ Phẩm Việt Nam Đang Thay Đổi Theo Xu Hướng Nào?"
         : "Which Trends Are Shaping the Vietnamese Cosmetics Market?",
       date: "2026.06.05",
       image: "/images/products/niacinamide.jpg",
@@ -148,6 +148,14 @@ export default function Home() {
 
   const [homeArticles, setHomeArticles] = useState<any[]>(mockArticles);
 
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   // Auto transition banner slider
   useEffect(() => {
     const timer = setInterval(() => {
@@ -172,7 +180,13 @@ export default function Home() {
     });
 
     api.getProducts().then((data) => {
-      const mapped = data.map((p, idx) => ({
+      const sortedData = [...data].sort((a, b) => {
+        const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+        const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+        if (dateB !== dateA) return dateB - dateA;
+        return b.id - a.id;
+      });
+      const mapped = sortedData.map((p, idx) => ({
         id: String(p.id),
         name: getVal(p.name, locale),
         desc: getVal(p.desc, locale),
@@ -228,9 +242,8 @@ export default function Home() {
         {banners.map((banner, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === activeBanner ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === activeBanner ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
           >
             {/* Background Image */}
             <div
@@ -257,9 +270,8 @@ export default function Home() {
             <button
               key={index}
               onClick={() => setActiveBanner(index)}
-              className={`h-1 w-8 transition-all duration-300 ${
-                index === activeBanner ? "bg-brand-green" : "bg-white/40"
-              } cursor-pointer`}
+              className={`h-1 w-8 transition-all duration-300 ${index === activeBanner ? "bg-brand-green" : "bg-white/40"
+                } cursor-pointer`}
               aria-label={`Slide ${index + 1}`}
             />
           ))}
@@ -318,19 +330,17 @@ export default function Home() {
                 <button
                   key={prod.id}
                   onClick={() => setActiveTab(index)}
-                  className={`group relative flex-none w-44 sm:w-52 h-28 rounded-xl border overflow-hidden text-left cursor-pointer transition-all ${
-                    activeTab === index
+                  className={`group relative flex-none w-44 sm:w-52 h-28 rounded-xl border overflow-hidden text-left cursor-pointer transition-all ${activeTab === index
                       ? "border-brand-green shadow-lg outline outline-2 outline-brand-green outline-offset-[-2px]"
                       : "border-gray-200 bg-white hover:border-brand-green/50"
-                  }`}
+                    }`}
                 >
                   {/* Background Image */}
                   <div
-                    className={`absolute inset-0 bg-cover bg-center transition-all duration-300 ${
-                      activeTab === index
+                    className={`absolute inset-0 bg-cover bg-center transition-all duration-300 ${activeTab === index
                         ? "opacity-100 scale-105"
                         : "opacity-80 group-hover:opacity-100 group-hover:scale-102"
-                    }`}
+                      }`}
                     style={{ backgroundImage: `url(${api.getImageUrl(prod.image)})` }}
                   />
 
@@ -479,7 +489,7 @@ export default function Home() {
       </section>
 
       {/* News Highlight Section (Trung tâm tin tức) */}
-      <section 
+      <section
         className="relative py-20 bg-[#f4f6f8] border-t border-gray-150 overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/news_dna_horizontal.png')" }}
       >
@@ -514,7 +524,7 @@ export default function Home() {
                   <div className="space-y-3">
                     <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-colors duration-300">
                       <Calendar className="h-4 w-4 text-brand-green group-hover:text-white/95 transition-colors duration-300 shrink-0" />
-                      <span className="text-gray-600 group-hover:text-white/95">{art.date}</span>
+                      <span className="text-gray-600 group-hover:text-white/95">{formatDate(art.date)}</span>
                       <span className="text-gray-300 group-hover:text-white/60">&nbsp;•&nbsp;</span>
                       <span className="text-brand-green group-hover:text-white/95">{art.category}</span>
                     </div>

@@ -55,7 +55,7 @@
               <!-- Title VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề Banner (VI) *</label>
-                <a-input v-model:value="form.title.vi" placeholder="Ví dụ: Nguyên liệu Thực phẩm chất lượng cao" required size="large" />
+                <a-input v-model:value="form.title.vi" placeholder="Ví dụ: Nguyên liệu Thực phẩm chất lượng cao" size="large" />
                 <p v-if="form.errors['title.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.vi'] }}</p>
               </div>
             </div>
@@ -67,7 +67,7 @@
               <!-- Title EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề Banner (EN) *</label>
-                <a-input v-model:value="form.title.en" placeholder="Ví dụ: Premium Food Ingredients" required size="large" />
+                <a-input v-model:value="form.title.en" placeholder="Ví dụ: Premium Food Ingredients" size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
             </div>

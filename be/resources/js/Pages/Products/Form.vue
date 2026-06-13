@@ -25,14 +25,14 @@
                 <!-- Name VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Tên sản phẩm (VI) *</label>
-                  <a-input v-model:value="form.name.vi" placeholder="Ví dụ: Bột Beta-carotene" required size="large" />
+                  <a-input v-model:value="form.name.vi" placeholder="Ví dụ: Bột Beta-carotene" size="large" />
                   <p v-if="form.errors['name.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['name.vi'] }}</p>
                 </div>
 
                 <!-- Category VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (VI) *</label>
-                  <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Chất tạo màu thực phẩm" required size="large" />
+                  <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Chất tạo màu thực phẩm" size="large" />
                   <p v-if="form.errors['category.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.vi'] }}</p>
                 </div>
               </div>
@@ -40,14 +40,14 @@
               <!-- Packaging VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Quy cách đóng gói (VI) *</label>
-                <a-input v-model:value="form.packaging.vi" placeholder="Ví dụ: Thùng 20kg hoặc đóng gói theo yêu cầu" required size="large" />
+                <a-input v-model:value="form.packaging.vi" placeholder="Ví dụ: Thùng 20kg hoặc đóng gói theo yêu cầu" size="large" />
                 <p v-if="form.errors['packaging.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['packaging.vi'] }}</p>
               </div>
 
               <!-- Description VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả sản phẩm (VI) *</label>
-                <a-textarea v-model:value="form.desc.vi" placeholder="Nhập mô tả sản phẩm..." :rows="4" required size="large" />
+                <a-textarea v-model:value="form.desc.vi" placeholder="Nhập mô tả sản phẩm..." :rows="4" size="large" />
                 <p v-if="form.errors['desc.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['desc.vi'] }}</p>
               </div>
 
@@ -94,14 +94,14 @@
                 <!-- Name EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Tên sản phẩm (EN) *</label>
-                  <a-input v-model:value="form.name.en" placeholder="Ví dụ: Beta-carotene Powder" required size="large" />
+                  <a-input v-model:value="form.name.en" placeholder="Ví dụ: Beta-carotene Powder" size="large" />
                   <p v-if="form.errors['name.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['name.en'] }}</p>
                 </div>
 
                 <!-- Category EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (EN) *</label>
-                  <a-input v-model:value="form.category.en" placeholder="Ví dụ: Food Coloring" required size="large" />
+                  <a-input v-model:value="form.category.en" placeholder="Ví dụ: Food Coloring" size="large" />
                   <p v-if="form.errors['category.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.en'] }}</p>
                 </div>
               </div>
@@ -109,14 +109,14 @@
               <!-- Packaging EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Quy cách đóng gói (EN) *</label>
-                <a-input v-model:value="form.packaging.en" placeholder="Ví dụ: 20kg drum or custom packaging" required size="large" />
+                <a-input v-model:value="form.packaging.en" placeholder="Ví dụ: 20kg drum or custom packaging" size="large" />
                 <p v-if="form.errors['packaging.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['packaging.en'] }}</p>
               </div>
 
               <!-- Description EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả sản phẩm (EN) *</label>
-                <a-textarea v-model:value="form.desc.en" placeholder="Nhập mô tả sản phẩm bằng tiếng Anh..." :rows="4" required size="large" />
+                <a-textarea v-model:value="form.desc.en" placeholder="Nhập mô tả sản phẩm bằng tiếng Anh..." :rows="4" size="large" />
                 <p v-if="form.errors['desc.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['desc.en'] }}</p>
               </div>
 

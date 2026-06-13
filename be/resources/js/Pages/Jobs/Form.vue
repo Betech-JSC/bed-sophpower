@@ -7,7 +7,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Hạn nộp hồ sơ *</label>
-            <a-input v-model:value="form.deadline" type="date" required size="large" />
+            <a-input v-model:value="form.deadline" type="date" size="large" />
             <p v-if="form.errors.deadline" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.deadline }}</p>
           </div>
         </div>
@@ -20,7 +20,7 @@
               <!-- Title VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Chức danh / Vị trí tuyển dụng (VI) *</label>
-                <a-input v-model:value="form.title.vi" placeholder="Ví dụ: Nhân viên kinh doanh B2B" required size="large" />
+                <a-input v-model:value="form.title.vi" placeholder="Ví dụ: Nhân viên kinh doanh B2B" size="large" />
                 <p v-if="form.errors['title.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['title.vi'] }}</p>
               </div>
 
@@ -28,21 +28,21 @@
                 <!-- Department VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Bộ phận tuyển dụng (VI) *</label>
-                  <a-input v-model:value="form.department.vi" placeholder="Ví dụ: Phòng Kinh Doanh" required size="large" />
+                  <a-input v-model:value="form.department.vi" placeholder="Ví dụ: Phòng Kinh Doanh" size="large" />
                   <p v-if="form.errors['department.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['department.vi'] }}</p>
                 </div>
 
                 <!-- Location VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Địa điểm làm việc (VI) *</label>
-                  <a-input v-model:value="form.location.vi" placeholder="Ví dụ: TP. Hồ Chí Minh" required size="large" />
+                  <a-input v-model:value="form.location.vi" placeholder="Ví dụ: TP. Hồ Chí Minh" size="large" />
                   <p v-if="form.errors['location.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['location.vi'] }}</p>
                 </div>
 
                 <!-- Salary VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Mức lương (VI) *</label>
-                  <a-input v-model:value="form.salary.vi" placeholder="Ví dụ: Thỏa thuận" required size="large" />
+                  <a-input v-model:value="form.salary.vi" placeholder="Ví dụ: Thỏa thuận" size="large" />
                   <p v-if="form.errors['salary.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['salary.vi'] }}</p>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <!-- Summary VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt công việc (VI) *</label>
-                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt công việc bằng tiếng Việt..." :rows="3" required size="large" />
+                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt công việc bằng tiếng Việt..." :rows="3" size="large" />
                 <p v-if="form.errors['summary.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.vi'] }}</p>
               </div>
 
@@ -110,7 +110,7 @@
               <!-- Title EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Chức danh / Vị trí tuyển dụng (EN) *</label>
-                <a-input v-model:value="form.title.en" placeholder="Ví dụ: B2B Sales Executive" required size="large" />
+                <a-input v-model:value="form.title.en" placeholder="Ví dụ: B2B Sales Executive" size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
 
@@ -118,21 +118,21 @@
                 <!-- Department EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Bộ phận tuyển dụng (EN) *</label>
-                  <a-input v-model:value="form.department.en" placeholder="Ví dụ: Sales Department" required size="large" />
+                  <a-input v-model:value="form.department.en" placeholder="Ví dụ: Sales Department" size="large" />
                   <p v-if="form.errors['department.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['department.en'] }}</p>
                 </div>
 
                 <!-- Location EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Địa điểm làm việc (EN) *</label>
-                  <a-input v-model:value="form.location.en" placeholder="Ví dụ: Ho Chi Minh City" required size="large" />
+                  <a-input v-model:value="form.location.en" placeholder="Ví dụ: Ho Chi Minh City" size="large" />
                   <p v-if="form.errors['location.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['location.en'] }}</p>
                 </div>
 
                 <!-- Salary EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Mức lương (EN) *</label>
-                  <a-input v-model:value="form.salary.en" placeholder="Ví dụ: Negotiable" required size="large" />
+                  <a-input v-model:value="form.salary.en" placeholder="Ví dụ: Negotiable" size="large" />
                   <p v-if="form.errors['salary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['salary.en'] }}</p>
                 </div>
               </div>
@@ -140,7 +140,7 @@
               <!-- Summary EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt công việc (EN) *</label>
-                <a-textarea v-model:value="form.summary.en" placeholder="Enter short job summary in English..." :rows="3" required size="large" />
+                <a-textarea v-model:value="form.summary.en" placeholder="Enter short job summary in English..." :rows="3" size="large" />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
 

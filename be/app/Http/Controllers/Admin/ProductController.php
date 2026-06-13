@@ -48,13 +48,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
-            'name.en' => ['required', 'string', 'max:255'],
+            'name.en' => ['nullable', 'string', 'max:255'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'desc' => ['required', 'array'],
             'desc.vi' => ['required', 'string'],
-            'desc.en' => ['required', 'string'],
+            'desc.en' => ['nullable', 'string'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'specs' => ['nullable', 'array'],
@@ -65,9 +65,22 @@ class ProductController extends Controller
             'applications.en' => ['nullable', 'array'],
             'packaging' => ['required', 'array'],
             'packaging.vi' => ['required', 'string'],
-            'packaging.en' => ['required', 'string'],
+            'packaging.en' => ['nullable', 'string'],
             'type' => ['required', 'in:food,cosmetic'],
         ]);
+
+        if (empty($validated['name']['en'])) {
+            $validated['name']['en'] = $validated['name']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
+        if (empty($validated['desc']['en'])) {
+            $validated['desc']['en'] = $validated['desc']['vi'];
+        }
+        if (empty($validated['packaging']['en'])) {
+            $validated['packaging']['en'] = $validated['packaging']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('products', 'public');
@@ -94,13 +107,13 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
-            'name.en' => ['required', 'string', 'max:255'],
+            'name.en' => ['nullable', 'string', 'max:255'],
             'category' => ['required', 'array'],
             'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['required', 'string', 'max:255'],
+            'category.en' => ['nullable', 'string', 'max:255'],
             'desc' => ['required', 'array'],
             'desc.vi' => ['required', 'string'],
-            'desc.en' => ['required', 'string'],
+            'desc.en' => ['nullable', 'string'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'specs' => ['nullable', 'array'],
@@ -111,9 +124,22 @@ class ProductController extends Controller
             'applications.en' => ['nullable', 'array'],
             'packaging' => ['required', 'array'],
             'packaging.vi' => ['required', 'string'],
-            'packaging.en' => ['required', 'string'],
+            'packaging.en' => ['nullable', 'string'],
             'type' => ['required', 'in:food,cosmetic'],
         ]);
+
+        if (empty($validated['name']['en'])) {
+            $validated['name']['en'] = $validated['name']['vi'];
+        }
+        if (empty($validated['category']['en'])) {
+            $validated['category']['en'] = $validated['category']['vi'];
+        }
+        if (empty($validated['desc']['en'])) {
+            $validated['desc']['en'] = $validated['desc']['vi'];
+        }
+        if (empty($validated['packaging']['en'])) {
+            $validated['packaging']['en'] = $validated['packaging']['vi'];
+        }
 
         if ($request->hasFile('image_file')) {
             // Delete old image if it's in storage

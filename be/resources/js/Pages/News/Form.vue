@@ -8,14 +8,14 @@
           <!-- Author -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Tác giả *</label>
-            <a-input v-model:value="form.author" placeholder="Ví dụ: Sophpower R&D" required size="large" />
+            <a-input v-model:value="form.author" placeholder="Ví dụ: Sophpower R&D" size="large" />
             <p v-if="form.errors.author" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.author }}</p>
           </div>
 
           <!-- Date -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Ngày xuất bản *</label>
-            <a-input v-model:value="form.date" type="date" required size="large" />
+            <a-input v-model:value="form.date" type="date" size="large" />
             <p v-if="form.errors.date" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.date }}</p>
           </div>
         </div>
@@ -28,28 +28,28 @@
               <!-- Title VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề bài viết (VI) *</label>
-                <a-input v-model:value="form.title.vi" placeholder="Nhập tiêu đề tin tức bằng tiếng Việt..." required size="large" />
+                <a-input v-model:value="form.title.vi" placeholder="Nhập tiêu đề tin tức bằng tiếng Việt..." size="large" />
                 <p v-if="form.errors['title.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.vi'] }}</p>
               </div>
 
               <!-- Category VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (VI) *</label>
-                <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Nguyên liệu mỹ phẩm" required size="large" />
+                <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Nguyên liệu mỹ phẩm" size="large" />
                 <p v-if="form.errors['category.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.vi'] }}</p>
               </div>
 
               <!-- Summary VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt ngắn (VI) *</label>
-                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt bài viết bằng tiếng Việt..." :rows="3" required size="large" />
+                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt bài viết bằng tiếng Việt..." :rows="3" size="large" />
                 <p v-if="form.errors['summary.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.vi'] }}</p>
               </div>
 
               <!-- Content VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung chi tiết (VI) *</label>
-                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung bài viết bằng tiếng Việt..." :rows="8" required size="large" />
+                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung bài viết bằng tiếng Việt..." :rows="8" size="large" />
                 <p v-if="form.errors['content.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['content.vi'] }}</p>
               </div>
             </div>
@@ -61,28 +61,28 @@
               <!-- Title EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề bài viết (EN) *</label>
-                <a-input v-model:value="form.title.en" placeholder="Enter news title in English..." required size="large" />
+                <a-input v-model:value="form.title.en" placeholder="Enter news title in English..." size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
 
               <!-- Category EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (EN) *</label>
-                <a-input v-model:value="form.category.en" placeholder="Ví dụ: Cosmetic Ingredients" required size="large" />
+                <a-input v-model:value="form.category.en" placeholder="Ví dụ: Cosmetic Ingredients" size="large" />
                 <p v-if="form.errors['category.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.en'] }}</p>
               </div>
 
               <!-- Summary EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt ngắn (EN) *</label>
-                <a-textarea v-model:value="form.summary.en" placeholder="Enter short summary in English..." :rows="3" required size="large" />
+                <a-textarea v-model:value="form.summary.en" placeholder="Enter short summary in English..." :rows="3" size="large" />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
 
               <!-- Content EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung chi tiết (EN) *</label>
-                <a-textarea v-model:value="form.content.en" placeholder="Enter detailed content in English..." :rows="8" required size="large" />
+                <a-textarea v-model:value="form.content.en" placeholder="Enter detailed content in English..." :rows="8" size="large" />
                 <p v-if="form.errors['content.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['content.en'] }}</p>
               </div>
             </div>

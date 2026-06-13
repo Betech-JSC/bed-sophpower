@@ -12,8 +12,8 @@ import { useI18n } from '@/i18n/provider';
 import type { Locale } from '@/i18n/locale-store';
 
 const LOCALES = [
-    { value: 'en', label: 'English', flag: '/flags/gb.svg' },
     { value: 'vi', label: 'Tiếng Việt', flag: '/flags/vn.svg' },
+    { value: 'en', label: 'English', flag: '/flags/gb.svg' },
 ] as const;
 
 export default function LanguageToggle() {
