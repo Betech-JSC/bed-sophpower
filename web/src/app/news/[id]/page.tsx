@@ -73,9 +73,9 @@ export default async function NewsDetail({
 
         {/* Feature Image */}
         {article.image && (
-          <div className="rounded-2xl overflow-hidden bg-gray-50 border border-gray-150">
+          <div className="rounded-2xl overflow-hidden bg-gray-55 border border-gray-150">
             <img
-              src={article.image}
+              src={api.getImageUrl(article.image)}
               alt={getVal(article.title, locale)}
               className="w-full h-auto object-cover max-h-[450px]"
             />
