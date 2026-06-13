@@ -3,22 +3,27 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-react";
+import { useI18n } from "@/i18n/provider";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 export default function Footer() {
+  const { locale } = useI18n();
+  const t = siteDictionaries[locale];
+
   const categories = {
     ingredients: {
-      title: "SẢN PHẨM",
+      title: t.footer.products.toUpperCase(),
       links: [
-        { name: "Nguyên liệu Thực phẩm", path: "/list_2" },
-        { name: "Nguyên liệu Mỹ phẩm", path: "/list_3" },
+        { name: t.footer.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
+        { name: t.footer.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
       ],
     },
     company: {
       title: "SOPHPOWER",
       links: [
-        { name: "Về chúng tôi", path: "/about" },
-        { name: "Tin tức & Sự kiện", path: "/news" },
-        { name: "Cơ hội nghề nghiệp", path: "/recruitment" },
+        { name: t.footer.aboutUs, path: "/about" },
+        { name: t.footer.newsEvents, path: "/news" },
+        { name: t.footer.careers, path: "/recruitment" },
       ],
     },
   };
@@ -31,15 +36,15 @@ export default function Footer() {
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#106d38] to-[#0a4f27] border border-emerald-500/20 px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 shadow-xl mb-12 w-full">
           {/* Subtle background pattern overlay inside the card */}
           <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
-
+ 
           {/* Card Content */}
           <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12">
             <div className="text-center lg:text-left space-y-2 max-w-2xl">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-wide leading-tight">
-                Hãy liên hệ với chúng tôi!
+                {t.footer.contactTitle}
               </h3>
               <p className="text-sm sm:text-base text-emerald-100/90 font-medium leading-relaxed">
-                Chúng tôi sẽ mang đến giải pháp phù hợp nhất cho bạn!
+                {t.footer.contactSub}
               </p>
             </div>
 
@@ -47,7 +52,7 @@ export default function Footer() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Cảm ơn bạn! Chúng tôi đã nhận được email và sẽ liên hệ tư vấn trong thời gian sớm nhất.");
+                alert(t.footer.emailSuccess);
                 (e.target as HTMLFormElement).reset();
               }}
               className="w-full sm:w-auto min-w-[280px] sm:min-w-[360px]"
@@ -56,7 +61,7 @@ export default function Footer() {
                 <input
                   type="email"
                   required
-                  placeholder="Nhập email của bạn..."
+                  placeholder={t.footer.emailPlaceholder}
                   className="bg-transparent border-0 outline-none text-xs sm:text-sm text-white placeholder-emerald-200/50 flex-1 min-w-0"
                 />
                 <button
@@ -94,7 +99,7 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2.5">
                 {categories.ingredients.links.map((link) => (
-                  <li key={link.name}>
+                  <li key={link.path}>
                     <Link
                       href={link.path}
                       className="text-sm text-gray-300 hover:text-white transition-colors font-medium"
@@ -113,7 +118,7 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2.5">
                 {categories.company.links.map((link) => (
-                  <li key={link.name}>
+                  <li key={link.path}>
                     <Link
                       href={link.path}
                       className="text-sm text-gray-300 hover:text-white transition-colors font-medium"
@@ -168,7 +173,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"
               >
-                <span>LIÊN HỆ ZALO</span>
+                <span>{t.footer.contactZalo}</span>
                 <span className="bg-[#106d38] text-white p-1 rounded-full shrink-0">
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
@@ -177,7 +182,7 @@ export default function Footer() {
                 href="tel:0969700520"
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"
               >
-                <span>HOTLINE: 0969 700 520</span>
+                <span>{t.footer.hotline}</span>
                 <span className="bg-[#106d38] text-white p-1 rounded-full shrink-0">
                   <Phone className="w-3.5 h-3.5" />
                 </span>
@@ -191,17 +196,16 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mt-12 text-xs text-gray-400 leading-relaxed">
           <div className="space-y-3 max-w-2xl">
             <p className="font-semibold text-gray-300">
-              © {new Date().getFullYear()} Sophpower Vietnam. Bảo lưu mọi quyền.
+              © {new Date().getFullYear()} {t.footer.copyright}
             </p>
             <p className="text-justify text-gray-400">
-              Sophpower là đối tác cung ứng nguyên liệu công nghiệp & hóa chất đa quốc gia uy tín. Chúng tôi cam kết cung cấp nguồn nguyên liệu chất lượng cao tuân thủ các quy trình kiểm định nghiêm ngặt theo tiêu chuẩn quốc tế như ISO, HACCP, HALAL, Kosher và FDA.
+              {t.footer.description}
             </p>
           </div>
           
           <div className="space-y-1.5 md:text-right text-gray-400 shrink-0">
             <p className="font-medium text-gray-300">Email: vnsp4@sophpower.com</p>
-            <p>Địa chỉ: No. 37, 19E Street, An Lac Ward, Binh Tan District,</p>
-            <p>Ho Chi Minh City, Vietnam</p>
+            <p>{t.footer.address}</p>
           </div>
         </div>
 

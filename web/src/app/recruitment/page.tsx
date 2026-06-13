@@ -1,38 +1,28 @@
 import React from "react";
 import Link from "next/link";
 import { Briefcase, MapPin, Calendar, DollarSign, ArrowRight } from "lucide-react";
+import { api } from "@/lib/api";
+import { getLocaleServer } from "@/lib/get-locale-server";
+import { getVal } from "@/lib/i18n-utils";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
-interface Job {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-  salary: string;
-  deadline: string;
-  summary: string;
-}
+export default async function Recruitment() {
+  const locale = await getLocaleServer();
+  const t = siteDictionaries[locale];
 
-export default function Recruitment() {
-  const jobs: Job[] = [
-    {
-      id: "sales-chemical",
-      title: "Nhân Viên Kinh Doanh - Mảng Nguyên Liệu Mỹ Phẩm & Thực Phẩm",
-      department: "Phòng Kinh Doanh (Sales)",
-      location: "TP. Hồ Chí Minh",
-      salary: "Thỏa thuận (Lương cứng + Hoa hồng)",
-      deadline: "2026-07-15",
-      summary: "Tìm kiếm đối tác khách hàng, phân phối các dòng nguyên liệu chất tạo màu, vitamin B3, B5, hương liệu nhập khẩu cho các cơ sở sản xuất chế biến thực phẩm và nhà máy gia công mỹ phẩm.",
-    },
-    {
-      id: "rd-specialist",
-      title: "Chuyên Viên Nghiên Cứu Phát Triển Sản Phẩm (R&D)",
-      department: "Phòng R&D",
-      location: "TP. Hồ Chí Minh",
-      salary: "Cạnh tranh",
-      deadline: "2026-07-30",
-      summary: "Hỗ trợ kỹ thuật ứng dụng nguyên liệu khó tan, nhũ tương và chất ổn định làm dày cho hệ đồ uống và thực phẩm của các đối tác sản xuất.",
-    },
-  ];
+  const jobs = await api.getJobs().catch((err) => {
+    console.error("Failed to fetch recruitment jobs:", err);
+    return [];
+  });
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -44,7 +34,7 @@ export default function Recruitment() {
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
-            RECRUITMENT
+            {t.recruitment.title}
           </h1>
         </div>
       </section>
@@ -54,63 +44,70 @@ export default function Recruitment() {
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="text-center space-y-3 mb-12">
             <h2 className="text-2xl font-bold text-gray-900 tracking-tight uppercase">
-              CƠ HỘI NGHỀ NGHIỆP
+              {t.recruitment.mainHeading}
             </h2>
             <div className="h-0.5 w-16 bg-brand-green mx-auto" />
             <p className="text-gray-500 max-w-2xl mx-auto text-sm">
-              Gia nhập đội ngũ Sophpower Việt Nam để cùng phát triển chuỗi cung ứng nguyên liệu công nghiệp & hóa chất hàng đầu.
+              {t.recruitment.subtitle}
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-6">
-            {jobs.map((job) => (
-              <Link
-                key={job.id}
-                href={`/recruitment/${job.id}`}
-                className="group block rounded-2xl bg-white border border-gray-150 p-6 sm:p-8 hover:shadow-lg transition-all duration-300 space-y-4"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                  <div className="space-y-1">
-                    <span className="text-xs font-bold text-brand-green uppercase tracking-wide">
-                      {job.department}
+          {jobs.length === 0 ? (
+            <div className="text-center py-12 text-gray-500">
+              {t.recruitment.empty}
+            </div>
+          ) : (
+            <div className="max-w-4xl mx-auto space-y-6">
+              {jobs.map((job) => (
+                <Link
+                  key={job.id}
+                  href={`/recruitment/${job.id}`}
+                  className="group block rounded-2xl bg-white border border-gray-150 p-6 sm:p-8 hover:shadow-lg transition-all duration-300 space-y-4"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                    <div className="space-y-1">
+                      <span className="text-xs font-bold text-brand-green uppercase tracking-wide">
+                        {getVal(job.department, locale)}
+                      </span>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">
+                        {getVal(job.title, locale)}
+                      </h3>
+                    </div>
+                    <span
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors shrink-0"
+                    >
+                      {t.recruitment.details}
+                      <ArrowRight className="h-4 w-4" />
                     </span>
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">
-                      {job.title}
-                    </h3>
                   </div>
-                  <span
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors shrink-0"
-                  >
-                    CHI TIẾT
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </div>
 
-                <p className="text-gray-500 text-sm leading-relaxed">{job.summary}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{getVal(job.summary, locale)}</p>
 
-                <div className="pt-4 border-t border-gray-100 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-gray-500 font-medium">
-                  <span className="flex items-center gap-1.5">
-                    <MapPin className="h-4 w-4 text-brand-green" />
-                    {job.location}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <DollarSign className="h-4 w-4 text-brand-green" />
-                    {job.salary}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Briefcase className="h-4 w-4 text-brand-green" />
-                    Full-time
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Calendar className="h-4 w-4 text-brand-green" />
-                    Hạn: {job.deadline}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  <div className="pt-4 border-t border-gray-100 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-gray-500 font-medium">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="h-4.5 w-4.5 text-brand-green shrink-0" />
+                      {getVal(job.location, locale)}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <DollarSign className="h-4.5 w-4.5 text-brand-green shrink-0" />
+                      {getVal(job.salary, locale)}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Briefcase className="h-4.5 w-4.5 text-brand-green shrink-0" />
+                      {t.recruitment.type}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="h-4.5 w-4.5 text-brand-green shrink-0" />
+                      {t.recruitment.deadline} {formatDate(job.deadline)}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
   );
 }
+

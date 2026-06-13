@@ -3,7 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight, Calendar } from "lucide-react";
-
+import { api } from "@/lib/api";
+import { useI18n } from "@/i18n/provider";
+import { getVal } from "@/lib/i18n-utils";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 interface Product {
   id: string;
@@ -15,9 +18,11 @@ interface Product {
 }
 
 export default function Home() {
+  const { locale } = useI18n();
+  const t = siteDictionaries[locale];
+
   const [activeBanner, setActiveBanner] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const [activeCosmeticTab, setActiveCosmeticTab] = useState(0);
   const cosmeticCarouselRef = useRef<HTMLDivElement>(null);
 
   const scrollCosmetic = (direction: "left" | "right") => {
@@ -31,20 +36,20 @@ export default function Home() {
     }
   };
 
-  const banners = [
+  const [banners, setBanners] = useState<{ image: string; title: string; desc: string }[]>([
     {
       image: "/images/banner1.jpg",
       title: "Sophpower Vietnam",
-      desc: "Nguồn cung cấp nguyên liệu thực phẩm và mỹ phẩm chất lượng hàng đầu.",
+      desc: t.home.banner1Desc,
     },
     {
       image: "/images/banner2.jpg",
-      title: "Giải pháp tối ưu",
-      desc: "Đồng hành và hỗ trợ sự phát triển bền vững của doanh nghiệp bạn.",
+      title: t.home.banner2Title,
+      desc: t.home.banner2Desc,
     },
-  ];
+  ]);
 
-  const foodProducts: Product[] = [
+  const [foodProducts, setFoodProducts] = useState<Product[]>([
     {
       id: "16",
       name: "Bột Beta-carotene",
@@ -109,82 +114,39 @@ export default function Home() {
       image: "/images/products/juice-stabilizer.jpg",
       category: "food",
     },
-  ];
+  ]);
 
-  const cosmeticProducts: Product[] = [
-    {
-      id: "3",
-      name: "Niacinamide (Vitamin B3)",
-      desc: "Niacinamide là một dạng Vitamin B3 tan trong nước, được biết đến rộng rãi với khả năng cải thiện tình trạng da toàn diện và củng cố hàng rào bảo vệ da.",
-      number: "01",
-      image: "/images/products/niacinamide.jpg",
-      category: "cosmetic",
-    },
-    {
-      id: "4",
-      name: "Panthenol",
-      desc: "Panthenol là tiền chất của Vitamin B5, nổi tiếng với các đặc tính dưỡng ẩm, làm dịu, hỗ trợ phục hồi làn da bị tổn thương đồng thời mang lại độ đàn hồi mịn màng.",
-      number: "02",
-      image: "/images/products/panthenol.jpg",
-      category: "cosmetic",
-    },
-    {
-      id: "5",
-      name: "Tranexamic Acid",
-      desc: "Tranexamic Acid là một hoạt chất được ứng dụng rộng rãi trong các sản phẩm làm sáng da, mờ thâm nám và cải thiện các vùng da không đều màu.",
-      number: "03",
-      image: "/images/products/tranexamic-acid.jpg",
-      category: "cosmetic",
-    },
-    {
-      id: "6",
-      name: "Proxylane",
-      desc: "Proxylane là một hoạt chất đa năng có khả năng chống lão hóa hiệu quả cao, kích thích tổng hợp collagen, tăng mật độ và độ đàn hồi cho da.",
-      number: "04",
-      image: "/images/products/proxylane.jpg",
-      category: "cosmetic",
-    },
-    {
-      id: "7",
-      name: "Ectoin",
-      desc: "Ectoin là một dẫn xuất axit amin tự nhiên mạnh mẽ, giúp bảo vệ và ổn định các tế bào da trước các tác nhân gây hại từ môi trường bên ngoài.",
-      number: "05",
-      image: "/images/products/ectoin.jpg",
-      category: "cosmetic",
-    },
-    {
-      id: "8",
-      name: "Rosa Damascena Flower Water",
-      desc: "Nước hoa hồng Damask chưng cất tự nhiên, giàu hoạt chất hỗ trợ cấp ẩm sâu, chống oxy hóa và nuôi dưỡng làn da tươi sáng rạng ngời.",
-      number: "06",
-      image: "/images/products/rosa-water.jpg",
-      category: "cosmetic",
-    },
-  ];
-
-  const homeArticles = [
+  const mockArticles = [
     {
       id: "1",
-      title: "Xu Hướng Mỹ Phẩm Thiên Nhiên 2026 – Vì Sao Rosa Damascena Flower Water Được Ưa Chuộng Trong Các Dòng Skincare Hiện Đại?",
+      title: locale === 'vi' 
+        ? "Xu Hướng Mỹ Phẩm Thiên Nhiên 2026 – Vì Sao Rosa Damascena Flower Water Được Ưa Chuộng Trong Các Dòng Skincare Hiện Đại?" 
+        : "Natural Cosmetics Trend 2026 – Why Rosa Damascena Flower Water Is Favored in Modern Skincare?",
       date: "2026.06.08",
       image: "/images/news/news1.png",
-      category: "Nguyên liệu mỹ phẩm",
+      category: locale === 'vi' ? "Nguyên liệu mỹ phẩm" : "Cosmetic ingredient",
     },
     {
       id: "2",
-      title: "Vì Sao Tranexamic Acid Được Nhiều Thương Hiệu Skincare Ứng Dụng Trong Mỹ Phẩm Hiện Đại?",
+      title: locale === 'vi' 
+        ? "Vì Sao Tranexamic Acid Được Nhiều Thương Hiệu Skincare Ứng Dụng Trong Mỹ Phẩm Hiện Đại?" 
+        : "Why Is Tranexamic Acid Widely Used by Skincare Brands in Modern Cosmetics?",
       date: "2026.06.07",
       image: "/images/products/tranexamic-acid.jpg",
-      category: "Nguyên liệu mỹ phẩm",
+      category: locale === 'vi' ? "Nguyên liệu mỹ phẩm" : "Cosmetic ingredient",
     },
     {
       id: "3",
-      title: "Thị Trường Mỹ Phẩm Việt Nam Đang Thay Đổi Theo Xu Hướng Nào?",
+      title: locale === 'vi' 
+        ? "Thị Trường Mỹ Phẩm Việt Nam Đang Thay Đổi Theo Xu Hướng Nào?" 
+        : "Which Trends Are Shaping the Vietnamese Cosmetics Market?",
       date: "2026.06.05",
       image: "/images/products/niacinamide.jpg",
-      category: "Thị trường",
+      category: locale === 'vi' ? "Thị trường" : "Market",
     },
   ];
+
+  const [homeArticles, setHomeArticles] = useState<any[]>(mockArticles);
 
   // Auto transition banner slider
   useEffect(() => {
@@ -192,7 +154,72 @@ export default function Home() {
       setActiveBanner((prev) => (prev + 1) % banners.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [banners.length]);
+
+  // Fetch products, news and banners dynamically from Laravel API on mount
+  useEffect(() => {
+    api.getBanners().then((data) => {
+      const mapped = data.map((b) => ({
+        image: b.image || '/images/banner1.jpg',
+        title: getVal(b.title, locale),
+        desc: getVal(b.desc, locale),
+      }));
+      if (mapped.length > 0) {
+        setBanners(mapped);
+      }
+    }).catch((err) => {
+      console.error("Failed to load banners dynamically on homepage:", err);
+    });
+
+    api.getProducts().then((data) => {
+      const mapped = data.map((p, idx) => ({
+        id: String(p.id),
+        name: getVal(p.name, locale),
+        desc: getVal(p.desc, locale),
+        number: String(idx + 1).padStart(2, '0'),
+        image: p.image || '/images/placeholder.jpg',
+        category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
+      }));
+
+      const food = mapped.filter((p) => p.category === 'food');
+      if (food.length > 0) {
+        setFoodProducts(food);
+      }
+    }).catch((err) => {
+      console.error("Failed to load products dynamically on homepage:", err);
+    });
+
+    api.getNews().then((data) => {
+      const latest = data.slice(0, 3).map((art) => ({
+        id: String(art.id),
+        title: getVal(art.title, locale),
+        date: art.date || (art.created_at ? new Date(art.created_at).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : '2026.06.08'),
+        image: art.image || '/images/placeholder.jpg',
+        category: getVal(art.category, locale),
+      }));
+      if (latest.length > 0) {
+        setHomeArticles(latest);
+      }
+    }).catch((err) => {
+      console.error("Failed to load news dynamically on homepage:", err);
+    });
+  }, [locale]);
+
+  // Reset activeTab if it goes out of bounds when foodProducts changes
+  useEffect(() => {
+    if (activeTab >= foodProducts.length && foodProducts.length > 0) {
+      setActiveTab(0);
+    }
+  }, [foodProducts, activeTab]);
+
+  const currentProduct = foodProducts[activeTab] || foodProducts[0] || {
+    id: "",
+    name: "",
+    desc: "",
+    number: "",
+    image: "/images/placeholder.jpg",
+    category: "food"
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -210,6 +237,17 @@ export default function Home() {
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${banner.image})` }}
             />
+            {/* Overlay Text */}
+            <div className="absolute inset-0 bg-black/45 z-10 flex items-center">
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full space-y-4">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-wide uppercase leading-tight animate-in fade-in slide-in-from-bottom-5 duration-700">
+                  {banner.title}
+                </h1>
+                <p className="text-lg sm:text-xl text-gray-200 max-w-2xl leading-relaxed animate-in fade-in slide-in-from-bottom-5 duration-700 delay-150">
+                  {banner.desc}
+                </p>
+              </div>
+            </div>
           </div>
         ))}
 
@@ -228,7 +266,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* Food Ingredients Section (Nguyên liệu Thực phẩm) */}
       <section className="bg-white py-20 border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
@@ -236,18 +273,18 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-3xl space-y-3">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight uppercase">
-                NGUYÊN LIỆU THỰC PHẨM
+                {t.home.foodTitle}
               </h2>
               <div className="h-1 w-20 bg-brand-green" />
               <p className="text-gray-600 leading-relaxed">
-                Chúng tôi hợp tác với các nhà cung ứng toàn cầu uy tín để mang đến các giải pháp nguyên liệu thực phẩm, chất tạo màu tự nhiên và chất ổn định an toàn cho các nhà sản xuất tại Việt Nam.
+                {t.home.foodDesc}
               </p>
             </div>
             <Link
-              href="/list_2"
+              href="/nguyen-lieu-thuc-pham"
               className="inline-flex items-center gap-2 text-brand-green font-bold hover:underline"
             >
-              Xem chi tiết
+              {t.home.viewAll}
               <ChevronRight className="h-5 w-5" />
             </Link>
           </div>
@@ -294,7 +331,7 @@ export default function Home() {
                         ? "opacity-100 scale-105"
                         : "opacity-80 group-hover:opacity-100 group-hover:scale-102"
                     }`}
-                    style={{ backgroundImage: `url(${prod.image})` }}
+                    style={{ backgroundImage: `url(${api.getImageUrl(prod.image)})` }}
                   />
 
                   {/* Slanted Green Ribbon Tag */}
@@ -317,35 +354,34 @@ export default function Home() {
 
               <div className="relative z-10 space-y-4 w-full">
                 <h3 className="text-2xl sm:text-3xl font-bold tracking-tight border-b border-white/20 pb-4">
-                  {foodProducts[activeTab].name}
+                  {currentProduct.name}
                 </h3>
                 <p className="text-white/95 text-sm sm:text-base leading-relaxed min-h-[80px]">
-                  {foodProducts[activeTab].desc}
+                  {currentProduct.desc}
                 </p>
               </div>
               <div className="relative z-10 pt-4">
                 <Link
-                  href={`/list_2/${foodProducts[activeTab].id}`}
+                  href={`/nguyen-lieu-thuc-pham/${currentProduct.id}`}
                   className="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-brand-green text-white px-6 py-2.5 text-xs font-extrabold transition-all duration-300 tracking-wider uppercase rounded-lg shadow-sm"
                 >
-                  TÌM HIỂU THÊM
+                  {t.home.learnMore}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
             {/* Right Panel: Large Product Image */}
-            <div className="w-full md:w-[40%] h-64 md:h-auto relative bg-gray-50 shrink-0">
+            <div className="w-full md:w-[40%] h-64 md:h-auto relative bg-gray-55 shrink-0">
               <img
-                src={foodProducts[activeTab].image}
-                alt={foodProducts[activeTab].name}
+                src={api.getImageUrl(currentProduct.image)}
+                alt={currentProduct.name}
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           </div>
         </div>
       </section>
-
 
       {/* About Us Highlights (Về chúng tôi) — sophchem.com style */}
       <section
@@ -365,20 +401,20 @@ export default function Home() {
           {/* Centered heading */}
           <div className="text-center mb-8">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-white uppercase mb-6">
-              VỀ CHÚNG TÔI
+              {t.footer.aboutUs.toUpperCase()}
             </h2>
             <p className="max-w-3xl mx-auto text-white/75 text-sm sm:text-base leading-relaxed">
-              Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.
+              {t.home.aboutDesc}
             </p>
           </div>
 
-          {/* CTA button centered — plain Link, no design-system variant conflicts */}
+          {/* CTA button centered */}
           <div className="flex justify-center mb-14">
             <Link
               href="/about"
               className="inline-flex items-center gap-2 border border-white/60 text-white bg-transparent hover:bg-white hover:text-brand-green px-8 py-2.5 font-bold tracking-widest uppercase text-sm transition-all duration-300 rounded-lg"
             >
-              VỀ CHÚNG TÔI
+              {t.footer.aboutUs.toUpperCase()}
               <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
@@ -391,13 +427,15 @@ export default function Home() {
               {/* Perspective wrapper for 3D flip */}
               <div className="w-24 h-24 shrink-0 [perspective:600px]">
                 <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
-                  <img src="/images/icons/ys1.png" alt="Năng lực chuyên sâu" className="w-24 h-24 object-contain" />
+                  <img src="/images/icons/ys1.png" alt={t.home.value1Title} className="w-24 h-24 object-contain" />
                 </div>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Năng lực chuyên sâu</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">
+                  {t.home.value1Title}
+                </h3>
                 <p className="text-sm text-white/80 leading-relaxed">
-                  Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất quy mô lớn.
+                  {t.home.value1Desc}
                 </p>
               </div>
             </div>
@@ -406,13 +444,15 @@ export default function Home() {
             <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
               <div className="w-24 h-24 shrink-0 [perspective:600px]">
                 <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
-                  <img src="/images/icons/ys2.png" alt="Niềm tin từ thị trường" className="w-24 h-24 object-contain" />
+                  <img src="/images/icons/ys2.png" alt={t.home.value2Title} className="w-24 h-24 object-contain" />
                 </div>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Niềm tin từ thị trường</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">
+                  {t.home.value2Title}
+                </h3>
                 <p className="text-sm text-white/80 leading-relaxed">
-                  Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và chất lượng vượt trội.
+                  {t.home.value2Desc}
                 </p>
               </div>
             </div>
@@ -421,13 +461,15 @@ export default function Home() {
             <div className="bg-[#062013]/80 backdrop-blur-sm p-8 sm:p-10 flex flex-col items-center text-center gap-5 hover:bg-brand-green/30 transition-colors duration-300 group border-t md:border-t-0 border-white/10">
               <div className="w-24 h-24 shrink-0 [perspective:600px]">
                 <div className="w-full h-full flex items-center justify-center transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
-                  <img src="/images/icons/ys3.png" alt="Định hướng đổi mới sáng tạo" className="w-24 h-24 object-contain" />
+                  <img src="/images/icons/ys3.png" alt={t.home.value3Title} className="w-24 h-24 object-contain" />
                 </div>
               </div>
               <div>
-                <h3 className="text-base sm:text-lg font-bold text-white mb-3">Định hướng đổi mới sáng tạo</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-3">
+                  {t.home.value3Title}
+                </h3>
                 <p className="text-sm text-white/80 leading-relaxed">
-                  Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) đã được cấp bằng sáng chế.
+                  {t.home.value3Desc}
                 </p>
               </div>
             </div>
@@ -446,7 +488,7 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="max-w-3xl space-y-3 mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
-              TRUNG TÂM TIN TỨC
+              {t.home.newsCenterTitle}
             </h2>
             <div className="h-1 w-20 bg-brand-green" />
           </div>
@@ -485,7 +527,7 @@ export default function Home() {
                     <span
                       className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-green group-hover:text-white hover:underline uppercase tracking-wider transition-colors duration-300"
                     >
-                      ĐỌC TIẾP
+                      {t.home.readMore}
                       <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
@@ -500,7 +542,7 @@ export default function Home() {
               href="/news"
               className="inline-flex items-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white hover:bg-brand-green-hover transition-colors shadow-md shadow-brand-green/10"
             >
-              XEM THÊM TIN TỨC
+              {t.home.newsMoreBtn}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
