@@ -32,14 +32,33 @@ export async function generateMetadata({
   }
 
   const formattedTitle = name.includes("Sophpower") ? name : `${name} - Sophpower Vietnam`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  let imageUrl = product.image ? api.getImageUrl(product.image) : `${baseUrl}/images/logo.png`;
+  if (imageUrl.startsWith("/")) {
+    imageUrl = `${baseUrl}${imageUrl}`;
+  }
+  const hasCustomImage = !!product.image;
 
   return {
     title: formattedTitle,
     description: description || undefined,
     openGraph: {
+      type: "website",
+      url: `${baseUrl}/nguyen-lieu-my-pham/${id}`,
       title: formattedTitle,
       description: description || undefined,
-      images: product.image ? [api.getImageUrl(product.image)] : [],
+      images: [{
+        url: imageUrl,
+        width: hasCustomImage ? 1200 : 800,
+        height: hasCustomImage ? 630 : 800,
+        alt: name,
+      }],
+    },
+    twitter: {
+      card: hasCustomImage ? "summary_large_image" : "summary",
+      title: formattedTitle,
+      description: description || undefined,
+      images: [imageUrl],
     }
   };
 }

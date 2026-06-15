@@ -136,11 +136,22 @@ export const api = {
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path;
     }
-    if (path.startsWith('/storage/')) {
-      const backendHost = API_BASE_URL.replace(/\/api$/, '');
-      return `${backendHost}${path}`;
+    // If it's a storefront asset, keep it relative
+    if (path.startsWith('/images/') || path.startsWith('images/')) {
+      return path.startsWith('/') ? path : `/${path}`;
     }
-    return path;
+    const backendHost = API_BASE_URL.replace(/\/api$/, '');
+    
+    // Normalize path to start with /storage/ if it doesn't already
+    let normalizedPath = path;
+    if (normalizedPath.startsWith('/storage/')) {
+      // Correct prefix
+    } else if (normalizedPath.startsWith('storage/')) {
+      normalizedPath = '/' + normalizedPath;
+    } else {
+      normalizedPath = '/storage/' + (normalizedPath.startsWith('/') ? normalizedPath.slice(1) : normalizedPath);
+    }
+    return `${backendHost}${normalizedPath}`;
   },
 
   // Products

@@ -31,14 +31,33 @@ export async function generateMetadata({
   }
 
   const formattedTitle = title.includes("Sophpower") ? title : `${title} - Sophpower Vietnam`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  let imageUrl = article.image ? api.getImageUrl(article.image) : `${baseUrl}/images/logo.png`;
+  if (imageUrl.startsWith("/")) {
+    imageUrl = `${baseUrl}${imageUrl}`;
+  }
+  const hasCustomImage = !!article.image;
 
   return {
     title: formattedTitle,
     description: description || undefined,
     openGraph: {
+      type: "article",
+      url: `${baseUrl}/news/${id}`,
       title: formattedTitle,
       description: description || undefined,
-      images: article.image ? [api.getImageUrl(article.image)] : [],
+      images: [{
+        url: imageUrl,
+        width: hasCustomImage ? 1200 : 800,
+        height: hasCustomImage ? 630 : 800,
+        alt: title,
+      }],
+    },
+    twitter: {
+      card: hasCustomImage ? "summary_large_image" : "summary",
+      title: formattedTitle,
+      description: description || undefined,
+      images: [imageUrl],
     }
   };
 }

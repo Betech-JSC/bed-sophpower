@@ -46,6 +46,12 @@ export async function generateMetadata(): Promise<Metadata> {
     ? (settings?.meta_keywords_vi || "phụ gia thực phẩm, nguyên liệu mỹ phẩm, Beta-carotene, Carmine, Niacinamide")
     : (settings?.meta_keywords_en || "food additives, cosmetic ingredients, Beta-carotene, Carmine, Niacinamide");
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  let shareImageUrl = `${baseUrl}/images/logo.png`;
+  if (shareImageUrl.startsWith("/")) {
+    shareImageUrl = `${baseUrl}${shareImageUrl}`;
+  }
+
   return {
     title,
     description,
@@ -53,6 +59,25 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: "/favicon.ico",
     },
+    openGraph: {
+      type: "website",
+      url: baseUrl,
+      title,
+      description,
+      siteName: "Sophpower Vietnam",
+      images: [{
+        url: shareImageUrl,
+        width: 800,
+        height: 800,
+        alt: "Sophpower Vietnam Logo",
+      }],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: [shareImageUrl],
+    }
   };
 }
 

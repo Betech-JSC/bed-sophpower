@@ -31,13 +31,32 @@ export async function generateMetadata({
   }
 
   const formattedTitle = title.includes("Sophpower") ? title : `${title} - Tuyển dụng - Sophpower`;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  let shareImageUrl = `${baseUrl}/images/logo.png`;
+  if (shareImageUrl.startsWith("/")) {
+    shareImageUrl = `${baseUrl}${shareImageUrl}`;
+  }
 
   return {
     title: formattedTitle,
     description: description || undefined,
     openGraph: {
+      type: "website",
+      url: `${baseUrl}/recruitment/${id}`,
       title: formattedTitle,
       description: description || undefined,
+      images: [{
+        url: shareImageUrl,
+        width: 800,
+        height: 800,
+        alt: "Sophpower Logo",
+      }],
+    },
+    twitter: {
+      card: "summary",
+      title: formattedTitle,
+      description: description || undefined,
+      images: [shareImageUrl],
     }
   };
 }
