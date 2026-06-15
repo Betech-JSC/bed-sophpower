@@ -104,6 +104,8 @@ export interface SystemSettings {
   header_scripts?: string;
   footer_scripts?: string;
   seo_robots_txt?: string;
+  site_logo?: string;
+  site_favicon?: string;
 }
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {

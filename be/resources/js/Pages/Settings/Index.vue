@@ -152,6 +152,45 @@
             </div>
           </a-tab-pane>
 
+          <!-- TAB 5: BRANDING / LOGO -->
+          <a-tab-pane key="branding" tab="Thương hiệu & Logo">
+            <div class="space-y-6 mt-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Logo -->
+                <div class="border border-gray-150 p-6 rounded-xl bg-gray-50 flex flex-col items-start justify-center">
+                  <label class="block text-sm font-bold text-gray-700 mb-4 w-full text-left">Logo dự án</label>
+                  <div class="w-full flex items-center gap-6">
+                    <div class="w-24 h-24 rounded-lg bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                      <img v-if="props.settings.site_logo" :src="props.settings.site_logo" alt="Logo" class="max-w-full max-h-full object-contain" />
+                      <span v-else class="text-xs text-gray-400 font-bold">Chưa có Logo</span>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                      <input type="file" @change="onLogoChange" accept="image/*" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer w-full" />
+                      <p class="text-xs text-gray-400">Định dạng hỗ trợ: PNG, JPG, JPEG, SVG. Dung lượng tối đa: 2MB.</p>
+                      <p v-if="form.errors.logo_file" class="text-xs text-red-650 font-semibold">{{ form.errors.logo_file }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Favicon -->
+                <div class="border border-gray-150 p-6 rounded-xl bg-gray-50 flex flex-col items-start justify-center">
+                  <label class="block text-sm font-bold text-gray-700 mb-4 w-full text-left">Favicon dự án</label>
+                  <div class="w-full flex items-center gap-6">
+                    <div class="w-24 h-24 rounded-lg bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                      <img v-if="props.settings.site_favicon" :src="props.settings.site_favicon" alt="Favicon" class="max-w-16 max-h-16 object-contain" />
+                      <span v-else class="text-xs text-gray-450 font-bold">Chưa có Favicon</span>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                      <input type="file" @change="onFaviconChange" accept="image/*,.ico" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer w-full" />
+                      <p class="text-xs text-gray-400">Định dạng hỗ trợ: ICO, PNG, GIF. Kích thước khuyến nghị: 16x16 hoặc 32x32.</p>
+                      <p v-if="form.errors.favicon_file" class="text-xs text-red-650 font-semibold">{{ form.errors.favicon_file }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a-tab-pane>
+
         </a-tabs>
 
         <!-- Form Actions -->
@@ -198,7 +237,18 @@ const form = useForm({
   header_scripts: props.settings.header_scripts || '',
   footer_scripts: props.settings.footer_scripts || '',
   seo_robots_txt: props.settings.seo_robots_txt || '',
+
+  logo_file: null,
+  favicon_file: null,
 });
+
+function onLogoChange(e) {
+  form.logo_file = e.target.files[0];
+}
+
+function onFaviconChange(e) {
+  form.favicon_file = e.target.files[0];
+}
 
 function submit() {
   form.post('/admin/settings');

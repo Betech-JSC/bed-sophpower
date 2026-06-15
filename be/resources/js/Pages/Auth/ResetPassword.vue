@@ -7,10 +7,10 @@
           SP
         </div>
         <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight">
-          Sophpower Vietnam
+          Đặt lại mật khẩu
         </h2>
         <p class="mt-2 text-sm text-gray-500">
-          Đăng nhập vào hệ thống quản trị nội dung (CMS)
+          Nhập mật khẩu mới cho tài khoản của bạn.
         </p>
       </div>
 
@@ -31,6 +31,8 @@
       </div>
 
       <form class="mt-8 space-y-6" @submit.prevent="submit">
+        <input type="hidden" v-model="form.token" />
+
         <div class="space-y-4">
           <!-- Email Field -->
           <div>
@@ -40,15 +42,15 @@
               v-model="form.email"
               type="email"
               required
-              class="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-400"
-              placeholder="admin@sophpower.com"
+              readonly
+              class="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm bg-gray-100 text-gray-500 cursor-not-allowed"
             />
             <p v-if="form.errors.email" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.email }}</p>
           </div>
 
-          <!-- Password Field -->
+          <!-- New Password Field -->
           <div>
-            <label for="password" class="block text-sm font-bold text-gray-700 mb-1">Mật khẩu</label>
+            <label for="password" class="block text-sm font-bold text-gray-700 mb-1">Mật khẩu mới</label>
             <input
               id="password"
               v-model="form.password"
@@ -59,40 +61,40 @@
             />
             <p v-if="form.errors.password" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.password }}</p>
           </div>
-        </div>
 
-        <div class="flex items-center justify-between text-sm">
-          <div class="flex items-center">
-            <input
-              id="remember"
-              v-model="form.remember"
-              type="checkbox"
-              class="h-4 w-4 text-emerald-700 focus:ring-emerald-500 border-gray-300 rounded cursor-pointer"
-            />
-            <label for="remember" class="ml-2 block text-sm text-gray-600 cursor-pointer">
-              Ghi nhớ đăng nhập
-            </label>
-          </div>
-
+          <!-- Password Confirmation Field -->
           <div>
-            <Link
-              href="/admin/forgot-password"
-              class="font-medium text-emerald-700 hover:text-emerald-800 transition-colors"
-            >
-              Quên mật khẩu?
-            </Link>
+            <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-1">Xác nhận mật khẩu mới</label>
+            <input
+              id="password_confirmation"
+              v-model="form.password_confirmation"
+              type="password"
+              required
+              class="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-450"
+              placeholder="••••••••"
+            />
+            <p v-if="form.errors.password_confirmation" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.password_confirmation }}</p>
           </div>
         </div>
 
-        <div>
+        <div class="space-y-4">
           <button
             type="submit"
             :disabled="form.processing"
             class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-emerald-700 hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors disabled:opacity-50 cursor-pointer"
           >
-            <span v-if="form.processing">Đang xác thực...</span>
-            <span v-else>Đăng nhập</span>
+            <span v-if="form.processing">Đang cập nhật...</span>
+            <span v-else>Xác nhận đặt lại mật khẩu</span>
           </button>
+
+          <div class="text-center">
+            <Link
+              href="/admin/login"
+              class="text-sm font-medium text-emerald-700 hover:text-emerald-800 transition-colors"
+            >
+              Hủy bỏ và quay lại đăng nhập
+            </Link>
+          </div>
         </div>
       </form>
     </div>
@@ -102,16 +104,23 @@
 <script setup>
 import { useForm, usePage, Link } from '@inertiajs/vue3';
 
+const props = defineProps({
+  token: String,
+  email: String,
+});
+
 const page = usePage();
+
 const form = useForm({
-  email: '',
+  token: props.token || '',
+  email: props.email || '',
   password: '',
-  remember: false,
+  password_confirmation: '',
 });
 
 function submit() {
-  form.post('/admin/login', {
-    onFinish: () => form.reset('password'),
+  form.post('/admin/reset-password', {
+    onFinish: () => form.reset('password', 'password_confirmation'),
   });
 }
 </script>

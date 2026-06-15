@@ -95,7 +95,7 @@ export default function Footer() {
           <div className="shrink-0">
             <Link href="/" className="block">
               <img
-                src="/images/f_logo.png"
+                src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
                 alt="Sophpower Logo"
                 className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
               />

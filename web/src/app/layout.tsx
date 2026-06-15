@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
     : (settings?.meta_keywords_en || "food additives, cosmetic ingredients, Beta-carotene, Carmine, Niacinamide");
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let shareImageUrl = `${baseUrl}/images/logo.png`;
+  let shareImageUrl = settings?.site_logo ? api.getImageUrl(settings.site_logo) : `${baseUrl}/images/logo.png`;
   if (shareImageUrl.startsWith("/")) {
     shareImageUrl = `${baseUrl}${shareImageUrl}`;
   }
@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords,
     icons: {
-      icon: "/favicon.ico",
+      icon: settings?.site_favicon ? api.getImageUrl(settings.site_favicon) : "/favicon.ico",
     },
     openGraph: {
       type: "website",

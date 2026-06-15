@@ -18,6 +18,13 @@ export default function Header() {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
 
+  const [settings, setSettings] = useState<any>(null);
+  useEffect(() => {
+    api.getSettings()
+      .then(setSettings)
+      .catch((err) => console.error("Failed to load settings in header:", err));
+  }, []);
+
   const menuItems = [
     { name: t.header.about, path: "/about" },
     { name: t.header.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
@@ -101,7 +108,7 @@ export default function Header() {
             <div className="flex-shrink-0">
               <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
                 <img
-                  src="/images/f_logo.png"
+                  src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
                   alt="Sophpower Logo"
                   className="h-10 w-auto brightness-0 invert"
                 />
