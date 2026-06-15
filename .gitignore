@@ -1,7 +1,28 @@
-# Ignore
-node_modules/
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+.cursor/
+.zed/
+.nova/
+
+# Agent runtime files
+.agents/preview.log
+.agents/preview.pid
 .temp_ag_kit/
 ag-kit-doc
+
+# Scratch / temp files from AI sessions
+web/scratch_step_*.txt
+scratch_step_*.txt
+
+# Dependency directories
+node_modules/
+
+# Excluded directories (project-specific)
 tests
 others
 .claude

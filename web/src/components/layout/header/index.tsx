@@ -5,19 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search } from "lucide-react";
 import LanguageToggle from "./components/language-toggle";
+import { useI18n } from "@/i18n/provider";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { locale } = useI18n();
+  const t = siteDictionaries[locale];
 
   const menuItems = [
-    { name: "GIỚI THIỆU", path: "/about" },
-    { name: "NGUYÊN LIỆU THỰC PHẨM", path: "/list_2" },
-    { name: "NGUYÊN LIỆU MỸ PHẨM", path: "/list_3" },
-    { name: "TIN TỨC", path: "/news" },
-    { name: "LIÊN HỆ", path: "/page_5" },
+    { name: t.header.about, path: "/about" },
+    { name: t.header.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
+    { name: t.header.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
+    { name: t.header.news, path: "/news" },
+    { name: t.header.contact, path: "/page_5" },
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
@@ -50,7 +54,7 @@ export default function Header() {
             <nav className="hidden lg:flex space-x-8">
               {menuItems.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item.path}
                   href={item.path}
                   className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
                     isActive(item.path)
@@ -94,7 +98,7 @@ export default function Header() {
           <div className="lg:hidden border-t border-white/10 bg-brand-green px-4 py-3 space-y-2 shadow-inner">
             {menuItems.map((item) => (
               <Link
-                key={item.name}
+                key={item.path}
                 href={item.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-colors duration-150 ${
@@ -120,12 +124,12 @@ export default function Header() {
             >
               <X className="h-6 w-6" />
             </button>
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Tìm kiếm sản phẩm</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">{t.header.searchTitle}</h3>
             <form action="/search" method="get" className="flex gap-2">
               <input
                 type="text"
                 name="keyword"
-                placeholder="Nhập tên sản phẩm hoặc từ khóa..."
+                placeholder={t.header.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden"
@@ -135,7 +139,7 @@ export default function Header() {
                 type="submit"
                 className="rounded-lg bg-brand-green px-5 py-2 text-sm font-semibold text-white hover:bg-brand-green/90 transition-colors cursor-pointer"
               >
-                Tìm
+                {t.header.searchButton}
               </button>
             </form>
           </div>

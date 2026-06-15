@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { api } from "@/lib/api";
 import {
   LayoutDashboard,
   Users,
@@ -34,7 +35,6 @@ interface Product {
 export default function AdminDashboard() {
   const [activeSubTab, setActiveSubTab] = useState<"overview" | "leads" | "products" | "settings">("overview");
 
-  // Mock Leads
   const [leads, setLeads] = useState<Lead[]>([
     {
       id: "L1",
@@ -54,14 +54,35 @@ export default function AdminDashboard() {
     },
   ]);
 
-  // Mock Products
-  const [products, setProducts] = useState<Product[]>([
-    { id: "16", name: "Bột Beta-carotene", category: "Food Ingredients", type: "Chất tạo màu" },
-    { id: "17", name: "Nhũ tương Beta-carotene", category: "Food Ingredients", type: "Chất tạo màu" },
-    { id: "15", name: "Màu đỏ Carmine (E120)", category: "Food Ingredients", type: "Phụ gia thực phẩm" },
-    { id: "3", name: "Niacinamide (Vitamin B3)", category: "Cosmetic Ingredients", type: "Hoạt chất da liễu" },
-    { id: "4", name: "Panthenol", category: "Cosmetic Ingredients", type: "Phục hồi da" },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [newsCount, setNewsCount] = useState<number>(0);
+  const [jobsCount, setJobsCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    // Fetch live statistics and products from Laravel API
+    Promise.all([
+      api.getProducts().then((data) => {
+        const mapped = data.map((p) => ({
+          id: String(p.id),
+          name: typeof p.name === 'object' ? p.name.vi : p.name,
+          category: p.type === 'food' ? 'Food Ingredients' : 'Cosmetic Ingredients',
+          type: typeof p.category === 'object' ? p.category.vi : p.category,
+        }));
+        setProducts(mapped);
+      }),
+      api.getNews().then((data) => {
+        setNewsCount(data.length);
+      }),
+      api.getJobs().then((data) => {
+        setJobsCount(data.length);
+      })
+    ]).catch((err) => {
+      console.error("Failed to load statistics on admin dashboard:", err);
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, []);
 
   const handleMarkProcessed = (id: string) => {
     setLeads((prev) =>
@@ -167,6 +188,26 @@ export default function AdminDashboard() {
           </div>
         </header>
 
+        {/* Banner warning linking to Laravel CMS */}
+        <div className="mb-8 p-5 rounded-2xl border border-brand-green/20 bg-brand-green/5 text-gray-750 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <span className="inline-block rounded bg-brand-green/10 text-brand-green px-2 py-0.5 text-xs font-bold uppercase">
+              Quản trị CMS Hệ thống
+            </span>
+            <p className="text-sm font-semibold text-gray-900 mt-1">
+              Bạn đang ở giao diện Next.js Admin (Chế độ xem dữ liệu). Để thêm mới, sửa đổi hoặc xóa thông tin thực tế, vui lòng đăng nhập vào cổng quản trị Laravel CMS.
+            </p>
+          </div>
+          <a
+            href="http://localhost:8000/admin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-brand-green hover:bg-brand-green/90 px-4 py-2.5 text-xs font-bold text-white transition-all whitespace-nowrap cursor-pointer shadow-md inline-flex items-center"
+          >
+            Mở cổng Laravel CMS (Port 8000)
+          </a>
+        </div>
+
         {/* Tab 1: Overview */}
         {activeSubTab === "overview" && (
           <div className="space-y-8 animate-in fade-in duration-200">
@@ -194,8 +235,8 @@ export default function AdminDashboard() {
 
               <div className="rounded-2xl bg-white p-6 border border-gray-150 shadow-xs flex items-center justify-between">
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">TRUY CẬP HỆ THỐNG</p>
-                  <p className="text-3xl font-extrabold text-gray-900">4,289</p>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">BÀI VIẾT TIN TỨC</p>
+                  <p className="text-3xl font-extrabold text-gray-900">{newsCount}</p>
                 </div>
                 <div className="rounded-xl bg-amber-500/10 p-3 text-amber-500">
                   <TrendingUp className="h-6 w-6" />
@@ -204,10 +245,10 @@ export default function AdminDashboard() {
 
               <div className="rounded-2xl bg-white p-6 border border-gray-150 shadow-xs flex items-center justify-between">
                 <div className="space-y-1">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">BẢO MẬT HỆ THỐNG</p>
-                  <p className="text-3xl font-extrabold text-gray-900">100%</p>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">TIN TUYỂN DỤNG</p>
+                  <p className="text-3xl font-extrabold text-gray-900">{jobsCount}</p>
                 </div>
-                <div className="rounded-xl bg-emerald-500/10 p-3 text-emerald-500">
+                <div className="rounded-xl bg-indigo-500/10 p-3 text-indigo-500">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
               </div>
