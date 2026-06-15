@@ -8,11 +8,41 @@
           <!-- Type -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Phân loại hệ thống *</label>
-            <a-select v-model:value="form.type" placeholder="Chọn phân loại" class="w-full" size="large">
+            <a-select v-model:value="form.type" placeholder="Chọn phân loại" class="w-full" size="large" @change="handleTypeChange">
               <a-select-option value="food">Nguyên liệu thực phẩm (Food Ingredients)</a-select-option>
               <a-select-option value="cosmetic">Nguyên liệu mỹ phẩm (Cosmetic Ingredients)</a-select-option>
             </a-select>
             <p v-if="form.errors.type" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.type }}</p>
+          </div>
+
+          <!-- Product Category -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục sản phẩm *</label>
+            <a-select
+              v-model:value="form.product_category_id"
+              placeholder="Chọn danh mục sản phẩm..."
+              class="w-full"
+              size="large"
+              show-search
+              option-filter-prop="label"
+            >
+              <a-select-option
+                v-for="cat in filteredCategories"
+                :key="cat.id"
+                :value="cat.id"
+                :label="cat.name?.vi"
+              >
+                {{ cat.name?.vi }} ({{ cat.name?.en }})
+              </a-select-option>
+            </a-select>
+            <p v-if="form.errors.product_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.product_category_id }}</p>
+          </div>
+
+          <!-- Custom Slug -->
+          <div class="md:col-span-2">
+            <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn thân thiện (Custom URL Slug)</label>
+            <a-input v-model:value="form.slug" placeholder="Ví dụ: tinh-chat-tra-xanh (Mặc định tự sinh từ Tên sản phẩm tiếng Việt)" size="large" />
+            <p v-if="form.errors.slug" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.slug }}</p>
           </div>
         </div>
 
@@ -21,19 +51,12 @@
           <!-- VIETNAMESE TAB -->
           <a-tab-pane key="vi" tab="Tiếng Việt">
             <div class="space-y-6 mt-4">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 gap-6">
                 <!-- Name VI -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Tên sản phẩm (VI) *</label>
                   <a-input v-model:value="form.name.vi" placeholder="Ví dụ: Bột Beta-carotene" size="large" />
                   <p v-if="form.errors['name.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['name.vi'] }}</p>
-                </div>
-
-                <!-- Category VI -->
-                <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (VI) *</label>
-                  <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Chất tạo màu thực phẩm" size="large" />
-                  <p v-if="form.errors['category.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.vi'] }}</p>
                 </div>
               </div>
 
@@ -90,19 +113,12 @@
           <!-- ENGLISH TAB -->
           <a-tab-pane key="en" tab="Tiếng Anh (English)">
             <div class="space-y-6 mt-4">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 gap-6">
                 <!-- Name EN -->
                 <div>
                   <label class="block text-sm font-bold text-gray-700 mb-1">Tên sản phẩm (EN) *</label>
                   <a-input v-model:value="form.name.en" placeholder="Ví dụ: Beta-carotene Powder" size="large" />
                   <p v-if="form.errors['name.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['name.en'] }}</p>
-                </div>
-
-                <!-- Category EN -->
-                <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (EN) *</label>
-                  <a-input v-model:value="form.category.en" placeholder="Ví dụ: Food Coloring" size="large" />
-                  <p v-if="form.errors['category.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.en'] }}</p>
                 </div>
               </div>
 
@@ -263,6 +279,7 @@ import { computed, ref } from 'vue';
 
 const props = defineProps({
   product: Object,
+  categories: Array,
 });
 
 const isEdit = computed(() => !!props.product);
@@ -275,10 +292,8 @@ const form = useForm({
     vi: props.product?.name?.vi || (typeof props.product?.name === 'string' ? props.product.name : ''),
     en: props.product?.name?.en || '',
   },
-  category: {
-    vi: props.product?.category?.vi || (typeof props.product?.category === 'string' ? props.product.category : ''),
-    en: props.product?.category?.en || '',
-  },
+  slug: props.product?.slug || '',
+  product_category_id: props.product?.product_category_id || null,
   desc: {
     vi: props.product?.desc?.vi || (typeof props.product?.desc === 'string' ? props.product.desc : ''),
     en: props.product?.desc?.en || '',
@@ -307,6 +322,14 @@ const form = useForm({
     en: props.product?.seo_desc?.en || '',
   },
 });
+
+const filteredCategories = computed(() => {
+  return props.categories ? props.categories.filter(c => c.type === form.type) : [];
+});
+
+function handleTypeChange() {
+  form.product_category_id = null;
+}
 
 function addSpec(lang) {
   form.specs[lang].push('');

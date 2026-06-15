@@ -61,7 +61,7 @@ export default async function Recruitment() {
               {jobs.map((job) => (
                 <Link
                   key={job.id}
-                  href={`/recruitment/${job.id}`}
+                  href={`/recruitment/${job.slug || job.id}`}
                   className="group block rounded-2xl bg-white border border-gray-150 p-6 sm:p-8 hover:shadow-lg transition-all duration-300 space-y-4"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">

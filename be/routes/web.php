@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\ProductQuestionController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ArticleCategoryController;
 
 Route::get('/', function () {
     return redirect('/admin/login');
@@ -43,6 +45,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/products/{product}', [ProductController::class, 'update'])->name('admin.products.update'); // using POST due to file upload constraints with PUT in Laravel
     Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
+    // Product Categories CRUD
+    Route::get('/admin/product-categories', [ProductCategoryController::class, 'index'])->name('admin.product-categories.index');
+    Route::get('/admin/product-categories/create', [ProductCategoryController::class, 'create'])->name('admin.product-categories.create');
+    Route::post('/admin/product-categories', [ProductCategoryController::class, 'store'])->name('admin.product-categories.store');
+    Route::get('/admin/product-categories/{productCategory}/edit', [ProductCategoryController::class, 'edit'])->name('admin.product-categories.edit');
+    Route::put('/admin/product-categories/{productCategory}', [ProductCategoryController::class, 'update'])->name('admin.product-categories.update');
+    Route::delete('/admin/product-categories/{productCategory}', [ProductCategoryController::class, 'destroy'])->name('admin.product-categories.destroy');
+
     // News Articles CRUD
     Route::get('/admin/news', [ArticleController::class, 'index'])->name('admin.news.index');
     Route::get('/admin/news/create', [ArticleController::class, 'create'])->name('admin.news.create');
@@ -50,6 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/news/{article}/edit', [ArticleController::class, 'edit'])->name('admin.news.edit');
     Route::post('/admin/news/{article}', [ArticleController::class, 'update'])->name('admin.news.update'); // using POST for file upload support
     Route::delete('/admin/news/{article}', [ArticleController::class, 'destroy'])->name('admin.news.destroy');
+
+    // Article Categories CRUD
+    Route::get('/admin/article-categories', [ArticleCategoryController::class, 'index'])->name('admin.article-categories.index');
+    Route::get('/admin/article-categories/create', [ArticleCategoryController::class, 'create'])->name('admin.article-categories.create');
+    Route::post('/admin/article-categories', [ArticleCategoryController::class, 'store'])->name('admin.article-categories.store');
+    Route::get('/admin/article-categories/{articleCategory}/edit', [ArticleCategoryController::class, 'edit'])->name('admin.article-categories.edit');
+    Route::put('/admin/article-categories/{articleCategory}', [ArticleCategoryController::class, 'update'])->name('admin.article-categories.update');
+    Route::delete('/admin/article-categories/{articleCategory}', [ArticleCategoryController::class, 'destroy'])->name('admin.article-categories.destroy');
 
     // Recruitment Jobs CRUD
     Route::get('/admin/jobs', [JobController::class, 'index'])->name('admin.jobs.index');
@@ -118,5 +136,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/media/json', [MediaController::class, 'listJson'])->name('admin.media.json');
     Route::post('/admin/media', [MediaController::class, 'store'])->name('admin.media.store');
     Route::delete('/admin/media/{media}', [MediaController::class, 'destroy'])->name('admin.media.destroy');
+
+    // CMS & Website User Guide (Hướng dẫn sử dụng)
+    Route::get('/admin/guide', function () {
+        return \Inertia\Inertia::render('Guide/Index');
+    })->name('admin.guide');
 });
 

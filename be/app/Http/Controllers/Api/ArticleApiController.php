@@ -10,7 +10,7 @@ class ArticleApiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Article::query();
+        $query = Article::with('articleCategory');
 
         if ($request->has('category') && $request->category !== 'Tất cả') {
             $query->where('category', $request->category);
@@ -27,9 +27,17 @@ class ArticleApiController extends Controller
         return response()->json($query->orderBy('date', 'desc')->latest()->get());
     }
 
-    public function show($id)
+    public function show($idOrSlug)
     {
-        $article = Article::find($id);
+        $query = Article::with('articleCategory');
+
+        if (is_numeric($idOrSlug)) {
+            $article = $query->where(function($q) use ($idOrSlug) {
+                $q->where('id', $idOrSlug)->orWhere('slug', $idOrSlug);
+            })->first();
+        } else {
+            $article = $query->where('slug', $idOrSlug)->first();
+        }
 
         if (!$article) {
             return response()->json(['message' => 'Article not found'], 404);

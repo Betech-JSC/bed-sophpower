@@ -63,7 +63,7 @@ export default async function SearchPage({
               {results.map((prod) => (
                 <Link
                   key={`${prod.type}-${prod.id}`}
-                  href={prod.type === "food" ? `/nguyen-lieu-thuc-pham/${prod.id}` : `/nguyen-lieu-my-pham/${prod.id}`}
+                  href={prod.type === "food" ? `/nguyen-lieu-thuc-pham/${prod.slug || prod.id}` : `/nguyen-lieu-my-pham/${prod.slug || prod.id}`}
                   className="group flex flex-col sm:flex-row rounded-2xl bg-white border border-gray-150 overflow-hidden hover:shadow-md transition-all duration-300"
                 >
                   {/* Content */}

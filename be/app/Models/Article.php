@@ -11,10 +11,12 @@ class Article extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'summary',
         'content',
         'date',
         'image',
+        'article_category_id',
         'category',
         'author',
         'seo_title',
@@ -30,4 +32,20 @@ class Article extends Model
         'seo_title' => 'array',
         'seo_desc' => 'array',
     ];
+
+    public function articleCategory()
+    {
+        return $this->belongsTo(ArticleCategory::class);
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        if ($this->relationLoaded('articleCategory')) {
+            $array['category'] = $this->articleCategory ? $this->articleCategory->name : null;
+        } elseif (isset($array['article_category'])) {
+            $array['category'] = $array['article_category']['name'] ?? null;
+        }
+        return $array;
+    }
 }

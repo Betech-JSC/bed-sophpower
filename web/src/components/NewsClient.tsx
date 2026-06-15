@@ -97,7 +97,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
                 {t.newsList.featuredTitle}
               </h2>
               <Link
-                href={`/news/${featuredArticle.id}`}
+                href={`/news/${featuredArticle.slug || featuredArticle.id}`}
                 className="group relative flex flex-col lg:flex-row rounded-xl border border-gray-200 overflow-hidden bg-white shadow-xs hover:border-brand-green transition-all duration-300"
               >
                 {/* Image */}
@@ -166,7 +166,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
               {gridArticles.map((art) => (
                 <Link
                   key={art.id}
-                  href={`/news/${art.id}`}
+                  href={`/news/${art.slug || art.id}`}
                   className="group flex flex-col rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-md hover:shadow-brand-green/5 transition-all duration-300"
                 >
                   {/* Card Image */}

@@ -23,9 +23,13 @@ class JobApiController extends Controller
         return response()->json($query->orderBy('created_at', 'desc')->get());
     }
 
-    public function show($id)
+    public function show($idOrSlug)
     {
-        $job = RecruitmentJob::find($id);
+        if (is_numeric($idOrSlug)) {
+            $job = RecruitmentJob::where('id', $idOrSlug)->orWhere('slug', $idOrSlug)->first();
+        } else {
+            $job = RecruitmentJob::where('slug', $idOrSlug)->first();
+        }
 
         if (!$job) {
             return response()->json(['message' => 'Job posting not found'], 404);

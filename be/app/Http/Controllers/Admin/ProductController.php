@@ -4,24 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        $query = Product::with('productCategory');
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name->vi', 'like', '%' . $search . '%')
                   ->orWhere('name->en', 'like', '%' . $search . '%')
-                  ->orWhere('category->vi', 'like', '%' . $search . '%')
-                  ->orWhere('category->en', 'like', '%' . $search . '%');
-            });
+                  ->orWhereHas('productCategory', function($subQuery) use ($search) {
+                      $subQuery->where('name->vi', 'like', '%' . $search . '%')
+                               ->orWhere('name->en', 'like', '%' . $search . '%');
+                  });
+              });
         }
 
         if ($request->filled('type')) {
@@ -40,6 +44,7 @@ class ProductController extends Controller
     {
         return Inertia::render('Products/Form', [
             'product' => null,
+            'categories' => ProductCategory::all(),
         ]);
     }
 
@@ -49,9 +54,8 @@ class ProductController extends Controller
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
             'name.en' => ['nullable', 'string', 'max:255'],
-            'category' => ['required', 'array'],
-            'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
+            'product_category_id' => ['required', 'exists:product_categories,id'],
             'desc' => ['required', 'array'],
             'desc.vi' => ['required', 'string'],
             'desc.en' => ['nullable', 'string'],
@@ -78,15 +82,28 @@ class ProductController extends Controller
         if (empty($validated['name']['en'])) {
             $validated['name']['en'] = $validated['name']['vi'];
         }
-        if (empty($validated['category']['en'])) {
-            $validated['category']['en'] = $validated['category']['vi'];
-        }
         if (empty($validated['desc']['en'])) {
             $validated['desc']['en'] = $validated['desc']['vi'];
         }
         if (empty($validated['packaging']['en'])) {
             $validated['packaging']['en'] = $validated['packaging']['vi'];
         }
+
+        // Keep database column 'category' populated for constraints and fallbacks
+        $category = ProductCategory::find($validated['product_category_id']);
+        $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['name']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'product';
+        }
+        $slug = $baseSlug;
+        $count = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('products', 'public');
@@ -105,6 +122,7 @@ class ProductController extends Controller
     {
         return Inertia::render('Products/Form', [
             'product' => $product,
+            'categories' => ProductCategory::all(),
         ]);
     }
 
@@ -114,9 +132,8 @@ class ProductController extends Controller
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
             'name.en' => ['nullable', 'string', 'max:255'],
-            'category' => ['required', 'array'],
-            'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
+            'product_category_id' => ['required', 'exists:product_categories,id'],
             'desc' => ['required', 'array'],
             'desc.vi' => ['required', 'string'],
             'desc.en' => ['nullable', 'string'],
@@ -143,15 +160,28 @@ class ProductController extends Controller
         if (empty($validated['name']['en'])) {
             $validated['name']['en'] = $validated['name']['vi'];
         }
-        if (empty($validated['category']['en'])) {
-            $validated['category']['en'] = $validated['category']['vi'];
-        }
         if (empty($validated['desc']['en'])) {
             $validated['desc']['en'] = $validated['desc']['vi'];
         }
         if (empty($validated['packaging']['en'])) {
             $validated['packaging']['en'] = $validated['packaging']['vi'];
         }
+
+        // Keep database column 'category' populated for constraints and fallbacks
+        $category = ProductCategory::find($validated['product_category_id']);
+        $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['name']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'product';
+        }
+        $slug = $baseSlug;
+        $count = 1;
+        while (Product::where('slug', $slug)->where('id', '!=', $product->id)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         if ($request->hasFile('image_file')) {
             // Delete old image if it's in storage

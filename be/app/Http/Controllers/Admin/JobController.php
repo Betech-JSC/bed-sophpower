@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\RecruitmentJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -44,6 +45,7 @@ class JobController extends Controller
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
             'department' => ['required', 'array'],
             'department.vi' => ['required', 'string', 'max:255'],
             'department.en' => ['nullable', 'string', 'max:255'],
@@ -89,6 +91,18 @@ class JobController extends Controller
         if (empty($validated['summary']['en'])) {
             $validated['summary']['en'] = $validated['summary']['vi'];
         }
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['title']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'job';
+        }
+        $slug = $baseSlug;
+        $count = 1;
+        while (RecruitmentJob::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         RecruitmentJob::create($validated);
 
@@ -109,6 +123,7 @@ class JobController extends Controller
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
             'department' => ['required', 'array'],
             'department.vi' => ['required', 'string', 'max:255'],
             'department.en' => ['nullable', 'string', 'max:255'],
@@ -154,6 +169,18 @@ class JobController extends Controller
         if (empty($validated['summary']['en'])) {
             $validated['summary']['en'] = $validated['summary']['vi'];
         }
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['title']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'job';
+        }
+        $slug = $baseSlug;
+        $count = 1;
+        while (RecruitmentJob::where('slug', $slug)->where('id', '!=', $job->id)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         $job->update($validated);
 

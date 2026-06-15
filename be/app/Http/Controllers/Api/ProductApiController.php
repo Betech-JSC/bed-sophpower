@@ -10,7 +10,7 @@ class ProductApiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        $query = Product::with('productCategory');
 
         if ($request->has('type')) {
             $query->where('type', $request->type);
@@ -31,11 +31,19 @@ class ProductApiController extends Controller
         return response()->json($query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get());
     }
 
-    public function show($id)
+    public function show($idOrSlug)
     {
-        $product = Product::with(['questions' => function($q) {
+        $query = Product::with(['productCategory', 'questions' => function($q) {
             $q->whereIn('status', ['approved', 'replied']);
-        }])->find($id);
+        }]);
+
+        if (is_numeric($idOrSlug)) {
+            $product = $query->where(function($q) use ($idOrSlug) {
+                $q->where('id', $idOrSlug)->orWhere('slug', $idOrSlug);
+            })->first();
+        } else {
+            $product = $query->where('slug', $idOrSlug)->first();
+        }
 
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);

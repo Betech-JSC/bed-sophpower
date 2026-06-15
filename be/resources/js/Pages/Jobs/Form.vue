@@ -3,12 +3,18 @@
     <div class="bg-white p-8 rounded-xl border border-gray-150 shadow-xs max-w-4xl">
       <form @submit.prevent="submit" class="space-y-6">
         
-        <!-- Common Field (Deadline) -->
+        <!-- Common Fields (Deadline, Slug) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Hạn nộp hồ sơ *</label>
             <a-input v-model:value="form.deadline" type="date" size="large" />
             <p v-if="form.errors.deadline" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.deadline }}</p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn thân thiện (Custom URL Slug)</label>
+            <a-input v-model:value="form.slug" placeholder="Ví dụ: nhan-vien-kinh-doanh-b2b (Mặc định tự sinh từ Chức danh tiếng Việt)" size="large" />
+            <p v-if="form.errors.slug" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.slug }}</p>
           </div>
         </div>
 
@@ -270,6 +276,7 @@ const form = useForm({
     vi: props.job?.title?.vi || (typeof props.job?.title === 'string' ? props.job.title : ''),
     en: props.job?.title?.en || '',
   },
+  slug: props.job?.slug || '',
   department: {
     vi: props.job?.department?.vi || (typeof props.job?.department === 'string' ? props.job.department : ''),
     en: props.job?.department?.en || '',

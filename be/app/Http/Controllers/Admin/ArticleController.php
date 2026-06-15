@@ -4,23 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Article::query();
+        $query = Article::with('articleCategory');
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('title->vi', 'like', '%' . $search . '%')
                   ->orWhere('title->en', 'like', '%' . $search . '%')
-                  ->orWhere('category->vi', 'like', '%' . $search . '%')
-                  ->orWhere('category->en', 'like', '%' . $search . '%');
+                  ->orWhereHas('articleCategory', function($subQuery) use ($search) {
+                      $subQuery->where('name->vi', 'like', '%' . $search . '%')
+                               ->orWhere('name->en', 'like', '%' . $search . '%');
+                  });
             });
         }
 
@@ -36,6 +40,7 @@ class ArticleController extends Controller
     {
         return Inertia::render('News/Form', [
             'article' => null,
+            'categories' => ArticleCategory::all(),
         ]);
     }
 
@@ -45,6 +50,7 @@ class ArticleController extends Controller
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
             'summary.en' => ['nullable', 'string'],
@@ -54,9 +60,7 @@ class ArticleController extends Controller
             'date' => ['required', 'date'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
-            'category' => ['required', 'array'],
-            'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['nullable', 'string', 'max:255'],
+            'article_category_id' => ['required', 'exists:article_categories,id'],
             'author' => ['required', 'string', 'max:255'],
             'seo_title' => ['nullable', 'array'],
             'seo_title.vi' => ['nullable', 'string', 'max:255'],
@@ -75,9 +79,22 @@ class ArticleController extends Controller
         if (empty($validated['content']['en'])) {
             $validated['content']['en'] = $validated['content']['vi'];
         }
-        if (empty($validated['category']['en'])) {
-            $validated['category']['en'] = $validated['category']['vi'];
+
+        // Keep database column 'category' populated for constraints and fallbacks
+        $category = ArticleCategory::find($validated['article_category_id']);
+        $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['title']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'news';
         }
+        $slug = $baseSlug;
+        $count = 1;
+        while (Article::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('news', 'public');
@@ -96,6 +113,7 @@ class ArticleController extends Controller
     {
         return Inertia::render('News/Form', [
             'article' => $article,
+            'categories' => ArticleCategory::all(),
         ]);
     }
 
@@ -105,6 +123,7 @@ class ArticleController extends Controller
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255'],
             'summary' => ['required', 'array'],
             'summary.vi' => ['required', 'string'],
             'summary.en' => ['nullable', 'string'],
@@ -114,9 +133,7 @@ class ArticleController extends Controller
             'date' => ['required', 'date'],
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
-            'category' => ['required', 'array'],
-            'category.vi' => ['required', 'string', 'max:255'],
-            'category.en' => ['nullable', 'string', 'max:255'],
+            'article_category_id' => ['required', 'exists:article_categories,id'],
             'author' => ['required', 'string', 'max:255'],
             'seo_title' => ['nullable', 'array'],
             'seo_title.vi' => ['nullable', 'string', 'max:255'],
@@ -135,9 +152,22 @@ class ArticleController extends Controller
         if (empty($validated['content']['en'])) {
             $validated['content']['en'] = $validated['content']['vi'];
         }
-        if (empty($validated['category']['en'])) {
-            $validated['category']['en'] = $validated['category']['vi'];
+
+        // Keep database column 'category' populated for constraints and fallbacks
+        $category = ArticleCategory::find($validated['article_category_id']);
+        $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+
+        // Generate unique slug
+        $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['title']['vi']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'news';
         }
+        $slug = $baseSlug;
+        $count = 1;
+        while (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
+            $slug = $baseSlug . '-' . $count++;
+        }
+        $validated['slug'] = $slug;
 
         if ($request->hasFile('image_file')) {
             if ($article->image && str_starts_with($article->image, '/storage/')) {

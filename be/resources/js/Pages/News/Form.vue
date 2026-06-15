@@ -3,8 +3,8 @@
     <div class="bg-white p-8 rounded-xl border border-gray-150 shadow-xs max-w-4xl">
       <form @submit.prevent="submit" class="space-y-6">
         
-        <!-- Common Fields (Author, Date) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
+        <!-- Common Fields (Author, Date, Category) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-gray-100 pb-6">
           <!-- Author -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Tác giả *</label>
@@ -18,6 +18,36 @@
             <a-input v-model:value="form.date" type="date" size="large" />
             <p v-if="form.errors.date" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.date }}</p>
           </div>
+
+          <!-- Category -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục bài viết *</label>
+            <a-select
+              v-model:value="form.article_category_id"
+              placeholder="Chọn danh mục..."
+              class="w-full"
+              size="large"
+              show-search
+              option-filter-prop="label"
+            >
+              <a-select-option
+                v-for="cat in categories"
+                :key="cat.id"
+                :value="cat.id"
+                :label="cat.name?.vi"
+              >
+                {{ cat.name?.vi }} ({{ cat.name?.en }})
+              </a-select-option>
+            </a-select>
+            <p v-if="form.errors.article_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.article_category_id }}</p>
+          </div>
+        </div>
+
+        <!-- Custom Slug -->
+        <div class="border-b border-gray-100 pb-6">
+          <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn thân thiện (Custom URL Slug)</label>
+          <a-input v-model:value="form.slug" placeholder="Ví dụ: tin-tuc-san-pham-moi (Mặc định tự sinh từ Tiêu đề tiếng Việt)" size="large" />
+          <p v-if="form.errors.slug" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.slug }}</p>
         </div>
 
         <!-- Tabs for Bilingual Inputs -->
@@ -32,12 +62,7 @@
                 <p v-if="form.errors['title.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.vi'] }}</p>
               </div>
 
-              <!-- Category VI -->
-              <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (VI) *</label>
-                <a-input v-model:value="form.category.vi" placeholder="Ví dụ: Nguyên liệu mỹ phẩm" size="large" />
-                <p v-if="form.errors['category.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.vi'] }}</p>
-              </div>
+
 
               <!-- Summary VI -->
               <div>
@@ -65,12 +90,7 @@
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
 
-              <!-- Category EN -->
-              <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục (EN) *</label>
-                <a-input v-model:value="form.category.en" placeholder="Ví dụ: Cosmetic Ingredients" size="large" />
-                <p v-if="form.errors['category.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['category.en'] }}</p>
-              </div>
+
 
               <!-- Summary EN -->
               <div>
@@ -195,6 +215,7 @@ import { computed, ref } from 'vue';
 
 const props = defineProps({
   article: Object,
+  categories: Array,
 });
 
 const isEdit = computed(() => !!props.article);
@@ -217,6 +238,7 @@ const form = useForm({
     vi: props.article?.title?.vi || (typeof props.article?.title === 'string' ? props.article.title : ''),
     en: props.article?.title?.en || '',
   },
+  slug: props.article?.slug || '',
   summary: {
     vi: props.article?.summary?.vi || (typeof props.article?.summary === 'string' ? props.article.summary : ''),
     en: props.article?.summary?.en || '',
@@ -228,10 +250,7 @@ const form = useForm({
   date: formattedDate.value || '',
   image: props.article?.image || '',
   image_file: null,
-  category: {
-    vi: props.article?.category?.vi || (typeof props.article?.category === 'string' ? props.article.category : ''),
-    en: props.article?.category?.en || '',
-  },
+  article_category_id: props.article?.article_category_id || null,
   author: props.article?.author || '',
   seo_title: {
     vi: props.article?.seo_title?.vi || '',

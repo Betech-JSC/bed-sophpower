@@ -72,7 +72,7 @@ export default async function FoodIngredients({
                 {paginatedProducts.map((prod) => (
                   <Link
                     key={prod.id}
-                    href={`/nguyen-lieu-thuc-pham/${prod.id}`}
+                    href={`/nguyen-lieu-thuc-pham/${prod.slug || prod.id}`}
                     className="group flex flex-col sm:flex-row rounded-2xl bg-white border border-gray-150 overflow-hidden hover:shadow-lg transition-all duration-300"
                   >
                     {/* Content */}

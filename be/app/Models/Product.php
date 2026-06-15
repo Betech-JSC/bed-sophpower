@@ -11,6 +11,8 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'slug',
+        'product_category_id',
         'category',
         'desc',
         'image',
@@ -32,6 +34,22 @@ class Product extends Model
         'seo_title' => 'array',
         'seo_desc' => 'array',
     ];
+
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        if ($this->relationLoaded('productCategory')) {
+            $array['category'] = $this->productCategory ? $this->productCategory->name : null;
+        } elseif (isset($array['product_category'])) {
+            $array['category'] = $array['product_category']['name'] ?? null;
+        }
+        return $array;
+    }
 
     public function questions()
     {

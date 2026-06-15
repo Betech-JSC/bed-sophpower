@@ -169,7 +169,7 @@ export default async function FoodProductDetail({
           {relatedList.map((item) => (
             <Link
               key={item.id}
-              href={`/nguyen-lieu-thuc-pham/${item.id}`}
+              href={`/nguyen-lieu-thuc-pham/${item.slug || item.id}`}
               className="group flex flex-col rounded-xl bg-white border border-gray-200 overflow-hidden hover:border-brand-green/30 hover:shadow-[0_4px_12px_rgba(16,109,56,0.08)] transition-all duration-300"
             >
               {/* Product Image */}

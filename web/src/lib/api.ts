@@ -14,6 +14,7 @@ export interface LocalizedArray {
 
 export interface Product {
   id: number;
+  slug?: string;
   name: string | LocalizedString;
   category: string | LocalizedString;
   desc: string | LocalizedString;
@@ -30,6 +31,7 @@ export interface Product {
 
 export interface Article {
   id: number;
+  slug?: string;
   title: string | LocalizedString;
   summary: string | LocalizedString;
   content: string | LocalizedString;
@@ -45,6 +47,7 @@ export interface Article {
 
 export interface RecruitmentJob {
   id: number;
+  slug?: string;
   title: string | LocalizedString;
   department: string | LocalizedString;
   location: string | LocalizedString;
@@ -155,8 +158,12 @@ export const api = {
   },
 
   // Products
-  async getProducts(type?: 'food' | 'cosmetic'): Promise<Product[]> {
-    const endpoint = type ? `/products?type=${type}` : '/products';
+  async getProducts(type?: 'food' | 'cosmetic', search?: string): Promise<Product[]> {
+    const params = new URLSearchParams();
+    if (type) params.append('type', type);
+    if (search) params.append('search', search);
+    const queryString = params.toString();
+    const endpoint = queryString ? `/products?${queryString}` : '/products';
     const data = await fetchAPI(endpoint);
     return data.products || data;
   },
@@ -167,8 +174,9 @@ export const api = {
   },
 
   // News
-  async getNews(): Promise<Article[]> {
-    const data = await fetchAPI('/news');
+  async getNews(search?: string): Promise<Article[]> {
+    const endpoint = search ? `/news?search=${encodeURIComponent(search)}` : '/news';
+    const data = await fetchAPI(endpoint);
     return data.articles || data;
   },
 

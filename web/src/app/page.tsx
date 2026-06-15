@@ -10,6 +10,7 @@ import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 interface Product {
   id: string;
+  slug?: string;
   name: string;
   desc: string;
   number: string;
@@ -191,6 +192,7 @@ export default function Home() {
         const cleanDesc = rawDesc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
         return {
           id: String(p.id),
+          slug: p.slug,
           name: getVal(p.name, locale),
           desc: cleanDesc,
           number: String(idx + 1).padStart(2, '0'),
@@ -210,6 +212,7 @@ export default function Home() {
     api.getNews().then((data) => {
       const latest = data.slice(0, 3).map((art) => ({
         id: String(art.id),
+        slug: art.slug,
         title: getVal(art.title, locale),
         date: art.date || (art.created_at ? new Date(art.created_at).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : '2026.06.08'),
         image: art.image ? api.getImageUrl(art.image) : '/images/placeholder.jpg',
@@ -376,7 +379,7 @@ export default function Home() {
               </div>
               <div className="relative z-10 pt-4">
                 <Link
-                  href={`/nguyen-lieu-thuc-pham/${currentProduct.id}`}
+                  href={`/nguyen-lieu-thuc-pham/${currentProduct.slug || currentProduct.id}`}
                   className="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-brand-green text-white px-6 py-2.5 text-xs font-extrabold transition-all duration-300 tracking-wider uppercase rounded-lg shadow-sm"
                 >
                   {t.home.learnMore}
@@ -511,7 +514,7 @@ export default function Home() {
             {homeArticles.map((art) => (
               <Link
                 key={art.id}
-                href={`/news/${art.id}`}
+                href={`/news/${art.slug || art.id}`}
                 className="group flex flex-col rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-md hover:shadow-brand-green/5 transition-all duration-300"
               >
                 {/* Card Image */}
