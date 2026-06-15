@@ -7,6 +7,33 @@ import ProductTabs from "@/components/ProductTabs";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const locale = await getLocaleServer();
+  const product = await api.getProduct(id).catch(() => null);
+  
+  if (!product) return {};
+
+  const name = getVal(product.name, locale);
+  const rawDesc = getVal(product.desc, locale) || "";
+  const cleanDesc = rawDesc.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+
+  return {
+    title: `${name} - Sophpower Vietnam`,
+    description: cleanDesc ? `${cleanDesc}...` : undefined,
+    openGraph: {
+      title: `${name} - Sophpower Vietnam`,
+      description: cleanDesc || undefined,
+      images: product.image ? [api.getImageUrl(product.image)] : [],
+    }
+  };
+}
 
 export default async function CosmeticProductDetail({
   params,

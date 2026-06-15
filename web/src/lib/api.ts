@@ -242,5 +242,17 @@ export const api = {
       console.error("Failed to fetch dynamic translations from backend:", e);
       return null;
     }
+  },
+
+  // SEO Redirects
+  async getRedirects(): Promise<{ source_url: string; target_url: string; http_code: number }[]> {
+    try {
+      return await fetchAPI('/redirects', {
+        next: { revalidate: 60 } // Cache redirects for 60s
+      });
+    } catch (e) {
+      console.error("Failed to fetch redirects from backend:", e);
+      return [];
+    }
   }
 };

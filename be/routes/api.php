@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PageApiController;
 use App\Http\Controllers\Api\SettingApiController;
 use App\Http\Controllers\Api\ProductQuestionApiController;
 use App\Http\Controllers\Api\TranslationApiController;
+use App\Http\Controllers\Api\RedirectApiController;
 
 Route::get('/products', [ProductApiController::class, 'index']);
 Route::get('/products/{id}', [ProductApiController::class, 'show']);
@@ -30,3 +31,4 @@ Route::get('/pages/{slug}', [PageApiController::class, 'show']);
 Route::get('/settings', [SettingApiController::class, 'index']);
 Route::post('/product-questions', [ProductQuestionApiController::class, 'store']);
 Route::get('/translations', [TranslationApiController::class, 'index']);
+Route::get('/redirects', [RedirectApiController::class, 'index']);

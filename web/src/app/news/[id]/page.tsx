@@ -6,6 +6,33 @@ import { api } from "@/lib/api";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const locale = await getLocaleServer();
+  const article = await api.getArticle(id).catch(() => null);
+  
+  if (!article) return {};
+
+  const title = getVal(article.title, locale);
+  const rawSummary = getVal(article.summary, locale) || "";
+  const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+
+  return {
+    title: `${title} - Sophpower Vietnam`,
+    description: cleanSummary ? `${cleanSummary}...` : undefined,
+    openGraph: {
+      title: `${title} - Sophpower Vietnam`,
+      description: cleanSummary || undefined,
+      images: article.image ? [api.getImageUrl(article.image)] : [],
+    }
+  };
+}
 
 export default async function NewsDetail({
   params,

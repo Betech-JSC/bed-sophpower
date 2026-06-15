@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, FileText, Calendar } from "lucide-react";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import type { Metadata } from "next";
 
 import { api } from "@/lib/api";
 import { getVal } from "@/lib/i18n-utils";
@@ -77,6 +78,36 @@ const policiesData: Record<string, Policy> = {
     },
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const locale = await getLocaleServer();
+  let title = "";
+  let description = "";
+
+  try {
+    const pageData = await api.getPage(id);
+    title = getVal(pageData.title, locale) || "";
+    const content = getVal(pageData.content, locale) || "";
+    description = content.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+  } catch (error) {
+    const policy = policiesData[id];
+    if (policy) {
+      const policyLocale: "vi" | "en" = locale === "vi" ? "vi" : "en";
+      title = policy.title[policyLocale] || policy.title.vi;
+      description = (policy.paragraphs[policyLocale] || policy.paragraphs.vi)?.[0]?.slice(0, 155) || "";
+    }
+  }
+
+  return {
+    title: title ? `${title} - Sophpower` : "Sophpower Policy",
+    description: description ? `${description}...` : undefined,
+  };
+}
 
 export default async function PolicyDetail({
   params,

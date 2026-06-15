@@ -6,6 +6,32 @@ import { api } from "@/lib/api";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const locale = await getLocaleServer();
+  const job = await api.getJob(id).catch(() => null);
+  
+  if (!job) return {};
+
+  const title = getVal(job.title, locale);
+  const rawSummary = getVal(job.summary, locale) || "";
+  const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+
+  return {
+    title: `${title} - Tuyển dụng - Sophpower`,
+    description: cleanSummary ? `${cleanSummary}...` : undefined,
+    openGraph: {
+      title: `${title} - Tuyển dụng - Sophpower`,
+      description: cleanSummary || undefined,
+    }
+  };
+}
 
 export default async function JobDetail({
   params,
