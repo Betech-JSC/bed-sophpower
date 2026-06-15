@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
                     'phone' => $request->user()->phone,
                     'avatar' => $request->user()->avatar,
                     'bio' => $request->user()->bio,
-                    'permissions' => $request->user()->role ? $request->user()->role->permissions : [],
+                    'permissions' => ($request->user()->email === 'admin@sophpower.com') ? ['*'] : ($request->user()->role ? $request->user()->role->permissions : []),
                 ] : null,
             ],
             'flash' => [

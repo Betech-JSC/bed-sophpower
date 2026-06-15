@@ -8,6 +8,7 @@ import SophchemHeader from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Toolbar from "@/components/layout/toolbar";
 import { api } from "@/lib/api";
+import NextTopLoader from "nextjs-toploader";
 
 const googleSansFlex = Google_Sans_Flex({
   weight: ["300", "400", "500", "700"],
@@ -120,6 +121,17 @@ export default async function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
+            <NextTopLoader
+              color="#106d38"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={3}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+              shadow="0 0 10px #106d38,0 0 5px #106d38"
+            />
             <div className="flex min-h-screen flex-col bg-white text-gray-900">
               <SophchemHeader />
               <main className="flex-1">{children}</main>
