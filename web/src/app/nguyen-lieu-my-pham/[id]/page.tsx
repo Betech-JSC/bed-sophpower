@@ -74,7 +74,10 @@ export default async function CosmeticProductDetail({
 
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900">{t.products.descriptionTitle}</h3>
-            <p className="text-gray-600 leading-relaxed text-justify text-sm sm:text-base">{getVal(product.desc, locale)}</p>
+            <div 
+              className="text-gray-605 leading-relaxed text-justify text-sm sm:text-base [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
+              dangerouslySetInnerHTML={{ __html: getVal(product.desc, locale) }}
+            />
           </div>
 
           {/* Inquiry & Zalo buttons */}

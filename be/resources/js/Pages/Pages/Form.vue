@@ -26,7 +26,7 @@
               <!-- Content VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung trang (VI) *</label>
-                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung chi tiết bằng Tiếng Việt (Hỗ trợ định dạng văn bản/MD)..." :rows="12" size="large" />
+                <RichTextEditor v-model:value="form.content.vi" placeholder="Nhập nội dung chi tiết bằng Tiếng Việt..." />
                 <p v-if="form.errors['content.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['content.vi'] }}</p>
               </div>
             </div>
@@ -45,7 +45,7 @@
               <!-- Content EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung trang (EN) *</label>
-                <a-textarea v-model:value="form.content.en" placeholder="Nhập nội dung chi tiết bằng Tiếng Anh..." :rows="12" size="large" />
+                <RichTextEditor v-model:value="form.content.en" placeholder="Nhập nội dung chi tiết bằng Tiếng Anh..." />
                 <p v-if="form.errors['content.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['content.en'] }}</p>
               </div>
             </div>
@@ -69,7 +69,8 @@
 
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
-import { useForm } from '@inertiajs/vue3';
+import RichTextEditor from '@/Components/RichTextEditor.vue';
+import { useForm, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({

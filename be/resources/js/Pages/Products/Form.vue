@@ -47,7 +47,7 @@
               <!-- Description VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả sản phẩm (VI) *</label>
-                <a-textarea v-model:value="form.desc.vi" placeholder="Nhập mô tả sản phẩm..." :rows="4" size="large" />
+                <RichTextEditor v-model:value="form.desc.vi" placeholder="Nhập mô tả sản phẩm..." />
                 <p v-if="form.errors['desc.vi']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['desc.vi'] }}</p>
               </div>
 
@@ -116,7 +116,7 @@
               <!-- Description EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả sản phẩm (EN) *</label>
-                <a-textarea v-model:value="form.desc.en" placeholder="Nhập mô tả sản phẩm bằng tiếng Anh..." :rows="4" size="large" />
+                <RichTextEditor v-model:value="form.desc.en" placeholder="Nhập mô tả sản phẩm bằng tiếng Anh..." />
                 <p v-if="form.errors['desc.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['desc.en'] }}</p>
               </div>
 
@@ -206,6 +206,7 @@
 
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
+import RichTextEditor from '@/Components/RichTextEditor.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 

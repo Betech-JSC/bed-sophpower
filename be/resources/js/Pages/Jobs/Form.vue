@@ -50,7 +50,7 @@
               <!-- Summary VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt công việc (VI) *</label>
-                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt công việc bằng tiếng Việt..." :rows="3" size="large" />
+                <RichTextEditor v-model:value="form.summary.vi" placeholder="Nhập tóm tắt công việc bằng tiếng Việt..." />
                 <p v-if="form.errors['summary.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.vi'] }}</p>
               </div>
 
@@ -140,7 +140,7 @@
               <!-- Summary EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt công việc (EN) *</label>
-                <a-textarea v-model:value="form.summary.en" placeholder="Enter short job summary in English..." :rows="3" size="large" />
+                <RichTextEditor v-model:value="form.summary.en" placeholder="Enter short job summary in English..." />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
 
@@ -209,6 +209,7 @@
 
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
+import RichTextEditor from '@/Components/RichTextEditor.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 

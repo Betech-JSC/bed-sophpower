@@ -58,6 +58,13 @@ export default async function JobDetail({
           </h1>
         </div>
 
+        {job.summary && (
+          <div 
+            className="text-gray-650 text-sm sm:text-base leading-relaxed text-justify border-l-4 border-brand-green/30 pl-4 py-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
+            dangerouslySetInnerHTML={{ __html: getVal(job.summary, locale) }}
+          />
+        )}
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y border-gray-100 text-xs text-gray-500 font-medium">
           <span className="flex items-center gap-1.5">
             <MapPin className="h-4.5 w-4.5 text-brand-green shrink-0" />

@@ -230,5 +230,17 @@ export const api = {
       throw { errors: result.errors, message: result.message || 'Gửi câu hỏi thất bại.' };
     }
     return result;
+  },
+
+  // Dynamic Translations
+  async getTranslations(): Promise<any> {
+    try {
+      return await fetchAPI('/translations', {
+        next: { revalidate: 60 } // Cache for 60 seconds (ISR)
+      });
+    } catch (e) {
+      console.error("Failed to fetch dynamic translations from backend:", e);
+      return null;
+    }
   }
 };

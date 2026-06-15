@@ -59,12 +59,13 @@ export default async function Policies() {
     const pages = await api.getPages();
     displayPolicies = pages.map((p) => {
       const titleStr = getVal(p.title, locale);
-      const contentStr = getVal(p.content, locale);
-      const summaryStr = contentStr.split('\n').filter((p) => p.trim() !== '')[0] || "";
+      const contentStr = getVal(p.content, locale) || "";
+      const cleanContent = contentStr.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+      const summaryStr = cleanContent.length > 180 ? cleanContent.substring(0, 180) + "..." : cleanContent;
       return {
         id: p.slug,
         title: titleStr,
-        summary: summaryStr.length > 180 ? summaryStr.substring(0, 180) + "..." : summaryStr,
+        summary: summaryStr,
       };
     });
   } catch (error) {

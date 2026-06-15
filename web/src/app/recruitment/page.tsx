@@ -81,7 +81,9 @@ export default async function Recruitment() {
                     </span>
                   </div>
 
-                  <p className="text-gray-500 text-sm leading-relaxed">{getVal(job.summary, locale)}</p>
+                  <p className="text-gray-550 text-sm leading-relaxed line-clamp-3">
+                    {getVal(job.summary, locale).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim()}
+                  </p>
 
                   <div className="pt-4 border-t border-gray-100 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-gray-500 font-medium">
                     <span className="flex items-center gap-1.5">

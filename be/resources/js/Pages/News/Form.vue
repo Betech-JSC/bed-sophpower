@@ -42,14 +42,14 @@
               <!-- Summary VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt ngắn (VI) *</label>
-                <a-textarea v-model:value="form.summary.vi" placeholder="Nhập tóm tắt bài viết bằng tiếng Việt..." :rows="3" size="large" />
+                <RichTextEditor v-model:value="form.summary.vi" placeholder="Nhập tóm tắt bài viết bằng tiếng Việt..." />
                 <p v-if="form.errors['summary.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.vi'] }}</p>
               </div>
 
               <!-- Content VI -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung chi tiết (VI) *</label>
-                <a-textarea v-model:value="form.content.vi" placeholder="Nhập nội dung bài viết bằng tiếng Việt..." :rows="8" size="large" />
+                <RichTextEditor v-model:value="form.content.vi" placeholder="Nhập nội dung bài viết bằng tiếng Việt..." />
                 <p v-if="form.errors['content.vi']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['content.vi'] }}</p>
               </div>
             </div>
@@ -75,14 +75,14 @@
               <!-- Summary EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt ngắn (EN) *</label>
-                <a-textarea v-model:value="form.summary.en" placeholder="Enter short summary in English..." :rows="3" size="large" />
+                <RichTextEditor v-model:value="form.summary.en" placeholder="Enter short summary in English..." />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
 
               <!-- Content EN -->
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung chi tiết (EN) *</label>
-                <a-textarea v-model:value="form.content.en" placeholder="Enter detailed content in English..." :rows="8" size="large" />
+                <RichTextEditor v-model:value="form.content.en" placeholder="Enter detailed content in English..." />
                 <p v-if="form.errors['content.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['content.en'] }}</p>
               </div>
             </div>
@@ -138,6 +138,7 @@
 
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
+import RichTextEditor from '@/Components/RichTextEditor.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 

@@ -189,6 +189,18 @@ const menuItems = [
     icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`
   },
   {
+    name: 'Quản lý nhãn dịch',
+    path: '/admin/translations',
+    match: 'translations',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5c-.756 2.016-1.96 3.559-3.337 4.828a11.986 11.986 0 01-5.105-3.057M9.374 9.828c.618.63 1.488 1.118 2.457 1.417" /></svg>`
+  },
+  {
+    name: 'Quản lý File',
+    path: '/admin/media',
+    match: 'media',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>`
+  },
+  {
     name: 'Cấu hình chung',
     path: '/admin/settings',
     match: 'settings',

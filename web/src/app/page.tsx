@@ -186,14 +186,18 @@ export default function Home() {
         if (dateB !== dateA) return dateB - dateA;
         return b.id - a.id;
       });
-      const mapped = sortedData.map((p, idx) => ({
-        id: String(p.id),
-        name: getVal(p.name, locale),
-        desc: getVal(p.desc, locale),
-        number: String(idx + 1).padStart(2, '0'),
-        image: p.image ? api.getImageUrl(p.image) : '/images/placeholder.jpg',
-        category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
-      }));
+      const mapped = sortedData.map((p, idx) => {
+        const rawDesc = getVal(p.desc, locale) || "";
+        const cleanDesc = rawDesc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        return {
+          id: String(p.id),
+          name: getVal(p.name, locale),
+          desc: cleanDesc,
+          number: String(idx + 1).padStart(2, '0'),
+          image: p.image ? api.getImageUrl(p.image) : '/images/placeholder.jpg',
+          category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
+        };
+      });
 
       const food = mapped.filter((p) => p.category === 'food');
       if (food.length > 0) {

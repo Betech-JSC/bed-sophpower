@@ -32,11 +32,8 @@ export default async function NewsDetail({
     return `${day}/${month}/${year}`;
   };
 
-  // Split content into paragraphs for clean typography
-  const articleContent = getVal(article.content, locale);
-  const paragraphs = articleContent
-    ? articleContent.split(/\r?\n/).filter((p) => p.trim() !== "")
-    : [];
+  // Get dynamic HTML content
+  const articleContent = getVal(article.content, locale) || "";
 
   return (
     <div className="mx-auto max-w-4xl px-3 py-12 sm:px-4 lg:px-6">
@@ -83,11 +80,10 @@ export default async function NewsDetail({
         )}
 
         {/* Article content */}
-        <div className="space-y-6 text-gray-750 text-base leading-relaxed text-justify whitespace-pre-wrap">
-          {paragraphs.map((p, index) => (
-            <p key={index}>{p}</p>
-          ))}
-        </div>
+        <div 
+          className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4"
+          dangerouslySetInnerHTML={{ __html: articleContent }}
+        />
       </article>
     </div>
   );

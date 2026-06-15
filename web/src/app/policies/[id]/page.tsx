@@ -89,13 +89,13 @@ export default async function PolicyDetail({
 
   let activeTitle = "";
   let activeParagraphs: string[] = [];
+  let contentHtml = "";
   let updatedAt = "2026-06-01";
 
   try {
     const pageData = await api.getPage(id);
     activeTitle = getVal(pageData.title, locale);
-    const contentStr = getVal(pageData.content, locale);
-    activeParagraphs = contentStr.split('\n\n').filter(Boolean);
+    contentHtml = getVal(pageData.content, locale) || "";
     if ((pageData as any).updated_at) {
       updatedAt = new Date((pageData as any).updated_at).toISOString().split('T')[0];
     }
@@ -149,10 +149,14 @@ export default async function PolicyDetail({
         </div>
 
         {/* Content */}
-        <div className="space-y-6 text-gray-750 text-base leading-relaxed text-justify">
-          {activeParagraphs.map((p, index) => (
-            <p key={index}>{p}</p>
-          ))}
+        <div className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4">
+          {contentHtml ? (
+            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+          ) : (
+            activeParagraphs.map((p, index) => (
+              <p key={index}>{p}</p>
+            ))
+          )}
         </div>
       </article>
     </div>

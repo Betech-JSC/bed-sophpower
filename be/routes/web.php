@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SeoRedirectController;
 use App\Http\Controllers\Admin\ProductQuestionController;
 use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\TranslationController;
+use App\Http\Controllers\Admin\MediaController;
 
 Route::get('/', function () {
     return redirect('/admin/login');
@@ -105,5 +107,15 @@ Route::middleware('auth')->group(function () {
 
     // Activity Logs (Nhật ký)
     Route::get('/admin/activity-logs', [ActivityLogController::class, 'index'])->name('admin.activity-logs.index');
+
+    // Translations CRUD (Quản lý nhãn dịch)
+    Route::get('/admin/translations', [TranslationController::class, 'index'])->name('admin.translations.index');
+    Route::get('/admin/translations/{translation}/edit', [TranslationController::class, 'edit'])->name('admin.translations.edit');
+    Route::put('/admin/translations/{translation}', [TranslationController::class, 'update'])->name('admin.translations.update');
+
+    // Media Files Management (Quản lý File)
+    Route::get('/admin/media', [MediaController::class, 'index'])->name('admin.media.index');
+    Route::post('/admin/media', [MediaController::class, 'store'])->name('admin.media.store');
+    Route::delete('/admin/media/{media}', [MediaController::class, 'destroy'])->name('admin.media.destroy');
 });
 

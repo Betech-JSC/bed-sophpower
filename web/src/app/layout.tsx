@@ -3,6 +3,7 @@ import { Google_Sans_Flex } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { I18nProvider } from "@/i18n/provider";
+import { applyDynamicTranslations } from "@/i18n/dynamic-translations";
 import SophchemHeader from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Toolbar from "@/components/layout/toolbar";
@@ -61,10 +62,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let settings: any = null;
+  let translations: any = null;
   try {
     settings = await api.getSettings();
   } catch (e) {
     console.error("Failed to load settings in RootLayout:", e);
+  }
+
+  try {
+    translations = await api.getTranslations();
+  } catch (e) {
+  }
+
+  if (translations) {
+    applyDynamicTranslations(translations);
   }
 
   return (
@@ -77,7 +88,7 @@ export default async function RootLayout({
             dangerouslySetInnerHTML={{ __html: settings.header_scripts }}
           />
         )}
-        <I18nProvider>
+        <I18nProvider initialTranslations={translations}>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"

@@ -1,0 +1,4392 @@
+[
+  {
+    "group": "header",
+    "key": "about",
+    "text": {
+      "vi": "GIỚI THIỆU",
+      "en": "ABOUT US",
+      "zh": "ABOUT US",
+      "ja": "ABOUT US"
+    }
+  },
+  {
+    "group": "header",
+    "key": "foodIngredients",
+    "text": {
+      "vi": "NGUYÊN LIỆU THỰC PHẨM",
+      "en": "FOOD INGREDIENTS",
+      "zh": "FOOD INGREDIENTS",
+      "ja": "FOOD INGREDIENTS"
+    }
+  },
+  {
+    "group": "header",
+    "key": "cosmeticIngredients",
+    "text": {
+      "vi": "NGUYÊN LIỆU MỸ PHẨM",
+      "en": "COSMETIC INGREDIENTS",
+      "zh": "COSMETIC INGREDIENTS",
+      "ja": "COSMETIC INGREDIENTS"
+    }
+  },
+  {
+    "group": "header",
+    "key": "news",
+    "text": {
+      "vi": "TIN TỨC",
+      "en": "NEWS",
+      "zh": "NEWS",
+      "ja": "NEWS"
+    }
+  },
+  {
+    "group": "header",
+    "key": "contact",
+    "text": {
+      "vi": "LIÊN HỆ",
+      "en": "CONTACT",
+      "zh": "CONTACT",
+      "ja": "CONTACT"
+    }
+  },
+  {
+    "group": "header",
+    "key": "searchTitle",
+    "text": {
+      "vi": "Tìm kiếm sản phẩm",
+      "en": "Search Products",
+      "zh": "Search Products",
+      "ja": "Search Products"
+    }
+  },
+  {
+    "group": "header",
+    "key": "searchPlaceholder",
+    "text": {
+      "vi": "Nhập tên sản phẩm hoặc từ khóa...",
+      "en": "Enter product name or keyword...",
+      "zh": "Enter product name or keyword...",
+      "ja": "Enter product name or keyword..."
+    }
+  },
+  {
+    "group": "header",
+    "key": "searchButton",
+    "text": {
+      "vi": "Tìm",
+      "en": "Search",
+      "zh": "Search",
+      "ja": "Search"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "products",
+    "text": {
+      "vi": "SẢN PHẨM",
+      "en": "PRODUCTS",
+      "zh": "PRODUCTS",
+      "ja": "PRODUCTS"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "foodIngredients",
+    "text": {
+      "vi": "Nguyên liệu Thực phẩm",
+      "en": "Food Ingredients",
+      "zh": "Food Ingredients",
+      "ja": "Food Ingredients"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "cosmeticIngredients",
+    "text": {
+      "vi": "Nguyên liệu Mỹ phẩm",
+      "en": "Cosmetic Ingredients",
+      "zh": "Cosmetic Ingredients",
+      "ja": "Cosmetic Ingredients"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "aboutUs",
+    "text": {
+      "vi": "Về chúng tôi",
+      "en": "About Us",
+      "zh": "About Us",
+      "ja": "About Us"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "newsEvents",
+    "text": {
+      "vi": "Tin tức & Sự kiện",
+      "en": "News & Events",
+      "zh": "News & Events",
+      "ja": "News & Events"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "careers",
+    "text": {
+      "vi": "Cơ hội nghề nghiệp",
+      "en": "Careers",
+      "zh": "Careers",
+      "ja": "Careers"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "contactTitle",
+    "text": {
+      "vi": "Hãy liên hệ với chúng tôi!",
+      "en": "Get in Touch!",
+      "zh": "Get in Touch!",
+      "ja": "Get in Touch!"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "contactSub",
+    "text": {
+      "vi": "Chúng tôi sẽ mang đến giải pháp phù hợp nhất cho bạn!",
+      "en": "We will provide the most suitable solution for you!",
+      "zh": "We will provide the most suitable solution for you!",
+      "ja": "We will provide the most suitable solution for you!"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "emailPlaceholder",
+    "text": {
+      "vi": "Nhập email của bạn...",
+      "en": "Enter your email...",
+      "zh": "Enter your email...",
+      "ja": "Enter your email..."
+    }
+  },
+  {
+    "group": "footer",
+    "key": "contactZalo",
+    "text": {
+      "vi": "LIÊN HỆ ZALO",
+      "en": "CONTACT ZALO",
+      "zh": "CONTACT ZALO",
+      "ja": "CONTACT ZALO"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "hotline",
+    "text": {
+      "vi": "HOTLINE: 0969 700 520",
+      "en": "HOTLINE: 0969 700 520",
+      "zh": "HOTLINE: 0969 700 520",
+      "ja": "HOTLINE: 0969 700 520"
+    }
+  },
+  {
+    "group": "footer",
+    "key": "copyright",
+    "text": {
+      "vi": "Sophpower Vietnam. Bảo lưu mọi quyền.",
+      "en": "Sophpower Vietnam. All rights reserved.",
+      "zh": "Sophpower Vietnam. All rights reserved.",
+      "ja": "Sophpower Vietnam. All rights reserved."
+    }
+  },
+  {
+    "group": "footer",
+    "key": "description",
+    "text": {
+      "vi": "Sophpower là đối tác cung ứng nguyên liệu công nghiệp & hóa chất đa quốc gia uy tín. Chúng tôi cam kết cung cấp nguồn nguyên liệu chất lượng cao tuân thủ các quy trình kiểm định nghiêm ngặt theo tiêu chuẩn quốc tế như ISO, HACCP, HALAL, Kosher và FDA.",
+      "en": "Sophpower is a reputable multinational supplier of industrial raw materials & chemicals. We are committed to providing high-quality raw materials complying with strict inspection procedures in accordance with international standards such as ISO, HACCP, HALAL, Kosher, and FDA.",
+      "zh": "Sophpower is a reputable multinational supplier of industrial raw materials & chemicals. We are committed to providing high-quality raw materials complying with strict inspection procedures in accordance with international standards such as ISO, HACCP, HALAL, Kosher, and FDA.",
+      "ja": "Sophpower is a reputable multinational supplier of industrial raw materials & chemicals. We are committed to providing high-quality raw materials complying with strict inspection procedures in accordance with international standards such as ISO, HACCP, HALAL, Kosher, and FDA."
+    }
+  },
+  {
+    "group": "footer",
+    "key": "emailSuccess",
+    "text": {
+      "vi": "Cảm ơn bạn! Chúng tôi đã nhận được email và sẽ liên hệ tư vấn trong thời gian sớm nhất.",
+      "en": "Thank you! We have received your email and will contact you for consultation as soon as possible.",
+      "zh": "Thank you! We have received your email and will contact you for consultation as soon as possible.",
+      "ja": "Thank you! We have received your email and will contact you for consultation as soon as possible."
+    }
+  },
+  {
+    "group": "footer",
+    "key": "address",
+    "text": {
+      "vi": "Địa chỉ: Số 37, đường 19E, phường An Lạc, quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam",
+      "en": "Address: No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam",
+      "zh": "Address: No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam",
+      "ja": "Address: No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "title",
+    "text": {
+      "vi": "RECRUITMENT",
+      "en": "RECRUITMENT",
+      "zh": "RECRUITMENT",
+      "ja": "RECRUITMENT"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "mainHeading",
+    "text": {
+      "vi": "CƠ HỘI NGHỀ NGHIỆP",
+      "en": "CAREER OPPORTUNITIES",
+      "zh": "CAREER OPPORTUNITIES",
+      "ja": "CAREER OPPORTUNITIES"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "subtitle",
+    "text": {
+      "vi": "Gia nhập đội ngũ Sophpower Việt Nam để cùng phát triển chuỗi cung ứng nguyên liệu công nghiệp & hóa chất hàng đầu.",
+      "en": "Join the Sophpower Vietnam team to co-develop the leading industrial raw materials & chemical supply chain.",
+      "zh": "Join the Sophpower Vietnam team to co-develop the leading industrial raw materials & chemical supply chain.",
+      "ja": "Join the Sophpower Vietnam team to co-develop the leading industrial raw materials & chemical supply chain."
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "empty",
+    "text": {
+      "vi": "Hiện tại chưa có vị trí tuyển dụng nào đang mở. Vui lòng quay lại sau!",
+      "en": "There are currently no open positions. Please check back later!",
+      "zh": "There are currently no open positions. Please check back later!",
+      "ja": "There are currently no open positions. Please check back later!"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "details",
+    "text": {
+      "vi": "CHI TIẾT",
+      "en": "DETAILS",
+      "zh": "DETAILS",
+      "ja": "DETAILS"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "location",
+    "text": {
+      "vi": "Địa điểm",
+      "en": "Location",
+      "zh": "Location",
+      "ja": "Location"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "salary",
+    "text": {
+      "vi": "Lương",
+      "en": "Salary",
+      "zh": "Salary",
+      "ja": "Salary"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "type",
+    "text": {
+      "vi": "Loại hình",
+      "en": "Type",
+      "zh": "Type",
+      "ja": "Type"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "deadline",
+    "text": {
+      "vi": "Hạn:",
+      "en": "Deadline:",
+      "zh": "Deadline:",
+      "ja": "Deadline:"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "deadlineDetail",
+    "text": {
+      "vi": "Hạn nộp:",
+      "en": "Submission deadline:",
+      "zh": "Submission deadline:",
+      "ja": "Submission deadline:"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "backLink",
+    "text": {
+      "vi": "Quay lại cơ hội nghề nghiệp",
+      "en": "Back to Careers",
+      "zh": "Back to Careers",
+      "ja": "Back to Careers"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "jobDescription",
+    "text": {
+      "vi": "MÔ TẢ CÔNG VIỆC",
+      "en": "JOB DESCRIPTION",
+      "zh": "JOB DESCRIPTION",
+      "ja": "JOB DESCRIPTION"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "jobRequirements",
+    "text": {
+      "vi": "YÊU CẦU CÔNG VIỆC",
+      "en": "JOB REQUIREMENTS",
+      "zh": "JOB REQUIREMENTS",
+      "ja": "JOB REQUIREMENTS"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "benefits",
+    "text": {
+      "vi": "QUYỀN LỢI ĐƯỢC HƯỞNG",
+      "en": "BENEFITS",
+      "zh": "BENEFITS",
+      "ja": "BENEFITS"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "guideTitle",
+    "text": {
+      "vi": "Hướng dẫn nộp hồ sơ:",
+      "en": "Application Guide:",
+      "zh": "Application Guide:",
+      "ja": "Application Guide:"
+    }
+  },
+  {
+    "group": "recruitment",
+    "key": "guideDesc",
+    "text": {
+      "vi": "Ứng viên quan tâm vui lòng gửi CV ứng tuyển kèm tiêu đề [Họ tên - Vị trí ứng tuyển] về địa chỉ email của bộ phận tuyển dụng:",
+      "en": "Interested candidates please send your application CV with the subject line [Full Name - Applied Position] to the recruitment department email:",
+      "zh": "Interested candidates please send your application CV with the subject line [Full Name - Applied Position] to the recruitment department email:",
+      "ja": "Interested candidates please send your application CV with the subject line [Full Name - Applied Position] to the recruitment department email:"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "title",
+    "text": {
+      "vi": "LIÊN HỆ",
+      "en": "CONTACT US",
+      "zh": "CONTACT US",
+      "ja": "CONTACT US"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "contactUs",
+    "text": {
+      "vi": "LIÊN HỆ CHÚNG TÔI",
+      "en": "CONTACT US",
+      "zh": "CONTACT US",
+      "ja": "CONTACT US"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "description",
+    "text": {
+      "vi": "Hãy liên hệ với chúng tôi để nhận tư vấn chuyên sâu về nguyên liệu thực phẩm, nguyên liệu mỹ phẩm, các chứng nhận COA/MSDS cũng như báo giá cung ứng số lượng lớn tốt nhất.",
+      "en": "Please contact us for in-depth consultation on food ingredients, cosmetic ingredients, COA/MSDS certifications as well as the best bulk supply quotes.",
+      "zh": "Please contact us for in-depth consultation on food ingredients, cosmetic ingredients, COA/MSDS certifications as well as the best bulk supply quotes.",
+      "ja": "Please contact us for in-depth consultation on food ingredients, cosmetic ingredients, COA/MSDS certifications as well as the best bulk supply quotes."
+    }
+  },
+  {
+    "group": "contact",
+    "key": "email",
+    "text": {
+      "vi": "EMAIL",
+      "en": "EMAIL",
+      "zh": "EMAIL",
+      "ja": "EMAIL"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "hotlineZalo",
+    "text": {
+      "vi": "HOTLINE / ZALO",
+      "en": "HOTLINE / ZALO",
+      "zh": "HOTLINE / ZALO",
+      "ja": "HOTLINE / ZALO"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "officeAddress",
+    "text": {
+      "vi": "ĐỊA CHỈ VĂN PHÒNG",
+      "en": "OFFICE ADDRESS",
+      "zh": "OFFICE ADDRESS",
+      "ja": "OFFICE ADDRESS"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "sendRequest",
+    "text": {
+      "vi": "GỬI YÊU CẦU LIÊN HỆ",
+      "en": "SEND CONTACT REQUEST",
+      "zh": "SEND CONTACT REQUEST",
+      "ja": "SEND CONTACT REQUEST"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "sendRequestSub",
+    "text": {
+      "vi": "Vui lòng để lại thông tin, chuyên viên của chúng tôi sẽ liên hệ lại trong vòng 24h.",
+      "en": "Please leave your information, our specialists will contact you within 24 hours.",
+      "zh": "Please leave your information, our specialists will contact you within 24 hours.",
+      "ja": "Please leave your information, our specialists will contact you within 24 hours."
+    }
+  },
+  {
+    "group": "contact",
+    "key": "nameLabel",
+    "text": {
+      "vi": "Họ và tên",
+      "en": "Full Name",
+      "zh": "Full Name",
+      "ja": "Full Name"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "emailLabel",
+    "text": {
+      "vi": "Địa chỉ email",
+      "en": "Email Address",
+      "zh": "Email Address",
+      "ja": "Email Address"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "phoneLabel",
+    "text": {
+      "vi": "Số điện thoại (tùy chọn)",
+      "en": "Phone Number (optional)",
+      "zh": "Phone Number (optional)",
+      "ja": "Phone Number (optional)"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "messageLabel",
+    "text": {
+      "vi": "Nội dung tin nhắn",
+      "en": "Message Content",
+      "zh": "Message Content",
+      "ja": "Message Content"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "namePlaceholder",
+    "text": {
+      "vi": "Nhập họ và tên của bạn",
+      "en": "Enter your full name",
+      "zh": "Enter your full name",
+      "ja": "Enter your full name"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "emailPlaceholder",
+    "text": {
+      "vi": "Nhập địa chỉ email để liên hệ",
+      "en": "Enter contact email address",
+      "zh": "Enter contact email address",
+      "ja": "Enter contact email address"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "phonePlaceholder",
+    "text": {
+      "vi": "Nhập số điện thoại của bạn",
+      "en": "Enter your phone number",
+      "zh": "Enter your phone number",
+      "ja": "Enter your phone number"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "messagePlaceholder",
+    "text": {
+      "vi": "Nhập nội dung yêu cầu tư vấn...",
+      "en": "Enter consultation request content...",
+      "zh": "Enter consultation request content...",
+      "ja": "Enter consultation request content..."
+    }
+  },
+  {
+    "group": "contact",
+    "key": "sendBtn",
+    "text": {
+      "vi": "Gửi yêu cầu",
+      "en": "Send Request",
+      "zh": "Send Request",
+      "ja": "Send Request"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "sendingBtn",
+    "text": {
+      "vi": "Đang gửi...",
+      "en": "Sending...",
+      "zh": "Sending...",
+      "ja": "Sending..."
+    }
+  },
+  {
+    "group": "contact",
+    "key": "successTitle",
+    "text": {
+      "vi": "Gửi yêu cầu thành công!",
+      "en": "Request submitted successfully!",
+      "zh": "Request submitted successfully!",
+      "ja": "Request submitted successfully!"
+    }
+  },
+  {
+    "group": "contact",
+    "key": "successDesc",
+    "text": {
+      "vi": "Cảm ơn bạn đã liên hệ với Sophpower. Chúng tôi sẽ phản hồi lại thông tin qua email trong thời gian sớm nhất.",
+      "en": "Thank you for contacting Sophpower. We will respond via email as soon as possible.",
+      "zh": "Thank you for contacting Sophpower. We will respond via email as soon as possible.",
+      "ja": "Thank you for contacting Sophpower. We will respond via email as soon as possible."
+    }
+  },
+  {
+    "group": "about",
+    "key": "title",
+    "text": {
+      "vi": "VỀ CHÚNG TÔI",
+      "en": "ABOUT US",
+      "zh": "ABOUT US",
+      "ja": "ABOUT US"
+    }
+  },
+  {
+    "group": "about",
+    "key": "overview",
+    "text": {
+      "vi": "Tổng quan doanh nghiệp",
+      "en": "Company Overview",
+      "zh": "Company Overview",
+      "ja": "Company Overview"
+    }
+  },
+  {
+    "group": "about",
+    "key": "description",
+    "text": {
+      "vi": "Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, với hoạt động cốt lõi được chia thành hai phân khúc sản phẩm chính:",
+      "en": "Sophpower is a multinational trading company based in Vietnam, with its core activities divided into two main product segments:",
+      "zh": "Sophpower is a multinational trading company based in Vietnam, with its core activities divided into two main product segments:",
+      "ja": "Sophpower is a multinational trading company based in Vietnam, with its core activities divided into two main product segments:"
+    }
+  },
+  {
+    "group": "about",
+    "key": "industrialTitle",
+    "text": {
+      "vi": "Sản phẩm Công nghiệp",
+      "en": "Industrial Products",
+      "zh": "Industrial Products",
+      "ja": "Industrial Products"
+    }
+  },
+  {
+    "group": "about",
+    "key": "industrialDesc",
+    "text": {
+      "vi": "Tập trung vào các thiết bị nguồn công nghiệp và các sản phẩm phụ trợ liên quan.",
+      "en": "Focused on industrial power equipment and related auxiliary products.",
+      "zh": "Focused on industrial power equipment and related auxiliary products.",
+      "ja": "Focused on industrial power equipment and related auxiliary products."
+    }
+  },
+  {
+    "group": "about",
+    "key": "chemicalTitle",
+    "text": {
+      "vi": "Sản phẩm Hóa chất",
+      "en": "Chemical Products",
+      "zh": "Chemical Products",
+      "ja": "Chemical Products"
+    }
+  },
+  {
+    "group": "about",
+    "key": "chemicalDesc",
+    "text": {
+      "vi": "Cung cấp các nhóm nguyên liệu thực phẩm và nguyên liệu thô cho ngành mỹ phẩm.",
+      "en": "Supplying food raw materials and raw materials for the cosmetics industry.",
+      "zh": "Supplying food raw materials and raw materials for the cosmetics industry.",
+      "ja": "Supplying food raw materials and raw materials for the cosmetics industry."
+    }
+  },
+  {
+    "group": "about",
+    "key": "networkTitle",
+    "text": {
+      "vi": "Mạng lưới & Chất lượng",
+      "en": "Network & Quality",
+      "zh": "Network & Quality",
+      "ja": "Network & Quality"
+    }
+  },
+  {
+    "group": "about",
+    "key": "valueConnection",
+    "text": {
+      "vi": "Liên kết Giá trị Toàn diện",
+      "en": "Comprehensive Value Connection",
+      "zh": "Comprehensive Value Connection",
+      "ja": "Comprehensive Value Connection"
+    }
+  },
+  {
+    "group": "about",
+    "key": "networkDesc1",
+    "text": {
+      "vi": "Trong phân khúc sản phẩm hóa chất, chúng tôi tận dụng mạng lưới chuỗi cung ứng toàn cầu vững chắc cùng sự thấu hiểu sâu sắc về thị trường địa phương để kết nối các nhà sản xuất với nguồn nguyên liệu và thành phần chất lượng cao. Tất cả các sản phẩm đều được tuyển chọn kỹ lưỡng và kiểm soát chất lượng nghiêm ngặt trong suốt quá trình cung ứng, tuân thủ đầy đủ các tiêu chuẩn quốc tế như ISO, HACCP, HALAL, Kosher, và FDA, đảm bảo chất lượng đồng đều, an toàn và truy xuất nguồn gốc rõ ràng.",
+      "en": "In the chemical product segment, we leverage a robust global supply chain network and deep local market understanding to connect manufacturers with high-quality raw materials and ingredients. All products are carefully selected and strictly quality controlled throughout the supply process, fully complying with international standards such as ISO, HACCP, HALAL, Kosher, and FDA, ensuring consistent quality, safety, and clear traceability.",
+      "zh": "In the chemical product segment, we leverage a robust global supply chain network and deep local market understanding to connect manufacturers with high-quality raw materials and ingredients. All products are carefully selected and strictly quality controlled throughout the supply process, fully complying with international standards such as ISO, HACCP, HALAL, Kosher, and FDA, ensuring consistent quality, safety, and clear traceability.",
+      "ja": "In the chemical product segment, we leverage a robust global supply chain network and deep local market understanding to connect manufacturers with high-quality raw materials and ingredients. All products are carefully selected and strictly quality controlled throughout the supply process, fully complying with international standards such as ISO, HACCP, HALAL, Kosher, and FDA, ensuring consistent quality, safety, and clear traceability."
+    }
+  },
+  {
+    "group": "about",
+    "key": "networkDesc2",
+    "text": {
+      "vi": "Là đối tác thương mại tin cậy của khách hàng, lấy triết lý \"khách hàng làm trung tâm\" làm định hướng cốt lõi, chúng tôi luôn cam kết đảm bảo nguồn cung ổn định, hệ thống giá cả cạnh tranh cao cùng mô hình dịch vụ linh hoạt, đáp ứng nhanh chóng các nhu cầu thực tế. Chúng tôi hỗ trợ đắc lực giúp đối tác tối ưu hóa chi phí, nâng cao hiệu quả mua hàng và tăng cường lợi thế cạnh tranh trên thị trường biến động không ngừng.",
+      "en": "As a trusted trading partner of our clients, taking the \"customer-centric\" philosophy as our core direction, we are always committed to ensuring stable supply, highly competitive pricing, and a flexible service model, quickly meeting actual needs. We effectively support partners in optimizing costs, improving purchasing efficiency, and strengthening competitive advantages in an ever-fluctuating market.",
+      "zh": "As a trusted trading partner of our clients, taking the \"customer-centric\" philosophy as our core direction, we are always committed to ensuring stable supply, highly competitive pricing, and a flexible service model, quickly meeting actual needs. We effectively support partners in optimizing costs, improving purchasing efficiency, and strengthening competitive advantages in an ever-fluctuating market.",
+      "ja": "As a trusted trading partner of our clients, taking the \"customer-centric\" philosophy as our core direction, we are always committed to ensuring stable supply, highly competitive pricing, and a flexible service model, quickly meeting actual needs. We effectively support partners in optimizing costs, improving purchasing efficiency, and strengthening competitive advantages in an ever-fluctuating market."
+    }
+  },
+  {
+    "group": "about",
+    "key": "coreValuesTitle",
+    "text": {
+      "vi": "GIÁ TRỊ CỐT LÕI",
+      "en": "CORE VALUES",
+      "zh": "CORE VALUES",
+      "ja": "CORE VALUES"
+    }
+  },
+  {
+    "group": "about",
+    "key": "coreValuesDesc",
+    "text": {
+      "vi": "Chúng tôi xây dựng năng lực cạnh tranh và niềm tin bền vững thông qua việc làm chủ quy trình công nghệ cao, cam kết chất lượng sản phẩm chuẩn quốc tế và tiên phong phát triển các giải pháp đột phá.",
+      "en": "We build competitive capability and sustainable trust through mastering high-tech processes, committing to international standard product quality, and pioneering the development of breakthrough solutions.",
+      "zh": "We build competitive capability and sustainable trust through mastering high-tech processes, committing to international standard product quality, and pioneering the development of breakthrough solutions.",
+      "ja": "We build competitive capability and sustainable trust through mastering high-tech processes, committing to international standard product quality, and pioneering the development of breakthrough solutions."
+    }
+  },
+  {
+    "group": "about",
+    "key": "techTitle",
+    "text": {
+      "vi": "Công nghệ",
+      "en": "Technology",
+      "zh": "Technology",
+      "ja": "Technology"
+    }
+  },
+  {
+    "group": "about",
+    "key": "techDesc",
+    "text": {
+      "vi": "Chúng tôi luôn áp dụng các giải pháp công nghệ tiên tiến nhất để mang lại hiệu quả vượt trội.",
+      "en": "We always apply the most advanced technological solutions to deliver outstanding efficiency.",
+      "zh": "We always apply the most advanced technological solutions to deliver outstanding efficiency.",
+      "ja": "We always apply the most advanced technological solutions to deliver outstanding efficiency."
+    }
+  },
+  {
+    "group": "about",
+    "key": "qualityTitle",
+    "text": {
+      "vi": "Chất lượng",
+      "en": "Quality",
+      "zh": "Quality",
+      "ja": "Quality"
+    }
+  },
+  {
+    "group": "about",
+    "key": "qualityDesc",
+    "text": {
+      "vi": "Cam kết chất lượng sản phẩm chuẩn quốc tế, đảm bảo an toàn tuyệt đối.",
+      "en": "Commitment to international standard product quality, ensuring absolute safety.",
+      "zh": "Commitment to international standard product quality, ensuring absolute safety.",
+      "ja": "Commitment to international standard product quality, ensuring absolute safety."
+    }
+  },
+  {
+    "group": "about",
+    "key": "breakthroughTitle",
+    "text": {
+      "vi": "Đột phá",
+      "en": "Breakthrough",
+      "zh": "Breakthrough",
+      "ja": "Breakthrough"
+    }
+  },
+  {
+    "group": "about",
+    "key": "breakthroughDesc",
+    "text": {
+      "vi": "Không ngừng nghiên cứu và đổi mới sáng tạo để đem lại giá trị tối ưu cho khách hàng.",
+      "en": "Constantly researching and innovating to bring optimal value to customers.",
+      "zh": "Constantly researching and innovating to bring optimal value to customers.",
+      "ja": "Constantly researching and innovating to bring optimal value to customers."
+    }
+  },
+  {
+    "group": "about",
+    "key": "value1Title",
+    "text": {
+      "vi": "Năng lực chuyên sâu",
+      "en": "In-depth Capability",
+      "zh": "In-depth Capability",
+      "ja": "In-depth Capability"
+    }
+  },
+  {
+    "group": "about",
+    "key": "value1Desc",
+    "text": {
+      "vi": "Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất nguyên liệu quy mô lớn.",
+      "en": "Experts in processing poorly soluble compounds, possessing a closed loop from research and development (R&D) to large-scale raw material production.",
+      "zh": "Experts in processing poorly soluble compounds, possessing a closed loop from research and development (R&D) to large-scale raw material production.",
+      "ja": "Experts in processing poorly soluble compounds, possessing a closed loop from research and development (R&D) to large-scale raw material production."
+    }
+  },
+  {
+    "group": "about",
+    "key": "value2Title",
+    "text": {
+      "vi": "Niềm tin từ thị trường",
+      "en": "Market Trust",
+      "zh": "Market Trust",
+      "ja": "Market Trust"
+    }
+  },
+  {
+    "group": "about",
+    "key": "value2Desc",
+    "text": {
+      "vi": "Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và đạt tiêu chuẩn chất lượng vượt trội.",
+      "en": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products.",
+      "zh": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products.",
+      "ja": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products."
+    }
+  },
+  {
+    "group": "about",
+    "key": "value3Title",
+    "text": {
+      "vi": "Định hướng đổi mới sáng tạo",
+      "en": "Innovation Oriented",
+      "zh": "Innovation Oriented",
+      "ja": "Innovation Oriented"
+    }
+  },
+  {
+    "group": "about",
+    "key": "value3Desc",
+    "text": {
+      "vi": "Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) độc quyền đã được cấp bằng sáng chế.",
+      "en": "Pioneering solutions through patented, exclusive supramolecular technology.",
+      "zh": "Pioneering solutions through patented, exclusive supramolecular technology.",
+      "ja": "Pioneering solutions through patented, exclusive supramolecular technology."
+    }
+  },
+  {
+    "group": "about",
+    "key": "exploreMore",
+    "text": {
+      "vi": "Khám phá thêm",
+      "en": "Explore More",
+      "zh": "Explore More",
+      "ja": "Explore More"
+    }
+  },
+  {
+    "group": "about",
+    "key": "viewMore",
+    "text": {
+      "vi": "Xem thêm",
+      "en": "View more",
+      "zh": "View more",
+      "ja": "View more"
+    }
+  },
+  {
+    "group": "about",
+    "key": "foodCardTitle",
+    "text": {
+      "vi": "Nguyên liệu Thực phẩm",
+      "en": "Food Ingredients",
+      "zh": "Food Ingredients",
+      "ja": "Food Ingredients"
+    }
+  },
+  {
+    "group": "about",
+    "key": "cosmeticCardTitle",
+    "text": {
+      "vi": "Nguyên liệu Mỹ phẩm",
+      "en": "Cosmetic Ingredients",
+      "zh": "Cosmetic Ingredients",
+      "ja": "Cosmetic Ingredients"
+    }
+  },
+  {
+    "group": "about",
+    "key": "newsCardTitle",
+    "text": {
+      "vi": "Trung tâm Tin tức",
+      "en": "News Center",
+      "zh": "News Center",
+      "ja": "News Center"
+    }
+  },
+  {
+    "group": "home",
+    "key": "banner1Title",
+    "text": {
+      "vi": "Sophpower Vietnam",
+      "en": "Sophpower Vietnam",
+      "zh": "Sophpower Vietnam",
+      "ja": "Sophpower Vietnam"
+    }
+  },
+  {
+    "group": "home",
+    "key": "banner1Desc",
+    "text": {
+      "vi": "Nguồn cung cấp nguyên liệu thực phẩm và mỹ phẩm chất lượng hàng đầu.",
+      "en": "A leading supplier of high-quality food and cosmetic ingredients.",
+      "zh": "A leading supplier of high-quality food and cosmetic ingredients.",
+      "ja": "A leading supplier of high-quality food and cosmetic ingredients."
+    }
+  },
+  {
+    "group": "home",
+    "key": "banner2Title",
+    "text": {
+      "vi": "Giải pháp tối ưu",
+      "en": "Optimal Solutions",
+      "zh": "Optimal Solutions",
+      "ja": "Optimal Solutions"
+    }
+  },
+  {
+    "group": "home",
+    "key": "banner2Desc",
+    "text": {
+      "vi": "Đồng hành và hỗ trợ sự phát triển bền vững của doanh nghiệp bạn.",
+      "en": "Accompanying and supporting the sustainable development of your business.",
+      "zh": "Accompanying and supporting the sustainable development of your business.",
+      "ja": "Accompanying and supporting the sustainable development of your business."
+    }
+  },
+  {
+    "group": "home",
+    "key": "partnerTitle",
+    "text": {
+      "vi": "ĐỐI TÁC CUNG ỨNG NGUYÊN LIỆU HÀNG ĐẦU",
+      "en": "LEADING RAW MATERIAL SUPPLY PARTNER",
+      "zh": "LEADING RAW MATERIAL SUPPLY PARTNER",
+      "ja": "LEADING RAW MATERIAL SUPPLY PARTNER"
+    }
+  },
+  {
+    "group": "home",
+    "key": "partnerDesc",
+    "text": {
+      "vi": "Sophpower Vietnam cung cấp giải pháp nguồn nguyên liệu toàn diện cho ngành công nghiệp thực phẩm và mỹ phẩm, kết nối tinh hoa toàn cầu đến doanh nghiệp của bạn.",
+      "en": "Sophpower Vietnam provides comprehensive raw material solutions for the food and cosmetic industries, connecting global excellence to your business.",
+      "zh": "Sophpower Vietnam provides comprehensive raw material solutions for the food and cosmetic industries, connecting global excellence to your business.",
+      "ja": "Sophpower Vietnam provides comprehensive raw material solutions for the food and cosmetic industries, connecting global excellence to your business."
+    }
+  },
+  {
+    "group": "home",
+    "key": "foodTitle",
+    "text": {
+      "vi": "NGUYÊN LIỆU THỰC PHẨM",
+      "en": "FOOD INGREDIENTS",
+      "zh": "FOOD INGREDIENTS",
+      "ja": "FOOD INGREDIENTS"
+    }
+  },
+  {
+    "group": "home",
+    "key": "foodDesc",
+    "text": {
+      "vi": "Chúng tôi hợp tác với các nhà cung ứng toàn cầu uy tín để mang đến các giải pháp nguyên liệu thực phẩm, chất tạo màu tự nhiên và chất ổn định an toàn cho các nhà sản xuất tại Việt Nam.",
+      "en": "We cooperate with reputable global suppliers to bring food raw material solutions, natural colorings and safe stabilizers to manufacturers in Vietnam.",
+      "zh": "We cooperate with reputable global suppliers to bring food raw material solutions, natural colorings and safe stabilizers to manufacturers in Vietnam.",
+      "ja": "We cooperate with reputable global suppliers to bring food raw material solutions, natural colorings and safe stabilizers to manufacturers in Vietnam."
+    }
+  },
+  {
+    "group": "home",
+    "key": "cosmeticTitle",
+    "text": {
+      "vi": "NGUYÊN LIỆU MỸ PHẨM",
+      "en": "COSMETIC INGREDIENTS",
+      "zh": "COSMETIC INGREDIENTS",
+      "ja": "COSMETIC INGREDIENTS"
+    }
+  },
+  {
+    "group": "home",
+    "key": "viewAll",
+    "text": {
+      "vi": "Xem toàn bộ",
+      "en": "View All",
+      "zh": "View All",
+      "ja": "View All"
+    }
+  },
+  {
+    "group": "home",
+    "key": "learnMore",
+    "text": {
+      "vi": "TÌM HIỂU THÊM",
+      "en": "LEARN MORE",
+      "zh": "LEARN MORE",
+      "ja": "LEARN MORE"
+    }
+  },
+  {
+    "group": "home",
+    "key": "aboutDesc",
+    "text": {
+      "vi": "Sophpower là một công ty thương mại đa quốc gia có trụ sở tại Việt Nam, tập trung vào hai phân khúc chính là Sản phẩm Công nghiệp và Sản phẩm Hóa chất. Đối với mảng hóa chất, chúng tôi sở hữu mạng lưới cung ứng đáng tin cậy phục vụ các tiêu chuẩn quốc tế ISO, HACCP, HALAL, Kosher, FDA.",
+      "en": "Sophpower is a multinational trading company based in Vietnam, focusing on two main segments: Industrial Products and Chemical Products. For the chemical sector, we possess a reliable supply network serving international standards ISO, HACCP, HALAL, Kosher, FDA.",
+      "zh": "Sophpower is a multinational trading company based in Vietnam, focusing on two main segments: Industrial Products and Chemical Products. For the chemical sector, we possess a reliable supply network serving international standards ISO, HACCP, HALAL, Kosher, FDA.",
+      "ja": "Sophpower is a multinational trading company based in Vietnam, focusing on two main segments: Industrial Products and Chemical Products. For the chemical sector, we possess a reliable supply network serving international standards ISO, HACCP, HALAL, Kosher, FDA."
+    }
+  },
+  {
+    "group": "home",
+    "key": "value1Title",
+    "text": {
+      "vi": "Năng lực chuyên sâu",
+      "en": "In-depth Capability",
+      "zh": "In-depth Capability",
+      "ja": "In-depth Capability"
+    }
+  },
+  {
+    "group": "home",
+    "key": "value1Desc",
+    "text": {
+      "vi": "Chuyên gia trong lĩnh vực xử lý các hợp chất khó tan, sở hữu quy trình khép kín từ nghiên cứu và phát triển (R&D) đến sản xuất quy mô lớn.",
+      "en": "Specialist in processing poorly soluble compounds, possessing a closed process from research and development (R&D) to large-scale production.",
+      "zh": "Specialist in processing poorly soluble compounds, possessing a closed process from research and development (R&D) to large-scale production.",
+      "ja": "Specialist in processing poorly soluble compounds, possessing a closed process from research and development (R&D) to large-scale production."
+    }
+  },
+  {
+    "group": "home",
+    "key": "value2Title",
+    "text": {
+      "vi": "Niềm tin từ thị trường",
+      "en": "Market Trust",
+      "zh": "Market Trust",
+      "ja": "Market Trust"
+    }
+  },
+  {
+    "group": "home",
+    "key": "value2Desc",
+    "text": {
+      "vi": "Là Doanh nghiệp Công nghệ cao cấp Quốc gia, chúng tôi cam kết mang đến những sản phẩm an toàn, tin cậy và chất lượng vượt trội.",
+      "en": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products.",
+      "zh": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products.",
+      "ja": "As a National High-Tech Enterprise, we commit to delivering safe, reliable, and outstanding quality products."
+    }
+  },
+  {
+    "group": "home",
+    "key": "value3Title",
+    "text": {
+      "vi": "Định hướng đổi mới sáng tạo",
+      "en": "Innovation Oriented",
+      "zh": "Innovation Oriented",
+      "ja": "Innovation Oriented"
+    }
+  },
+  {
+    "group": "home",
+    "key": "value3Desc",
+    "text": {
+      "vi": "Tiên phong thúc đẩy các giải pháp thông qua công nghệ siêu phân tử (Supramolecular Technology) đã được cấp bằng sáng chế.",
+      "en": "Pioneering solutions through patented supramolecular technology.",
+      "zh": "Pioneering solutions through patented supramolecular technology.",
+      "ja": "Pioneering solutions through patented supramolecular technology."
+    }
+  },
+  {
+    "group": "home",
+    "key": "newsCenterTitle",
+    "text": {
+      "vi": "TRUNG TÂM TIN TỨC",
+      "en": "NEWS CENTER",
+      "zh": "NEWS CENTER",
+      "ja": "NEWS CENTER"
+    }
+  },
+  {
+    "group": "home",
+    "key": "newsMoreBtn",
+    "text": {
+      "vi": "XEM THÊM TIN TỨC",
+      "en": "MORE NEWS",
+      "zh": "MORE NEWS",
+      "ja": "MORE NEWS"
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChooseTitle",
+    "text": {
+      "vi": "TẠI SAO CHỌN SOPHPOWER",
+      "en": "WHY CHOOSE SOPHPOWER",
+      "zh": "WHY CHOOSE SOPHPOWER",
+      "ja": "WHY CHOOSE SOPHPOWER"
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChooseDesc",
+    "text": {
+      "vi": "Chúng tôi mang lại giá trị gia tăng vượt trội và là sự lựa chọn hàng đầu của các thương hiệu uy tín.",
+      "en": "We bring outstanding added value and are the top choice for reputable brands.",
+      "zh": "We bring outstanding added value and are the top choice for reputable brands.",
+      "ja": "We bring outstanding added value and are the top choice for reputable brands."
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose1Title",
+    "text": {
+      "vi": "Sản phẩm Đa dạng & Độc quyền",
+      "en": "Diverse & Exclusive Products",
+      "zh": "Diverse & Exclusive Products",
+      "ja": "Diverse & Exclusive Products"
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose1Desc",
+    "text": {
+      "vi": "Cung ứng hàng chục nhóm nguyên liệu hiếm, độc quyền từ các đối tác lớn toàn cầu.",
+      "en": "Supplying dozens of rare, exclusive raw material groups from major global partners.",
+      "zh": "Supplying dozens of rare, exclusive raw material groups from major global partners.",
+      "ja": "Supplying dozens of rare, exclusive raw material groups from major global partners."
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose2Title",
+    "text": {
+      "vi": "Chất lượng Đạt chuẩn Quốc tế",
+      "en": "International Quality Standard",
+      "zh": "International Quality Standard",
+      "ja": "International Quality Standard"
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose2Desc",
+    "text": {
+      "vi": "Đầy đủ COA, MSDS, và các chứng nhận an toàn thực phẩm COA/Halal/Kosher/FDA.",
+      "en": "Full COA, MSDS, and food safety certifications COA/Halal/Kosher/FDA.",
+      "zh": "Full COA, MSDS, and food safety certifications COA/Halal/Kosher/FDA.",
+      "ja": "Full COA, MSDS, and food safety certifications COA/Halal/Kosher/FDA."
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose3Title",
+    "text": {
+      "vi": "Giá cả & Dịch vụ Vượt trội",
+      "en": "Outstanding Pricing & Service",
+      "zh": "Outstanding Pricing & Service",
+      "ja": "Outstanding Pricing & Service"
+    }
+  },
+  {
+    "group": "home",
+    "key": "whyChoose3Desc",
+    "text": {
+      "vi": "Chính sách giá sỉ cạnh tranh, dịch vụ giao hàng nhanh chóng và hỗ trợ kỹ thuật tận tâm.",
+      "en": "Competitive wholesale price policy, fast delivery service, and dedicated technical support.",
+      "zh": "Competitive wholesale price policy, fast delivery service, and dedicated technical support.",
+      "ja": "Competitive wholesale price policy, fast delivery service, and dedicated technical support."
+    }
+  },
+  {
+    "group": "home",
+    "key": "latestNewsTitle",
+    "text": {
+      "vi": "TIN TỨC MỚI NHẤT",
+      "en": "LATEST NEWS",
+      "zh": "LATEST NEWS",
+      "ja": "LATEST NEWS"
+    }
+  },
+  {
+    "group": "home",
+    "key": "latestNewsDesc",
+    "text": {
+      "vi": "Cập nhật xu hướng thị trường, kiến thức chuyên ngành và tin tức hoạt động từ Sophpower.",
+      "en": "Update market trends, industry knowledge, and operational news from Sophpower.",
+      "zh": "Update market trends, industry knowledge, and operational news from Sophpower.",
+      "ja": "Update market trends, industry knowledge, and operational news from Sophpower."
+    }
+  },
+  {
+    "group": "home",
+    "key": "readMore",
+    "text": {
+      "vi": "Đọc tiếp",
+      "en": "Read More",
+      "zh": "Read More",
+      "ja": "Read More"
+    }
+  },
+  {
+    "group": "products",
+    "key": "foodTitle",
+    "text": {
+      "vi": "NGUYÊN LIỆU THỰC PHẨM",
+      "en": "FOOD INGREDIENTS",
+      "zh": "FOOD INGREDIENTS",
+      "ja": "FOOD INGREDIENTS"
+    }
+  },
+  {
+    "group": "products",
+    "key": "cosmeticTitle",
+    "text": {
+      "vi": "NGUYÊN LIỆU MỸ PHẨM",
+      "en": "COSMETIC INGREDIENTS",
+      "zh": "COSMETIC INGREDIENTS",
+      "ja": "COSMETIC INGREDIENTS"
+    }
+  },
+  {
+    "group": "products",
+    "key": "emptyFood",
+    "text": {
+      "vi": "Không tìm thấy sản phẩm nguyên liệu thực phẩm nào.",
+      "en": "No food ingredients products found.",
+      "zh": "No food ingredients products found.",
+      "ja": "No food ingredients products found."
+    }
+  },
+  {
+    "group": "products",
+    "key": "emptyCosmetic",
+    "text": {
+      "vi": "Không tìm thấy sản phẩm nguyên liệu mỹ phẩm nào.",
+      "en": "No cosmetic ingredients products found.",
+      "zh": "No cosmetic ingredients products found.",
+      "ja": "No cosmetic ingredients products found."
+    }
+  },
+  {
+    "group": "products",
+    "key": "viewMore",
+    "text": {
+      "vi": "XEM THÊM",
+      "en": "VIEW DETAILS",
+      "zh": "VIEW DETAILS",
+      "ja": "VIEW DETAILS"
+    }
+  },
+  {
+    "group": "products",
+    "key": "homeBreadcrumb",
+    "text": {
+      "vi": "Trang chủ",
+      "en": "Home",
+      "zh": "Home",
+      "ja": "Home"
+    }
+  },
+  {
+    "group": "products",
+    "key": "foodBreadcrumb",
+    "text": {
+      "vi": "Nguyên liệu thực phẩm",
+      "en": "Food Ingredients",
+      "zh": "Food Ingredients",
+      "ja": "Food Ingredients"
+    }
+  },
+  {
+    "group": "products",
+    "key": "cosmeticBreadcrumb",
+    "text": {
+      "vi": "Nguyên liệu mỹ phẩm",
+      "en": "Cosmetic Ingredients",
+      "zh": "Cosmetic Ingredients",
+      "ja": "Cosmetic Ingredients"
+    }
+  },
+  {
+    "group": "products",
+    "key": "descriptionTitle",
+    "text": {
+      "vi": "Mô tả sản phẩm",
+      "en": "Product Description",
+      "zh": "Product Description",
+      "ja": "Product Description"
+    }
+  },
+  {
+    "group": "products",
+    "key": "inquiryFoodButton",
+    "text": {
+      "vi": "YÊU CẦU BÁO GIÁ SẢN PHẨM",
+      "en": "REQUEST PRODUCT QUOTE",
+      "zh": "REQUEST PRODUCT QUOTE",
+      "ja": "REQUEST PRODUCT QUOTE"
+    }
+  },
+  {
+    "group": "products",
+    "key": "inquiryCosmeticButton",
+    "text": {
+      "vi": "YÊU CẦU BÁO GIÁ NGUYÊN LIỆU",
+      "en": "REQUEST INGREDIENT QUOTE",
+      "zh": "REQUEST INGREDIENT QUOTE",
+      "ja": "REQUEST INGREDIENT QUOTE"
+    }
+  },
+  {
+    "group": "products",
+    "key": "zaloButton",
+    "text": {
+      "vi": "LIÊN HỆ QUA ZALO",
+      "en": "CONTACT VIA ZALO",
+      "zh": "CONTACT VIA ZALO",
+      "ja": "CONTACT VIA ZALO"
+    }
+  },
+  {
+    "group": "products",
+    "key": "relatedTitle",
+    "text": {
+      "vi": "Sản phẩm liên quan",
+      "en": "Related Products",
+      "zh": "Related Products",
+      "ja": "Related Products"
+    }
+  },
+  {
+    "group": "products",
+    "key": "specsTitle",
+    "text": {
+      "vi": "Thông số kiểm nghiệm & Chất lượng",
+      "en": "Testing Specs & Quality",
+      "zh": "Testing Specs & Quality",
+      "ja": "Testing Specs & Quality"
+    }
+  },
+  {
+    "group": "products",
+    "key": "specName",
+    "text": {
+      "vi": "Chỉ tiêu kỹ thuật",
+      "en": "Technical Indicator",
+      "zh": "Technical Indicator",
+      "ja": "Technical Indicator"
+    }
+  },
+  {
+    "group": "products",
+    "key": "specValue",
+    "text": {
+      "vi": "Thông số chi tiết",
+      "en": "Detailed Parameters",
+      "zh": "Detailed Parameters",
+      "ja": "Detailed Parameters"
+    }
+  },
+  {
+    "group": "products",
+    "key": "noSpecs",
+    "text": {
+      "vi": "Chưa có thông số kỹ thuật.",
+      "en": "No technical specifications available.",
+      "zh": "No technical specifications available.",
+      "ja": "No technical specifications available."
+    }
+  },
+  {
+    "group": "products",
+    "key": "noApps",
+    "text": {
+      "vi": "Chưa có thông tin ứng dụng.",
+      "en": "No application information available.",
+      "zh": "No application information available.",
+      "ja": "No application information available."
+    }
+  },
+  {
+    "group": "products",
+    "key": "packTitle",
+    "text": {
+      "vi": "Quy cách & Đóng gói tiêu chuẩn",
+      "en": "Standard Packing & Specifications",
+      "zh": "Standard Packing & Specifications",
+      "ja": "Standard Packing & Specifications"
+    }
+  },
+  {
+    "group": "products",
+    "key": "noPack",
+    "text": {
+      "vi": "Chưa rõ quy cách đóng gói",
+      "en": "Packing specification not specified",
+      "zh": "Packing specification not specified",
+      "ja": "Packing specification not specified"
+    }
+  },
+  {
+    "group": "products",
+    "key": "tabDesc",
+    "text": {
+      "vi": "Mô tả chi tiết",
+      "en": "Detailed Description",
+      "zh": "Detailed Description",
+      "ja": "Detailed Description"
+    }
+  },
+  {
+    "group": "products",
+    "key": "tabSpecs",
+    "text": {
+      "vi": "Thông số kỹ thuật",
+      "en": "Technical Specifications",
+      "zh": "Technical Specifications",
+      "ja": "Technical Specifications"
+    }
+  },
+  {
+    "group": "products",
+    "key": "tabAppsFood",
+    "text": {
+      "vi": "Ứng dụng thực tế",
+      "en": "Practical Applications",
+      "zh": "Practical Applications",
+      "ja": "Practical Applications"
+    }
+  },
+  {
+    "group": "products",
+    "key": "tabAppsCosmetic",
+    "text": {
+      "vi": "Ứng dụng sản xuất",
+      "en": "Production Applications",
+      "zh": "Production Applications",
+      "ja": "Production Applications"
+    }
+  },
+  {
+    "group": "products",
+    "key": "tabPack",
+    "text": {
+      "vi": "Quy cách đóng gói",
+      "en": "Packaging Specifications",
+      "zh": "Packaging Specifications",
+      "ja": "Packaging Specifications"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "bannerTitle",
+    "text": {
+      "vi": "TRUNG TÂM TIN TỨC",
+      "en": "NEWS CENTER",
+      "zh": "NEWS CENTER",
+      "ja": "NEWS CENTER"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "featuredTitle",
+    "text": {
+      "vi": "BÀI VIẾT NỔI BẬT",
+      "en": "FEATURED POST",
+      "zh": "FEATURED POST",
+      "ja": "FEATURED POST"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "allTitle",
+    "text": {
+      "vi": "TẤT CẢ BÀI VIẾT",
+      "en": "ALL ARTICLES",
+      "zh": "ALL ARTICLES",
+      "ja": "ALL ARTICLES"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "emptyText",
+    "text": {
+      "vi": "Chưa có bài viết nào thuộc danh mục này.",
+      "en": "No articles found in this category.",
+      "zh": "No articles found in this category.",
+      "ja": "No articles found in this category."
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "backButton",
+    "text": {
+      "vi": "Quay lại xem tất cả",
+      "en": "Back to view all",
+      "zh": "Back to view all",
+      "ja": "Back to view all"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "authorLabel",
+    "text": {
+      "vi": "Tác giả",
+      "en": "Author",
+      "zh": "Author",
+      "ja": "Author"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "backToNews",
+    "text": {
+      "vi": "Quay lại Trung tâm tin tức",
+      "en": "Back to News Center",
+      "zh": "Back to News Center",
+      "ja": "Back to News Center"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "allTab",
+    "text": {
+      "vi": "Tất cả",
+      "en": "All",
+      "zh": "All",
+      "ja": "All"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "cosmeticTab",
+    "text": {
+      "vi": "Nguyên liệu mỹ phẩm",
+      "en": "Cosmetic Ingredients",
+      "zh": "Cosmetic Ingredients",
+      "ja": "Cosmetic Ingredients"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "foodTab",
+    "text": {
+      "vi": "Nguyên liệu thực phẩm",
+      "en": "Food Ingredients",
+      "zh": "Food Ingredients",
+      "ja": "Food Ingredients"
+    }
+  },
+  {
+    "group": "newsList",
+    "key": "marketTab",
+    "text": {
+      "vi": "Thị trường",
+      "en": "Market",
+      "zh": "Market",
+      "ja": "Market"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "bannerTitle",
+    "text": {
+      "vi": "CHÍNH SÁCH",
+      "en": "POLICIES",
+      "zh": "POLICIES",
+      "ja": "POLICIES"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "mainHeading",
+    "text": {
+      "vi": "CHÍNH SÁCH VÀ ĐIỀU KHOẢN",
+      "en": "POLICIES AND TERMS",
+      "zh": "POLICIES AND TERMS",
+      "ja": "POLICIES AND TERMS"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "updated",
+    "text": {
+      "vi": "Cập nhật",
+      "en": "Updated",
+      "zh": "Updated",
+      "ja": "Updated"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "details",
+    "text": {
+      "vi": "CHI TIẾT",
+      "en": "DETAILS",
+      "zh": "DETAILS",
+      "ja": "DETAILS"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "backLink",
+    "text": {
+      "vi": "Quay lại danh mục Chính sách",
+      "en": "Back to Policies",
+      "zh": "Back to Policies",
+      "ja": "Back to Policies"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "corporatePolicy",
+    "text": {
+      "vi": "Chính sách doanh nghiệp",
+      "en": "Corporate Policy",
+      "zh": "Corporate Policy",
+      "ja": "Corporate Policy"
+    }
+  },
+  {
+    "group": "policies",
+    "key": "lastUpdated",
+    "text": {
+      "vi": "Ngày cập nhật",
+      "en": "Last updated",
+      "zh": "Last updated",
+      "ja": "Last updated"
+    }
+  },
+  {
+    "group": "search",
+    "key": "bannerTitle",
+    "text": {
+      "vi": "KẾT QUẢ TÌM KIẾM",
+      "en": "SEARCH RESULTS",
+      "zh": "SEARCH RESULTS",
+      "ja": "SEARCH RESULTS"
+    }
+  },
+  {
+    "group": "search",
+    "key": "foundResults",
+    "text": {
+      "vi": "Tìm thấy {{count}} sản phẩm phù hợp cho từ khóa \"{{keyword}}\"",
+      "en": "Found {{count}} matching products for keyword \"{{keyword}}\"",
+      "zh": "Found {{count}} matching products for keyword \"{{keyword}}\"",
+      "ja": "Found {{count}} matching products for keyword \"{{keyword}}\""
+    }
+  },
+  {
+    "group": "search",
+    "key": "notFoundResults",
+    "text": {
+      "vi": "Không tìm thấy kết quả phù hợp cho \"{{keyword}}\". Vui lòng thử tìm với từ khóa khác.",
+      "en": "No matching results found for \"{{keyword}}\". Please try searching with another keyword.",
+      "zh": "No matching results found for \"{{keyword}}\". Please try searching with another keyword.",
+      "ja": "No matching results found for \"{{keyword}}\". Please try searching with another keyword."
+    }
+  },
+  {
+    "group": "search",
+    "key": "noProducts",
+    "text": {
+      "vi": "Không tìm thấy sản phẩm",
+      "en": "No products found",
+      "zh": "No products found",
+      "ja": "No products found"
+    }
+  },
+  {
+    "group": "search",
+    "key": "noProductsDesc",
+    "text": {
+      "vi": "Không tìm thấy kết quả phù hợp. Vui lòng thử tìm với từ khóa khác như \"Beta-carotene\" hoặc \"Niacinamide\".",
+      "en": "No matching results found. Please try searching with another keyword like \"Beta-carotene\" or \"Niacinamide\".",
+      "zh": "No matching results found. Please try searching with another keyword like \"Beta-carotene\" or \"Niacinamide\".",
+      "ja": "No matching results found. Please try searching with another keyword like \"Beta-carotene\" or \"Niacinamide\"."
+    }
+  },
+  {
+    "group": "search",
+    "key": "backHome",
+    "text": {
+      "vi": "Quay lại trang chủ",
+      "en": "Back to homepage",
+      "zh": "Back to homepage",
+      "ja": "Back to homepage"
+    }
+  },
+  {
+    "group": "search",
+    "key": "productDetails",
+    "text": {
+      "vi": "CHI TIẾT SẢN PHẨM",
+      "en": "PRODUCT DETAILS",
+      "zh": "PRODUCT DETAILS",
+      "ja": "PRODUCT DETAILS"
+    }
+  },
+  {
+    "group": "search",
+    "key": "foodIngredient",
+    "text": {
+      "vi": "Nguyên liệu thực phẩm",
+      "en": "Food ingredient",
+      "zh": "Food ingredient",
+      "ja": "Food ingredient"
+    }
+  },
+  {
+    "group": "search",
+    "key": "cosmeticIngredient",
+    "text": {
+      "vi": "Nguyên liệu mỹ phẩm",
+      "en": "Cosmetic ingredient",
+      "zh": "Cosmetic ingredient",
+      "ja": "Cosmetic ingredient"
+    }
+  },
+  {
+    "group": "docs_nav",
+    "key": "github",
+    "text": {
+      "vi": "GitHub",
+      "en": "GitHub",
+      "zh": "GitHub",
+      "ja": "GitHub"
+    }
+  },
+  {
+    "group": "docs_nav",
+    "key": "sponsored",
+    "text": {
+      "vi": "Tài trợ",
+      "en": "Sponsored",
+      "zh": "赞助",
+      "ja": "スポンサー"
+    }
+  },
+  {
+    "group": "docs_nav",
+    "key": "donate",
+    "text": {
+      "vi": "Ủng hộ",
+      "en": "Donate",
+      "zh": "捐赠",
+      "ja": "寄付"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "placeholder",
+    "text": {
+      "vi": "Tìm tài liệu...",
+      "en": "Search docs...",
+      "zh": "搜索文档...",
+      "ja": "ドキュメントを検索..."
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "inputPlaceholder",
+    "text": {
+      "vi": "Tìm trong tài liệu...",
+      "en": "Search documentation...",
+      "zh": "在文档中搜索...",
+      "ja": "ドキュメント内を検索..."
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "noResults",
+    "text": {
+      "vi": "Không tìm thấy kết quả",
+      "en": "No results found",
+      "zh": "未找到结果",
+      "ja": "結果が見つかりません"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "noResultsHint",
+    "text": {
+      "vi": "Thử tìm từ khóa khác",
+      "en": "Try searching for something else",
+      "zh": "试试搜索其他内容",
+      "ja": "別のキーワードで検索してみてください"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "navigate",
+    "text": {
+      "vi": "Di chuyển",
+      "en": "Navigate",
+      "zh": "导航",
+      "ja": "移動"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "select",
+    "text": {
+      "vi": "Chọn",
+      "en": "Select",
+      "zh": "选择",
+      "ja": "選択"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "close",
+    "text": {
+      "vi": "Đóng",
+      "en": "Close",
+      "zh": "关闭",
+      "ja": "閉じる"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "groupGettingStarted",
+    "text": {
+      "vi": "Bắt đầu",
+      "en": "Getting Started",
+      "zh": "入门",
+      "ja": "はじめに"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "groupCoreConcepts",
+    "text": {
+      "vi": "Khái niệm cốt lõi",
+      "en": "Core Concepts",
+      "zh": "核心概念",
+      "ja": "コアコンセプト"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "groupReference",
+    "text": {
+      "vi": "Tham khảo",
+      "en": "Reference",
+      "zh": "参考",
+      "ja": "リファレンス"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "introduction",
+    "text": {
+      "vi": "Giới thiệu",
+      "en": "Introduction",
+      "zh": "简介",
+      "ja": "概要"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "installation",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "agents",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "skills",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "workflows",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "cliReference",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_search",
+    "key": "commandsOptions",
+    "text": {
+      "vi": "Lệnh & Tùy chọn",
+      "en": "Commands & Options",
+      "zh": "命令与选项",
+      "ja": "コマンドとオプション"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "product",
+    "text": {
+      "vi": "Sản phẩm",
+      "en": "Product",
+      "zh": "产品",
+      "ja": "製品"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "resources",
+    "text": {
+      "vi": "Tài nguyên",
+      "en": "Resources",
+      "zh": "资源",
+      "ja": "リソース"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "community",
+    "text": {
+      "vi": "Cộng đồng",
+      "en": "Community",
+      "zh": "社区",
+      "ja": "コミュニティ"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "legal",
+    "text": {
+      "vi": "Pháp lý",
+      "en": "Legal",
+      "zh": "法律",
+      "ja": "法的事項"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "documentation",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Documentation",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "agents",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "skills",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "workflows",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "installation",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "cliReference",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "examples",
+    "text": {
+      "vi": "Ví dụ",
+      "en": "Examples",
+      "zh": "示例",
+      "ja": "サンプル"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "changelog",
+    "text": {
+      "vi": "Nhật ký thay đổi",
+      "en": "Changelog",
+      "zh": "更新日志",
+      "ja": "変更履歴"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "github",
+    "text": {
+      "vi": "GitHub",
+      "en": "GitHub",
+      "zh": "GitHub",
+      "ja": "GitHub"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "issues",
+    "text": {
+      "vi": "Vấn đề",
+      "en": "Issues",
+      "zh": "问题",
+      "ja": "Issue"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "discussions",
+    "text": {
+      "vi": "Thảo luận",
+      "en": "Discussions",
+      "zh": "讨论",
+      "ja": "ディスカッション"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "contributing",
+    "text": {
+      "vi": "Đóng góp",
+      "en": "Contributing",
+      "zh": "贡献",
+      "ja": "コントリビュート"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "license",
+    "text": {
+      "vi": "Giấy phép",
+      "en": "License",
+      "zh": "许可证",
+      "ja": "ライセンス"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "privacy",
+    "text": {
+      "vi": "Chính sách bảo mật",
+      "en": "Privacy Policy",
+      "zh": "隐私政策",
+      "ja": "プライバシーポリシー"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "terms",
+    "text": {
+      "vi": "Điều khoản dịch vụ",
+      "en": "Terms of Service",
+      "zh": "服务条款",
+      "ja": "利用規約"
+    }
+  },
+  {
+    "group": "docs_footer",
+    "key": "rights",
+    "text": {
+      "vi": "Bảo lưu mọi quyền.",
+      "en": "All rights reserved.",
+      "zh": "保留所有权利。",
+      "ja": "無断複製・転載を禁じます。"
+    }
+  },
+  {
+    "group": "docs_toc",
+    "key": "onThisPage",
+    "text": {
+      "vi": "Trong trang này",
+      "en": "On This Page",
+      "zh": "本页内容",
+      "ja": "このページの内容"
+    }
+  },
+  {
+    "group": "docs_toc",
+    "key": "empty",
+    "text": {
+      "vi": "Trang này không có mục nào.",
+      "en": "No sections on this page.",
+      "zh": "本页没有章节。",
+      "ja": "このページにセクションはありません。"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Nhật ký thay đổi",
+      "en": "Changelog",
+      "zh": "更新日志",
+      "ja": "変更履歴"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "title",
+    "text": {
+      "vi": "Nhật ký thay đổi",
+      "en": "Changelog",
+      "zh": "更新日志",
+      "ja": "変更履歴"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Các thay đổi đáng chú ý của AG Kit, mới nhất ở trên.",
+      "en": "Notable changes to AG Kit, newest first.",
+      "zh": "AG Kit 的重要变更，最新在前。",
+      "ja": "AG Kit の主な変更点（新しい順）。"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "added",
+    "text": {
+      "vi": "Thêm mới",
+      "en": "Added",
+      "zh": "新增",
+      "ja": "追加"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "changed",
+    "text": {
+      "vi": "Thay đổi",
+      "en": "Changed",
+      "zh": "变更",
+      "ja": "変更"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "fixed",
+    "text": {
+      "vi": "Sửa lỗi",
+      "en": "Fixed",
+      "zh": "修复",
+      "ja": "修正"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "removed",
+    "text": {
+      "vi": "Gỡ bỏ",
+      "en": "Removed",
+      "zh": "移除",
+      "ja": "削除"
+    }
+  },
+  {
+    "group": "docs_changelogPage",
+    "key": "fullOnGithub",
+    "text": {
+      "vi": "Xem nhật ký đầy đủ trên GitHub",
+      "en": "View the full changelog on GitHub",
+      "zh": "在 GitHub 上查看完整更新日志",
+      "ja": "GitHub で完全な変更履歴を見る"
+    }
+  },
+  {
+    "group": "docs_home",
+    "key": "tagline",
+    "text": {
+      "vi": "Bộ mẫu AI agent với Skills, Agents và Workflows cho các trợ lý lập trình hiện đại.",
+      "en": "AI agent templates with Skills, Agents, and Workflows for modern coding assistants.",
+      "zh": "面向现代编程助手的 AI agent 模板，内置 Skills、Agents 和 Workflows。",
+      "ja": "モダンなコーディングアシスタント向けの、Skills、Agents、Workflows を備えた AI agent テンプレート。"
+    }
+  },
+  {
+    "group": "docs_home",
+    "key": "github",
+    "text": {
+      "vi": "GitHub",
+      "en": "GitHub",
+      "zh": "GitHub",
+      "ja": "GitHub"
+    }
+  },
+  {
+    "group": "docs_home",
+    "key": "documentation",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Documentation",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "title",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Documentation",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "welcomePre",
+    "text": {
+      "vi": "Chào mừng bạn đến với tài liệu ",
+      "en": "Welcome to the ",
+      "zh": "欢迎使用 ",
+      "ja": "Welcome to the "
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "welcomePost",
+    "text": {
+      "vi": ".",
+      "en": " documentation.",
+      "zh": " 文档。",
+      "ja": " のドキュメントへようこそ。"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsPre",
+    "text": {
+      "vi": "What is ",
+      "en": "What is ",
+      "zh": "What is ",
+      "ja": "What is "
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsPost",
+    "text": {
+      "vi": " là gì?",
+      "en": " ?",
+      "zh": " 是什么？",
+      "ja": " とは？"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsP1",
+    "text": {
+      "vi": " là bộ sưu tập toàn diện các mẫu AI agent với Skills, Agents và Workflows, được thiết kế để tăng sức mạnh cho các trợ lý lập trình hiện đại.",
+      "en": " is a comprehensive collection of AI agent templates with Skills, Agents, and Workflows designed to supercharge modern coding assistants.",
+      "zh": " 是一套全面的 AI agent 模板集合，内置 Skills、Agents 和 Workflows，旨在为现代编程助手注入强劲动力。",
+      "ja": " は、モダンなコーディングアシスタントを強化するために設計された、Skills、Agents、Workflows を備えた AI agent テンプレートの総合コレクションです。"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsP2a",
+    "text": {
+      "vi": "Dù bạn là lập trình viên cá nhân hay thành viên của một nhóm lớn, AG Kit giúp bạn xây dựng phần mềm tốt hơn và nhanh hơn với ",
+      "en": "Whether you're an individual developer or part of a larger team, AG Kit helps you build better software faster with ",
+      "zh": "无论你是独立开发者还是大型团队的一员，AG Kit 都能帮你更快地构建更优质的软件，拥有 ",
+      "ja": "個人開発者であれ大規模チームの一員であれ、AG Kit は "
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsP2b",
+    "text": {
+      "vi": "+ kỹ năng, ",
+      "en": "+ skills, ",
+      "zh": "+ 个技能、",
+      "ja": "+ のスキル、"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsP2c",
+    "text": {
+      "vi": "+ agent chuyên biệt, và ",
+      "en": "+ specialist agents, and ",
+      "zh": "+ 个专业 agent，以及 ",
+      "ja": "+ の専門 agent、そして "
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "whatIsP2d",
+    "text": {
+      "vi": "+ quy trình sẵn sàng cho sản xuất.",
+      "en": "+ production-ready workflows.",
+      "zh": "+ 个生产就绪的工作流。",
+      "ja": "+ の本番対応ワークフローで、より優れたソフトウェアをより速く構築する手助けをします。"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "includedTitle",
+    "text": {
+      "vi": "Bao gồm những gì",
+      "en": "What's Included",
+      "zh": "包含内容",
+      "ja": "含まれるもの"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "specialistAgents",
+    "text": {
+      "vi": "Agent chuyên biệt",
+      "en": "Specialist Agents",
+      "zh": "专业 Agent",
+      "ja": "専門 Agent"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "specialistAgentsDesc",
+    "text": {
+      "vi": "Chuyên gia lĩnh vực cho frontend, backend, bảo mật và nhiều hơn nữa",
+      "en": "Domain experts for frontend, backend, security, and more",
+      "zh": "面向前端、后端、安全等领域的专家",
+      "ja": "フロントエンド、バックエンド、セキュリティなどの領域の専門家"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "domainSkills",
+    "text": {
+      "vi": "Kỹ năng theo lĩnh vực",
+      "en": "Domain Skills",
+      "zh": "领域技能",
+      "ja": "ドメインスキル"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "domainSkillsDesc",
+    "text": {
+      "vi": "Mô-đun kiến thức cho React, Next.js, testing và nhiều hơn nữa",
+      "en": "Knowledge modules for React, Next.js, testing, and more",
+      "zh": "React、Next.js、测试等知识模块",
+      "ja": "React、Next.js、テストなどの知識モジュール"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "workflowsLabel",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "workflowsDesc",
+    "text": {
+      "vi": "Các thủ tục lệnh gạch chéo cho những tác vụ phát triển thường gặp",
+      "en": "Slash command procedures for common dev tasks",
+      "zh": "用于常见开发任务的斜杠命令流程",
+      "ja": "よくある開発タスク向けのスラッシュコマンド手順"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "howToTitle",
+    "text": {
+      "vi": "Cách sử dụng tài liệu",
+      "en": "How to Use the Docs",
+      "zh": "如何使用文档",
+      "ja": "ドキュメントの使い方"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "howToP",
+    "text": {
+      "vi": "Tài liệu được tổ chức thành 3 phần chính:",
+      "en": "The docs are organized into 3 main sections:",
+      "zh": "文档分为 3 个主要部分：",
+      "ja": "ドキュメントは 3 つの主要セクションに分かれています："
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "gettingStarted",
+    "text": {
+      "vi": "Bắt đầu",
+      "en": "Getting Started",
+      "zh": "入门",
+      "ja": "はじめに"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "gettingStartedDesc",
+    "text": {
+      "vi": "Hướng dẫn cài đặt và thiết lập nhanh để bạn bắt đầu",
+      "en": "Quick installation and setup guide to get you started",
+      "zh": "快速安装和设置指南，助你上手",
+      "ja": "すぐに始められるクイックインストールとセットアップガイド"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "coreConcepts",
+    "text": {
+      "vi": "Khái niệm cốt lõi",
+      "en": "Core Concepts",
+      "zh": "核心概念",
+      "ja": "コアコンセプト"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "coreConceptsDesc",
+    "text": {
+      "vi": "Tìm hiểu về Agents, Skills và Workflows",
+      "en": "Learn about Agents, Skills, and Workflows",
+      "zh": "了解 Agents、Skills 和 Workflows",
+      "ja": "Agents、Skills、Workflows について学ぶ"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "cliRef",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "cliRefDesc",
+    "text": {
+      "vi": "Tài liệu chi tiết về giao diện dòng lệnh",
+      "en": "Detailed command-line interface documentation",
+      "zh": "详细的命令行界面文档",
+      "ja": "詳細なコマンドラインインターフェースのドキュメント"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "sidebarHintPre",
+    "text": {
+      "vi": "Dùng thanh bên để di chuyển qua các phần, hoặc nhấn ",
+      "en": "Use the sidebar to navigate through sections, or use ",
+      "zh": "使用侧边栏浏览各部分，或使用 ",
+      "ja": "サイドバーで各セクションを移動するか、"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "sidebarHintPost",
+    "text": {
+      "vi": " để tìm kiếm nhanh.",
+      "en": " to quickly search.",
+      "zh": " 快速搜索。",
+      "ja": " ですばやく検索できます。"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "nextStepsTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "installationArrow",
+    "text": {
+      "vi": "Cài đặt →",
+      "en": "Installation →",
+      "zh": "安装 →",
+      "ja": "インストール →"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "installationArrowDesc",
+    "text": {
+      "vi": "Bắt đầu với AG Kit trong chưa đầy một phút",
+      "en": "Get started with AG Kit in under a minute",
+      "zh": "不到一分钟即可开始使用 AG Kit",
+      "ja": "1 分足らずで AG Kit を始められます"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "learnCoreArrow",
+    "text": {
+      "vi": "Tìm hiểu khái niệm cốt lõi →",
+      "en": "Learn Core Concepts →",
+      "zh": "了解核心概念 →",
+      "ja": "コアコンセプトを学ぶ →"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "learnCoreArrowDesc",
+    "text": {
+      "vi": "Hiểu cách Agents, Skills và Workflows hoạt động",
+      "en": "Understand how Agents, Skills, and Workflows work",
+      "zh": "理解 Agents、Skills 和 Workflows 如何运作",
+      "ja": "Agents、Skills、Workflows の仕組みを理解する"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "footerGettingStarted",
+    "text": {
+      "vi": "Bắt đầu",
+      "en": "Getting Started",
+      "zh": "入门",
+      "ja": "はじめに"
+    }
+  },
+  {
+    "group": "docs_docsHome",
+    "key": "footerInstallation",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "title",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Những nhân cách AI chuyên biệt với chuyên môn sâu trong các lĩnh vực cụ thể.",
+      "en": "Specialist AI personas with deep expertise in specific domains.",
+      "zh": "在特定领域拥有深厚专长的专业 AI 角色。",
+      "ja": "特定領域に深い専門性を持つ専門 AI ペルソナ。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "whatTitle",
+    "text": {
+      "vi": "Agents là gì?",
+      "en": "What are Agents?",
+      "zh": "Agents 是什么？",
+      "ja": "Agents とは？"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "whatP1",
+    "text": {
+      "vi": "Agents là những nhân cách AI chuyên biệt được cấu hình với chuyên môn theo lĩnh vực, công cụ và các khuôn mẫu hành vi. Mỗi agent được thiết kế để xuất sắc trong một mảng cụ thể của phát triển phần mềm.",
+      "en": "Agents are specialist AI personas configured with domain-specific expertise, tools, and behavioral patterns. Each agent is designed to excel in a particular area of software development.",
+      "zh": "Agents 是配置了特定领域专长、工具和行为模式的专业 AI 角色。每个 agent 都旨在精通软件开发的某个特定领域。",
+      "ja": "Agents は、ドメイン固有の専門知識、ツール、行動パターンが設定された専門 AI ペルソナです。各 agent はソフトウェア開発の特定分野で力を発揮するよう設計されています。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "whatP2a",
+    "text": {
+      "vi": "Khi bạn đưa ra yêu cầu, hệ thống ",
+      "en": "When you make a request, AG Kit's ",
+      "zh": "当你发出请求时，AG Kit 的 ",
+      "ja": "リクエストを送信すると、AG Kit の "
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "whatP2Strong",
+    "text": {
+      "vi": "Định tuyến thông minh",
+      "en": "Intelligent Routing",
+      "zh": "智能路由",
+      "ja": "インテリジェントルーティング"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "whatP2b",
+    "text": {
+      "vi": " của AG Kit tự động phát hiện cần những agent nào và kích hoạt chúng cho bạn. Bạn cũng có thể gọi tên chúng để buộc một góc nhìn cụ thể.",
+      "en": " system automatically detects which agents are needed and activates them for you. You can also mention them by name to force a specific perspective.",
+      "zh": " 系统会自动检测需要哪些 agent 并为你激活它们。你也可以直接点名以强制使用某个特定视角。",
+      "ja": " システムが必要な agent を自動的に検出して有効化します。名前を指定して特定の視点を強制することもできます。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howTitle",
+    "text": {
+      "vi": "Cách sử dụng Agents",
+      "en": "How to Use Agents",
+      "zh": "如何使用 Agents",
+      "ja": "Agents の使い方"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howP1Strong",
+    "text": {
+      "vi": "Không cần đề cập agent một cách rõ ràng!",
+      "en": "No need to mention agents explicitly!",
+      "zh": "无需显式提及 agent！",
+      "ja": "agent を明示的に指定する必要はありません！"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howP1b",
+    "text": {
+      "vi": " Hệ thống tự động phát hiện và áp dụng (các) chuyên gia phù hợp dựa trên yêu cầu của bạn.",
+      "en": " The system automatically detects and applies the right specialist(s) based on your request.",
+      "zh": " 系统会根据你的请求自动检测并应用合适的专家。",
+      "ja": " システムがリクエストに基づいて適切な専門家を自動的に検出して適用します。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howP2a",
+    "text": {
+      "vi": "Tuy nhiên, bạn ",
+      "en": "However, you ",
+      "zh": "不过，你 ",
+      "ja": "ただし、"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howP2Strong",
+    "text": {
+      "vi": "vẫn có thể ghi đè",
+      "en": "can still override",
+      "zh": "仍然可以覆盖",
+      "ja": "この動作を上書きする"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "howP2b",
+    "text": {
+      "vi": " hành vi này bằng cách đề cập rõ ràng tên một agent:",
+      "en": " this behavior by explicitly mentioning an agent name:",
+      "zh": " 这一行为，方法是显式提及某个 agent 名称：",
+      "ja": " ことも可能です。agent 名を明示的に指定してください："
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "tipStrong",
+    "text": {
+      "vi": "Mẹo:",
+      "en": "Tip:",
+      "zh": "提示：",
+      "ja": "ヒント："
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "tipTextA",
+    "text": {
+      "vi": " Các agent có thể phối hợp với nhau! Dùng agent ",
+      "en": " Agents can work together! Use the ",
+      "zh": " Agent 可以协同工作！使用 ",
+      "ja": " agent は連携できます！複雑なタスクで複数の専門家を調整するには "
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "tipTextB",
+    "text": {
+      "vi": " để điều phối nhiều chuyên gia cho các tác vụ phức tạp.",
+      "en": " agent to coordinate multiple specialists on complex tasks.",
+      "zh": " agent 来协调多个专家处理复杂任务。",
+      "ja": " agent を使用します。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "availableTitle",
+    "text": {
+      "vi": "Các Agent có sẵn",
+      "en": "Available Agents",
+      "zh": "可用的 Agent",
+      "ja": "利用可能な Agent"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "availablePa",
+    "text": {
+      "vi": "AG Kit bao gồm ",
+      "en": "AG Kit includes ",
+      "zh": "AG Kit 包含 ",
+      "ja": "AG Kit には "
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "availablePb",
+    "text": {
+      "vi": " agent chuyên biệt:",
+      "en": " specialist agents:",
+      "zh": " 个专业 agent：",
+      "ja": " 個の専門 agent が含まれます："
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "structureTitle",
+    "text": {
+      "vi": "Cấu trúc Agent",
+      "en": "Agent Structure",
+      "zh": "Agent 结构",
+      "ja": "Agent の構造"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "structureP",
+    "text": {
+      "vi": "Mỗi agent được định nghĩa bằng một tệp markdown với frontmatter YAML:",
+      "en": "Each agent is defined by a markdown file with YAML frontmatter:",
+      "zh": "每个 agent 由一个带 YAML frontmatter 的 markdown 文件定义：",
+      "ja": "各 agent は YAML frontmatter を持つ markdown ファイルで定義されます："
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "structureNoteA",
+    "text": {
+      "vi": "Trường ",
+      "en": "The ",
+      "zh": "该 ",
+      "ja": "この "
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "structureNoteB",
+    "text": {
+      "vi": " xác định những mô-đun kiến thức theo lĩnh vực mà agent có thể truy cập.",
+      "en": " field determines which domain knowledge modules the agent can access.",
+      "zh": " 字段决定 agent 可以访问哪些领域知识模块。",
+      "ja": " フィールドは、agent がアクセスできるドメイン知識モジュールを決定します。"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "nextTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "skillsArrow",
+    "text": {
+      "vi": "Kỹ năng →",
+      "en": "Skills →",
+      "zh": "技能 →",
+      "ja": "スキル →"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "skillsArrowDesc",
+    "text": {
+      "vi": "Tìm hiểu về các mô-đun kiến thức theo lĩnh vực",
+      "en": "Learn about domain-specific knowledge modules",
+      "zh": "了解特定领域的知识模块",
+      "ja": "ドメイン固有の知識モジュールについて学ぶ"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "workflowsArrow",
+    "text": {
+      "vi": "Quy trình →",
+      "en": "Workflows →",
+      "zh": "工作流 →",
+      "ja": "ワークフロー →"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "workflowsArrowDesc",
+    "text": {
+      "vi": "Khám phá các thủ tục lệnh gạch chéo",
+      "en": "Explore slash command procedures",
+      "zh": "探索斜杠命令流程",
+      "ja": "スラッシュコマンド手順を探索する"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "footerInstallation",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_agentsPage",
+    "key": "footerSkills",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "title",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Các mô-đun kiến thức theo lĩnh vực mà agent tải tự động.",
+      "en": "Domain-specific knowledge modules that agents load automatically.",
+      "zh": "agent 自动加载的特定领域知识模块。",
+      "ja": "agent が自動的に読み込むドメイン固有の知識モジュール。"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "whatTitle",
+    "text": {
+      "vi": "Kỹ năng là gì?",
+      "en": "What are Skills?",
+      "zh": "技能是什么？",
+      "ja": "スキルとは？"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "whatP1",
+    "text": {
+      "vi": "Kỹ năng là các gói kiến thức mô-đun chứa nguyên tắc, khuôn mẫu và khung ra quyết định cho những lĩnh vực cụ thể. Chúng được tải tự động khi một agent cần đến.",
+      "en": "Skills are modular knowledge packages that contain principles, patterns, and decision-making frameworks for specific domains. They're loaded automatically when an agent needs them.",
+      "zh": "技能是模块化的知识包，包含特定领域的原则、模式和决策框架。当 agent 需要时会自动加载它们。",
+      "ja": "スキルは、特定領域の原則、パターン、意思決定フレームワークを含むモジュール化された知識パッケージです。agent が必要とするときに自動的に読み込まれます。"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "whatP2a",
+    "text": {
+      "vi": "Khác với các mẫu cứng nhắc, kỹ năng dạy ",
+      "en": "Unlike hard-coded templates, skills teach ",
+      "zh": "与硬编码的模板不同，技能传授 ",
+      "ja": "ハードコードされたテンプレートとは異なり、スキルは "
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "whatP2Em",
+    "text": {
+      "vi": "nguyên tắc",
+      "en": "principles",
+      "zh": "原则",
+      "ja": "原則"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "whatP2b",
+    "text": {
+      "vi": " — giúp agent đưa ra quyết định theo ngữ cảnh thay vì sao chép khuôn mẫu.",
+      "en": " — enabling agents to make contextual decisions rather than copying patterns.",
+      "zh": " —— 让 agent 能够根据上下文做出决策，而不是照搬模式。",
+      "ja": " を教えます —— これにより agent はパターンをコピーするのではなく、文脈に応じた判断を下せます。"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "noteStrong",
+    "text": {
+      "vi": " Lưu ý:",
+      "en": " Note:",
+      "zh": " 注意：",
+      "ja": " 注意："
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "noteText",
+    "text": {
+      "vi": " Kỹ năng được tải theo nhu cầu dựa trên ngữ cảnh tác vụ. Bạn không cần cấu hình bất cứ điều gì thủ công.",
+      "en": " Skills are loaded on-demand based on task context. You don't need to configure anything manually.",
+      "zh": " 技能会根据任务上下文按需加载。你无需手动配置任何东西。",
+      "ja": " スキルはタスクの文脈に基づいてオンデマンドで読み込まれます。手動で何かを設定する必要はありません。"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "howTitle",
+    "text": {
+      "vi": "Kỹ năng hoạt động thế nào",
+      "en": "How Skills Work",
+      "zh": "技能如何运作",
+      "ja": "スキルの仕組み"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "howP",
+    "text": {
+      "vi": "Khi bạn gọi một agent, nó tự động tải các kỹ năng liên quan dựa trên:",
+      "en": "When you invoke an agent, it automatically loads relevant skills based on:",
+      "zh": "当你调用一个 agent 时，它会根据以下因素自动加载相关技能：",
+      "ja": "agent を呼び出すと、以下に基づいて関連するスキルを自動的に読み込みます："
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step1Title",
+    "text": {
+      "vi": "Cấu hình Agent",
+      "en": "Agent Configuration",
+      "zh": "Agent 配置",
+      "ja": "Agent 設定"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step1Desc",
+    "text": {
+      "vi": "Mỗi agent chỉ định những kỹ năng nó có thể truy cập trong frontmatter của mình",
+      "en": "Each agent specifies which skills it can access in its frontmatter",
+      "zh": "每个 agent 在其 frontmatter 中指定可以访问哪些技能",
+      "ja": "各 agent は frontmatter でアクセスできるスキルを指定します"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step2Title",
+    "text": {
+      "vi": "Ngữ cảnh tác vụ",
+      "en": "Task Context",
+      "zh": "任务上下文",
+      "ja": "タスクの文脈"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step2Desc",
+    "text": {
+      "vi": "AI đọc mô tả kỹ năng và tải những kỹ năng liên quan",
+      "en": "The AI reads skill descriptions and loads relevant ones",
+      "zh": "AI 读取技能描述并加载相关技能",
+      "ja": "AI がスキルの説明を読み、関連するものを読み込みます"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step3Title",
+    "text": {
+      "vi": "Đọc có chọn lọc",
+      "en": "Selective Reading",
+      "zh": "选择性阅读",
+      "ja": "選択的読み込み"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "step3Desc",
+    "text": {
+      "vi": "Chỉ những phần cần thiết được đọc để tối ưu việc sử dụng ngữ cảnh",
+      "en": "Only necessary sections are read to optimize context usage",
+      "zh": "只读取必要的部分以优化上下文使用",
+      "ja": "コンテキスト使用を最適化するため、必要なセクションのみを読み込みます"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "categoriesTitle",
+    "text": {
+      "vi": "Danh mục kỹ năng",
+      "en": "Skill Categories",
+      "zh": "技能分类",
+      "ja": "スキルカテゴリ"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "categoriesPb",
+    "text": {
+      "vi": "+ kỹ năng được tổ chức theo lĩnh vực:",
+      "en": "+ skills organized by domain:",
+      "zh": "+ 个技能按领域组织：",
+      "ja": "+ のスキルをドメイン別に整理："
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "structureTitle",
+    "text": {
+      "vi": "Cấu trúc kỹ năng",
+      "en": "Skill Structure",
+      "zh": "技能结构",
+      "ja": "スキルの構造"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "structureP",
+    "text": {
+      "vi": "Mỗi kỹ năng chứa:",
+      "en": "Each skill contains:",
+      "zh": "每个技能包含：",
+      "ja": "各スキルに含まれるもの："
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "nextTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "workflowsArrow",
+    "text": {
+      "vi": "Quy trình →",
+      "en": "Workflows →",
+      "zh": "工作流 →",
+      "ja": "ワークフロー →"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "workflowsArrowDesc",
+    "text": {
+      "vi": "Tìm hiểu về các thủ tục lệnh gạch chéo",
+      "en": "Learn about slash command procedures",
+      "zh": "了解斜杠命令流程",
+      "ja": "スラッシュコマンド手順について学ぶ"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "cliArrow",
+    "text": {
+      "vi": "Tài liệu CLI →",
+      "en": "CLI Reference →",
+      "zh": "CLI 参考 →",
+      "ja": "CLI リファレンス →"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "cliArrowDesc",
+    "text": {
+      "vi": "Khám phá các công cụ dòng lệnh",
+      "en": "Explore command-line tools",
+      "zh": "探索命令行工具",
+      "ja": "コマンドラインツールを探索する"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "footerAgents",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_skillsPage",
+    "key": "footerWorkflows",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "title",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Các thủ tục lệnh gạch chéo cho những tác vụ phát triển thường gặp.",
+      "en": "Slash command procedures for common development tasks.",
+      "zh": "用于常见开发任务的斜杠命令流程。",
+      "ja": "よくある開発タスク向けのスラッシュコマンド手順。"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "whatTitle",
+    "text": {
+      "vi": "Quy trình là gì?",
+      "en": "What are Workflows?",
+      "zh": "工作流是什么？",
+      "ja": "ワークフローとは？"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "whatP1",
+    "text": {
+      "vi": "Quy trình là những thủ tục được xác định rõ ràng, theo từng bước để hoàn thành các tác vụ phát triển cụ thể. Chúng được gọi bằng lệnh gạch chéo và mang lại các quy trình nhất quán, có thể lặp lại.",
+      "en": "Workflows are well-defined, step-by-step procedures for achieving specific development tasks. They're invoked using slash commands and provide consistent, repeatable processes.",
+      "zh": "工作流是为完成特定开发任务而定义的、清晰的分步流程。它们通过斜杠命令调用，提供一致、可重复的过程。",
+      "ja": "ワークフローは、特定の開発タスクを達成するための明確に定義された段階的な手順です。スラッシュコマンドで呼び出され、一貫した再現可能なプロセスを提供します。"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "whatP2",
+    "text": {
+      "vi": "Mỗi quy trình chứa các hướng dẫn cụ thể, điểm ra quyết định và thực hành tốt nhất cho lĩnh vực của nó.",
+      "en": "Each workflow contains specific instructions, decision points, and best practices for its domain.",
+      "zh": "每个工作流都包含其领域的具体指令、决策点和最佳实践。",
+      "ja": "各ワークフローには、その領域に固有の指示、判断ポイント、ベストプラクティスが含まれます。"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "howTitle",
+    "text": {
+      "vi": "Cách sử dụng Quy trình",
+      "en": "How to Use Workflows",
+      "zh": "如何使用工作流",
+      "ja": "ワークフローの使い方"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "howP",
+    "text": {
+      "vi": "Chỉ cần gõ một lệnh gạch chéo theo sau là mô tả tác vụ của bạn:",
+      "en": "Simply type a slash command followed by your task description:",
+      "zh": "只需键入斜杠命令，后跟你的任务描述：",
+      "ja": "スラッシュコマンドに続けてタスクの説明を入力するだけです："
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "tipStrong",
+    "text": {
+      "vi": " Mẹo:",
+      "en": " Tip:",
+      "zh": " 提示：",
+      "ja": " ヒント："
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "tipTextA",
+    "text": {
+      "vi": " Một số quy trình có chú thích ",
+      "en": " Some workflows have a ",
+      "zh": " 有些工作流带有 ",
+      "ja": " 一部のワークフローには "
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "tipTextB",
+    "text": {
+      "vi": " cho phép tự động chạy các lệnh an toàn mà không cần người dùng phê duyệt.",
+      "en": " annotation that allows auto-running safe commands without user approval.",
+      "zh": " 注解，允许在无需用户批准的情况下自动运行安全命令。",
+      "ja": " アノテーションがあり、ユーザーの承認なしに安全なコマンドを自動実行できます。"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "availableTitle",
+    "text": {
+      "vi": "Các Quy trình có sẵn",
+      "en": "Available Workflows",
+      "zh": "可用的工作流",
+      "ja": "利用可能なワークフロー"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "availablePa",
+    "text": {
+      "vi": "",
+      "en": "",
+      "zh": "",
+      "ja": ""
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "availablePb",
+    "text": {
+      "vi": " quy trình bao quát các tình huống phát triển thường gặp:",
+      "en": " workflows covering common development scenarios:",
+      "zh": " 个工作流，涵盖常见的开发场景：",
+      "ja": " 個のワークフローが、よくある開発シナリオをカバーします："
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "exampleUsage",
+    "text": {
+      "vi": "Ví dụ sử dụng",
+      "en": "Example Usage",
+      "zh": "用法示例",
+      "ja": "使用例"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customTitle",
+    "text": {
+      "vi": "Tạo Quy trình tùy chỉnh",
+      "en": "Creating Custom Workflows",
+      "zh": "创建自定义工作流",
+      "ja": "カスタムワークフローの作成"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customPa",
+    "text": {
+      "vi": "Bạn có thể tạo quy trình của riêng mình bằng cách thêm các tệp markdown vào ",
+      "en": "You can create your own workflows by adding markdown files to ",
+      "zh": "你可以通过将 markdown 文件添加到 ",
+      "ja": "markdown ファイルを "
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customPb",
+    "text": {
+      "vi": ":",
+      "en": ":",
+      "zh": " 来创建自己的工作流：",
+      "ja": " に追加することで、独自のワークフローを作成できます："
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customNoteA",
+    "text": {
+      "vi": "Lưu thành ",
+      "en": "Save as ",
+      "zh": "保存为 ",
+      "ja": "Save as "
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customNoteB",
+    "text": {
+      "vi": " và gọi bằng ",
+      "en": " and invoke with ",
+      "zh": " 并使用 ",
+      "ja": " として保存し、"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "customNoteC",
+    "text": {
+      "vi": ".",
+      "en": ".",
+      "zh": " 调用。",
+      "ja": " で呼び出します。"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "nextTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "cliArrow",
+    "text": {
+      "vi": "Tài liệu CLI →",
+      "en": "CLI Reference →",
+      "zh": "CLI 参考 →",
+      "ja": "CLI リファレンス →"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "cliArrowDesc",
+    "text": {
+      "vi": "Tìm hiểu về các công cụ dòng lệnh",
+      "en": "Learn about command-line tools",
+      "zh": "了解命令行工具",
+      "ja": "コマンドラインツールについて学ぶ"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "backAgentsArrow",
+    "text": {
+      "vi": "Quay lại Agents →",
+      "en": "Back to Agents →",
+      "zh": "返回 Agents →",
+      "ja": "Agents に戻る →"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "backAgentsArrowDesc",
+    "text": {
+      "vi": "Xem lại các agent chuyên biệt",
+      "en": "Review specialist agents",
+      "zh": "回顾专业 agent",
+      "ja": "専門 agent を確認する"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "footerSkills",
+    "text": {
+      "vi": "Kỹ năng",
+      "en": "Skills",
+      "zh": "技能",
+      "ja": "スキル"
+    }
+  },
+  {
+    "group": "docs_workflowsPage",
+    "key": "footerCli",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "title",
+    "text": {
+      "vi": "Cài đặt",
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Bắt đầu với AG Kit trong chưa đầy một phút.",
+      "en": "Get started with AG Kit in under a minute.",
+      "zh": "不到一分钟即可开始使用 AG Kit。",
+      "ja": "1 分足らずで AG Kit を始められます。"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "quickStartTitle",
+    "text": {
+      "vi": "Bắt đầu nhanh",
+      "en": "Quick Start",
+      "zh": "快速开始",
+      "ja": "クイックスタート"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "quickStartPa",
+    "text": {
+      "vi": "Cách nhanh nhất để cài đặt AG Kit là dùng ",
+      "en": "The fastest way to install AG Kit is using ",
+      "zh": "安装 AG Kit 最快的方法是使用 ",
+      "ja": "AG Kit を最も速くインストールする方法は、"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "quickStartPb",
+    "text": {
+      "vi": " trong thư mục gốc của dự án:",
+      "en": " in root project:",
+      "zh": " ，在项目根目录中执行：",
+      "ja": " をプロジェクトルートで使うことです："
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "calloutNoteStrong",
+    "text": {
+      "vi": "Lưu ý:",
+      "en": "Note:",
+      "zh": "注意：",
+      "ja": "注意："
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "calloutNoteA",
+    "text": {
+      "vi": " Lệnh này sẽ tạo một thư mục ",
+      "en": " This command will create a ",
+      "zh": " 此命令会在你当前目录中创建一个 ",
+      "ja": " このコマンドは現在のディレクトリに "
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "calloutNoteB",
+    "text": {
+      "vi": " trong thư mục hiện tại của bạn chứa tất cả các mẫu.",
+      "en": " folder in your current directory containing all templates.",
+      "zh": " 文件夹，包含所有模板。",
+      "ja": " フォルダーを作成し、すべてのテンプレートが含まれます。"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalTitle",
+    "text": {
+      "vi": "Cài đặt toàn cục",
+      "en": "Global Installation",
+      "zh": "全局安装",
+      "ja": "グローバルインストール"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalPa",
+    "text": {
+      "vi": "Cài đặt CLI toàn cục để dùng lệnh ",
+      "en": "Install the CLI globally to use ",
+      "zh": "全局安装 CLI，即可在任何地方使用 ",
+      "ja": "CLI をグローバルにインストールすると、どこでも "
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalPb",
+    "text": {
+      "vi": " ở bất cứ đâu:",
+      "en": " command anywhere:",
+      "zh": " 命令：",
+      "ja": " コマンドを使えます："
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalReadOtherA",
+    "text": {
+      "vi": "Đọc các lệnh khác trong tài liệu ",
+      "en": "Read other commands in ",
+      "zh": "在 ",
+      "ja": "他のコマンドは "
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalReadOtherLink",
+    "text": {
+      "vi": "lệnh CLI",
+      "en": "CLI commands",
+      "zh": "CLI 命令",
+      "ja": "CLI コマンド"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "globalReadOtherB",
+    "text": {
+      "vi": ".",
+      "en": " documentation.",
+      "zh": " 文档中阅读其他命令。",
+      "ja": " のドキュメントで確認できます。"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "structureTitle",
+    "text": {
+      "vi": "Những gì được cài đặt",
+      "en": "What Gets Installed",
+      "zh": "安装内容",
+      "ja": "インストールされる内容"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "structureP",
+    "text": {
+      "vi": "Sau khi chạy lệnh cài đặt, bạn sẽ có cấu trúc sau:",
+      "en": "After running the installation command, you'll have the following structure:",
+      "zh": "运行安装命令后，你将获得以下结构：",
+      "ja": "インストールコマンドを実行すると、次の構造になります："
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "agentDirDesc",
+    "text": {
+      "vi": "Chứa 20 cấu hình AI agent chuyên biệt cho các lĩnh vực khác nhau (frontend, backend, bảo mật, v.v.)",
+      "en": "Contains 20 specialist AI agent configurations for different domains (frontend, backend, security, etc.)",
+      "zh": "包含 20 个面向不同领域（前端、后端、安全等）的专业 AI agent 配置",
+      "ja": "さまざまな領域（フロントエンド、バックエンド、セキュリティなど）向けの 20 個の専門 AI agent 設定を含みます"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "skillsDirDesc",
+    "text": {
+      "vi": "45 mô-đun kiến thức theo lĩnh vực mà agent có thể sử dụng",
+      "en": "45 domain-specific knowledge modules that agents can use",
+      "zh": "45 个 agent 可使用的特定领域知识模块",
+      "ja": "agent が使用できる 45 個のドメイン固有の知識モジュール"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "workflowsDirDesc",
+    "text": {
+      "vi": "13 thủ tục lệnh gạch chéo cho những tác vụ phát triển thường gặp",
+      "en": "13 slash command procedures for common development tasks",
+      "zh": "13 个用于常见开发任务的斜杠命令流程",
+      "ja": "よくある開発タスク向けの 13 個のスラッシュコマンド手順"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "rulesDirDescA",
+    "text": {
+      "vi": "Cấu hình workspace bao gồm ",
+      "en": "Workspace configuration including ",
+      "zh": "工作区配置，包含 ",
+      "ja": "行動ルール用の "
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "rulesDirDescB",
+    "text": {
+      "vi": " cho các quy tắc hành vi",
+      "en": " for behavior rules",
+      "zh": " 用于行为规则",
+      "ja": " を含むワークスペース設定"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "requirementsTitle",
+    "text": {
+      "vi": "Yêu cầu hệ thống",
+      "en": "System Requirements",
+      "zh": "系统要求",
+      "ja": "システム要件"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "req1",
+    "text": {
+      "vi": "Node.js 18.0 trở lên",
+      "en": "Node.js 18.0 or later",
+      "zh": "Node.js 18.0 或更高版本",
+      "ja": "Node.js 18.0 以降"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "req2",
+    "text": {
+      "vi": "Trình quản lý gói npm hoặc yarn",
+      "en": "npm or yarn package manager",
+      "zh": "npm 或 yarn 包管理器",
+      "ja": "npm または yarn パッケージマネージャー"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "req3",
+    "text": {
+      "vi": "Git (cho cập nhật và quản lý phiên bản)",
+      "en": "Git (for updates and version control)",
+      "zh": "Git（用于更新和版本控制）",
+      "ja": "Git（更新とバージョン管理用）"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "nextTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "nextP",
+    "text": {
+      "vi": "Giờ bạn đã cài đặt AG Kit, hãy tìm hiểu về các khái niệm cốt lõi:",
+      "en": "Now that you have AG Kit installed, learn about the core concepts:",
+      "zh": "现在你已经安装了 AG Kit，来了解核心概念：",
+      "ja": "AG Kit をインストールしたので、コアコンセプトについて学びましょう："
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "agentsArrow",
+    "text": {
+      "vi": "Agents →",
+      "en": "Agents →",
+      "zh": "Agents →",
+      "ja": "Agents →"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "agentsArrowDesc",
+    "text": {
+      "vi": "Tìm hiểu về các AI agent chuyên biệt",
+      "en": "Learn about specialist AI agents",
+      "zh": "了解专业 AI agent",
+      "ja": "専門 AI agent について学ぶ"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "skillsArrow",
+    "text": {
+      "vi": "Kỹ năng →",
+      "en": "Skills →",
+      "zh": "技能 →",
+      "ja": "スキル →"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "skillsArrowDesc",
+    "text": {
+      "vi": "Khám phá 45 kỹ năng theo lĩnh vực",
+      "en": "Discover 45 domain-specific skills",
+      "zh": "探索 45 个特定领域技能",
+      "ja": "45 個のドメイン固有スキルを発見する"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "footerIntroduction",
+    "text": {
+      "vi": "Giới thiệu",
+      "en": "Introduction",
+      "zh": "简介",
+      "ja": "概要"
+    }
+  },
+  {
+    "group": "docs_installPage",
+    "key": "footerAgents",
+    "text": {
+      "vi": "Agents",
+      "en": "Agents",
+      "zh": "Agents",
+      "ja": "Agents"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "breadcrumbDocs",
+    "text": {
+      "vi": "Tài liệu",
+      "en": "Docs",
+      "zh": "文档",
+      "ja": "ドキュメント"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "breadcrumbCurrent",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "title",
+    "text": {
+      "vi": "Tài liệu CLI",
+      "en": "CLI Reference",
+      "zh": "CLI 参考",
+      "ja": "CLI リファレンス"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "subtitle",
+    "text": {
+      "vi": "Giao diện dòng lệnh để quản lý các bản cài đặt AG Kit.",
+      "en": "Command-line interface for managing AG Kit installations.",
+      "zh": "用于管理 AG Kit 安装的命令行界面。",
+      "ja": "AG Kit のインストールを管理するためのコマンドラインインターフェース。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "overviewTitle",
+    "text": {
+      "vi": "Tổng quan",
+      "en": "Overview",
+      "zh": "概述",
+      "ja": "概要"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "overviewPa",
+    "text": {
+      "vi": "Công cụ CLI ",
+      "en": "The ",
+      "zh": "The ",
+      "ja": "The "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "overviewPb",
+    "text": {
+      "vi": " giúp bạn quản lý các bản cài đặt AG Kit trên các dự án của mình.",
+      "en": " CLI tool helps you manage AG Kit installations across your projects.",
+      "zh": " CLI 工具可帮助你跨项目管理 AG Kit 安装。",
+      "ja": " CLI ツールは、プロジェクト全体で AG Kit のインストールを管理するのに役立ちます。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "commandsTitle",
+    "text": {
+      "vi": "Lệnh",
+      "en": "Commands",
+      "zh": "命令",
+      "ja": "コマンド"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initDescA",
+    "text": {
+      "vi": "Khởi tạo AG Kit trong dự án của bạn bằng cách cài đặt thư mục ",
+      "en": "Initialize AG Kit in your project by installing the ",
+      "zh": "通过安装 ",
+      "ja": "Initialize AG Kit in your project by installing the "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initDescB",
+    "text": {
+      "vi": ".",
+      "en": " folder.",
+      "zh": " 文件夹在你的项目中初始化 AG Kit。",
+      "ja": " フォルダーをインストールして、プロジェクトに AG Kit を初期化します。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "behaviorTitle",
+    "text": {
+      "vi": "Hành vi",
+      "en": "Behavior",
+      "zh": "行为",
+      "ja": "動作"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior1a",
+    "text": {
+      "vi": "Tạo thư mục ",
+      "en": "Creates ",
+      "zh": "在当前文件夹中创建 ",
+      "ja": "現在のフォルダーに "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior1b",
+    "text": {
+      "vi": " trong thư mục hiện tại",
+      "en": " directory in current folder",
+      "zh": " 目录",
+      "ja": " ディレクトリを作成します"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior2",
+    "text": {
+      "vi": "Tải các mẫu mới nhất từ GitHub",
+      "en": "Downloads latest templates from GitHub",
+      "zh": "从 GitHub 下载最新模板",
+      "ja": "GitHub から最新のテンプレートをダウンロードします"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior3a",
+    "text": {
+      "vi": "Bỏ qua nếu ",
+      "en": "Skips  if ",
+      "zh": "如果 ",
+      "ja": "Skips  if "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior3b",
+    "text": {
+      "vi": " đã tồn tại (dùng ",
+      "en": " already exists (use ",
+      "zh": " 已存在则跳过（使用 ",
+      "ja": " が既に存在する場合はスキップします（上書きするには "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "initBehavior3c",
+    "text": {
+      "vi": " để ghi đè)",
+      "en": " to override)",
+      "zh": " 覆盖）",
+      "ja": " を使用）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "updateDesc",
+    "text": {
+      "vi": "Cập nhật bản cài đặt AG Kit hiện có của bạn lên phiên bản mới nhất.",
+      "en": "Update your existing AG Kit installation to the latest version.",
+      "zh": "将你现有的 AG Kit 安装更新到最新版本。",
+      "ja": "既存の AG Kit インストールを最新バージョンに更新します。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "updateWarningStrong",
+    "text": {
+      "vi": "Cảnh báo:",
+      "en": "Warning:",
+      "zh": "警告：",
+      "ja": "警告："
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "updateWarningA",
+    "text": {
+      "vi": " Thao tác này sẽ xóa và thay thế thư mục ",
+      "en": " This will delete and replace your ",
+      "zh": " 此操作将删除并替换你的 ",
+      "ja": " この操作はあなたの "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "updateWarningB",
+    "text": {
+      "vi": " của bạn. Hãy đảm bảo sao lưu mọi thay đổi tùy chỉnh.",
+      "en": " folder. Make sure to backup any custom changes.",
+      "zh": " 文件夹。请务必备份任何自定义更改。",
+      "ja": " フォルダーを削除して置き換えます。カスタム変更は必ずバックアップしてください。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusDesc",
+    "text": {
+      "vi": "Kiểm tra trạng thái cài đặt hiện tại và kiểm tra npm xem có bản phát hành mới hơn không.",
+      "en": "Check the current installation status and check npm for a newer release.",
+      "zh": "检查当前安装状态，并查询 npm 是否有更新的版本。",
+      "ja": "現在のインストール状況を確認し、npm で新しいリリースがあるか確認します。"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "outputIncludesTitle",
+    "text": {
+      "vi": "Đầu ra bao gồm",
+      "en": "Output Includes",
+      "zh": "输出包括",
+      "ja": "出力に含まれるもの"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut1",
+    "text": {
+      "vi": "Phiên bản CLI",
+      "en": "CLI version",
+      "zh": "CLI 版本",
+      "ja": "CLI バージョン"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut2",
+    "text": {
+      "vi": "Trạng thái cài đặt (đã cài/chưa cài)",
+      "en": "Installation status (installed/not installed)",
+      "zh": "安装状态（已安装/未安装）",
+      "ja": "インストール状況（インストール済み/未インストール）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut3",
+    "text": {
+      "vi": "Đường dẫn cài đặt và thời gian sửa đổi gần nhất",
+      "en": "Install path and last-modified time",
+      "zh": "安装路径和最后修改时间",
+      "ja": "インストールパスと最終更新時刻"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut4a",
+    "text": {
+      "vi": "Số lượng mục tại thư mục gốc ",
+      "en": "Item count at the ",
+      "zh": "位于 ",
+      "ja": "Item count at the "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut4b",
+    "text": {
+      "vi": " root",
+      "en": " root",
+      "zh": " 根目录的项目数量",
+      "ja": " ルートの項目数"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "statusOut5",
+    "text": {
+      "vi": "Thông báo cập nhật nếu có phiên bản mới hơn",
+      "en": "Update notification if a newer version is available",
+      "zh": "如果有更新的版本，则显示更新通知",
+      "ja": "新しいバージョンが利用可能な場合の更新通知"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optionsTitle",
+    "text": {
+      "vi": "Tùy chọn",
+      "en": "Options",
+      "zh": "选项",
+      "ja": "オプション"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optionsP",
+    "text": {
+      "vi": "Tùy chỉnh hành vi của CLI với các tùy chọn sau:",
+      "en": "Customize CLI behavior with these options:",
+      "zh": "使用这些选项自定义 CLI 行为：",
+      "ja": "これらのオプションで CLI の動作をカスタマイズします："
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "tableOption",
+    "text": {
+      "vi": "Tùy chọn",
+      "en": "Option",
+      "zh": "选项",
+      "ja": "オプション"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "tableDescription",
+    "text": {
+      "vi": "Mô tả",
+      "en": "Description",
+      "zh": "描述",
+      "ja": "説明"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optForceA",
+    "text": {
+      "vi": "Ghi đè thư mục ",
+      "en": "Overwrite existing ",
+      "zh": "覆盖现有的 ",
+      "ja": "既存の "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optForceB",
+    "text": {
+      "vi": " đang tồn tại (với ",
+      "en": " folder (on ",
+      "zh": " 文件夹（在 ",
+      "ja": " フォルダーを上書きします（"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optForceC",
+    "text": {
+      "vi": ", bỏ qua lời nhắc xác nhận)",
+      "en": ", skip the confirmation prompt)",
+      "zh": " 时跳过确认提示）",
+      "ja": " では確認プロンプトをスキップ）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optPathDesc",
+    "text": {
+      "vi": "Cài đặt vào thư mục cụ thể thay vì thư mục hiện tại",
+      "en": "Install in specific directory instead of current folder",
+      "zh": "安装到指定目录而非当前文件夹",
+      "ja": "現在のフォルダーではなく指定したディレクトリにインストールします"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optBranchDesc",
+    "text": {
+      "vi": "Dùng một nhánh Git cụ thể (mặc định là nhánh mặc định của repo)",
+      "en": "Use a specific Git branch (defaults to the repo default branch)",
+      "zh": "使用特定的 Git 分支（默认为仓库的默认分支）",
+      "ja": "特定の Git ブランチを使用します（デフォルトはリポジトリのデフォルトブランチ）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optQuietDesc",
+    "text": {
+      "vi": "Ẩn đầu ra (hữu ích cho các pipeline CI/CD)",
+      "en": "Suppress output (useful for CI/CD pipelines)",
+      "zh": "抑制输出（对 CI/CD 流水线有用）",
+      "ja": "出力を抑制します（CI/CD パイプラインに便利）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optDryRunA",
+    "text": {
+      "vi": "Xem trước các hành động mà không thực thi (",
+      "en": "Preview actions without executing (",
+      "zh": "预览操作而不实际执行（",
+      "ja": "実行せずに操作をプレビューします（"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optDryRunB",
+    "text": {
+      "vi": " / ",
+      "en": " / ",
+      "zh": " / ",
+      "ja": " / "
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "optDryRunC",
+    "text": {
+      "vi": ")",
+      "en": ")",
+      "zh": "）",
+      "ja": "）"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "examplesTitle",
+    "text": {
+      "vi": "Ví dụ",
+      "en": "Examples",
+      "zh": "示例",
+      "ja": "例"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "exForceReinstall",
+    "text": {
+      "vi": "Cài đặt lại bắt buộc",
+      "en": "Force reinstall",
+      "zh": "强制重新安装",
+      "ja": "強制的に再インストール"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "exInstallDir",
+    "text": {
+      "vi": "Cài đặt vào thư mục cụ thể",
+      "en": "Install in specific directory",
+      "zh": "安装到指定目录",
+      "ja": "指定したディレクトリにインストール"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "exDevBranch",
+    "text": {
+      "vi": "Dùng nhánh phát triển",
+      "en": "Use development branch",
+      "zh": "使用开发分支",
+      "ja": "開発ブランチを使用"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "exSilentCI",
+    "text": {
+      "vi": "Cài đặt im lặng cho CI/CD",
+      "en": "Silent install for CI/CD",
+      "zh": "为 CI/CD 静默安装",
+      "ja": "CI/CD 向けのサイレントインストール"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "nextTitle",
+    "text": {
+      "vi": "Bước tiếp theo",
+      "en": "Next Steps",
+      "zh": "后续步骤",
+      "ja": "次のステップ"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "installGuideArrow",
+    "text": {
+      "vi": "Hướng dẫn cài đặt →",
+      "en": "Installation Guide →",
+      "zh": "安装指南 →",
+      "ja": "インストールガイド →"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "installGuideDesc",
+    "text": {
+      "vi": "Hướng dẫn cài đặt đầy đủ",
+      "en": "Full installation instructions",
+      "zh": "完整的安装说明",
+      "ja": "完全なインストール手順"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "viewGithubArrow",
+    "text": {
+      "vi": "Xem trên GitHub →",
+      "en": "View on GitHub →",
+      "zh": "在 GitHub 上查看 →",
+      "ja": "GitHub で見る →"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "viewGithubDesc",
+    "text": {
+      "vi": "Mã nguồn và hướng dẫn đóng góp",
+      "en": "Source code and contribution guide",
+      "zh": "源代码与贡献指南",
+      "ja": "ソースコードとコントリビュートガイド"
+    }
+  },
+  {
+    "group": "docs_cliPage",
+    "key": "footerWorkflows",
+    "text": {
+      "vi": "Quy trình",
+      "en": "Workflows",
+      "zh": "工作流",
+      "ja": "ワークフロー"
+    }
+  }
+]
