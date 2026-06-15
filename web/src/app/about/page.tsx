@@ -12,7 +12,7 @@ export default async function About() {
       {/* Banner Section */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/about-ban.jpg')" }}
+        style={{ backgroundImage: "url('/images/about-ban.png')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
@@ -36,7 +36,7 @@ export default async function About() {
                   Sophpower Vietnam
                 </h2>
               </div>
-              
+
               <p className="text-gray-600 leading-relaxed text-justify text-sm sm:text-base">
                 {t.about.description}
               </p>
@@ -212,9 +212,9 @@ export default async function About() {
       {/* Section 4: Khám phá thêm */}
       <section className="py-24 bg-gray-55 border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            
+
             {/* Left Column: Title */}
             <div className="lg:col-span-3">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-950 tracking-tight leading-tight">
@@ -224,7 +224,7 @@ export default async function About() {
 
             {/* Right Column: 3 Cards */}
             <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-6">
-              
+
               {/* Card 1: Food Ingredients */}
               <Link
                 href="/nguyen-lieu-thuc-pham"
