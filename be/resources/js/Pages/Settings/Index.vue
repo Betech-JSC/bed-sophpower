@@ -136,7 +136,7 @@
             <div class="space-y-6 mt-4">
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mã chèn trong Header (Ví dụ: Google Analytics, Google Tag Manager...)</label>
-                <a-textarea v-model:value="form.header_scripts" placeholder="<script>...</script>" :rows="8" size="large" class="font-mono text-xs" />
+                <a-textarea v-model:value="form.header_scripts" placeholder="&lt;script&gt;...&lt;/script&gt;" :rows="8" size="large" class="font-mono text-xs" />
               </div>
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-1">Mã chèn trong Footer (Ví dụ: Chat Widget, Facebook Pixel...)</label>
