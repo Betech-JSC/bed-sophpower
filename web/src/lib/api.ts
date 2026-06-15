@@ -24,6 +24,8 @@ export interface Product {
   type: 'food' | 'cosmetic';
   created_at?: string;
   updated_at?: string;
+  seo_title?: string | LocalizedString;
+  seo_desc?: string | LocalizedString;
 }
 
 export interface Article {
@@ -37,6 +39,8 @@ export interface Article {
   author: string;
   created_at?: string;
   updated_at?: string;
+  seo_title?: string | LocalizedString;
+  seo_desc?: string | LocalizedString;
 }
 
 export interface RecruitmentJob {
@@ -52,6 +56,8 @@ export interface RecruitmentJob {
   benefits: string[] | LocalizedArray;
   created_at?: string;
   updated_at?: string;
+  seo_title?: string | LocalizedString;
+  seo_desc?: string | LocalizedString;
 }
 
 export interface Banner {
@@ -77,6 +83,8 @@ export interface StaticPage {
   slug: string;
   title: string | LocalizedString;
   content: string | LocalizedString;
+  seo_title?: string | LocalizedString;
+  seo_desc?: string | LocalizedString;
 }
 
 export interface SystemSettings {
@@ -92,6 +100,7 @@ export interface SystemSettings {
   contact_address_en: string;
   header_scripts?: string;
   footer_scripts?: string;
+  seo_robots_txt?: string;
 }
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {

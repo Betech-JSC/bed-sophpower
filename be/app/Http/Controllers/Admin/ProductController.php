@@ -67,6 +67,12 @@ class ProductController extends Controller
             'packaging.vi' => ['required', 'string'],
             'packaging.en' => ['nullable', 'string'],
             'type' => ['required', 'in:food,cosmetic'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['name']['en'])) {
@@ -126,6 +132,12 @@ class ProductController extends Controller
             'packaging.vi' => ['required', 'string'],
             'packaging.en' => ['nullable', 'string'],
             'type' => ['required', 'in:food,cosmetic'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['name']['en'])) {

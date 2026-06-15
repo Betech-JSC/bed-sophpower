@@ -46,6 +46,12 @@ class PageController extends Controller
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
             'content.en' => ['nullable', 'string'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -80,6 +86,12 @@ class PageController extends Controller
             'content' => ['required', 'array'],
             'content.vi' => ['required', 'string'],
             'content.en' => ['nullable', 'string'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {

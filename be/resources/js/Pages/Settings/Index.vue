@@ -75,6 +75,13 @@
                   </div>
                 </a-tab-pane>
               </a-tabs>
+
+              <!-- Robots.txt Configuration -->
+              <div class="border-t border-gray-150 pt-6 mt-6">
+                <label class="block text-sm font-bold text-gray-700 mb-1">Cấu hình File ROBOTS.TXT</label>
+                <p class="text-xs text-gray-400 mb-2">Để trống để áp dụng cấu hình mặc định (Cho phép tất cả bots trừ các thư mục /api/ và /admin/).</p>
+                <a-textarea v-model:value="form.seo_robots_txt" placeholder="Ví dụ: User-agent: *&#10;Allow: /&#10;Disallow: /api/" :rows="6" size="large" class="font-mono text-xs" />
+              </div>
             </div>
           </a-tab-pane>
 
@@ -190,6 +197,7 @@ const form = useForm({
 
   header_scripts: props.settings.header_scripts || '',
   footer_scripts: props.settings.footer_scripts || '',
+  seo_robots_txt: props.settings.seo_robots_txt || '',
 });
 
 function submit() {

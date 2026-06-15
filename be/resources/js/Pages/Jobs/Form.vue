@@ -195,6 +195,42 @@
           </a-tab-pane>
         </a-tabs>
 
+        <!-- SEO Overrides -->
+        <div class="border-t border-gray-150 pt-6">
+          <label class="block text-sm font-bold text-gray-700 mb-2">Cấu hình SEO nâng cao (SEO Overrides)</label>
+          <p class="text-xs text-gray-400 mb-4">Để trống nếu bạn muốn tự động lấy theo Chức danh tuyển dụng và Tóm tắt công việc.</p>
+          
+          <a-tabs default-active-key="seo_vi" type="card">
+            <!-- SEO VI -->
+            <a-tab-pane key="seo_vi" tab="SEO Tiếng Việt">
+              <div class="space-y-4 mt-3">
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ tiêu đề SEO (VI)</label>
+                  <a-input v-model:value="form.seo_title.vi" placeholder="Mặc định lấy theo vị trí tuyển dụng..." size="large" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ mô tả SEO (VI)</label>
+                  <a-textarea v-model:value="form.seo_desc.vi" placeholder="Mặc định lấy theo tóm tắt công việc..." :rows="3" size="large" />
+                </div>
+              </div>
+            </a-tab-pane>
+
+            <!-- SEO EN -->
+            <a-tab-pane key="seo_en" tab="SEO Tiếng Anh">
+              <div class="space-y-4 mt-3">
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ tiêu đề SEO (EN)</label>
+                  <a-input v-model:value="form.seo_title.en" placeholder="Mặc định lấy theo vị trí tuyển dụng..." size="large" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ mô tả SEO (EN)</label>
+                  <a-textarea v-model:value="form.seo_desc.en" placeholder="Mặc định lấy theo tóm tắt công việc..." :rows="3" size="large" />
+                </div>
+              </div>
+            </a-tab-pane>
+          </a-tabs>
+        </div>
+
         <!-- Buttons -->
         <div class="flex items-center gap-3 border-t border-gray-150 pt-6">
           <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
@@ -262,6 +298,14 @@ const form = useForm({
   benefits: {
     vi: props.job?.benefits?.vi ? [...props.job.benefits.vi] : (Array.isArray(props.job?.benefits) ? [...props.job.benefits] : ['']),
     en: props.job?.benefits?.en ? [...props.job.benefits.en] : [''],
+  },
+  seo_title: {
+    vi: props.job?.seo_title?.vi || '',
+    en: props.job?.seo_title?.en || '',
+  },
+  seo_desc: {
+    vi: props.job?.seo_desc?.vi || '',
+    en: props.job?.seo_desc?.en || '',
   },
 });
 

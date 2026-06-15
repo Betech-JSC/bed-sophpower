@@ -20,16 +20,25 @@ export async function generateMetadata({
   
   if (!product) return {};
 
-  const name = getVal(product.name, locale);
-  const rawDesc = getVal(product.desc, locale) || "";
-  const cleanDesc = rawDesc.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+  const customTitle = product.seo_title ? getVal(product.seo_title, locale) : "";
+  const customDesc = product.seo_desc ? getVal(product.seo_desc, locale) : "";
+
+  const name = customTitle || getVal(product.name, locale);
+  let description = customDesc;
+  if (!description) {
+    const rawDesc = getVal(product.desc, locale) || "";
+    const cleanDesc = rawDesc.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+    description = cleanDesc ? `${cleanDesc}...` : "";
+  }
+
+  const formattedTitle = name.includes("Sophpower") ? name : `${name} - Sophpower Vietnam`;
 
   return {
-    title: `${name} - Sophpower Vietnam`,
-    description: cleanDesc ? `${cleanDesc}...` : undefined,
+    title: formattedTitle,
+    description: description || undefined,
     openGraph: {
-      title: `${name} - Sophpower Vietnam`,
-      description: cleanDesc || undefined,
+      title: formattedTitle,
+      description: description || undefined,
       images: product.image ? [api.getImageUrl(product.image)] : [],
     }
   };

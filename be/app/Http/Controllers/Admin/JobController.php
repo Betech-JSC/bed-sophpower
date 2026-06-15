@@ -66,6 +66,12 @@ class JobController extends Controller
             'benefits' => ['nullable', 'array'],
             'benefits.vi' => ['nullable', 'array'],
             'benefits.en' => ['nullable', 'array'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -125,6 +131,12 @@ class JobController extends Controller
             'benefits' => ['nullable', 'array'],
             'benefits.vi' => ['nullable', 'array'],
             'benefits.en' => ['nullable', 'array'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {

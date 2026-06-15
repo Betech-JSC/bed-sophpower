@@ -19,16 +19,25 @@ export async function generateMetadata({
   
   if (!article) return {};
 
-  const title = getVal(article.title, locale);
-  const rawSummary = getVal(article.summary, locale) || "";
-  const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+  const customTitle = article.seo_title ? getVal(article.seo_title, locale) : "";
+  const customDesc = article.seo_desc ? getVal(article.seo_desc, locale) : "";
+
+  const title = customTitle || getVal(article.title, locale);
+  let description = customDesc;
+  if (!description) {
+    const rawSummary = getVal(article.summary, locale) || "";
+    const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+    description = cleanSummary ? `${cleanSummary}...` : "";
+  }
+
+  const formattedTitle = title.includes("Sophpower") ? title : `${title} - Sophpower Vietnam`;
 
   return {
-    title: `${title} - Sophpower Vietnam`,
-    description: cleanSummary ? `${cleanSummary}...` : undefined,
+    title: formattedTitle,
+    description: description || undefined,
     openGraph: {
-      title: `${title} - Sophpower Vietnam`,
-      description: cleanSummary || undefined,
+      title: formattedTitle,
+      description: description || undefined,
       images: article.image ? [api.getImageUrl(article.image)] : [],
     }
   };

@@ -21,6 +21,8 @@ class RecruitmentJob extends Model
         'requirements',
         'responsibilities',
         'benefits',
+        'seo_title',
+        'seo_desc',
     ];
 
     protected $casts = [
@@ -33,5 +35,7 @@ class RecruitmentJob extends Model
         'responsibilities' => 'array',
         'benefits' => 'array',
         'deadline' => 'date',
+        'seo_title' => 'array',
+        'seo_desc' => 'array',
     ];
 }

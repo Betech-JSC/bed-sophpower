@@ -17,6 +17,8 @@ class Article extends Model
         'image',
         'category',
         'author',
+        'seo_title',
+        'seo_desc',
     ];
 
     protected $casts = [
@@ -25,5 +27,7 @@ class Article extends Model
         'content' => 'array',
         'category' => 'array',
         'date' => 'date',
+        'seo_title' => 'array',
+        'seo_desc' => 'array',
     ];
 }

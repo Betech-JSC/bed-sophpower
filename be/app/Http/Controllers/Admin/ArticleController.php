@@ -58,6 +58,12 @@ class ArticleController extends Controller
             'category.vi' => ['required', 'string', 'max:255'],
             'category.en' => ['nullable', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -112,6 +118,12 @@ class ArticleController extends Controller
             'category.vi' => ['required', 'string', 'max:255'],
             'category.en' => ['nullable', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
+            'seo_title' => ['nullable', 'array'],
+            'seo_title.vi' => ['nullable', 'string', 'max:255'],
+            'seo_title.en' => ['nullable', 'string', 'max:255'],
+            'seo_desc' => ['nullable', 'array'],
+            'seo_desc.vi' => ['nullable', 'string'],
+            'seo_desc.en' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {

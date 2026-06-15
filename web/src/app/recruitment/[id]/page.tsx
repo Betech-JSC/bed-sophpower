@@ -19,16 +19,25 @@ export async function generateMetadata({
   
   if (!job) return {};
 
-  const title = getVal(job.title, locale);
-  const rawSummary = getVal(job.summary, locale) || "";
-  const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+  const customTitle = job.seo_title ? getVal(job.seo_title, locale) : "";
+  const customDesc = job.seo_desc ? getVal(job.seo_desc, locale) : "";
+
+  const title = customTitle || getVal(job.title, locale);
+  let description = customDesc;
+  if (!description) {
+    const rawSummary = getVal(job.summary, locale) || "";
+    const cleanSummary = rawSummary.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+    description = cleanSummary ? `${cleanSummary}...` : "";
+  }
+
+  const formattedTitle = title.includes("Sophpower") ? title : `${title} - Tuyển dụng - Sophpower`;
 
   return {
-    title: `${title} - Tuyển dụng - Sophpower`,
-    description: cleanSummary ? `${cleanSummary}...` : undefined,
+    title: formattedTitle,
+    description: description || undefined,
     openGraph: {
-      title: `${title} - Tuyển dụng - Sophpower`,
-      description: cleanSummary || undefined,
+      title: formattedTitle,
+      description: description || undefined,
     }
   };
 }

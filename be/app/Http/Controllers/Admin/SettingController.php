@@ -16,7 +16,7 @@ class SettingController extends Controller
             'smtp_host', 'smtp_port', 'smtp_username', 'smtp_password', 'smtp_encryption', 'smtp_from_address', 'smtp_from_name',
             'meta_title_vi', 'meta_title_en', 'meta_desc_vi', 'meta_desc_en', 'meta_keywords_vi', 'meta_keywords_en',
             'contact_phone', 'contact_email', 'contact_address_vi', 'contact_address_en',
-            'header_scripts', 'footer_scripts'
+            'header_scripts', 'footer_scripts', 'seo_robots_txt'
         ];
 
         $settings = [];
@@ -35,7 +35,7 @@ class SettingController extends Controller
             'smtp_host', 'smtp_port', 'smtp_username', 'smtp_password', 'smtp_encryption', 'smtp_from_address', 'smtp_from_name',
             'meta_title_vi', 'meta_title_en', 'meta_desc_vi', 'meta_desc_en', 'meta_keywords_vi', 'meta_keywords_en',
             'contact_phone', 'contact_email', 'contact_address_vi', 'contact_address_en',
-            'header_scripts', 'footer_scripts'
+            'header_scripts', 'footer_scripts', 'seo_robots_txt'
         ];
 
         $validated = $request->validate([
@@ -58,13 +58,14 @@ class SettingController extends Controller
             'contact_address_en' => ['nullable', 'string'],
             'header_scripts' => ['nullable', 'string'],
             'footer_scripts' => ['nullable', 'string'],
+            'seo_robots_txt' => ['nullable', 'string'],
         ]);
 
         foreach ($validated as $key => $val) {
             Setting::setVal($key, $val ?? '');
         }
 
-        ActivityLogger::log('update_settings', "Cập nhật cấu hình hệ thống (SEO/SMTP/Scripts/Contact)");
+        ActivityLogger::log('update_settings', "Cập nhật cấu hình hệ thống (SEO/SMTP/Scripts/Contact/Robots)");
 
         return redirect()->route('admin.settings.index')
             ->with('success', 'Cấu hình hệ thống đã được cập nhật thành công!');

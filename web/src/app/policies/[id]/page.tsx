@@ -91,9 +91,16 @@ export async function generateMetadata({
 
   try {
     const pageData = await api.getPage(id);
-    title = getVal(pageData.title, locale) || "";
-    const content = getVal(pageData.content, locale) || "";
-    description = content.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+    const customTitle = pageData.seo_title ? getVal(pageData.seo_title, locale) : "";
+    const customDesc = pageData.seo_desc ? getVal(pageData.seo_desc, locale) : "";
+    
+    title = customTitle || getVal(pageData.title, locale) || "";
+    if (customDesc) {
+      description = customDesc;
+    } else {
+      const content = getVal(pageData.content, locale) || "";
+      description = content.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
+    }
   } catch (error) {
     const policy = policiesData[id];
     if (policy) {
@@ -103,8 +110,12 @@ export async function generateMetadata({
     }
   }
 
+  const formattedTitle = title 
+    ? (title.includes("Sophpower") ? title : `${title} - Sophpower`) 
+    : "Sophpower Policy";
+
   return {
-    title: title ? `${title} - Sophpower` : "Sophpower Policy",
+    title: formattedTitle,
     description: description ? `${description}...` : undefined,
   };
 }

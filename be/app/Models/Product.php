@@ -18,6 +18,8 @@ class Product extends Model
         'applications',
         'packaging',
         'type',
+        'seo_title',
+        'seo_desc',
     ];
 
     protected $casts = [
@@ -27,6 +29,8 @@ class Product extends Model
         'specs' => 'array',
         'applications' => 'array',
         'packaging' => 'array',
+        'seo_title' => 'array',
+        'seo_desc' => 'array',
     ];
 
     public function questions()
