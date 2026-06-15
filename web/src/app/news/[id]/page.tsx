@@ -7,6 +7,7 @@ import { getLocaleServer } from "@/lib/get-locale-server";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import type { Metadata } from "next";
+import ShareSocial from "@/components/ShareSocial";
 
 export async function generateMetadata({
   params,
@@ -139,6 +140,9 @@ export default async function NewsDetail({
           className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4"
           dangerouslySetInnerHTML={{ __html: articleContent }}
         />
+
+        {/* Social Share Buttons */}
+        <ShareSocial title={getVal(article.title, locale)} />
       </article>
     </div>
   );
