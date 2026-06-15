@@ -150,6 +150,8 @@ class ProductController extends Controller
 
             $path = $request->file('image_file')->store('products', 'public');
             $validated['image'] = '/storage/' . $path;
+        } else {
+            $validated['image'] = $product->image;
         }
 
         unset($validated['image_file']);

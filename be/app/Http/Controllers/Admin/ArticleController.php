@@ -135,6 +135,8 @@ class ArticleController extends Controller
 
             $path = $request->file('image_file')->store('news', 'public');
             $validated['image'] = '/storage/' . $path;
+        } else {
+            $validated['image'] = $article->image;
         }
 
         unset($validated['image_file']);
