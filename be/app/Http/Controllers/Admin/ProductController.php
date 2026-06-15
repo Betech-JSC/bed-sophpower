@@ -171,7 +171,7 @@ class ProductController extends Controller
                 }
                 $validated['image'] = null;
             } else {
-                $validated['image'] = $product->image;
+                $validated['image'] = $request->input('image');
             }
         }
 

@@ -155,7 +155,7 @@ class ArticleController extends Controller
                 }
                 $validated['image'] = null;
             } else {
-                $validated['image'] = $article->image;
+                $validated['image'] = $request->input('image');
             }
         }
 

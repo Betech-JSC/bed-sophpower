@@ -42,7 +42,8 @@ class BannerController extends Controller
             'title' => ['required', 'array'],
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
-            'image_file' => ['required', 'image', 'max:2048'],
+            'image_file' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'string'],
             'link' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
@@ -56,6 +57,11 @@ class BannerController extends Controller
             $path = $request->file('image_file')->store('banners', 'public');
             $validated['image'] = '/storage/' . $path;
         }
+
+        if (empty($validated['image'])) {
+            return redirect()->back()->withErrors(['image_file' => 'Ảnh banner slider là bắt buộc.']);
+        }
+
         unset($validated['image_file']);
 
         $banner = Banner::create($validated);
@@ -80,6 +86,7 @@ class BannerController extends Controller
             'title.vi' => ['required', 'string', 'max:255'],
             'title.en' => ['nullable', 'string', 'max:255'],
             'image_file' => ['nullable', 'image', 'max:2048'],
+            'image' => ['nullable', 'string'],
             'link' => ['nullable', 'string', 'max:255'],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
@@ -98,7 +105,22 @@ class BannerController extends Controller
 
             $path = $request->file('image_file')->store('banners', 'public');
             $validated['image'] = '/storage/' . $path;
+        } else {
+            if (is_null($request->input('image'))) {
+                if ($banner->image && str_starts_with($banner->image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $banner->image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['image'] = null;
+            } else {
+                $validated['image'] = $request->input('image');
+            }
         }
+
+        if (empty($validated['image'])) {
+            return redirect()->back()->withErrors(['image_file' => 'Ảnh banner slider là bắt buộc.']);
+        }
+
         unset($validated['image_file']);
 
         $banner->update($validated);
