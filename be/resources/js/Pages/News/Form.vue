@@ -141,7 +141,15 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
-              <span class="text-xs font-semibold mt-1">Chọn ảnh</span>
+              <span class="text-xs font-semibold mt-1">Tải ảnh lên</span>
+            </div>
+
+            <!-- Library Select Box -->
+            <div @click="showMediaModal = true" class="w-40 h-28 border-2 border-dashed border-gray-300 hover:border-emerald-500 rounded-lg overflow-hidden flex flex-col items-center justify-center bg-gray-55 text-gray-500 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-xs font-semibold mt-1">Chọn từ thư viện</span>
             </div>
 
             <!-- Preview Image -->
@@ -160,6 +168,12 @@
           <p v-if="form.errors.image_file" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.image_file }}</p>
         </div>
 
+        <MediaSelectorModal
+          :open="showMediaModal"
+          @close="showMediaModal = false"
+          @select="handleMediaSelect"
+        />
+
         <!-- Buttons -->
         <div class="flex items-center gap-3 border-t border-gray-150 pt-6">
           <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
@@ -175,6 +189,7 @@
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
 import RichTextEditor from '@/Components/RichTextEditor.vue';
+import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 
@@ -185,6 +200,7 @@ const props = defineProps({
 const isEdit = computed(() => !!props.article);
 const fileInput = ref(null);
 const imagePreview = ref(null);
+const showMediaModal = ref(false);
 
 // Format date to YYYY-MM-DD for input type="date"
 const formattedDate = computed(() => {
@@ -246,6 +262,13 @@ function removeImage() {
   if (fileInput.value) {
     fileInput.value.value = '';
   }
+}
+
+function handleMediaSelect(file) {
+  form.image = '/storage/' + file.file_path;
+  form.image_file = null;
+  imagePreview.value = null;
+  showMediaModal.value = false;
 }
 
 function goBack() {

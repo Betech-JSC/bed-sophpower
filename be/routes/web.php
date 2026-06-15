@@ -115,6 +115,7 @@ Route::middleware('auth')->group(function () {
 
     // Media Files Management (Quản lý File)
     Route::get('/admin/media', [MediaController::class, 'index'])->name('admin.media.index');
+    Route::get('/admin/media/json', [MediaController::class, 'listJson'])->name('admin.media.json');
     Route::post('/admin/media', [MediaController::class, 'store'])->name('admin.media.store');
     Route::delete('/admin/media/{media}', [MediaController::class, 'destroy'])->name('admin.media.destroy');
 });

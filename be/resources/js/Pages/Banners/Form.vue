@@ -7,22 +7,32 @@
         <div>
           <label class="block text-sm font-bold text-gray-700 mb-1">Ảnh banner Slider *</label>
           <div class="space-y-3">
-            <div v-if="imagePreview || form.image" class="w-full h-48 rounded-lg overflow-hidden border border-gray-200 bg-gray-50 flex items-center justify-center relative group">
+            <div v-if="imagePreview || form.image" class="w-full h-48 rounded-lg overflow-hidden border border-gray-200 bg-gray-55 flex items-center justify-center relative group">
               <img :src="imagePreview || form.image" alt="Preview Image" class="w-full h-full object-cover" />
               <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                <a-button type="primary" class="bg-emerald-700 hover:bg-emerald-800 border-none" @click="triggerFileInput">Đổi ảnh</a-button>
+                <a-button type="primary" class="bg-emerald-700 hover:bg-emerald-800 border-none" @click="triggerFileInput">Đổi ảnh (Tải lên)</a-button>
+                <a-button type="primary" class="bg-sky-700 hover:bg-sky-800 border-none" @click="showMediaModal = true">Chọn từ thư viện</a-button>
                 <a-button type="primary" danger @click="removeImage">Xóa</a-button>
               </div>
             </div>
-            <div v-else class="w-full h-48 rounded-lg border-2 border-dashed border-gray-300 hover:border-emerald-600 transition-colors flex flex-col items-center justify-center gap-2 cursor-pointer" @click="triggerFileInput">
+            <div v-else class="w-full h-48 rounded-lg border-2 border-dashed border-gray-300 hover:border-emerald-600 transition-colors flex flex-col items-center justify-center gap-3 bg-gray-55">
               <picture-outlined class="text-3xl text-gray-400" />
-              <span class="text-xs text-gray-500 font-semibold">Nhấn vào đây để tải lên ảnh Banner</span>
+              <div class="flex gap-4">
+                <a-button type="dashed" @click="triggerFileInput" class="hover:border-emerald-600 hover:text-emerald-700">Tải ảnh lên</a-button>
+                <a-button type="dashed" @click="showMediaModal = true" class="hover:border-emerald-600 hover:text-emerald-700">Chọn từ thư viện</a-button>
+              </div>
               <span class="text-[10px] text-gray-400">Hỗ trợ JPG, PNG (tối đa 2MB)</span>
             </div>
             <input ref="fileInput" type="file" class="hidden" accept="image/*" @change="onFileChange" />
             <p v-if="form.errors.image_file" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.image_file }}</p>
           </div>
         </div>
+
+        <MediaSelectorModal
+          :open="showMediaModal"
+          @close="showMediaModal = false"
+          @select="handleMediaSelect"
+        />
 
         <!-- Order & Status (Side-by-side) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -91,6 +101,7 @@
 
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
+import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { PictureOutlined } from '@ant-design/icons-vue';
 import { useForm, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
@@ -102,6 +113,7 @@ const props = defineProps({
 const isEdit = computed(() => !!props.banner);
 const fileInput = ref(null);
 const imagePreview = ref(null);
+const showMediaModal = ref(false);
 
 const form = useForm({
   title: {
@@ -140,6 +152,13 @@ function removeImage() {
   if (fileInput.value) {
     fileInput.value.value = '';
   }
+}
+
+function handleMediaSelect(file) {
+  form.image = '/storage/' + file.file_path;
+  form.image_file = null;
+  imagePreview.value = null;
+  showMediaModal.value = false;
 }
 
 function submit() {

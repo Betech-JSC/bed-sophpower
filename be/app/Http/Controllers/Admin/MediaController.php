@@ -112,4 +112,24 @@ class MediaController extends Controller
 
         return redirect()->back()->with('success', "Xóa tệp tin '{$fileName}' thành công!");
     }
+
+    public function listJson(Request $request)
+    {
+        $query = MediaFile::query();
+
+        // Filter by file type
+        if ($request->filled('type') && $request->type !== 'all') {
+            $type = $request->type;
+            if ($type === 'image') {
+                $query->where(function($q) {
+                    $q->where('file_type', 'like', 'image/%')
+                      ->orWhere('name', 'like', '%.svg');
+                });
+            }
+        }
+
+        $files = $query->orderBy('created_at', 'desc')->get();
+
+        return response()->json($files);
+    }
 }
