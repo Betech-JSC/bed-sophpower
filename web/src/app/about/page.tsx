@@ -11,7 +11,7 @@ export default async function About() {
     <div className="flex flex-col min-h-screen bg-white">
       {/* Banner Section */}
       <section
-        className="relative py-28 lg:py-36 bg-cover bg-center text-white"
+        className="relative py-28 lg:py-36 bg-cover bg-center text-white rounded-b-3xl overflow-hidden"
         style={{ backgroundImage: "url('/images/about-ban.png')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
