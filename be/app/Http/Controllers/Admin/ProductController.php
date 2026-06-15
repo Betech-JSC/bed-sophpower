@@ -151,7 +151,16 @@ class ProductController extends Controller
             $path = $request->file('image_file')->store('products', 'public');
             $validated['image'] = '/storage/' . $path;
         } else {
-            $validated['image'] = $product->image;
+            if (is_null($request->input('image'))) {
+                // Delete old image if it's in storage
+                if ($product->image && str_starts_with($product->image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $product->image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['image'] = null;
+            } else {
+                $validated['image'] = $product->image;
+            }
         }
 
         unset($validated['image_file']);

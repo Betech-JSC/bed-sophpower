@@ -136,7 +136,15 @@ class ArticleController extends Controller
             $path = $request->file('image_file')->store('news', 'public');
             $validated['image'] = '/storage/' . $path;
         } else {
-            $validated['image'] = $article->image;
+            if (is_null($request->input('image'))) {
+                if ($article->image && str_starts_with($article->image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $article->image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['image'] = null;
+            } else {
+                $validated['image'] = $article->image;
+            }
         }
 
         unset($validated['image_file']);
