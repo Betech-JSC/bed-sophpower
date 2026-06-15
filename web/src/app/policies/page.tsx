@@ -1,35 +1,81 @@
 import React from "react";
 import Link from "next/link";
 import { FileText, ArrowRight } from "lucide-react";
+import { getLocaleServer } from "@/lib/get-locale-server";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
+import { api } from "@/lib/api";
+import { getVal } from "@/lib/i18n-utils";
 
 interface Policy {
   id: string;
   title: string;
   summary: string;
-  updatedAt: string;
 }
 
-export default function Policies() {
-  const policies: Policy[] = [
+export default async function Policies() {
+  const locale = await getLocaleServer();
+  const t = siteDictionaries[locale];
+  const policyLocale: "vi" | "en" = locale === "vi" ? "vi" : "en";
+
+  const fallbackPolicies = [
     {
       id: "quality-standards",
-      title: "Chính Sách Chất Lượng & Kiểm Soát Nguyên Liệu",
-      summary: "Mô tả quy trình kiểm soát chất lượng từ khâu tuyển chọn nhà sản xuất nước ngoài, kiểm định mẫu COA, MSDS đến bàn giao trực tiếp tại kho của khách hàng Việt Nam.",
-      updatedAt: "2026-06-01",
+      title: {
+        vi: "Chính Sách Chất Lượng & Kiểm Soát Nguyên Liệu",
+        en: "Quality Policy & Raw Material Control",
+      },
+      summary: {
+        vi: "Mô tả quy trình kiểm soát chất lượng từ khâu tuyển chọn nhà sản xuất nước ngoài, kiểm định mẫu COA, MSDS đến bàn giao trực tiếp tại kho của khách hàng Việt Nam.",
+        en: "Describes the quality control process from selecting foreign manufacturers, verifying COA/MSDS samples, to direct delivery at Vietnamese customers' warehouses.",
+      },
     },
     {
       id: "privacy-policy",
-      title: "Chính Sách Bảo Mật Thông Tin Đối Tác & Khách Hàng",
-      summary: "Cam kết bảo mật toàn bộ thông tin đơn hàng, công thức mẫu thử nghiệm chuyển giao công nghệ và thông tin hợp đồng kinh tế theo đúng quy định.",
-      updatedAt: "2026-06-01",
+      title: {
+        vi: "Chính Sách Bảo Mật Thông Tin Đối Tác & Khách Hàng",
+        en: "Partner & Customer Information Privacy Policy",
+      },
+      summary: {
+        vi: "Cam kết bảo mật toàn bộ thông tin đơn hàng, công thức mẫu thử nghiệm chuyển giao công nghệ và thông tin hợp đồng kinh tế theo đúng quy định.",
+        en: "Commitment to protecting all order information, formula testing samples for technology transfer, and economic contract details in compliance with regulations.",
+      },
     },
     {
       id: "cooperation-terms",
-      title: "Điều Khoản Hợp Tác & Giao Dịch Cung Ứng",
-      summary: "Quy định chi tiết về các điều khoản công nợ thanh toán, phương thức giao nhận hàng hóa nội địa và quy trình xử lý đổi trả nguyên liệu lỗi phát sinh.",
-      updatedAt: "2026-06-01",
+      title: {
+        vi: "Điều Khoản Hợp Tác & Giao Dịch Cung Ứng",
+        en: "Cooperation & Supply Transaction Terms",
+      },
+      summary: {
+        vi: "Quy định chi tiết về các điều khoản công nợ thanh toán, phương thức giao nhận hàng hóa nội địa và quy trình xử lý đổi trả nguyên liệu lỗi phát sinh.",
+        en: "Details payment debt terms, domestic delivery methods, and the handling process for returning defective raw materials.",
+      },
     },
   ];
+
+  let displayPolicies: Policy[] = [];
+
+  try {
+    const pages = await api.getPages();
+    displayPolicies = pages.map((p) => {
+      const titleStr = getVal(p.title, locale);
+      const contentStr = getVal(p.content, locale) || "";
+      const cleanContent = contentStr.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+      const summaryStr = cleanContent.length > 180 ? cleanContent.substring(0, 180) + "..." : cleanContent;
+      return {
+        id: p.slug,
+        title: titleStr,
+        summary: summaryStr,
+      };
+    });
+  } catch (error) {
+    console.error("Failed to load policies dynamically on policies listing, falling back:", error);
+    displayPolicies = fallbackPolicies.map((p) => ({
+      id: p.id,
+      title: p.title[policyLocale] || p.title.vi,
+      summary: p.summary[policyLocale] || p.summary.vi,
+    }));
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -41,7 +87,7 @@ export default function Policies() {
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
-            POLICIES
+            {t.policies.bannerTitle}
           </h1>
         </div>
       </section>
@@ -51,13 +97,13 @@ export default function Policies() {
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="text-center space-y-3 mb-12">
             <h2 className="text-2xl font-bold text-gray-900 tracking-tight uppercase">
-              CHÍNH SÁCH VÀ ĐIỀU KHOẢN
+              {t.policies.mainHeading}
             </h2>
             <div className="h-0.5 w-16 bg-brand-green mx-auto" />
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
-            {policies.map((policy) => (
+            {displayPolicies.map((policy) => (
               <Link
                 key={policy.id}
                 href={`/policies/${policy.id}`}
@@ -71,19 +117,16 @@ export default function Policies() {
                 {/* Content */}
                 <div className="flex-1 space-y-3">
                   <div className="space-y-1">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                      Cập nhật: {policy.updatedAt}
-                    </span>
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-brand-green transition-colors leading-snug">
                       {policy.title}
                     </h3>
                   </div>
-                  <p className="text-gray-500 text-sm leading-relaxed">{policy.summary}</p>
+                  <p className="text-gray-550 text-sm leading-relaxed">{policy.summary}</p>
                   <div className="pt-2">
                     <span
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors"
                     >
-                      CHI TIẾT
+                      {t.policies.details}
                       <ArrowRight className="h-4 w-4" />
                     </span>
                   </div>

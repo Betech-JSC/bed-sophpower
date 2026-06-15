@@ -1,23 +1,66 @@
 "use client";
 
-import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { api } from "@/lib/api";
+import { useI18n } from "@/i18n/provider";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 export default function Contact() {
+  const { locale } = useI18n();
+  const t = siteDictionaries[locale];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+  
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [settings, setSettings] = useState<any>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    api.getSettings()
+      .then(setSettings)
+      .catch((err) => console.error("Failed to load settings on contact page:", err));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && (formData.email || formData.phone)) {
+    setLoading(true);
+    setErrors({});
+    setErrorMessage("");
+
+    try {
+      await api.submitContact({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message,
+      });
+
       setSubmitted(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
+      // Clear success notification after 7 seconds
+      setTimeout(() => setSubmitted(false), 7000);
+    } catch (err: any) {
+      console.error("Contact submit error:", err);
+      if (err.errors) {
+        setErrors(err.errors);
+      } else {
+        setErrorMessage(
+          err.message || 
+          (locale === "vi" 
+            ? "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau." 
+            : "An unknown error occurred. Please try again later.")
+        );
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,7 +81,7 @@ export default function Contact() {
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight uppercase">
-            LIÊN HỆ
+            {t.contact.title}
           </h1>
         </div>
       </section>
@@ -52,13 +95,13 @@ export default function Contact() {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <span className="text-xs font-bold uppercase tracking-wider text-white/60">
-                    LIÊN HỆ CHÚNG TÔI
+                    {t.contact.contactUs}
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">SOPHPOWER VIETNAM</h2>
                 </div>
                 <div className="h-0.5 w-16 bg-brand-green" />
                 <p className="text-white/80 text-sm leading-relaxed text-justify">
-                  Hãy liên hệ với chúng tôi để nhận tư vấn chuyên sâu về nguyên liệu thực phẩm, nguyên liệu mỹ phẩm, các chứng nhận COA/MSDS cũng như báo giá cung ứng số lượng lớn tốt nhất.
+                  {t.contact.description}
                 </p>
               </div>
 
@@ -69,12 +112,12 @@ export default function Contact() {
                     <Mail className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">EMAIL</h3>
+                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.email}</h3>
                     <a
-                      href="mailto:vnsp4@sophpower.com"
+                      href={`mailto:${settings?.contact_email || "vnsp4@sophpower.com"}`}
                       className="text-sm font-semibold hover:text-brand-green-light transition-colors"
                     >
-                      vnsp4@sophpower.com
+                      {settings?.contact_email || "vnsp4@sophpower.com"}
                     </a>
                   </div>
                 </div>
@@ -85,8 +128,8 @@ export default function Contact() {
                     <Phone className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">HOTLINE / ZALO</h3>
-                    <span className="text-sm font-semibold">0969 700 520</span>
+                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.hotlineZalo}</h3>
+                    <span className="text-sm font-semibold">{settings?.contact_phone || "0969 700 520"}</span>
                   </div>
                 </div>
 
@@ -96,9 +139,11 @@ export default function Contact() {
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">ĐỊA CHỈ VĂN PHÒNG</h3>
+                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.officeAddress}</h3>
                     <span className="text-sm font-semibold leading-relaxed block">
-                      No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam
+                      {locale === "vi"
+                        ? (settings?.contact_address_vi || "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam")
+                        : (settings?.contact_address_en || "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam")}
                     </span>
                   </div>
                 </div>
@@ -109,10 +154,10 @@ export default function Contact() {
             <div className="flex-1 p-8 sm:p-12 space-y-8">
               <div className="space-y-2">
                 <h3 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">
-                  GỬI YÊU CẦU LIÊN HỆ
+                  {t.contact.sendRequest}
                 </h3>
                 <p className="text-sm text-gray-500">
-                  Vui lòng để lại thông tin, chuyên viên của chúng tôi sẽ liên hệ lại trong vòng 24h.
+                  {t.contact.sendRequestSub}
                 </p>
               </div>
 
@@ -120,18 +165,24 @@ export default function Contact() {
                 <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-6 flex items-start gap-4 text-emerald-800 animate-in fade-in duration-300">
                   <CheckCircle2 className="h-6 w-6 text-emerald-600 shrink-0" />
                   <div>
-                    <h4 className="font-bold">Gửi yêu cầu thành công!</h4>
+                    <h4 className="font-bold">{t.contact.successTitle}</h4>
                     <p className="text-sm text-emerald-700 mt-1">
-                      Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi lại bạn sớm nhất có thể.
+                      {t.contact.successDesc}
                     </p>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {errorMessage && (
+                    <div className="p-3.5 bg-red-50 border border-red-200 rounded-lg text-sm text-red-750 font-semibold">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   {/* Name Input */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                      HỌ VÀ TÊN <span className="text-red-500">*</span>
+                      {t.contact.nameLabel.toUpperCase()} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -139,16 +190,20 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Nhập họ tên của bạn..."
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden"
+                      placeholder={t.contact.namePlaceholder}
+                      disabled={loading}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                     />
+                    {errors.name && (
+                      <p className="text-xs text-red-600 font-semibold">{errors.name[0]}</p>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Email Input */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                        ĐỊA CHỈ EMAIL <span className="text-red-500">*</span>
+                        {t.contact.emailLabel.toUpperCase()} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="email"
@@ -156,48 +211,71 @@ export default function Contact() {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="email@example.com"
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden"
+                        placeholder={t.contact.emailPlaceholder}
+                        disabled={loading}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                       />
+                      {errors.email && (
+                        <p className="text-xs text-red-600 font-semibold">{errors.email[0]}</p>
+                      )}
                     </div>
 
                     {/* Phone Input */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                        SỐ ĐIỆN THOẠI
+                        {t.contact.phoneLabel.toUpperCase()}
                       </label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="Số điện thoại / Zalo..."
-                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden"
+                        placeholder={t.contact.phonePlaceholder}
+                        disabled={loading}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                       />
+                      {errors.phone && (
+                        <p className="text-xs text-red-650 font-semibold">{errors.phone[0]}</p>
+                      )}
                     </div>
                   </div>
 
                   {/* Message Input */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                      NỘI DUNG YÊU CẦU
+                      {t.contact.messageLabel.toUpperCase()} <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       rows={4}
+                      required
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Chi tiết sản phẩm cần báo giá hoặc nội dung cần tư vấn..."
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden resize-none"
+                      placeholder={t.contact.messagePlaceholder}
+                      disabled={loading}
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden resize-none disabled:bg-gray-100"
                     />
+                    {errors.message && (
+                      <p className="text-xs text-red-600 font-semibold">{errors.message[0]}</p>
+                    )}
                   </div>
 
                   <button
                     type="submit"
-                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white hover:bg-brand-green/90 transition-colors shadow-md cursor-pointer"
+                    disabled={loading}
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white hover:bg-brand-green/90 transition-colors shadow-md disabled:bg-emerald-800 disabled:opacity-75 cursor-pointer"
                   >
-                    <Send className="h-4 w-4" />
-                    GỬI YÊU CẦU BÁO GIÁ
+                    {loading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        {t.contact.sendingBtn}
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        {t.contact.sendBtn.toUpperCase()}
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -207,7 +285,7 @@ export default function Contact() {
       </section>
 
       {/* Google Maps */}
-      <section className="py-12 bg-gray-50 border-t border-gray-150">
+      <section className="py-12 bg-gray-55 border-t border-gray-150">
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
             <iframe
