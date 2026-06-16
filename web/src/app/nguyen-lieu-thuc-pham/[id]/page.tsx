@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { id } = await params;
   const locale = await getLocaleServer();
   const product = await api.getProduct(id).catch(() => null);
-  
+
   if (!product) return {};
 
   const customTitle = product.seo_title ? getVal(product.seo_title, locale) : "";
@@ -80,7 +80,7 @@ export default async function FoodProductDetail({
   const { id } = await params;
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
-  
+
   // Fetch product from Laravel API
   const product = await api.getProduct(id).catch(() => null);
   if (!product || product.type !== 'food') {
@@ -138,7 +138,7 @@ export default async function FoodProductDetail({
 
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900">{t.products.descriptionTitle}</h3>
-            <div 
+            <div
               className="text-gray-605 leading-relaxed text-justify text-sm sm:text-base [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
               dangerouslySetInnerHTML={{ __html: getVal(product.desc, locale) }}
             />
@@ -154,13 +154,13 @@ export default async function FoodProductDetail({
               {t.products.inquiryFoodButton}
             </Link>
             <a
-              href="https://zalo.me/0938363363"
+              href="https://zalo.me/0969700520"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0068ff] px-6 py-3 font-semibold text-white hover:bg-[#0056d6] transition-colors shadow-md shadow-[#0068ff]/10 text-sm sm:text-base"
             >
               <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.002 2C6.5 2 2 6 2 11c0 2.9 1.5 5.5 4 7.2V22l4.5-2.6c.5.1 1 .2 1.5.2 5.5 0 10-4 10-9s-4.5-9-10-9zm2.4 12.2h-3.8l3.1-3.6H10.6v-1h3.7l-3.1 3.6h3.2v1z"/>
+                <path d="M12.002 2C6.5 2 2 6 2 11c0 2.9 1.5 5.5 4 7.2V22l4.5-2.6c.5.1 1 .2 1.5.2 5.5 0 10-4 10-9s-4.5-9-10-9zm2.4 12.2h-3.8l3.1-3.6H10.6v-1h3.7l-3.1 3.6h3.2v1z" />
               </svg>
               {t.products.zaloButton}
             </a>
