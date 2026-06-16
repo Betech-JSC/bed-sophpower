@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useSyncExternalStore } from "react";
+import { createContext, useCallback, useContext, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
 import {
     subscribe,
     getStoredLocale,
@@ -25,12 +26,18 @@ export function I18nProvider({ children, initialTranslations }: { children: Reac
         applyDynamicTranslations(initialTranslations);
     }
 
+    const router = useRouter();
     const locale = useSyncExternalStore(subscribe, getStoredLocale, getServerLocale);
+    const setLocale = useCallback((next: Locale) => {
+        if (next === locale) return;
+        setStoredLocale(next);
+        router.refresh();
+    }, [locale, router]);
 
     const value: I18nValue = {
         locale,
         t: dictionaries[locale],
-        setLocale: setStoredLocale,
+        setLocale,
     };
 
     return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
