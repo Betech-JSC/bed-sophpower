@@ -2,17 +2,20 @@ import Link from "next/link";
 import { Cpu, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import { api } from "@/lib/api";
 
 export default async function About() {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
+  const banner = await api.getPageBanner("about").catch(() => null);
+  const bannerImage = banner?.image ? api.getImageUrl(banner.image) : "/images/about-ban.png";
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Banner Section */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white rounded-b-3xl overflow-hidden"
-        style={{ backgroundImage: "url('/images/about-ban.png')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">

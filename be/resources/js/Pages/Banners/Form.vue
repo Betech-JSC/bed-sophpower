@@ -57,6 +57,29 @@
           <p v-if="form.errors.link" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.link }}</p>
         </div>
 
+        <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 space-y-4">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <label class="block text-sm font-bold text-gray-700">Home banner slider</label>
+              <p class="text-xs text-gray-500 mt-1">Bat len de xuat hien o slider trang chu. Tat di de dung lam banner rieng cho tung page.</p>
+            </div>
+            <a-switch v-model:checked="form.is_home_slider" checked-children="Home" un-checked-children="Page" />
+          </div>
+
+          <div v-if="!form.is_home_slider">
+            <label class="block text-sm font-bold text-gray-700 mb-1">Page hien thi *</label>
+            <a-select
+              v-model:value="form.page_key"
+              :options="pageOptions"
+              placeholder="Chon page can gan banner"
+              size="large"
+              class="w-full"
+            />
+            <p class="mt-1 text-xs text-amber-600 font-semibold">Moi page chi co 1 banner active. Khi luu banner active moi, cac banner active khac cua cung page se tu dong bi an.</p>
+            <p v-if="form.errors.page_key" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.page_key }}</p>
+          </div>
+        </div>
+
         <!-- Tabs for Bilingual Inputs -->
         <a-tabs default-active-key="vi" class="mb-6">
           <!-- VIETNAMESE TAB -->
@@ -123,9 +146,22 @@ const form = useForm({
   image: props.banner?.image || '',
   image_file: null,
   link: props.banner?.link || '',
+  is_home_slider: props.banner?.is_home_slider ?? true,
+  page_key: props.banner?.page_key || null,
   order: props.banner?.order ?? 0,
   is_active: props.banner?.is_active ?? true,
 });
+
+const pageOptions = [
+  { value: 'about', label: 'Ve chung toi' },
+  { value: 'food', label: 'Nguyen lieu thuc pham' },
+  { value: 'cosmetic', label: 'Nguyen lieu my pham' },
+  { value: 'news', label: 'Tin tuc' },
+  { value: 'recruitment', label: 'Co hoi nghe nghiep' },
+  { value: 'contact', label: 'Lien he' },
+  { value: 'policies', label: 'Chinh sach' },
+  { value: 'search', label: 'Tim kiem' },
+];
 
 function triggerFileInput() {
   if (fileInput.value) {

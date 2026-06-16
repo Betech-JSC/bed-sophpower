@@ -16,6 +16,8 @@ export default async function Policies() {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   const policyLocale: "vi" | "en" = locale === "vi" ? "vi" : "en";
+  const pageBanner = await api.getPageBanner("policies").catch(() => null);
+  const bannerImage = pageBanner?.image ? api.getImageUrl(pageBanner.image) : "/images/banner-contact.png";
 
   const fallbackPolicies = [
     {
@@ -82,7 +84,7 @@ export default async function Policies() {
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">

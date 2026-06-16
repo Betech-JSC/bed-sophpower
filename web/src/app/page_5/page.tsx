@@ -22,11 +22,16 @@ export default function Contact() {
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [settings, setSettings] = useState<any>(null);
+  const [bannerImage, setBannerImage] = useState("/images/banner-contact.jpg");
 
   useEffect(() => {
     api.getSettings()
       .then(setSettings)
       .catch((err) => console.error("Failed to load settings on contact page:", err));
+
+    api.getPageBanner("contact")
+      .then((banner) => setBannerImage(banner?.image ? api.getImageUrl(banner.image) : "/images/banner-contact.jpg"))
+      .catch((err) => console.error("Failed to load contact page banner:", err));
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +81,7 @@ export default function Contact() {
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.jpg')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">

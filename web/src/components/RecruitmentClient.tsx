@@ -23,7 +23,24 @@ export default function RecruitmentClient() {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
   const [jobs, setJobs] = useState<ListedJob[]>([]);
+  const [bannerImage, setBannerImage] = useState("/images/banner-contact.png");
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    api.getPageBanner("recruitment").then((banner) => {
+      if (cancelled) return;
+      setBannerImage(banner?.image ? api.getImageUrl(banner.image) : "/images/banner-contact.png");
+    }).catch((err) => {
+      console.error("Failed to load recruitment page banner:", err);
+      if (!cancelled) setBannerImage("/images/banner-contact.png");
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -79,7 +96,7 @@ export default function RecruitmentClient() {
     <div className="flex flex-col min-h-screen">
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">

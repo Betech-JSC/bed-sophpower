@@ -69,6 +69,8 @@ export interface Banner {
   desc: string | LocalizedString;
   image: string;
   link?: string;
+  is_home_slider?: boolean;
+  page_key?: string | null;
   order: number;
   is_active: boolean;
 }
@@ -221,6 +223,11 @@ export const api = {
   // Banners
   async getBanners(): Promise<Banner[]> {
     return await fetchAPI('/banners');
+  },
+
+  async getPageBanner(pageKey: string): Promise<Banner | null> {
+    const data = await fetchAPI(`/banners?page_key=${encodeURIComponent(pageKey)}`);
+    return (Array.isArray(data) ? data[0] : data) || null;
   },
 
   // FAQs

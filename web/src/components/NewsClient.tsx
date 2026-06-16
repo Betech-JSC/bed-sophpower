@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
@@ -22,6 +22,7 @@ interface Article {
 export default function NewsClient({ initialArticles }: { initialArticles: any[] }) {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
+  const [bannerImage, setBannerImage] = useState("/images/banner-news.png");
   const categories = [
     t.newsList.allTab,
     t.newsList.cosmeticTab,
@@ -29,6 +30,22 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
     t.newsList.marketTab,
   ];
   const [selectedCategory, setSelectedCategory] = useState(t.newsList.allTab);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    api.getPageBanner("news").then((banner) => {
+      if (cancelled) return;
+      setBannerImage(banner?.image ? api.getImageUrl(banner.image) : "/images/banner-news.png");
+    }).catch((err) => {
+      console.error("Failed to load news page banner:", err);
+      if (!cancelled) setBannerImage("/images/banner-news.png");
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const isAllSelected = 
     selectedCategory === t.newsList.allTab || 
@@ -76,7 +93,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-news.png')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
