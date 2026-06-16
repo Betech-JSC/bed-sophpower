@@ -111,12 +111,15 @@
         <slot />
       </main>
     </div>
+    <!-- AI Chat Assistant Widget -->
+    <AiChatWidget />
   </div>
 </template>
 
 <script setup>
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
+import AiChatWidget from '@/Components/AiChatWidget.vue';
 
 const props = defineProps({
   title: String,

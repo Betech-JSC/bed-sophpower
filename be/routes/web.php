@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ArticleCategoryController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\ResetPasswordController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\AiChatController;
 
 Route::get('/', function () {
     return redirect('/admin/login');
@@ -51,6 +52,9 @@ Route::middleware('auth')->group(function () {
     // Profile Settings
     Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
     Route::put('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+    // AI Chat Assistant
+    Route::post('/admin/ai/chat', [AiChatController::class, 'chat'])->name('admin.ai.chat');
 
     // Admin Users CRUD
     Route::get('/admin/users', [UserController::class, 'index'])->middleware('permission:users.manage')->name('admin.users.index');
