@@ -15,6 +15,8 @@ export default async function SearchPage({
   const normalizedKeyword = keyword.trim().toLowerCase();
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
+  const pageBanner = await api.getPageBanner("search").catch(() => null);
+  const bannerImage = pageBanner?.image ? api.getImageUrl(pageBanner.image) : "/images/banner-contact.png";
 
   // Fetch all products dynamically from Laravel API
   const allProducts = await api.getProducts().catch((err) => {
@@ -40,7 +42,7 @@ export default async function SearchPage({
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.png')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">

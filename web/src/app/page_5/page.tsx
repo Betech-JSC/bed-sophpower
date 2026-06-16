@@ -16,17 +16,22 @@ export default function Contact() {
     phone: "",
     message: "",
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [settings, setSettings] = useState<any>(null);
+  const [bannerImage, setBannerImage] = useState("/images/banner-contact.jpg");
 
   useEffect(() => {
     api.getSettings()
       .then(setSettings)
       .catch((err) => console.error("Failed to load settings on contact page:", err));
+
+    api.getPageBanner("contact")
+      .then((banner) => setBannerImage(banner?.image ? api.getImageUrl(banner.image) : "/images/banner-contact.jpg"))
+      .catch((err) => console.error("Failed to load contact page banner:", err));
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,9 +58,9 @@ export default function Contact() {
         setErrors(err.errors);
       } else {
         setErrorMessage(
-          err.message || 
-          (locale === "vi" 
-            ? "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau." 
+          err.message ||
+          (locale === "vi"
+            ? "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau."
             : "An unknown error occurred. Please try again later.")
         );
       }
@@ -76,7 +81,7 @@ export default function Contact() {
       {/* Banner */}
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: "url('/images/banner-contact.jpg')" }}
+        style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
@@ -114,10 +119,10 @@ export default function Contact() {
                   <div>
                     <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.email}</h3>
                     <a
-                      href={`mailto:${settings?.contact_email || "vnsp4@sophpower.com"}`}
+                      href={`mailto:${settings?.contact_email || "info@sophchem.com"}`}
                       className="text-sm font-semibold hover:text-brand-green-light transition-colors"
                     >
-                      {settings?.contact_email || "vnsp4@sophpower.com"}
+                      {settings?.contact_email || "info@sophchem.com"}
                     </a>
                   </div>
                 </div>
@@ -129,7 +134,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.hotlineZalo}</h3>
-                    <span className="text-sm font-semibold">{settings?.contact_phone || "0969 700 520"}</span>
+                    <span className="text-sm font-semibold">{"0969 700 520"}</span>
                   </div>
                 </div>
 
@@ -223,11 +228,12 @@ export default function Contact() {
                     {/* Phone Input */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                        {t.contact.phoneLabel.toUpperCase()}
+                        {t.contact.phoneLabel.toUpperCase()} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
                         name="phone"
+                        required
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder={t.contact.phonePlaceholder}

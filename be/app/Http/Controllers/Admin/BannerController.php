@@ -7,10 +7,22 @@ use App\Models\Banner;
 use App\Helpers\ActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class BannerController extends Controller
 {
+    private const PAGE_KEYS = [
+        'about',
+        'food',
+        'cosmetic',
+        'news',
+        'recruitment',
+        'contact',
+        'policies',
+        'search',
+    ];
+
     public function index(Request $request)
     {
         $query = Banner::query();
@@ -45,6 +57,8 @@ class BannerController extends Controller
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'link' => ['nullable', 'string', 'max:255'],
+            'is_home_slider' => ['required', 'boolean'],
+            'page_key' => ['nullable', Rule::requiredIf(fn () => !$request->boolean('is_home_slider')), Rule::in(self::PAGE_KEYS)],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
         ]);
@@ -63,8 +77,12 @@ class BannerController extends Controller
         }
 
         unset($validated['image_file']);
+        $validated['is_home_slider'] = $request->boolean('is_home_slider');
+        $validated['is_active'] = $request->boolean('is_active');
+        $validated['page_key'] = $validated['is_home_slider'] ? null : ($validated['page_key'] ?? null);
 
         $banner = Banner::create($validated);
+        $this->deactivateOtherPageBanners($banner);
 
         ActivityLogger::log('create_banner', "Đã tạo banner slider mới ID: {$banner->id}");
 
@@ -88,6 +106,8 @@ class BannerController extends Controller
             'image_file' => ['nullable', 'image', 'max:2048'],
             'image' => ['nullable', 'string'],
             'link' => ['nullable', 'string', 'max:255'],
+            'is_home_slider' => ['required', 'boolean'],
+            'page_key' => ['nullable', Rule::requiredIf(fn () => !$request->boolean('is_home_slider')), Rule::in(self::PAGE_KEYS)],
             'order' => ['required', 'integer'],
             'is_active' => ['required', 'boolean'],
         ]);
@@ -122,13 +142,30 @@ class BannerController extends Controller
         }
 
         unset($validated['image_file']);
+        $validated['is_home_slider'] = $request->boolean('is_home_slider');
+        $validated['is_active'] = $request->boolean('is_active');
+        $validated['page_key'] = $validated['is_home_slider'] ? null : ($validated['page_key'] ?? null);
 
         $banner->update($validated);
+        $this->deactivateOtherPageBanners($banner);
 
         ActivityLogger::log('update_banner', "Đã cập nhật banner slider ID: {$banner->id}");
 
         return redirect()->route('admin.banners.index')
             ->with('success', 'Banner đã được cập nhật thành công!');
+    }
+
+    private function deactivateOtherPageBanners(Banner $banner): void
+    {
+        if ($banner->is_home_slider || !$banner->is_active || !$banner->page_key) {
+            return;
+        }
+
+        Banner::where('id', '!=', $banner->id)
+            ->where('is_home_slider', false)
+            ->where('page_key', $banner->page_key)
+            ->where('is_active', true)
+            ->update(['is_active' => false]);
     }
 
     public function destroy(Banner $banner)

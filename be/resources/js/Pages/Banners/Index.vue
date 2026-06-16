@@ -41,6 +41,11 @@
               {{ record.is_active ? 'Hiển thị' : 'Ẩn' }}
             </a-tag>
           </template>
+          <template v-else-if="column.key === 'placement'">
+            <a-tag :color="record.is_home_slider ? 'blue' : 'purple'">
+              {{ record.is_home_slider ? 'Home slider' : pageLabel(record.page_key) }}
+            </a-tag>
+          </template>
           <template v-else-if="column.key === 'action'">
             <a-space size="middle">
               <a-button type="link" class="text-emerald-700 hover:text-emerald-800 p-0 font-semibold" @click="editBanner(record)">
@@ -87,7 +92,19 @@ const search = ref(props.filters.search || '');
 const currentPage = ref(props.banners.current_page);
 const pageSize = ref(props.banners.per_page);
 
+const pageLabels = {
+  about: 'Ve chung toi',
+  food: 'Nguyen lieu thuc pham',
+  cosmetic: 'Nguyen lieu my pham',
+  news: 'Tin tuc',
+  recruitment: 'Co hoi nghe nghiep',
+  contact: 'Lien he',
+  policies: 'Chinh sach',
+  search: 'Tim kiem',
+};
+
 const columns = [
+  { title: 'Vi tri', key: 'placement', width: '14%' },
   { title: 'Ảnh', key: 'image', width: '150px' },
   { title: 'Tiêu đề / Nội dung ngắn', key: 'title', dataIndex: 'title' },
   { title: 'Liên kết (Link)', key: 'link', dataIndex: 'link', width: '20%' },
@@ -114,5 +131,9 @@ function editBanner(record) {
 
 function deleteBanner(id) {
   router.delete(`/admin/banners/${id}`);
+}
+
+function pageLabel(key) {
+  return pageLabels[key] || 'Page rieng';
 }
 </script>

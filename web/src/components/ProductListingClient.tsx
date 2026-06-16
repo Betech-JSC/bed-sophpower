@@ -35,11 +35,29 @@ export default function ProductListingClient({
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
   const [products, setProducts] = useState<ListedProduct[]>([]);
+  const [activeBannerImage, setActiveBannerImage] = useState(bannerImage);
   const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 6;
   const isFood = type === "food";
   const title = isFood ? t.products.foodTitle : t.products.cosmeticTitle;
   const emptyText = isFood ? t.products.emptyFood : t.products.emptyCosmetic;
+  const pageKey = isFood ? "food" : "cosmetic";
+
+  useEffect(() => {
+    let cancelled = false;
+
+    api.getPageBanner(pageKey).then((banner) => {
+      if (cancelled) return;
+      setActiveBannerImage(banner?.image ? api.getImageUrl(banner.image) : bannerImage);
+    }).catch((err) => {
+      console.error(`Failed to load ${pageKey} page banner:`, err);
+      if (!cancelled) setActiveBannerImage(bannerImage);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [bannerImage, pageKey]);
 
   useEffect(() => {
     let cancelled = false;
@@ -92,7 +110,7 @@ export default function ProductListingClient({
     <div className="flex flex-col min-h-screen">
       <section
         className="relative py-28 lg:py-36 bg-cover bg-center text-white"
-        style={{ backgroundImage: `url('${bannerImage}')` }}
+        style={{ backgroundImage: `url('${activeBannerImage}')` }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative mx-auto max-w-7xl px-3 text-center sm:px-4 lg:px-6">
