@@ -60,22 +60,22 @@
         <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 space-y-4">
           <div class="flex items-center justify-between gap-4">
             <div>
-              <label class="block text-sm font-bold text-gray-700">Home banner slider</label>
-              <p class="text-xs text-gray-500 mt-1">Bat len de xuat hien o slider trang chu. Tat di de dung lam banner rieng cho tung page.</p>
+              <label class="block text-sm font-bold text-gray-700">Home Banner Slider</label>
+              <p class="text-xs text-gray-500 mt-1">Bật lên để xuất hiện ở slider trang chủ. Tắt đi để dùng làm banner riêng cho từng page.</p>
             </div>
             <a-switch v-model:checked="form.is_home_slider" checked-children="Home" un-checked-children="Page" />
           </div>
 
           <div v-if="!form.is_home_slider">
-            <label class="block text-sm font-bold text-gray-700 mb-1">Page hien thi *</label>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Page hiển thị *</label>
             <a-select
               v-model:value="form.page_key"
               :options="pageOptions"
-              placeholder="Chon page can gan banner"
+              placeholder="Chọn page cần gắn banner"
               size="large"
               class="w-full"
             />
-            <p class="mt-1 text-xs text-amber-600 font-semibold">Moi page chi co 1 banner active. Khi luu banner active moi, cac banner active khac cua cung page se tu dong bi an.</p>
+            <p class="mt-1 text-xs text-amber-600 font-semibold">Mỗi page chỉ có 1 banner active. Khi lưu banner active mới, các banner active khác của cùng page sẽ tự động bị ẩn.</p>
             <p v-if="form.errors.page_key" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.page_key }}</p>
           </div>
         </div>
@@ -153,14 +153,14 @@ const form = useForm({
 });
 
 const pageOptions = [
-  { value: 'about', label: 'Ve chung toi' },
-  { value: 'food', label: 'Nguyen lieu thuc pham' },
-  { value: 'cosmetic', label: 'Nguyen lieu my pham' },
-  { value: 'news', label: 'Tin tuc' },
-  { value: 'recruitment', label: 'Co hoi nghe nghiep' },
-  { value: 'contact', label: 'Lien he' },
-  { value: 'policies', label: 'Chinh sach' },
-  { value: 'search', label: 'Tim kiem' },
+  { value: 'about', label: 'Về chúng tôi' },
+  { value: 'food', label: 'Nguyên liệu Thực phẩm' },
+  { value: 'cosmetic', label: 'Nguyên liệu Mỹ phẩm' },
+  { value: 'news', label: 'Tin tức' },
+  { value: 'recruitment', label: 'Cơ hội nghề nghiệp' },
+  { value: 'contact', label: 'Liên hệ' },
+  { value: 'policies', label: 'Chính sách' },
+  { value: 'search', label: 'Tìm kiếm' },
 ];
 
 function triggerFileInput() {
