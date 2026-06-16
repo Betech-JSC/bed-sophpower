@@ -493,7 +493,7 @@
     "group": "contact",
     "key": "phoneLabel",
     "text": {
-      "vi": "Số điện thoại (tùy chọn)",
+      "vi": "Số điện thoại",
       "en": "Phone Number (optional)",
       "zh": "Phone Number (optional)",
       "ja": "Phone Number (optional)"
@@ -1303,7 +1303,7 @@
     "group": "products",
     "key": "inquiryCosmeticButton",
     "text": {
-      "vi": "YÊU CẦU BÁO GIÁ NGUYÊN LIỆU",
+      "vi": "YÊU CẦU BÁO GIÁ SẢN PHẨM",
       "en": "REQUEST INGREDIENT QUOTE",
       "zh": "REQUEST INGREDIENT QUOTE",
       "ja": "REQUEST INGREDIENT QUOTE"

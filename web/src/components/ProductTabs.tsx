@@ -61,9 +61,9 @@ export default function ProductTabs({ product }: { product: any }) {
     } catch (err: any) {
       console.error("Submit question error:", err);
       setErrorMsg(
-        err.message || 
-        (locale === "vi" 
-          ? "Gửi câu hỏi thất bại. Vui lòng thử lại sau." 
+        err.message ||
+        (locale === "vi"
+          ? "Gửi câu hỏi thất bại. Vui lòng thử lại sau."
           : "Failed to submit question. Please try again later.")
       );
     } finally {
@@ -107,7 +107,7 @@ export default function ProductTabs({ product }: { product: any }) {
     { id: "specs" as const, label: t.products.tabSpecs },
     { id: "apps" as const, label: product.type === 'food' ? t.products.tabAppsFood : t.products.tabAppsCosmetic },
     { id: "pack" as const, label: t.products.tabPack },
-    { id: "qna" as const, label: locale === 'vi' ? 'Hỏi đáp sản phẩm' : 'Product Q&A' },
+    // { id: "qna" as const, label: locale === 'vi' ? 'Hỏi đáp sản phẩm' : 'Product Q&A' },
   ];
 
   return (
@@ -120,11 +120,10 @@ export default function ProductTabs({ product }: { product: any }) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-3 font-semibold text-sm transition-all duration-150 border-b-2 -mb-px rounded-t-lg cursor-pointer ${
-                isActive
-                  ? "border-brand-green text-brand-green bg-brand-green/5"
-                  : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
-              }`}
+              className={`px-5 py-3 font-semibold text-sm transition-all duration-150 border-b-2 -mb-px rounded-t-lg cursor-pointer ${isActive
+                ? "border-brand-green text-brand-green bg-brand-green/5"
+                : "border-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                }`}
             >
               {tab.label}
             </button>
@@ -137,7 +136,7 @@ export default function ProductTabs({ product }: { product: any }) {
         {activeTab === "desc" && (
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900 mb-2">{t.products.tabDesc}</h3>
-            <div 
+            <div
               className="text-justify text-gray-605 leading-relaxed text-sm sm:text-base [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
               dangerouslySetInnerHTML={{ __html: getVal(product.desc, locale) }}
             />
@@ -154,8 +153,8 @@ export default function ProductTabs({ product }: { product: any }) {
         {activeTab === "apps" && (
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900 mb-4">
-              {product.type === 'food' 
-                ? (locale === 'vi' ? "Các ứng dụng chính trong sản xuất" : "Key applications in food production") 
+              {product.type === 'food'
+                ? (locale === 'vi' ? "Các ứng dụng chính trong sản xuất" : "Key applications in food production")
                 : (locale === 'vi' ? "Các ứng dụng sản xuất chính" : "Key production applications")}
             </h3>
             {applicationsArray && applicationsArray.length > 0 ? (
@@ -216,8 +215,8 @@ export default function ProductTabs({ product }: { product: any }) {
                 ))
               ) : (
                 <p className="text-gray-500 italic">
-                  {locale === 'vi' 
-                    ? 'Chưa có câu hỏi nào được công bố cho sản phẩm này. Hãy gửi câu hỏi đầu tiên của bạn dưới đây!' 
+                  {locale === 'vi'
+                    ? 'Chưa có câu hỏi nào được công bố cho sản phẩm này. Hãy gửi câu hỏi đầu tiên của bạn dưới đây!'
                     : 'No questions have been published for this product yet. Send your first question below!'}
                 </p>
               )}
@@ -237,8 +236,8 @@ export default function ProductTabs({ product }: { product: any }) {
                       {locale === 'vi' ? 'Gửi câu hỏi thành công!' : 'Question submitted successfully!'}
                     </h5>
                     <p className="text-sm text-emerald-700 mt-1">
-                      {locale === 'vi' 
-                        ? 'Chúng tôi đã tiếp nhận câu hỏi của bạn và sẽ phản hồi qua email/số điện thoại trong thời gian sớm nhất.' 
+                      {locale === 'vi'
+                        ? 'Chúng tôi đã tiếp nhận câu hỏi của bạn và sẽ phản hồi qua email/số điện thoại trong thời gian sớm nhất.'
                         : 'We have received your question and will respond via email/phone as soon as possible.'}
                     </p>
                   </div>
@@ -287,14 +286,15 @@ export default function ProductTabs({ product }: { product: any }) {
 
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-gray-700 uppercase tracking-wide block">
-                      {locale === 'vi' ? 'Số điện thoại' : 'Phone Number'}
+                      {locale === 'vi' ? 'Số điện thoại' : 'Phone Number'} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
+                      required
                       name="phone"
                       value={form.phone}
                       onChange={handleInputChange}
-                      placeholder={locale === 'vi' ? 'Nhập số điện thoại (tùy chọn)' : 'Enter phone number (optional)'}
+                      placeholder={locale === 'vi' ? 'Nhập Số điện thoại' : 'Enter phone number (optional)'}
                       disabled={loading}
                       className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                     />
