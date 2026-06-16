@@ -27,6 +27,10 @@ export interface Product {
   updated_at?: string;
   seo_title?: string | LocalizedString;
   seo_desc?: string | LocalizedString;
+  seo_keywords?: string | LocalizedString;
+  meta_robots?: string;
+  canonical_url?: string;
+  og_image?: string;
 }
 
 export interface Article {
@@ -43,6 +47,10 @@ export interface Article {
   updated_at?: string;
   seo_title?: string | LocalizedString;
   seo_desc?: string | LocalizedString;
+  seo_keywords?: string | LocalizedString;
+  meta_robots?: string;
+  canonical_url?: string;
+  og_image?: string;
 }
 
 export interface RecruitmentJob {
@@ -61,6 +69,10 @@ export interface RecruitmentJob {
   updated_at?: string;
   seo_title?: string | LocalizedString;
   seo_desc?: string | LocalizedString;
+  seo_keywords?: string | LocalizedString;
+  meta_robots?: string;
+  canonical_url?: string;
+  og_image?: string;
 }
 
 export interface Banner {
@@ -88,6 +100,10 @@ export interface StaticPage {
   content: string | LocalizedString;
   seo_title?: string | LocalizedString;
   seo_desc?: string | LocalizedString;
+  seo_keywords?: string | LocalizedString;
+  meta_robots?: string;
+  canonical_url?: string;
+  og_image?: string;
 }
 
 export interface SystemSettings {

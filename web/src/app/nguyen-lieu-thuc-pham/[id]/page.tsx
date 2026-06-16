@@ -22,6 +22,8 @@ export async function generateMetadata({
 
   const customTitle = product.seo_title ? getVal(product.seo_title, locale) : "";
   const customDesc = product.seo_desc ? getVal(product.seo_desc, locale) : "";
+  const customKeywords = product.seo_keywords ? getVal(product.seo_keywords, locale) : "";
+  const robots = product.meta_robots || undefined;
 
   const name = customTitle || getVal(product.name, locale);
   let description = customDesc;
@@ -33,15 +35,22 @@ export async function generateMetadata({
 
   const formattedTitle = name.includes("Sophpower") ? name : `${name} - Sophpower Vietnam`;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let imageUrl = product.image ? api.getImageUrl(product.image) : `${baseUrl}/images/logo.png`;
+  
+  const customOgImage = product.og_image ? api.getImageUrl(product.og_image) : "";
+  let imageUrl = customOgImage || (product.image ? api.getImageUrl(product.image) : `${baseUrl}/images/logo.png`);
   if (imageUrl.startsWith("/")) {
     imageUrl = `${baseUrl}${imageUrl}`;
   }
-  const hasCustomImage = !!product.image;
+  const hasCustomImage = !!customOgImage || !!product.image;
 
   return {
     title: formattedTitle,
     description: description || undefined,
+    keywords: customKeywords || undefined,
+    robots: robots || undefined,
+    alternates: {
+      canonical: product.canonical_url || `${baseUrl}/nguyen-lieu-thuc-pham/${id}`,
+    },
     openGraph: {
       type: "website",
       url: `${baseUrl}/nguyen-lieu-thuc-pham/${id}`,

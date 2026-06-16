@@ -24,6 +24,10 @@ class RecruitmentJob extends Model
         'benefits',
         'seo_title',
         'seo_desc',
+        'seo_keywords',
+        'meta_robots',
+        'canonical_url',
+        'og_image',
     ];
 
     protected $casts = [
@@ -38,5 +42,6 @@ class RecruitmentJob extends Model
         'deadline' => 'date',
         'seo_title' => 'array',
         'seo_desc' => 'array',
+        'seo_keywords' => 'array',
     ];
 }

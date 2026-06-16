@@ -15,6 +15,10 @@ class Page extends Model
         'content',
         'seo_title',
         'seo_desc',
+        'seo_keywords',
+        'meta_robots',
+        'canonical_url',
+        'og_image',
     ];
 
     protected $casts = [
@@ -22,5 +26,6 @@ class Page extends Model
         'content' => 'array',
         'seo_title' => 'array',
         'seo_desc' => 'array',
+        'seo_keywords' => 'array',
     ];
 }

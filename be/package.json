@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build && (sudo systemctl restart php8.3-fpm || true)",
+        "build": "php artisan migrate --force && vite build && (sudo systemctl restart php8.3-fpm || true)",
         "dev": "vite"
     },
     "dependencies": {

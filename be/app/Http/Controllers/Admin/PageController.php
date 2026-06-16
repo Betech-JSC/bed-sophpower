@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Helpers\ActivityLogger;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -52,6 +53,13 @@ class PageController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -60,6 +68,13 @@ class PageController extends Controller
         if (empty($validated['content']['en'])) {
             $validated['content']['en'] = $validated['content']['vi'];
         }
+
+        if ($request->hasFile('og_image_file')) {
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        }
+
+        unset($validated['og_image_file']);
 
         $page = Page::create($validated);
 
@@ -92,6 +107,13 @@ class PageController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -100,6 +122,28 @@ class PageController extends Controller
         if (empty($validated['content']['en'])) {
             $validated['content']['en'] = $validated['content']['vi'];
         }
+
+        if ($request->hasFile('og_image_file')) {
+            if ($page->og_image && str_starts_with($page->og_image, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $page->og_image);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        } else {
+            if (is_null($request->input('og_image'))) {
+                if ($page->og_image && str_starts_with($page->og_image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $page->og_image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['og_image'] = null;
+            } else {
+                $validated['og_image'] = $request->input('og_image');
+            }
+        }
+
+        unset($validated['og_image_file']);
 
         $page->update($validated);
 
@@ -112,6 +156,12 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         $slug = $page->slug;
+
+        if ($page->og_image && str_starts_with($page->og_image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $page->og_image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $page->delete();
 
         ActivityLogger::log('delete_page', "Đã xóa trang tĩnh: {$slug}");

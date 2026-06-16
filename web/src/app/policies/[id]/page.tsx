@@ -88,6 +88,10 @@ export async function generateMetadata({
   const locale = await getLocaleServer();
   let title = "";
   let description = "";
+  let keywords = "";
+  let robots = undefined;
+  let canonical = "";
+  let customOgImage = "";
 
   try {
     const pageData = await api.getPage(id);
@@ -101,6 +105,10 @@ export async function generateMetadata({
       const content = getVal(pageData.content, locale) || "";
       description = content.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 155);
     }
+    keywords = pageData.seo_keywords ? getVal(pageData.seo_keywords, locale) || "" : "";
+    robots = pageData.meta_robots || undefined;
+    canonical = pageData.canonical_url || "";
+    customOgImage = pageData.og_image ? api.getImageUrl(pageData.og_image) : "";
   } catch (error) {
     const policy = policiesData[id];
     if (policy) {
@@ -115,14 +123,20 @@ export async function generateMetadata({
     : "Sophpower Policy";
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let shareImageUrl = `${baseUrl}/images/logo.png`;
+  let shareImageUrl = customOgImage || `${baseUrl}/images/logo.png`;
   if (shareImageUrl.startsWith("/")) {
     shareImageUrl = `${baseUrl}${shareImageUrl}`;
   }
+  const hasCustomImage = !!customOgImage;
 
   return {
     title: formattedTitle,
     description: description ? `${description}...` : undefined,
+    keywords: keywords || undefined,
+    robots: robots || undefined,
+    alternates: {
+      canonical: canonical || `${baseUrl}/policies/${id}`,
+    },
     openGraph: {
       type: "website",
       url: `${baseUrl}/policies/${id}`,
@@ -130,13 +144,13 @@ export async function generateMetadata({
       description: description || undefined,
       images: [{
         url: shareImageUrl,
-        width: 800,
-        height: 800,
-        alt: "Sophpower Logo",
+        width: hasCustomImage ? 1200 : 800,
+        height: hasCustomImage ? 630 : 800,
+        alt: title,
       }],
     },
     twitter: {
-      card: "summary",
+      card: hasCustomImage ? "summary_large_image" : "summary",
       title: formattedTitle,
       description: description || undefined,
       images: [shareImageUrl],

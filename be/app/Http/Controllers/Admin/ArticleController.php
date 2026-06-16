@@ -68,6 +68,13 @@ class ArticleController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -101,7 +108,13 @@ class ArticleController extends Controller
             $validated['image'] = '/storage/' . $path;
         }
 
+        if ($request->hasFile('og_image_file')) {
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        }
+
         unset($validated['image_file']);
+        unset($validated['og_image_file']);
 
         Article::create($validated);
 
@@ -141,6 +154,13 @@ class ArticleController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -189,7 +209,28 @@ class ArticleController extends Controller
             }
         }
 
+        if ($request->hasFile('og_image_file')) {
+            if ($article->og_image && str_starts_with($article->og_image, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $article->og_image);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        } else {
+            if (is_null($request->input('og_image'))) {
+                if ($article->og_image && str_starts_with($article->og_image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $article->og_image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['og_image'] = null;
+            } else {
+                $validated['og_image'] = $request->input('og_image');
+            }
+        }
+
         unset($validated['image_file']);
+        unset($validated['og_image_file']);
 
         $article->update($validated);
 
@@ -201,6 +242,11 @@ class ArticleController extends Controller
     {
         if ($article->image && str_starts_with($article->image, '/storage/')) {
             $oldPath = str_replace('/storage/', '', $article->image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
+        if ($article->og_image && str_starts_with($article->og_image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $article->og_image);
             Storage::disk('public')->delete($oldPath);
         }
 

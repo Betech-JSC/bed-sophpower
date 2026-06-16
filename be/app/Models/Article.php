@@ -21,6 +21,10 @@ class Article extends Model
         'author',
         'seo_title',
         'seo_desc',
+        'seo_keywords',
+        'meta_robots',
+        'canonical_url',
+        'og_image',
     ];
 
     protected $casts = [
@@ -31,6 +35,7 @@ class Article extends Model
         'date' => 'date',
         'seo_title' => 'array',
         'seo_desc' => 'array',
+        'seo_keywords' => 'array',
     ];
 
     public function articleCategory()

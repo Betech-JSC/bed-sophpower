@@ -21,6 +21,8 @@ export async function generateMetadata({
 
   const customTitle = job.seo_title ? getVal(job.seo_title, locale) : "";
   const customDesc = job.seo_desc ? getVal(job.seo_desc, locale) : "";
+  const customKeywords = job.seo_keywords ? getVal(job.seo_keywords, locale) : "";
+  const robots = job.meta_robots || undefined;
 
   const title = customTitle || getVal(job.title, locale);
   let description = customDesc;
@@ -32,14 +34,22 @@ export async function generateMetadata({
 
   const formattedTitle = title.includes("Sophpower") ? title : `${title} - Tuyển dụng - Sophpower`;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let shareImageUrl = `${baseUrl}/images/logo.png`;
+  
+  const customOgImage = job.og_image ? api.getImageUrl(job.og_image) : "";
+  let shareImageUrl = customOgImage || `${baseUrl}/images/logo.png`;
   if (shareImageUrl.startsWith("/")) {
     shareImageUrl = `${baseUrl}${shareImageUrl}`;
   }
+  const hasCustomImage = !!customOgImage;
 
   return {
     title: formattedTitle,
     description: description || undefined,
+    keywords: customKeywords || undefined,
+    robots: robots || undefined,
+    alternates: {
+      canonical: job.canonical_url || `${baseUrl}/recruitment/${id}`,
+    },
     openGraph: {
       type: "website",
       url: `${baseUrl}/recruitment/${id}`,
@@ -47,13 +57,13 @@ export async function generateMetadata({
       description: description || undefined,
       images: [{
         url: shareImageUrl,
-        width: 800,
-        height: 800,
-        alt: "Sophpower Logo",
+        width: hasCustomImage ? 1200 : 800,
+        height: hasCustomImage ? 630 : 800,
+        alt: title,
       }],
     },
     twitter: {
-      card: "summary",
+      card: hasCustomImage ? "summary_large_image" : "summary",
       title: formattedTitle,
       description: description || undefined,
       images: [shareImageUrl],

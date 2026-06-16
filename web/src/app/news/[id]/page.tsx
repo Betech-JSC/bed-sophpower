@@ -22,6 +22,8 @@ export async function generateMetadata({
 
   const customTitle = article.seo_title ? getVal(article.seo_title, locale) : "";
   const customDesc = article.seo_desc ? getVal(article.seo_desc, locale) : "";
+  const customKeywords = article.seo_keywords ? getVal(article.seo_keywords, locale) : "";
+  const robots = article.meta_robots || undefined;
 
   const title = customTitle || getVal(article.title, locale);
   let description = customDesc;
@@ -33,15 +35,22 @@ export async function generateMetadata({
 
   const formattedTitle = title.includes("Sophpower") ? title : `${title} - Sophpower Vietnam`;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  let imageUrl = article.image ? api.getImageUrl(article.image) : `${baseUrl}/images/logo.png`;
+  
+  const customOgImage = article.og_image ? api.getImageUrl(article.og_image) : "";
+  let imageUrl = customOgImage || (article.image ? api.getImageUrl(article.image) : `${baseUrl}/images/logo.png`);
   if (imageUrl.startsWith("/")) {
     imageUrl = `${baseUrl}${imageUrl}`;
   }
-  const hasCustomImage = !!article.image;
+  const hasCustomImage = !!customOgImage || !!article.image;
 
   return {
     title: formattedTitle,
     description: description || undefined,
+    keywords: customKeywords || undefined,
+    robots: robots || undefined,
+    alternates: {
+      canonical: article.canonical_url || `${baseUrl}/news/${id}`,
+    },
     openGraph: {
       type: "article",
       url: `${baseUrl}/news/${id}`,

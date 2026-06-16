@@ -7,6 +7,7 @@ use App\Models\RecruitmentJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -74,6 +75,13 @@ class JobController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -104,6 +112,13 @@ class JobController extends Controller
         }
         $validated['slug'] = $slug;
 
+        if ($request->hasFile('og_image_file')) {
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        }
+
+        unset($validated['og_image_file']);
+ 
         RecruitmentJob::create($validated);
 
         return redirect()->route('admin.jobs.index')
@@ -152,6 +167,13 @@ class JobController extends Controller
             'seo_desc' => ['nullable', 'array'],
             'seo_desc.vi' => ['nullable', 'string'],
             'seo_desc.en' => ['nullable', 'string'],
+            'seo_keywords' => ['nullable', 'array'],
+            'seo_keywords.vi' => ['nullable', 'string'],
+            'seo_keywords.en' => ['nullable', 'string'],
+            'meta_robots' => ['nullable', 'string', 'max:255'],
+            'canonical_url' => ['nullable', 'string', 'max:255'],
+            'og_image_file' => ['nullable', 'image', 'max:2048'],
+            'og_image' => ['nullable', 'string'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -182,6 +204,28 @@ class JobController extends Controller
         }
         $validated['slug'] = $slug;
 
+        if ($request->hasFile('og_image_file')) {
+            if ($job->og_image && str_starts_with($job->og_image, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $job->og_image);
+                Storage::disk('public')->delete($oldPath);
+            }
+
+            $path = $request->file('og_image_file')->store('seo', 'public');
+            $validated['og_image'] = '/storage/' . $path;
+        } else {
+            if (is_null($request->input('og_image'))) {
+                if ($job->og_image && str_starts_with($job->og_image, '/storage/')) {
+                    $oldPath = str_replace('/storage/', '', $job->og_image);
+                    Storage::disk('public')->delete($oldPath);
+                }
+                $validated['og_image'] = null;
+            } else {
+                $validated['og_image'] = $request->input('og_image');
+            }
+        }
+
+        unset($validated['og_image_file']);
+ 
         $job->update($validated);
 
         return redirect()->route('admin.jobs.index')
@@ -190,6 +234,11 @@ class JobController extends Controller
 
     public function destroy(RecruitmentJob $job)
     {
+        if ($job->og_image && str_starts_with($job->og_image, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $job->og_image);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $job->delete();
 
         return redirect()->route('admin.jobs.index')
