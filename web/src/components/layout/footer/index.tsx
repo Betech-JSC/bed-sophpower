@@ -43,12 +43,12 @@ export default function Footer() {
   return (
     <footer className="mt-auto bg-[#072415] bg-dot-matrix text-white border-t border-emerald-950/20 py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Contact Banner Card */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#106d38] to-[#0a4f27] border border-emerald-500/20 px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 shadow-xl mb-12 w-full">
           {/* Subtle background pattern overlay inside the card */}
           <div className="absolute inset-0 bg-dot-matrix opacity-20 pointer-events-none" />
- 
+
           {/* Card Content */}
           <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12">
             <div className="text-center lg:text-left space-y-2 max-w-2xl">
@@ -90,7 +90,7 @@ export default function Footer() {
 
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 pb-12 border-b border-white/10">
-          
+
           {/* Left: Brand Logo */}
           <div className="shrink-0">
             <Link href="/" className="block">
@@ -180,7 +180,7 @@ export default function Footer() {
             {/* Capsule Pill Buttons */}
             <div className="flex flex-col gap-3 w-full sm:w-auto">
               <a
-                href={`https://zalo.me/${sanitizedPhone}`}
+                href="https://zalo.me/0969700520"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"
@@ -214,7 +214,7 @@ export default function Footer() {
               {t.footer.description}
             </p>
           </div>
-          
+
           <div className="space-y-1.5 md:text-right text-gray-400 shrink-0">
             <p className="font-medium text-gray-300">Email: {settings?.contact_email || "vnsp4@sophpower.com"}</p>
             <p>
