@@ -1,4 +1,4 @@
-import { Locale } from "@/i18n/locale-store";
+import { Locale } from "@/i18n/locale-shared";
 
 export function getVal(field: any, locale: Locale): string;
 export function getVal(field: any, locale: Locale, fallbackValue: string): string;

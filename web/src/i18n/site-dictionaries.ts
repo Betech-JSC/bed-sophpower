@@ -1,4 +1,4 @@
-import type { Locale } from "./locale-store";
+import type { Locale } from "./locale-shared";
 
 export type SiteDictionary = {
   common: {

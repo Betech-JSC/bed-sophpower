@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { isLocale, type Locale } from "@/i18n/locale-store";
+import { isLocale, type Locale } from "@/i18n/locale-shared";
 
 export async function getLocaleServer(): Promise<Locale> {
   try {
