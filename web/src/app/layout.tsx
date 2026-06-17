@@ -87,6 +87,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocaleServer();
   let settings: any = null;
   let translations: any = null;
   try {
@@ -105,7 +106,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="vi" suppressHydrationWarning className={googleSansFlex.variable}>
+    <html lang={locale} suppressHydrationWarning className={googleSansFlex.variable}>
       <body className="antialiased font-sans">
         {settings?.header_scripts && (
           <div

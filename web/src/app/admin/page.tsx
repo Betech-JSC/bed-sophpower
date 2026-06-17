@@ -35,32 +35,15 @@ interface Product {
 export default function AdminDashboard() {
   const [activeSubTab, setActiveSubTab] = useState<"overview" | "leads" | "products" | "settings">("overview");
 
-  const [leads, setLeads] = useState<Lead[]>([
-    {
-      id: "L1",
-      name: "Nguyễn Văn A",
-      contact: "nva@gmail.com | 0987654321",
-      message: "Yêu cầu gửi báo giá 500kg Bột Beta-carotene 10% giao tại kho Bình Dương.",
-      date: "2026-06-08 10:30",
-      status: "new",
-    },
-    {
-      id: "L2",
-      name: "Trần Thị B",
-      contact: "ttb@outlook.com",
-      message: "Đăng ký nhận báo giá mẫu thử Tranexamic Acid cho sản phẩm dưỡng da sắp ra mắt.",
-      date: "2026-06-07 15:45",
-      status: "processed",
-    },
-  ]);
-
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [newsCount, setNewsCount] = useState<number>(0);
   const [jobsCount, setJobsCount] = useState<number>(0);
+  const [settings, setSettings] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Fetch live statistics and products from Laravel API
+    // Fetch live statistics, products, leads, and settings from Laravel API
     Promise.all([
       api.getProducts().then((data) => {
         const mapped = data.map((p) => ({
@@ -76,6 +59,20 @@ export default function AdminDashboard() {
       }),
       api.getJobs().then((data) => {
         setJobsCount(data.length);
+      }),
+      api.getLeads().then((data) => {
+        const mapped = data.map((l) => ({
+          id: String(l.id),
+          name: l.name,
+          contact: `${l.email}${l.phone ? ' | ' + l.phone : ''}`,
+          message: l.message,
+          date: l.created_at ? l.created_at.replace('T', ' ').substring(0, 16) : '',
+          status: (l.status === 'processed' ? 'processed' : 'new') as "new" | "processed",
+        }));
+        setLeads(mapped);
+      }),
+      api.getSettings().then((data) => {
+        setSettings(data);
       })
     ]).catch((err) => {
       console.error("Failed to load statistics on admin dashboard:", err);
@@ -84,10 +81,15 @@ export default function AdminDashboard() {
     });
   }, []);
 
-  const handleMarkProcessed = (id: string) => {
-    setLeads((prev) =>
-      prev.map((lead) => (lead.id === id ? { ...lead, status: "processed" } : lead))
-    );
+  const handleMarkProcessed = async (id: string) => {
+    try {
+      await api.updateLeadStatus(id, 'processed');
+      setLeads((prev) =>
+        prev.map((lead) => (lead.id === id ? { ...lead, status: "processed" } : lead))
+      );
+    } catch (err) {
+      console.error("Failed to mark lead as processed:", err);
+    }
   };
 
   const handleDeleteProduct = (id: string) => {
@@ -415,12 +417,12 @@ export default function AdminDashboard() {
               <h3 className="font-bold text-gray-900 text-lg border-b border-gray-100 pb-3">
                 Cấu Hình SEO Hệ Thống
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-4" key={settings ? 'loaded' : 'loading'}>
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-gray-700 block">META TITLE TRANG CHỦ</label>
                   <input
                     type="text"
-                    defaultValue="Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm"
+                    defaultValue={settings?.meta_title_vi || "Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm"}
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-brand-green focus:outline-hidden"
                   />
                 </div>
@@ -428,7 +430,7 @@ export default function AdminDashboard() {
                   <label className="text-xs font-bold text-gray-700 block">META DESCRIPTION</label>
                   <textarea
                     rows={3}
-                    defaultValue="Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, cung cấp dải nguyên liệu phụ gia thực phẩm và mỹ phẩm chất lượng hàng đầu..."
+                    defaultValue={settings?.meta_desc_vi || "Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam..."}
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-brand-green focus:outline-hidden resize-none"
                   />
                 </div>
@@ -436,7 +438,7 @@ export default function AdminDashboard() {
                   <label className="text-xs font-bold text-gray-700 block">TỪ KHÓA SEO (KEYWORDS)</label>
                   <input
                     type="text"
-                    defaultValue="Sophpower Vietnam, nguyên liệu mỹ phẩm, Beta-carotene, hóa chất thực phẩm"
+                    defaultValue={settings?.meta_keywords_vi || "Sophpower Vietnam, nguyên liệu mỹ phẩm, Beta-carotene, hóa chất thực phẩm"}
                     className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-brand-green focus:outline-hidden"
                   />
                 </div>

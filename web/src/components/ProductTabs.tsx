@@ -60,12 +60,7 @@ export default function ProductTabs({ product }: { product: any }) {
       setTimeout(() => setSuccess(false), 7000);
     } catch (err: any) {
       console.error("Submit question error:", err);
-      setErrorMsg(
-        err.message ||
-        (locale === "vi"
-          ? "Gửi câu hỏi thất bại. Vui lòng thử lại sau."
-          : "Failed to submit question. Please try again later.")
-      );
+      setErrorMsg(err.message || t.products.qnaError);
     } finally {
       setLoading(false);
     }
@@ -107,7 +102,7 @@ export default function ProductTabs({ product }: { product: any }) {
     { id: "specs" as const, label: t.products.tabSpecs },
     { id: "apps" as const, label: product.type === 'food' ? t.products.tabAppsFood : t.products.tabAppsCosmetic },
     { id: "pack" as const, label: t.products.tabPack },
-    // { id: "qna" as const, label: locale === 'vi' ? 'Hỏi đáp sản phẩm' : 'Product Q&A' },
+    { id: "qna" as const, label: t.products.qnaTab },
   ];
 
   return (
@@ -154,8 +149,8 @@ export default function ProductTabs({ product }: { product: any }) {
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900 mb-4">
               {product.type === 'food'
-                ? (locale === 'vi' ? "Các ứng dụng chính trong sản xuất" : "Key applications in food production")
-                : (locale === 'vi' ? "Các ứng dụng sản xuất chính" : "Key production applications")}
+                ? t.products.qnaAppsFoodTitle
+                : t.products.qnaAppsCosmeticTitle}
             </h3>
             {applicationsArray && applicationsArray.length > 0 ? (
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -184,7 +179,7 @@ export default function ProductTabs({ product }: { product: any }) {
         {activeTab === "qna" && (
           <div className="space-y-8">
             <h3 className="text-lg font-bold text-gray-900 mb-4">
-              {locale === 'vi' ? 'Hỏi đáp & Thắc mắc về sản phẩm' : 'Q&A & Product Inquiries'}
+              {t.products.qnaTitle}
             </h3>
 
             {/* List of Q&As */}
@@ -206,7 +201,7 @@ export default function ProductTabs({ product }: { product: any }) {
                     {q.answer && (
                       <div className="pl-9 border-l-2 border-brand-green/30 mt-2 text-gray-600 text-sm sm:text-base text-justify">
                         <p className="text-xs font-bold text-brand-green uppercase tracking-wide mb-1">
-                          {locale === 'vi' ? 'Sophpower trả lời:' : 'Sophpower replied:'}
+                          {t.products.qnaReplied}
                         </p>
                         <p>{q.answer}</p>
                       </div>
@@ -215,9 +210,7 @@ export default function ProductTabs({ product }: { product: any }) {
                 ))
               ) : (
                 <p className="text-gray-500 italic">
-                  {locale === 'vi'
-                    ? 'Chưa có câu hỏi nào được công bố cho sản phẩm này. Hãy gửi câu hỏi đầu tiên của bạn dưới đây!'
-                    : 'No questions have been published for this product yet. Send your first question below!'}
+                  {t.products.qnaEmpty}
                 </p>
               )}
             </div>
@@ -225,7 +218,7 @@ export default function ProductTabs({ product }: { product: any }) {
             {/* Submit Form */}
             <div className="border-t border-gray-150 pt-8 max-w-2xl">
               <h4 className="text-base font-bold text-gray-950 mb-4">
-                {locale === 'vi' ? 'Gửi câu hỏi của bạn cho chúng tôi' : 'Submit your question to us'}
+                {t.products.qnaFormTitle}
               </h4>
 
               {success ? (
@@ -233,12 +226,10 @@ export default function ProductTabs({ product }: { product: any }) {
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
                     <h5 className="font-bold">
-                      {locale === 'vi' ? 'Gửi câu hỏi thành công!' : 'Question submitted successfully!'}
+                      {t.products.qnaSuccessTitle}
                     </h5>
                     <p className="text-sm text-emerald-700 mt-1">
-                      {locale === 'vi'
-                        ? 'Chúng tôi đã tiếp nhận câu hỏi của bạn và sẽ phản hồi qua email/số điện thoại trong thời gian sớm nhất.'
-                        : 'We have received your question and will respond via email/phone as soon as possible.'}
+                      {t.products.qnaSuccessDesc}
                     </p>
                   </div>
                 </div>
@@ -253,7 +244,7 @@ export default function ProductTabs({ product }: { product: any }) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-xs font-bold text-gray-700 uppercase tracking-wide block">
-                        {locale === 'vi' ? 'Họ và tên' : 'Full Name'} <span className="text-red-500">*</span>
+                        {t.products.qnaNameLabel} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -261,7 +252,7 @@ export default function ProductTabs({ product }: { product: any }) {
                         name="name"
                         value={form.name}
                         onChange={handleInputChange}
-                        placeholder={locale === 'vi' ? 'Nhập họ tên của bạn' : 'Enter your name'}
+                        placeholder={t.products.qnaNamePlaceholder}
                         disabled={loading}
                         className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                       />
@@ -269,7 +260,7 @@ export default function ProductTabs({ product }: { product: any }) {
 
                     <div className="space-y-1">
                       <label className="text-xs font-bold text-gray-700 uppercase tracking-wide block">
-                        {locale === 'vi' ? 'Email liên hệ' : 'Contact Email'} <span className="text-red-500">*</span>
+                        {t.products.qnaEmailLabel} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="email"
@@ -286,7 +277,7 @@ export default function ProductTabs({ product }: { product: any }) {
 
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-gray-700 uppercase tracking-wide block">
-                      {locale === 'vi' ? 'Số điện thoại' : 'Phone Number'} <span className="text-red-500">*</span>
+                      {t.products.qnaPhoneLabel} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
@@ -294,7 +285,7 @@ export default function ProductTabs({ product }: { product: any }) {
                       name="phone"
                       value={form.phone}
                       onChange={handleInputChange}
-                      placeholder={locale === 'vi' ? 'Nhập Số điện thoại' : 'Enter phone number (optional)'}
+                      placeholder={t.products.qnaPhonePlaceholder}
                       disabled={loading}
                       className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
                     />
@@ -302,7 +293,7 @@ export default function ProductTabs({ product }: { product: any }) {
 
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-gray-700 uppercase tracking-wide block">
-                      {locale === 'vi' ? 'Nội dung câu hỏi' : 'Question Content'} <span className="text-red-500">*</span>
+                      {t.products.qnaQuestionLabel} <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       rows={3}
@@ -310,7 +301,7 @@ export default function ProductTabs({ product }: { product: any }) {
                       name="question"
                       value={form.question}
                       onChange={handleInputChange}
-                      placeholder={locale === 'vi' ? 'Nhập thắc mắc của bạn về sản phẩm này...' : 'Enter your question about this product...'}
+                      placeholder={t.products.qnaQuestionPlaceholder}
                       disabled={loading}
                       className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden resize-none disabled:bg-gray-100"
                     />
@@ -324,12 +315,12 @@ export default function ProductTabs({ product }: { product: any }) {
                     {loading ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        {locale === 'vi' ? 'Đang gửi...' : 'Sending...'}
+                        {t.products.qnaSending}
                       </>
                     ) : (
                       <>
                         <Send className="h-3.5 w-3.5" />
-                        {locale === 'vi' ? 'GỬI CÂU HỎI' : 'SUBMIT QUESTION'}
+                        {t.products.qnaSend}
                       </>
                     )}
                   </button>

@@ -120,7 +120,7 @@ export default function RecruitmentClient() {
 
           {isLoading ? (
             <div className="text-center py-12 text-gray-500">
-              {locale === "vi" ? "Đang tải..." : "Loading..."}
+              {t.common.loading}
             </div>
           ) : jobs.length === 0 ? (
             <div className="text-center py-12 text-gray-500">

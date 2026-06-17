@@ -131,7 +131,7 @@ export default function ProductListingClient({
 
           {isLoading ? (
             <div className="text-center py-12 text-gray-550">
-              {locale === "vi" ? "Đang tải..." : "Loading..."}
+              {t.common.loading}
             </div>
           ) : paginatedProducts.length === 0 ? (
             <div className="text-center py-12 text-gray-550">

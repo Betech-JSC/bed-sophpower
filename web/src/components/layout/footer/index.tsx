@@ -79,7 +79,7 @@ export default function Footer() {
                 <button
                   type="submit"
                   className="bg-white hover:bg-emerald-50 text-[#106d38] rounded-full p-2.5 hover:scale-105 active:scale-95 transition-all duration-200 shrink-0 cursor-pointer shadow-md"
-                  aria-label={locale === "vi" ? "Gửi email" : "Submit email"}
+                  aria-label={t.footer.emailSubmitAria}
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>

@@ -63,12 +63,7 @@ export default function Contact() {
       if (err.errors) {
         setErrors(err.errors);
       } else {
-        setErrorMessage(
-          err.message ||
-          (locale === "vi"
-            ? "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau."
-            : "An unknown error occurred. Please try again later.")
-        );
+        setErrorMessage(err.message || t.contact.unknownError);
       }
     } finally {
       setLoading(false);

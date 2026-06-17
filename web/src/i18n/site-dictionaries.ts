@@ -1,6 +1,10 @@
 import type { Locale } from "./locale-store";
 
 export type SiteDictionary = {
+  common: {
+    loading: string;
+    scrollToTop: string;
+  };
   header: {
     about: string;
     foodIngredients: string;
@@ -10,6 +14,15 @@ export type SiteDictionary = {
     searchTitle: string;
     searchPlaceholder: string;
     searchButton: string;
+    searchSearching: string;
+    searchNoResults: string;
+    searchTryOther: string;
+    searchProducts: string;
+    searchFood: string;
+    searchCosmetic: string;
+    searchNews: string;
+    searchPopularKeywords: string;
+    searchSuggestedProducts: string;
   };
   footer: {
     products: string;
@@ -27,6 +40,7 @@ export type SiteDictionary = {
     description: string;
     emailSuccess: string;
     address: string;
+    emailSubmitAria: string;
   };
   recruitment: {
     title: string;
@@ -67,6 +81,7 @@ export type SiteDictionary = {
     sendingBtn: string;
     successTitle: string;
     successDesc: string;
+    unknownError: string;
   };
   about: {
     title: string;
@@ -159,6 +174,25 @@ export type SiteDictionary = {
     tabAppsFood: string;
     tabAppsCosmetic: string;
     tabPack: string;
+    qnaTab: string;
+    qnaTitle: string;
+    qnaReplied: string;
+    qnaEmpty: string;
+    qnaFormTitle: string;
+    qnaSuccessTitle: string;
+    qnaSuccessDesc: string;
+    qnaError: string;
+    qnaNameLabel: string;
+    qnaNamePlaceholder: string;
+    qnaEmailLabel: string;
+    qnaPhoneLabel: string;
+    qnaPhonePlaceholder: string;
+    qnaQuestionLabel: string;
+    qnaQuestionPlaceholder: string;
+    qnaSending: string;
+    qnaSend: string;
+    qnaAppsFoodTitle: string;
+    qnaAppsCosmeticTitle: string;
   };
   newsList: {
     bannerTitle: string;
@@ -205,6 +239,10 @@ export type SiteDictionary = {
 
 const dicts = {
   vi: {
+    common: {
+      loading: "Đang tải...",
+      scrollToTop: "Lên đầu trang",
+    },
     header: {
       about: "GIỚI THIỆU",
       foodIngredients: "NGUYÊN LIỆU THỰC PHẨM",
@@ -214,6 +252,15 @@ const dicts = {
       searchTitle: "Tìm kiếm sản phẩm",
       searchPlaceholder: "Nhập tên sản phẩm hoặc từ khóa...",
       searchButton: "Tìm",
+      searchSearching: "Đang tìm kiếm...",
+      searchNoResults: "Không tìm thấy kết quả",
+      searchTryOther: "Thử tìm kiếm với từ khóa khác",
+      searchProducts: "Sản phẩm",
+      searchFood: "Thực phẩm",
+      searchCosmetic: "Mỹ phẩm",
+      searchNews: "Tin tức & Bài viết",
+      searchPopularKeywords: "Từ khóa phổ biến",
+      searchSuggestedProducts: "Sản phẩm gợi ý",
     },
     footer: {
       products: "SẢN PHẨM",
@@ -231,6 +278,7 @@ const dicts = {
       description: "Sophpower là đối tác cung ứng nguyên liệu công nghiệp & hóa chất đa quốc gia uy tín. Chúng tôi cam kết cung cấp nguồn nguyên liệu chất lượng cao tuân thủ các quy trình kiểm định nghiêm ngặt theo tiêu chuẩn quốc tế như ISO, HACCP, HALAL, Kosher và FDA.",
       emailSuccess: "Cảm ơn bạn! Chúng tôi đã nhận được email và sẽ liên hệ tư vấn trong thời gian sớm nhất.",
       address: "Địa chỉ: Số 37, đường 19E, phường An Lạc, quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam",
+      emailSubmitAria: "Gửi email",
     },
     recruitment: {
       title: "RECRUITMENT",
@@ -271,6 +319,7 @@ const dicts = {
       sendingBtn: "Đang gửi...",
       successTitle: "Gửi yêu cầu thành công!",
       successDesc: "Cảm ơn bạn đã liên hệ với Sophpower. Chúng tôi sẽ phản hồi lại thông tin qua email trong thời gian sớm nhất.",
+      unknownError: "Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.",
     },
     about: {
       title: "VỀ CHÚNG TÔI",
@@ -363,6 +412,25 @@ const dicts = {
       tabAppsFood: "Ứng dụng thực tế",
       tabAppsCosmetic: "Ứng dụng sản xuất",
       tabPack: "Quy cách đóng gói",
+      qnaTab: "Hỏi đáp sản phẩm",
+      qnaTitle: "Hỏi đáp & Thắc mắc về sản phẩm",
+      qnaReplied: "Sophpower trả lời:",
+      qnaEmpty: "Chưa có câu hỏi nào được công bố cho sản phẩm này. Hãy gửi câu hỏi đầu tiên của bạn dưới đây!",
+      qnaFormTitle: "Gửi câu hỏi của bạn cho chúng tôi",
+      qnaSuccessTitle: "Gửi câu hỏi thành công!",
+      qnaSuccessDesc: "Chúng tôi đã tiếp nhận câu hỏi của bạn và sẽ phản hồi qua email/số điện thoại trong thời gian sớm nhất.",
+      qnaError: "Gửi câu hỏi thất bại. Vui lòng thử lại sau.",
+      qnaNameLabel: "Họ và tên",
+      qnaNamePlaceholder: "Nhập họ tên của bạn",
+      qnaEmailLabel: "Email liên hệ",
+      qnaPhoneLabel: "Số điện thoại",
+      qnaPhonePlaceholder: "Nhập Số điện thoại",
+      qnaQuestionLabel: "Nội dung câu hỏi",
+      qnaQuestionPlaceholder: "Nhập thắc mắc của bạn về sản phẩm này...",
+      qnaSending: "Đang gửi...",
+      qnaSend: "GỬI CÂU HỎI",
+      qnaAppsFoodTitle: "Các ứng dụng chính trong sản xuất",
+      qnaAppsCosmeticTitle: "Các ứng dụng sản xuất chính",
     },
     newsList: {
       bannerTitle: "TRUNG TÂM TIN TỨC",
@@ -407,6 +475,10 @@ const dicts = {
     },
   },
   en: {
+    common: {
+      loading: "Loading...",
+      scrollToTop: "Scroll to top",
+    },
     header: {
       about: "ABOUT US",
       foodIngredients: "FOOD INGREDIENTS",
@@ -416,6 +488,15 @@ const dicts = {
       searchTitle: "Search Products",
       searchPlaceholder: "Enter product name or keyword...",
       searchButton: "Search",
+      searchSearching: "Searching...",
+      searchNoResults: "No results found",
+      searchTryOther: "Try searching with another keyword",
+      searchProducts: "Products",
+      searchFood: "Food",
+      searchCosmetic: "Cosmetic",
+      searchNews: "News & Articles",
+      searchPopularKeywords: "Popular Keywords",
+      searchSuggestedProducts: "Suggested Products",
     },
     footer: {
       products: "PRODUCTS",
@@ -433,6 +514,7 @@ const dicts = {
       description: "Sophpower is a reputable multinational supplier of industrial raw materials & chemicals. We are committed to providing high-quality raw materials complying with strict inspection procedures in accordance with international standards such as ISO, HACCP, HALAL, Kosher, and FDA.",
       emailSuccess: "Thank you! We have received your email and will contact you for consultation as soon as possible.",
       address: "Address: No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam",
+      emailSubmitAria: "Submit email",
     },
     recruitment: {
       title: "RECRUITMENT",
@@ -473,6 +555,7 @@ const dicts = {
       sendingBtn: "Sending...",
       successTitle: "Request submitted successfully!",
       successDesc: "Thank you for contacting Sophpower. We will respond via email as soon as possible.",
+      unknownError: "An unknown error occurred. Please try again later.",
     },
     about: {
       title: "ABOUT US",
@@ -565,6 +648,25 @@ const dicts = {
       tabAppsFood: "Practical Applications",
       tabAppsCosmetic: "Production Applications",
       tabPack: "Packaging Specifications",
+      qnaTab: "Product Q&A",
+      qnaTitle: "Q&A & Product Inquiries",
+      qnaReplied: "Sophpower replied:",
+      qnaEmpty: "No questions have been published for this product yet. Send your first question below!",
+      qnaFormTitle: "Submit your question to us",
+      qnaSuccessTitle: "Question submitted successfully!",
+      qnaSuccessDesc: "We have received your question and will respond via email/phone as soon as possible.",
+      qnaError: "Failed to submit question. Please try again later.",
+      qnaNameLabel: "Full Name",
+      qnaNamePlaceholder: "Enter your name",
+      qnaEmailLabel: "Contact Email",
+      qnaPhoneLabel: "Phone Number",
+      qnaPhonePlaceholder: "Enter phone number (optional)",
+      qnaQuestionLabel: "Question Content",
+      qnaQuestionPlaceholder: "Enter your question about this product...",
+      qnaSending: "Sending...",
+      qnaSend: "SUBMIT QUESTION",
+      qnaAppsFoodTitle: "Key applications in food production",
+      qnaAppsCosmeticTitle: "Key production applications",
     },
     newsList: {
       bannerTitle: "NEWS CENTER",

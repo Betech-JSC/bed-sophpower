@@ -50,4 +50,36 @@ class LeadApiController extends Controller
             'lead' => $lead
         ], 201);
     }
+
+    public function index()
+    {
+        $leads = Lead::latest()->get();
+        return response()->json([
+            'success' => true,
+            'leads' => $leads
+        ]);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $lead = Lead::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|string|in:pending,processed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $lead->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'lead' => $lead
+        ]);
+    }
 }

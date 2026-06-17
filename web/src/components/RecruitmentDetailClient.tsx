@@ -85,7 +85,7 @@ export default function RecruitmentDetailClient({ id }: { id: string }) {
 
       {isLoading ? (
         <div className="rounded-2xl bg-white border border-gray-150 p-10 text-center text-gray-500 shadow-sm">
-          {locale === "vi" ? "Đang tải..." : "Loading..."}
+          {t.common.loading}
         </div>
       ) : !job ? (
         <div className="rounded-2xl bg-white border border-gray-150 p-10 text-center text-gray-500 shadow-sm">

@@ -215,7 +215,7 @@ export default function Header() {
               {loading && (
                 <div className="flex items-center justify-center py-6 text-gray-400 gap-2">
                   <Loader2 className="h-5 w-5 animate-spin text-brand-green" />
-                  <span className="text-xs font-semibold">{locale === 'vi' ? 'Đang tìm kiếm...' : 'Searching...'}</span>
+                  <span className="text-xs font-semibold">{t.header.searchSearching}</span>
                 </div>
               )}
 
@@ -225,10 +225,10 @@ export default function Header() {
                   {suggestions.products.length === 0 && suggestions.articles.length === 0 ? (
                     <div className="py-8 text-center space-y-2 text-gray-400">
                       <p className="text-sm font-bold text-gray-950">
-                        {locale === 'vi' ? 'Không tìm thấy kết quả' : 'No results found'}
+                        {t.header.searchNoResults}
                       </p>
                       <p className="text-xs text-gray-500">
-                        {locale === 'vi' ? 'Thử tìm kiếm với từ khóa khác' : 'Try searching with another keyword'}
+                        {t.header.searchTryOther}
                       </p>
                     </div>
                   ) : (
@@ -237,7 +237,7 @@ export default function Header() {
                       {suggestions.products.length > 0 && (
                         <div className="py-3 space-y-2">
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            {locale === 'vi' ? 'Sản phẩm' : 'Products'}
+                            {t.header.searchProducts}
                           </p>
                           <div className="space-y-1.5">
                             {suggestions.products.map((prod) => (
@@ -257,7 +257,7 @@ export default function Header() {
                                     {getVal(prod.name, locale)}
                                   </h4>
                                   <span className="inline-block rounded bg-brand-green/10 px-1.5 py-0.5 text-[9px] font-extrabold text-brand-green uppercase tracking-wider mt-0.5">
-                                    {prod.type === 'food' ? (locale === 'vi' ? 'Thực phẩm' : 'Food') : (locale === 'vi' ? 'Mỹ phẩm' : 'Cosmetic')}
+                                    {prod.type === 'food' ? t.header.searchFood : t.header.searchCosmetic}
                                   </span>
                                 </div>
                               </Link>
@@ -270,7 +270,7 @@ export default function Header() {
                       {suggestions.articles.length > 0 && (
                         <div className="py-3 space-y-2">
                           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            {locale === 'vi' ? 'Tin tức & Bài viết' : 'News & Articles'}
+                            {t.header.searchNews}
                           </p>
                           <div className="space-y-1.5">
                             {suggestions.articles.map((art) => (
@@ -309,7 +309,7 @@ export default function Header() {
                   {/* Popular Keywords */}
                   <div className="py-3 space-y-2">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                      {locale === 'vi' ? 'Từ khóa phổ biến' : 'Popular Keywords'}
+                      {t.header.searchPopularKeywords}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {popularKeywords.map((kw) => (
@@ -329,7 +329,7 @@ export default function Header() {
                   {initialProducts.length > 0 && (
                     <div className="py-3 space-y-2">
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                        {locale === 'vi' ? 'Sản phẩm gợi ý' : 'Suggested Products'}
+                        {t.header.searchSuggestedProducts}
                       </p>
                       <div className="space-y-1.5">
                         {initialProducts.map((prod) => (
@@ -349,7 +349,7 @@ export default function Header() {
                                 {getVal(prod.name, locale)}
                               </h4>
                               <span className="inline-block rounded bg-brand-green/10 px-1.5 py-0.5 text-[9px] font-extrabold text-brand-green uppercase tracking-wider mt-0.5">
-                                {prod.type === 'food' ? (locale === 'vi' ? 'Thực phẩm' : 'Food') : (locale === 'vi' ? 'Mỹ phẩm' : 'Cosmetic')}
+                                {prod.type === 'food' ? t.header.searchFood : t.header.searchCosmetic}
                               </span>
                             </div>
                           </Link>
