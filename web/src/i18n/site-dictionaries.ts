@@ -447,7 +447,7 @@ const dicts = {
       sendRequestSub: "Please leave your information, our specialists will contact you within 24 hours.",
       nameLabel: "Full Name",
       emailLabel: "Email Address",
-      phoneLabel: "Phone Number (optional)",
+      phoneLabel: "Phone Number",
       messageLabel: "Message Content",
       namePlaceholder: "Enter your full name",
       emailPlaceholder: "Enter contact email address",

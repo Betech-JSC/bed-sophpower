@@ -73,6 +73,9 @@
           {{ pageTitle }}
         </h2>
         <div class="flex items-center gap-4">
+          <!-- Google Translate Widget Container -->
+          <div id="google_translate_element" class="google-translate-dropdown"></div>
+
           <!-- Notification / Status Indicator -->
           <a
             href="https://sophpower.com"
@@ -325,5 +328,57 @@ function logout() {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom styles for Google Translate Widget inside CMS */
+.google-translate-dropdown :deep(.goog-te-gadget) {
+  font-family: inherit !important;
+  font-size: 13px !important;
+}
+.google-translate-dropdown :deep(.goog-te-gadget-simple) {
+  background-color: #f0fdf4 !important; /* bg-emerald-50 */
+  border: 1px solid #d1fae5 !important; /* border-emerald-150 */
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-weight: 600 !important;
+  color: #064e3b !important; /* text-emerald-800 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s !important;
+}
+.google-translate-dropdown :deep(.goog-te-gadget-simple:hover) {
+  background-color: #d1fae5 !important;
+  border-color: #a7f3d0 !important;
+}
+.google-translate-dropdown :deep(.goog-te-gadget-simple .goog-te-menu-value) {
+  color: #064e3b !important;
+  margin-right: 0 !important;
+}
+.google-translate-dropdown :deep(.goog-te-gadget-simple img) {
+  display: none !important; /* Hide Google Translate logo icon */
+}
+.google-translate-dropdown :deep(.goog-te-menu-value span:nth-child(5)) {
+  display: none !important; /* Hide default arrow down */
+}
+.google-translate-dropdown :deep(.goog-te-menu-value span:nth-child(3)) {
+  display: none !important; /* Hide vertical separator bar */
+}
+.google-translate-dropdown :deep(.goog-te-menu-value span:first-child) {
+  margin-right: 4px !important;
+}
+/* Append custom caret icon in CSS */
+.google-translate-dropdown :deep(.goog-te-menu-value::after) {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #064e3b;
+  border-bottom: 2px solid #064e3b;
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-bottom: 3px;
+  transition: transform 0.2s;
 }
 </style>

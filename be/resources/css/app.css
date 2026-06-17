@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Google Translate UI overrides */
+body {
+    top: 0px !important;
+}
+.skiptranslate iframe, .goog-te-banner-frame, .goog-te-balloon-frame {
+    display: none !important;
+}
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
