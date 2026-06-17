@@ -121,7 +121,7 @@
 
 <script setup>
 import { Link, router, usePage } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import AiChatWidget from '@/Components/AiChatWidget.vue';
 
 const props = defineProps({
@@ -319,6 +319,41 @@ function isUrl(match) {
 function logout() {
   router.post('/admin/logout');
 }
+
+onMounted(() => {
+  // Re-initialize Google Translate Widget when the layout mounts/remounts on Inertia page transitions
+  const initWidget = () => {
+    const el = document.getElementById('google_translate_element');
+    if (el) {
+      el.innerHTML = ''; // Clear container
+    }
+    
+    if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+      new window.google.translate.TranslateElement({
+        pageLanguage: 'vi',
+        includedLanguages: 'vi,en,zh-CN,ja',
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  };
+
+  // Run on mount
+  initWidget();
+  
+  // Add a small delay/retry in case Google script is still loading on first load
+  if (!window.google || !window.google.translate) {
+    let retries = 0;
+    const interval = setInterval(() => {
+      retries++;
+      if (window.google && window.google.translate) {
+        initWidget();
+        clearInterval(interval);
+      } else if (retries > 10) {
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+});
 </script>
 
 <style scoped>
