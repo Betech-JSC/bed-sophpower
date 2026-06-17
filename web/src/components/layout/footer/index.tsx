@@ -147,40 +147,60 @@ export default function Footer() {
           <div className="flex flex-col items-start lg:items-end gap-6 w-full lg:w-auto">
             {/* Social Icons */}
             <div className="flex gap-5">
-              <a
-                href="#"
-                className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
-                aria-label="Website"
-              >
-                <Globe className="w-5 h-5" />
-              </a>
+              {(settings === null || settings?.social_facebook) && (
+                <a
+                  href={settings?.social_facebook || "https://facebook.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {(settings === null || settings?.social_linkedin) && (
+                <a
+                  href={settings?.social_linkedin || "https://linkedin.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              )}
+              {(settings === null || settings?.social_youtube) && (
+                <a
+                  href={settings?.social_youtube || "https://youtube.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
+              )}
+              {(settings === null || settings?.social_globe) && (
+                <a
+                  href={settings?.social_globe || "https://sophpower.com"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
+                  aria-label="Website"
+                >
+                  <Globe className="w-5 h-5" />
+                </a>
+              )}
             </div>
 
             {/* Capsule Pill Buttons */}
             <div className="flex flex-col gap-3 w-full sm:w-auto">
               <a
-                href="https://zalo.me/0969700520"
+                href={
+                  settings?.social_zalo
+                    ? (settings.social_zalo.startsWith("http") ? settings.social_zalo : `https://zalo.me/${settings.social_zalo.replace(/[^0-9]/g, "")}`)
+                    : "https://zalo.me/0969700520"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-between gap-4 bg-white hover:bg-gray-100 text-gray-900 rounded-full px-5 py-2.5 font-bold tracking-wider text-xs uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-full sm:w-auto cursor-pointer"

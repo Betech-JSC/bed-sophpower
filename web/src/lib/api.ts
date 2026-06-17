@@ -124,6 +124,13 @@ export interface SystemSettings {
   seo_robots_txt?: string;
   site_logo?: string;
   site_favicon?: string;
+  social_facebook?: string;
+  social_linkedin?: string;
+  social_youtube?: string;
+  social_zalo?: string;
+  social_globe?: string;
+  about_image_overview?: string;
+  about_image_lab?: string;
 }
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {

@@ -13,7 +13,9 @@ class SettingApiController extends Controller
             'meta_title_vi', 'meta_title_en', 'meta_desc_vi', 'meta_desc_en', 'meta_keywords_vi', 'meta_keywords_en',
             'contact_phone', 'contact_email', 'contact_address_vi', 'contact_address_en',
             'header_scripts', 'footer_scripts',
-            'site_logo', 'site_favicon'
+            'site_logo', 'site_favicon',
+            'social_facebook', 'social_linkedin', 'social_youtube', 'social_zalo', 'social_globe',
+            'about_image_overview', 'about_image_lab'
         ];
 
         $settings = [];

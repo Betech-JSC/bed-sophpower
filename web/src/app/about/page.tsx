@@ -12,6 +12,9 @@ export default async function About() {
   const t = siteDictionaries[locale];
   const banner = await api.getPageBanner("about").catch(() => null);
   const bannerImage = banner?.image ? api.getImageUrl(banner.image) : "/images/about-ban.png";
+  const settings = await api.getSettings().catch(() => null);
+  const overviewImage = settings?.about_image_overview ? api.getImageUrl(settings.about_image_overview) : "/images/about-global-trade.png";
+  const labImage = settings?.about_image_lab ? api.getImageUrl(settings.about_image_lab) : "/images/about-lab-quality.png";
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -89,7 +92,7 @@ export default async function About() {
               <ScrollReveal direction="up" delay={200} duration={600}>
                 <div className="rounded-2xl overflow-hidden bg-gray-55 border border-gray-200 shadow-sm relative group">
                   <img
-                    src="/images/about-global-trade.png"
+                    src={overviewImage}
                     alt="Sophpower Global Trade Network"
                     className="w-full h-auto object-cover max-h-[450px] group-hover:scale-102 transition-transform duration-550"
                   />
@@ -110,7 +113,7 @@ export default async function About() {
               <ScrollReveal direction="up" duration={600}>
                 <div className="rounded-2xl overflow-hidden bg-gray-55 border border-gray-200 shadow-sm relative group">
                   <img
-                    src="/images/about-lab-quality.png"
+                    src={labImage}
                     alt="Sophpower Chemical Laboratory Quality Control"
                     className="w-full h-auto object-cover max-h-[450px] group-hover:scale-102 transition-transform duration-550"
                   />

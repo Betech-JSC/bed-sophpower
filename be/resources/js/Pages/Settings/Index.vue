@@ -191,6 +191,79 @@
             </div>
           </a-tab-pane>
 
+          <!-- TAB 6: IMAGES & SOCIAL LINKS -->
+          <a-tab-pane key="social_and_about" tab="Hình ảnh & Mạng xã hội">
+            <div class="space-y-6 mt-4">
+              <!-- About Page Images Title -->
+              <h3 class="text-sm font-bold text-emerald-700 border-b border-gray-150 pb-2">Hình ảnh trang giới thiệu (About)</h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Overview Image -->
+                <div class="border border-gray-150 p-6 rounded-xl bg-gray-50 flex flex-col items-start justify-center">
+                  <label class="block text-sm font-bold text-gray-700 mb-4 w-full text-left">Ảnh "Tổng quan doanh nghiệp"</label>
+                  <div class="w-full flex items-center gap-6">
+                    <div class="w-24 h-24 rounded-lg bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                      <img v-if="props.settings.about_image_overview" :src="props.settings.about_image_overview" alt="Overview" class="max-w-full max-h-full object-cover" />
+                      <span v-else class="text-xs text-gray-400 font-bold">Mặc định</span>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                      <input type="file" @change="onAboutOverviewChange" accept="image/*" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer w-full" />
+                      <p class="text-xs text-gray-400">Ảnh minh họa bên phải phần giới thiệu. Hỗ trợ: PNG, JPG, JPEG, WebP. Max 3MB.</p>
+                      <p v-if="form.errors.about_image_overview_file" class="text-xs text-red-650 font-semibold">{{ form.errors.about_image_overview_file }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lab Image -->
+                <div class="border border-gray-150 p-6 rounded-xl bg-gray-50 flex flex-col items-start justify-center">
+                  <label class="block text-sm font-bold text-gray-700 mb-4 w-full text-left">Ảnh "Phòng Lab & Chất lượng"</label>
+                  <div class="w-full flex items-center gap-6">
+                    <div class="w-24 h-24 rounded-lg bg-white border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+                      <img v-if="props.settings.about_image_lab" :src="props.settings.about_image_lab" alt="Lab" class="max-w-full max-h-full object-cover" />
+                      <span v-else class="text-xs text-gray-400 font-bold">Mặc định</span>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                      <input type="file" @change="onAboutLabChange" accept="image/*" class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer w-full" />
+                      <p class="text-xs text-gray-400">Ảnh minh họa bên trái phần chất lượng. Hỗ trợ: PNG, JPG, JPEG, WebP. Max 3MB.</p>
+                      <p v-if="form.errors.about_image_lab_file" class="text-xs text-red-650 font-semibold">{{ form.errors.about_image_lab_file }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Social Links Title -->
+              <h3 class="text-sm font-bold text-emerald-700 border-b border-gray-150 pb-2 pt-4">Liên kết mạng xã hội</h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Facebook -->
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-1">Facebook URL</label>
+                  <a-input v-model:value="form.social_facebook" placeholder="Ví dụ: https://facebook.com/sophpower" size="large" />
+                </div>
+                <!-- LinkedIn -->
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-1">LinkedIn URL</label>
+                  <a-input v-model:value="form.social_linkedin" placeholder="Ví dụ: https://linkedin.com/company/sophpower" size="large" />
+                </div>
+                <!-- YouTube -->
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-1">YouTube URL</label>
+                  <a-input v-model:value="form.social_youtube" placeholder="Ví dụ: https://youtube.com/c/sophpower" size="large" />
+                </div>
+                <!-- Zalo -->
+                <div>
+                  <label class="block text-sm font-bold text-gray-700 mb-1">Zalo Link hoặc SĐT</label>
+                  <a-input v-model:value="form.social_zalo" placeholder="Ví dụ: https://zalo.me/0969700520 hoặc 0969700520" size="large" />
+                </div>
+                <!-- Globe / Corporate Website -->
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-bold text-gray-700 mb-1">Trang web Tập đoàn / Khác</label>
+                  <a-input v-model:value="form.social_globe" placeholder="Ví dụ: https://sophpower.com" size="large" />
+                </div>
+              </div>
+            </div>
+          </a-tab-pane>
+
         </a-tabs>
 
         <!-- Form Actions -->
@@ -240,6 +313,14 @@ const form = useForm({
 
   logo_file: null,
   favicon_file: null,
+  about_image_overview_file: null,
+  about_image_lab_file: null,
+
+  social_facebook: props.settings.social_facebook || '',
+  social_linkedin: props.settings.social_linkedin || '',
+  social_youtube: props.settings.social_youtube || '',
+  social_zalo: props.settings.social_zalo || '',
+  social_globe: props.settings.social_globe || '',
 });
 
 function onLogoChange(e) {
@@ -248,6 +329,14 @@ function onLogoChange(e) {
 
 function onFaviconChange(e) {
   form.favicon_file = e.target.files[0];
+}
+
+function onAboutOverviewChange(e) {
+  form.about_image_overview_file = e.target.files[0];
+}
+
+function onAboutLabChange(e) {
+  form.about_image_lab_file = e.target.files[0];
 }
 
 function submit() {

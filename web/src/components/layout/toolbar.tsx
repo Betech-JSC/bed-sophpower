@@ -33,9 +33,9 @@ export default function Toolbar() {
       <a
         href="tel:0969700520"
         title="Tel/Zalo: 0969 700 520"
-        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-brand-green text-white shadow-lg transition-transform hover:scale-110"
+        className="group relative flex h-12 w-12 items-center justify-center rounded-full bg-brand-green text-white shadow-lg transition-transform hover:scale-110 animate-hotline-pulse"
       >
-        <Phone className="h-5 w-5" />
+        <Phone className="h-5 w-5 animate-hotline-ring" />
         <span className="absolute right-14 scale-0 rounded-lg bg-gray-900 px-3 py-1.5 text-xs text-white shadow-md transition-all group-hover:scale-100 whitespace-nowrap">
           Zalo: 0969 700 520
         </span>

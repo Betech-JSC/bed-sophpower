@@ -156,6 +156,13 @@ class CmsSeeder extends Seeder
 
             'header_scripts' => '<!-- Google Analytics -->',
             'footer_scripts' => '<!-- Live Chat Widget -->',
+            'social_facebook' => 'https://facebook.com',
+            'social_linkedin' => 'https://linkedin.com',
+            'social_youtube' => 'https://youtube.com',
+            'social_zalo' => '0969700520',
+            'social_globe' => 'https://sophpower.com',
+            'about_image_overview' => '',
+            'about_image_lab' => '',
         ];
 
         foreach ($settings as $k => $v) {

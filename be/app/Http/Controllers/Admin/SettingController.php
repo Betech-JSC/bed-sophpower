@@ -17,7 +17,9 @@ class SettingController extends Controller
             'meta_title_vi', 'meta_title_en', 'meta_desc_vi', 'meta_desc_en', 'meta_keywords_vi', 'meta_keywords_en',
             'contact_phone', 'contact_email', 'contact_address_vi', 'contact_address_en',
             'header_scripts', 'footer_scripts', 'seo_robots_txt',
-            'site_logo', 'site_favicon'
+            'site_logo', 'site_favicon',
+            'social_facebook', 'social_linkedin', 'social_youtube', 'social_zalo', 'social_globe',
+            'about_image_overview', 'about_image_lab'
         ];
 
         $settings = [];
@@ -53,8 +55,15 @@ class SettingController extends Controller
             'header_scripts' => ['nullable', 'string'],
             'footer_scripts' => ['nullable', 'string'],
             'seo_robots_txt' => ['nullable', 'string'],
+            'social_facebook' => ['nullable', 'string'],
+            'social_linkedin' => ['nullable', 'string'],
+            'social_youtube' => ['nullable', 'string'],
+            'social_zalo' => ['nullable', 'string'],
+            'social_globe' => ['nullable', 'string'],
             'logo_file' => ['nullable', 'image', 'max:2048'],
             'favicon_file' => ['nullable', 'image', 'max:1024'],
+            'about_image_overview_file' => ['nullable', 'image', 'max:3072'],
+            'about_image_lab_file' => ['nullable', 'image', 'max:3072'],
         ]);
 
         if ($request->hasFile('logo_file')) {
@@ -67,8 +76,18 @@ class SettingController extends Controller
             Setting::setVal('site_favicon', '/storage/' . $path);
         }
 
+        if ($request->hasFile('about_image_overview_file')) {
+            $path = $request->file('about_image_overview_file')->store('settings', 'public');
+            Setting::setVal('about_image_overview', '/storage/' . $path);
+        }
+
+        if ($request->hasFile('about_image_lab_file')) {
+            $path = $request->file('about_image_lab_file')->store('settings', 'public');
+            Setting::setVal('about_image_lab', '/storage/' . $path);
+        }
+
         foreach ($validated as $key => $val) {
-            if (in_array($key, ['logo_file', 'favicon_file'])) {
+            if (in_array($key, ['logo_file', 'favicon_file', 'about_image_overview_file', 'about_image_lab_file'])) {
                 continue;
             }
             Setting::setVal($key, $val ?? '');
