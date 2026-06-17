@@ -42,7 +42,7 @@
             </a-tag>
           </template>
           <template v-else-if="column.key === 'placement'">
-            <a-tag :color="record.is_home_slider ? 'blue' : 'purple'">
+            <a-tag :color="record.is_home_slider ? 'blue' : 'cyan'">
               {{ record.is_home_slider ? 'Home slider' : pageLabel(record.page_key) }}
             </a-tag>
           </template>

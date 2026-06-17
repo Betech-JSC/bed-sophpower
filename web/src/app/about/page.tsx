@@ -4,6 +4,8 @@ import { getLocaleServer } from "@/lib/get-locale-server";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api } from "@/lib/api";
 
+export const dynamic = "force-dynamic";
+
 export default async function About() {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];

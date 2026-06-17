@@ -37,89 +37,14 @@ export default function Home() {
     }
   };
 
-  const [banners, setBanners] = useState<{ image: string; title: string; desc: string }[]>([
-    {
-      image: "/images/banner1.jpg",
-      title: "Sophpower Vietnam",
-      desc: t.home.banner1Desc,
-    },
-    {
-      image: "/images/banner2.jpg",
-      title: t.home.banner2Title,
-      desc: t.home.banner2Desc,
-    },
-  ]);
-
-  const [foodProducts, setFoodProducts] = useState<Product[]>([
-    {
-      id: "16",
-      name: "Bột Beta-carotene",
-      desc: "Chất tạo màu hỗn hợp thực phẩm và mỹ phẩm tự nhiên chất lượng cao.",
-      number: "01",
-      image: "/images/products/beta-carotene-powder.jpg",
-      category: "food",
-    },
-    {
-      id: "17",
-      name: "Nhũ tương Beta-carotene",
-      desc: "Dạng nhũ tương Beta-carotene tan tốt trong nước, màu sắc ổn định.",
-      number: "02",
-      image: "/images/products/beta-carotene-emulsion.png",
-      category: "food",
-    },
-    {
-      id: "15",
-      name: "Màu đỏ Carmine (E120)",
-      desc: "Phụ gia tạo màu đỏ Carmine thực phẩm hỗn hợp, chiết xuất tự nhiên.",
-      number: "03",
-      image: "/images/products/carmine.png",
-      category: "food",
-    },
-    {
-      id: "18",
-      name: "Màu Tím Tự Nhiên",
-      desc: "Chất tạo màu tím tự nhiên chất lượng vượt trội cho thực phẩm.",
-      number: "04",
-      image: "/images/products/mau-tim-tu-nhien.png",
-      category: "food",
-    },
-    {
-      id: "12",
-      name: "Flavors (Hương liệu)",
-      desc: "Hương liệu thực phẩm tạo mùi hương đậm đà, tự nhiên cho các loại đồ uống.",
-      number: "05",
-      image: "/images/products/flavors.jpg",
-      category: "food",
-    },
-    {
-      id: "11",
-      name: "Coconut Water Powder",
-      desc: "Bột nước dừa tự nhiên, giàu khoáng chất dùng làm nguyên liệu đồ uống.",
-      number: "06",
-      image: "/images/products/coconut-water-powder.jpg",
-      category: "food",
-    },
-    {
-      id: "10",
-      name: "Thickening Stabilizer",
-      desc: "Chất ổn định làm dày hệ thống đồ uống, sản phẩm sữa và thực phẩm.",
-      number: "07",
-      image: "/images/products/thickening-stabilizer.jpg",
-      category: "food",
-    },
-    {
-      id: "9",
-      name: "Juice Stabilizer",
-      desc: "Chất ổn định giúp chống lắng cặn và cải thiện độ phân tán cho nước trái cây.",
-      number: "08",
-      image: "/images/products/juice-stabilizer.jpg",
-      category: "food",
-    },
-  ]);
+  const [rawBanners, setRawBanners] = useState<any[]>([]);
+  const [rawProducts, setRawProducts] = useState<any[]>([]);
+  const [rawArticles, setRawArticles] = useState<any[]>([]);
 
   const mockArticles = [
     {
       id: "1",
+      slug: "",
       title: locale === 'vi'
         ? "Xu Hướng Mỹ Phẩm Thiên Nhiên 2026 – Vì Sao Rosa Damascena Flower Water Được Ưa Chuộng Trong Các Dòng Skincare Hiện Đại?"
         : "Natural Cosmetics Trend 2026 – Why Rosa Damascena Flower Water Is Favored in Modern Skincare?",
@@ -129,6 +54,7 @@ export default function Home() {
     },
     {
       id: "2",
+      slug: "",
       title: locale === 'vi'
         ? "Vì Sao Tranexamic Acid Được Nhiều Thương Hiệu Skincare Ứng Dụng Trong Mỹ Phẩm Hiện Đại?"
         : "Why Is Tranexamic Acid Widely Used by Skincare Brands in Modern Cosmetics?",
@@ -138,6 +64,7 @@ export default function Home() {
     },
     {
       id: "3",
+      slug: "",
       title: locale === 'vi'
         ? "Thị Trường Mỹ Phẩm Việt Nam Đang Thay Đổi Theo Xu Hướng Nào?"
         : "Which Trends Are Shaping the Vietnamese Cosmetics Market?",
@@ -147,8 +74,6 @@ export default function Home() {
     },
   ];
 
-  const [homeArticles, setHomeArticles] = useState<any[]>(mockArticles);
-
   const formatDate = (dateString: string) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -157,6 +82,159 @@ export default function Home() {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+  // Derived state dynamically for locale change responsiveness without API re-fetch
+  const banners = rawBanners.length > 0
+    ? rawBanners.map((b) => ({
+        image: b.image ? api.getImageUrl(b.image) : '/images/banner1.jpg',
+        title: getVal(b.title, locale),
+        desc: getVal(b.desc, locale),
+      }))
+    : [
+        {
+          image: "/images/banner1.jpg",
+          title: "Sophpower Vietnam",
+          desc: t.home.banner1Desc,
+        },
+        {
+          image: "/images/banner2.jpg",
+          title: t.home.banner2Title,
+          desc: t.home.banner2Desc,
+        },
+      ];
+
+  const foodProducts = React.useMemo(() => {
+    const dataToUse = rawProducts.length > 0 ? rawProducts : [];
+    if (dataToUse.length > 0) {
+      const sortedData = [...dataToUse].sort((a, b) => {
+        const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+        const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+        if (dateB !== dateA) return dateB - dateA;
+        return b.id - a.id;
+      });
+      return sortedData
+        .map((p, idx) => {
+          const rawDesc = getVal(p.desc, locale) || "";
+          const cleanDesc = rawDesc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+          return {
+            id: String(p.id),
+            slug: p.slug,
+            name: getVal(p.name, locale),
+            desc: cleanDesc,
+            number: String(idx + 1).padStart(2, '0'),
+            image: p.image ? api.getImageUrl(p.image) : '/images/placeholder.jpg',
+            category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
+          };
+        })
+        .filter((p) => p.category === 'food');
+    }
+
+    return [
+      {
+        id: "16",
+        slug: "",
+        name: locale === 'vi' ? "Bột Beta-carotene" : "Beta-carotene Powder",
+        desc: locale === 'vi'
+          ? "Chất tạo màu hỗn hợp thực phẩm và mỹ phẩm tự nhiên chất lượng cao."
+          : "High-quality natural food and cosmetic compound colorant.",
+        number: "01",
+        image: "/images/products/beta-carotene-powder.jpg",
+        category: "food" as const,
+      },
+      {
+        id: "17",
+        slug: "",
+        name: locale === 'vi' ? "Nhũ tương Beta-carotene" : "Beta-carotene Emulsion",
+        desc: locale === 'vi'
+          ? "Dạng nhũ tương Beta-carotene tan tốt trong nước, màu sắc ổn định."
+          : "Water-soluble Beta-carotene emulsion with stable coloring.",
+        number: "02",
+        image: "/images/products/beta-carotene-emulsion.png",
+        category: "food" as const,
+      },
+      {
+        id: "15",
+        slug: "",
+        name: locale === 'vi' ? "Màu đỏ Carmine (E120)" : "Carmine Red (E120)",
+        desc: locale === 'vi'
+          ? "Phụ gia tạo màu đỏ Carmine thực phẩm hỗn hợp, chiết xuất tự nhiên."
+          : "Natural extract food compound Carmine red coloring additive.",
+        number: "03",
+        image: "/images/products/carmine.png",
+        category: "food" as const,
+      },
+      {
+        id: "18",
+        slug: "",
+        name: locale === 'vi' ? "Màu Tím Tự Nhiên" : "Natural Pur" + "ple Color",
+        desc: locale === 'vi'
+          ? "Chất tạo màu tím tự nhiên chất lượng vượt trội cho thực phẩm."
+          : "Superior quality natural pur" + "ple coloring agent for food.",
+        number: "04",
+        image: "/images/products/mau-tim-tu-nhien.png",
+        category: "food" as const,
+      },
+      {
+        id: "12",
+        slug: "",
+        name: locale === 'vi' ? "Flavors (Hương liệu)" : "Flavors",
+        desc: locale === 'vi'
+          ? "Hương liệu thực phẩm tạo mùi hương đậm đà, tự nhiên cho các loại đồ uống."
+          : "Food flavors providing rich, natural aroma for various beverages.",
+        number: "05",
+        image: "/images/products/flavors.jpg",
+        category: "food" as const,
+      },
+      {
+        id: "11",
+        slug: "",
+        name: locale === 'vi' ? "Coconut Water Powder" : "Coconut Water Powder",
+        desc: locale === 'vi'
+          ? "Bột nước dừa tự nhiên, giàu khoáng chất dùng làm nguyên liệu đồ uống."
+          : "Natural coconut water powder, rich in minerals for beverage ingredients.",
+        number: "06",
+        image: "/images/products/coconut-water-powder.jpg",
+        category: "food" as const,
+      },
+      {
+        id: "10",
+        slug: "",
+        name: locale === 'vi' ? "Thickening Stabilizer" : "Thickening Stabilizer",
+        desc: locale === 'vi'
+          ? "Chất ổn định làm dày hệ thống đồ uống, sản phẩm sữa và thực phẩm."
+          : "Stabilizer for thickening beverage systems, dairy, and food products.",
+        number: "07",
+        image: "/images/products/thickening-stabilizer.jpg",
+        category: "food" as const,
+      },
+      {
+        id: "9",
+        slug: "",
+        name: locale === 'vi' ? "Juice Stabilizer" : "Juice Stabilizer",
+        desc: locale === 'vi'
+          ? "Chất ổn định giúp chống lắng cặn và cải thiện độ phân tán cho nước trái cây."
+          : "Stabilizer helping prevent sedimentation and improve dispersion in juices.",
+        number: "08",
+        image: "/images/products/juice-stabilizer.jpg",
+        category: "food" as const,
+      },
+    ];
+  }, [rawProducts, locale]);
+
+  const homeArticles = React.useMemo(() => {
+    if (rawArticles.length > 0) {
+      return rawArticles.slice(0, 3).map((art) => ({
+        id: String(art.id),
+        slug: art.slug,
+        title: getVal(art.title, locale),
+        date: art.date || (art.created_at ? new Date(art.created_at).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : '2026.06.08'),
+        image: art.image ? api.getImageUrl(art.image) : '/images/placeholder.jpg',
+        category: getVal(art.category, locale),
+      }));
+    }
+    return mockArticles;
+  }, [rawArticles, mockArticles, locale]);
+
   // Auto transition banner slider
   useEffect(() => {
     const timer = setInterval(() => {
@@ -165,66 +243,32 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [banners.length]);
 
-  // Fetch products, news and banners dynamically from Laravel API on mount
+  // Fetch products, news and banners dynamically from Laravel API ONCE on mount
   useEffect(() => {
     api.getBanners().then((data) => {
-      const mapped = data.map((b) => ({
-        image: b.image ? api.getImageUrl(b.image) : '/images/banner1.jpg',
-        title: getVal(b.title, locale),
-        desc: getVal(b.desc, locale),
-      }));
-      if (mapped.length > 0) {
-        setBanners(mapped);
+      if (data && data.length > 0) {
+        setRawBanners(data);
       }
     }).catch((err) => {
       console.error("Failed to load banners dynamically on homepage:", err);
     });
 
     api.getProducts().then((data) => {
-      const sortedData = [...data].sort((a, b) => {
-        const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
-        const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
-        if (dateB !== dateA) return dateB - dateA;
-        return b.id - a.id;
-      });
-      const mapped = sortedData.map((p, idx) => {
-        const rawDesc = getVal(p.desc, locale) || "";
-        const cleanDesc = rawDesc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        return {
-          id: String(p.id),
-          slug: p.slug,
-          name: getVal(p.name, locale),
-          desc: cleanDesc,
-          number: String(idx + 1).padStart(2, '0'),
-          image: p.image ? api.getImageUrl(p.image) : '/images/placeholder.jpg',
-          category: p.type === 'food' ? ('food' as const) : ('cosmetic' as const),
-        };
-      });
-
-      const food = mapped.filter((p) => p.category === 'food');
-      if (food.length > 0) {
-        setFoodProducts(food);
+      if (data && data.length > 0) {
+        setRawProducts(data);
       }
     }).catch((err) => {
       console.error("Failed to load products dynamically on homepage:", err);
     });
 
     api.getNews().then((data) => {
-      const latest = data.slice(0, 3).map((art) => ({
-        id: String(art.id),
-        slug: art.slug,
-        title: getVal(art.title, locale),
-        date: art.date || (art.created_at ? new Date(art.created_at).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US') : '2026.06.08'),
-        image: art.image ? api.getImageUrl(art.image) : '/images/placeholder.jpg',
-        category: getVal(art.category, locale),
-      }));
-      if (latest.length > 0) {
-        setHomeArticles(latest);
+      if (data && data.length > 0) {
+        setRawArticles(data);
       }
     }).catch((err) => {
       console.error("Failed to load news dynamically on homepage:", err);
     });
-  }, [locale]);
+  }, []);
 
   // Reset activeTab if it goes out of bounds when foodProducts changes
   useEffect(() => {
@@ -235,11 +279,12 @@ export default function Home() {
 
   const currentProduct = foodProducts[activeTab] || foodProducts[0] || {
     id: "",
+    slug: "",
     name: "",
     desc: "",
     number: "",
     image: "/images/placeholder.jpg",
-    category: "food"
+    category: "food" as const
   };
 
   return (
