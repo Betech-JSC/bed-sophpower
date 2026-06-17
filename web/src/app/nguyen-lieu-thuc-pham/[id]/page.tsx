@@ -55,11 +55,11 @@ export async function generateMetadata({
     keywords: customKeywords || undefined,
     robots: robots || undefined,
     alternates: {
-      canonical: product.canonical_url || `${baseUrl}/nguyen-lieu-thuc-pham/${id}`,
+      canonical: product.canonical_url || `${baseUrl}/${locale === "vi" ? "nguyen-lieu-thuc-pham" : "food-ingredients"}/${id}`,
     },
     openGraph: {
       type: "website",
-      url: `${baseUrl}/nguyen-lieu-thuc-pham/${id}`,
+      url: `${baseUrl}/${locale === "vi" ? "nguyen-lieu-thuc-pham" : "food-ingredients"}/${id}`,
       title: formattedTitle,
       description: description || undefined,
       images: [{
@@ -105,7 +105,7 @@ export default async function FoodProductDetail({
     .slice(0, 3);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const productUrl = `${baseUrl}/nguyen-lieu-thuc-pham/${product.slug || product.id}`;
+  const productUrl = `${baseUrl}/${locale === "vi" ? "nguyen-lieu-thuc-pham" : "food-ingredients"}/${product.slug || product.id}`;
   
   const productSchema = {
     "@context": "https://schema.org",
@@ -134,7 +134,10 @@ export default async function FoodProductDetail({
           {t.products.homeBreadcrumb}
         </Link>
         <span className="text-gray-400">/</span>
-        <Link href="/nguyen-lieu-thuc-pham" className="hover:text-brand-green transition-colors">
+        <Link 
+          href={locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients"} 
+          className="hover:text-brand-green transition-colors"
+        >
           {t.products.foodBreadcrumb}
         </Link>
         <span className="text-gray-400">/</span>
@@ -219,7 +222,7 @@ export default async function FoodProductDetail({
           {relatedList.map((item, index) => (
             <ScrollReveal key={item.id} direction="up" delay={index * 100} duration={600} className="h-full">
               <Link
-                href={`/nguyen-lieu-thuc-pham/${item.slug || item.id}`}
+                href={locale === "vi" ? `/nguyen-lieu-thuc-pham/${item.slug || item.id}` : `/food-ingredients/${item.slug || item.id}`}
                 className="group flex flex-col h-full rounded-xl bg-white border border-gray-200 overflow-hidden hover:border-brand-green/30 hover:shadow-[0_4px_12px_rgba(16,109,56,0.08)] transition-all duration-300"
               >
                 {/* Product Image */}

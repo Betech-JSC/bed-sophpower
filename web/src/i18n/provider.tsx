@@ -31,7 +31,23 @@ export function I18nProvider({ children, initialTranslations }: { children: Reac
     const setLocale = useCallback((next: Locale) => {
         if (next === locale) return;
         setStoredLocale(next);
-        window.location.reload();
+        
+        let newPathname = window.location.pathname;
+        if (next === "vi") {
+            newPathname = newPathname
+                .replace("/food-ingredients", "/nguyen-lieu-thuc-pham")
+                .replace("/cosmetic-ingredients", "/nguyen-lieu-my-pham");
+        } else {
+            newPathname = newPathname
+                .replace("/nguyen-lieu-thuc-pham", "/food-ingredients")
+                .replace("/nguyen-lieu-my-pham", "/cosmetic-ingredients");
+        }
+        
+        if (newPathname !== window.location.pathname) {
+            window.location.href = newPathname + window.location.search;
+        } else {
+            window.location.reload();
+        }
     }, [locale]);
 
     const value: I18nValue = {

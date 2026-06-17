@@ -347,7 +347,7 @@ export default function Home() {
                 </p>
               </div>
               <Link
-                href="/nguyen-lieu-thuc-pham"
+                href={locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients"}
                 className="inline-flex items-center gap-2 text-brand-green font-bold hover:underline"
               >
                 {t.home.viewAll}
@@ -430,7 +430,7 @@ export default function Home() {
                 </div>
                 <div className="relative z-10 pt-4">
                   <Link
-                    href={`/nguyen-lieu-thuc-pham/${currentProduct.slug || currentProduct.id}`}
+                    href={locale === "vi" ? `/nguyen-lieu-thuc-pham/${currentProduct.slug || currentProduct.id}` : `/food-ingredients/${currentProduct.slug || currentProduct.id}`}
                     className="inline-flex items-center gap-2 border border-white hover:bg-white hover:text-brand-green text-white px-6 py-2.5 text-xs font-extrabold transition-all duration-300 tracking-wider uppercase rounded-lg shadow-sm"
                   >
                     {t.home.learnMore}

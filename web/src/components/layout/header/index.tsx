@@ -27,8 +27,14 @@ export default function Header() {
 
   const menuItems = [
     { name: t.header.about, path: "/about" },
-    { name: t.header.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
-    { name: t.header.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
+    { 
+      name: t.header.foodIngredients, 
+      path: locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients" 
+    },
+    { 
+      name: t.header.cosmeticIngredients, 
+      path: locale === "vi" ? "/nguyen-lieu-my-pham" : "/cosmetic-ingredients" 
+    },
     { name: t.header.news, path: "/news" },
     { name: t.header.contact, path: "/contact" },
   ];
@@ -96,7 +102,13 @@ export default function Header() {
     if (path === "/") {
       return pathname === "/";
     }
-    return pathname.startsWith(path);
+    const normalizedPathname = pathname
+      .replace("/food-ingredients", "/nguyen-lieu-thuc-pham")
+      .replace("/cosmetic-ingredients", "/nguyen-lieu-my-pham");
+    const normalizedPath = path
+      .replace("/food-ingredients", "/nguyen-lieu-thuc-pham")
+      .replace("/cosmetic-ingredients", "/nguyen-lieu-my-pham");
+    return normalizedPathname.startsWith(normalizedPath);
   };
 
   return (
