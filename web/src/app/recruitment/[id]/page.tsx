@@ -73,6 +73,77 @@ export default async function JobDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <RecruitmentDetailClient id={id} />;
+  const locale = await getLocaleServer();
+  const job = await api.getJob(id).catch(() => null);
+
+  if (!job) {
+    return <RecruitmentDetailClient id={id} />;
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  
+  // Helper to normalize array lists
+  const normalizeList = (value: any): string[] => {
+    if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && item.trim() !== "");
+    if (typeof value === "string" && value.trim() !== "") return [value];
+    return [];
+  };
+
+  const jobTitle = getVal(job.title, locale);
+  const jobSummary = (getVal(job.summary, locale) || "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  
+  // Combine details for structured JobPosting Google description (HTML format is supported by Google Jobs)
+  const jobResponsibilities = normalizeList(getVal(job.responsibilities, locale, []));
+  const jobRequirements = normalizeList(getVal(job.requirements, locale, []));
+  const jobBenefits = normalizeList(getVal(job.benefits, locale, []));
+
+  let descParts: string[] = [];
+  if (jobSummary) {
+    descParts.push(`<p>${jobSummary}</p>`);
+  }
+  if (jobResponsibilities.length > 0) {
+    descParts.push(`<h3>Mô tả công việc / Job Description:</h3><ul>${jobResponsibilities.map(r => `<li>${r}</li>`).join("")}</ul>`);
+  }
+  if (jobRequirements.length > 0) {
+    descParts.push(`<h3>Yêu cầu công việc / Job Requirements:</h3><ul>${jobRequirements.map(r => `<li>${r}</li>`).join("")}</ul>`);
+  }
+  if (jobBenefits.length > 0) {
+    descParts.push(`<h3>Quyền lợi / Benefits:</h3><ul>${jobBenefits.map(b => `<li>${b}</li>`).join("")}</ul>`);
+  }
+  const fullDescription = descParts.join("\n\n");
+
+  const jobSchema = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": jobTitle,
+    "description": fullDescription || jobTitle,
+    "datePosted": job.created_at ? new Date(job.created_at).toISOString() : new Date().toISOString(),
+    "validThrough": job.deadline ? new Date(job.deadline).toISOString() : undefined,
+    "employmentType": "FULL_TIME",
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "Sophpower Vietnam",
+      "sameAs": baseUrl,
+      "logo": `${baseUrl}/images/logo.png`
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": getVal(job.location, locale) || "Hồ Chí Minh",
+        "addressCountry": "VN"
+      }
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobSchema) }}
+      />
+      <RecruitmentDetailClient id={id} />
+    </>
+  );
 }
 

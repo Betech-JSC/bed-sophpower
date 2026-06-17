@@ -34,7 +34,7 @@ The web application is modular and structured as follows:
 3.  **Ingredients Listing Pages (`/list_2` - Food & `/list_3` - Cosmetic):** Grid index of key industrial raw materials (Beta-carotene, Carmine, Niacinamide, Panthenol, Ectoin, etc.) with fully clickable card elements.
 4.  **Product Details Template (`/list_2/[id]` & `/list_3/[id]`):** Details pages displaying raw ingredient properties, industrial applications, and packaging standards.
 5.  **News Center (`/news` & `/news/[id]`):** Simple background banner + B2B Grid view showcasing clean article content, integrated search, category filter tags, and full card clickability.
-6.  **Contact (`/page_5`):** Feedback and sample/quote request forms, interactive coordinates, and high-contrast contact details.
+6.  **Contact (`/contact`):** Feedback and sample/quote request forms, interactive coordinates, and high-contrast contact details.
 7.  **Recruitment (`/recruitment` & `/recruitment/[id]`):** Full careers board detailing available job positions.
 8.  **Search (`/search`):** Search result listing for queries.
 9.  **Admin Dashboard (`/admin`):** Mock dashboard to manage forms, news posts, jobs, and catalogs.

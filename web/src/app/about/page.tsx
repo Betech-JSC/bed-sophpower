@@ -3,9 +3,21 @@ import { Cpu, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react";
 import { getLocaleServer } from "@/lib/get-locale-server";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api } from "@/lib/api";
+import type { Metadata } from "next";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocaleServer();
+  const t = siteDictionaries[locale];
+  return {
+    title: `${t.about.title} - Sophpower Vietnam`,
+    description: locale === "vi" 
+      ? "Tìm hiểu về Sophpower Vietnam - nhà cung cấp hàng đầu nguyên liệu thực phẩm và nguyên liệu mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế."
+      : "Learn more about Sophpower Vietnam - a leading supplier of premium, safe, and internationally certified food and cosmetic ingredients.",
+  };
+}
 
 export default async function About() {
   const locale = await getLocaleServer();

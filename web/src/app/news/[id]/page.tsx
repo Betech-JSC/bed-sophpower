@@ -111,8 +111,38 @@ export default async function NewsDetail({
   // Get dynamic HTML content
   const articleContent = getVal(article.content, locale) || "";
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const articleUrl = `${baseUrl}/news/${article.slug || article.id}`;
+  const authorName = article.author || "Sophpower";
+  
+  const newsSchema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": getVal(article.title, locale),
+    "image": article.image ? [api.getImageUrl(article.image)] : [`${baseUrl}/images/logo.png`],
+    "datePublished": article.date ? new Date(article.date).toISOString() : article.created_at || new Date().toISOString(),
+    "dateModified": article.updated_at || new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": authorName
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Sophpower Vietnam",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${baseUrl}/images/logo.png`
+      }
+    },
+    "description": (getVal(article.summary, locale) || "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 160)
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-3 py-12 sm:px-4 lg:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsSchema) }}
+      />
       {/* Back Link */}
       <div className="mb-8">
         <Link

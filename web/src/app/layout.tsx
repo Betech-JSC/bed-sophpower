@@ -105,9 +105,33 @@ export default async function RootLayout({
     applyDynamicTranslations(translations);
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sophpower Vietnam",
+    "url": baseUrl,
+    "logo": settings?.site_logo ? api.getImageUrl(settings.site_logo) : `${baseUrl}/images/logo.png`,
+    "contactPoint": settings?.contact_phone ? {
+      "@type": "ContactPoint",
+      "telephone": settings.contact_phone,
+      "contactType": "customer service"
+    } : undefined,
+    "sameAs": [
+      settings?.social_facebook,
+      settings?.social_linkedin,
+      settings?.social_youtube,
+      settings?.social_zalo ? (settings.social_zalo.startsWith("http") ? settings.social_zalo : `https://zalo.me/${settings.social_zalo}`) : undefined
+    ].filter(Boolean),
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning className={googleSansFlex.variable}>
       <body className="antialiased font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
         {settings?.header_scripts && (
           <div
             id="header-scripts-container"

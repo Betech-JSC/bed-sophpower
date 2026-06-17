@@ -39,7 +39,7 @@ Website được cấu trúc theo đúng sitemap gốc và yêu cầu trong Ph�
    - Layout dạng **Grid B2B** tối giản mới: bài viết mới nhất hiển thị lớn ở trên cùng (Featured), các bài tiếp theo xếp dạng lưới.
    - Tích hợp bộ lọc danh mục tin tức (Filter Tabs) trực tiếp.
    - 4 bài viết song ngữ Việt - Anh chính thức từ tài liệu của khách hàng.
-5. **Liên hệ (`/page_5`)**:
+5. **Liên hệ (`/contact`)**:
    - Hộp thông tin liên hệ nền xanh thương hiệu, bản đồ chỉ đường và Form gửi yêu cầu báo giá/mẫu thử.
 6. **Tuyển dụng (`/recruitment` & `/recruitment/[id]`)**:
    - Danh sách các vị trí đang tuyển dụng (Kinh doanh nguyên liệu, Chuyên viên R&D).

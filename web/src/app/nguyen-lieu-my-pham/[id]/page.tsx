@@ -104,8 +104,30 @@ export default async function CosmeticProductDetail({
     .filter((item) => String(item.id) !== String(id))
     .slice(0, 3);
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const productUrl = `${baseUrl}/nguyen-lieu-my-pham/${product.slug || product.id}`;
+  
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": getVal(product.name, locale),
+    "image": product.image ? api.getImageUrl(product.image) : undefined,
+    "description": (getVal(product.desc, locale) || "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, 160),
+    "category": getVal(product.category, locale),
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "VND",
+      "availability": "https://schema.org/InStock",
+      "url": productUrl,
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       {/* Breadcrumbs */}
       <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm text-gray-500" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-brand-green transition-colors">
