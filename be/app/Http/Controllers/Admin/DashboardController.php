@@ -25,14 +25,21 @@ class DashboardController extends Controller
 
         $recentLeads = Lead::latest()->take(5)->get();
 
-        $monthlyLeads = [
-            ['label' => 'Tháng 1', 'value' => 8],
-            ['label' => 'Tháng 2', 'value' => 14],
-            ['label' => 'Tháng 3', 'value' => 12],
-            ['label' => 'Tháng 4', 'value' => 22],
-            ['label' => 'Tháng 5', 'value' => 18],
-            ['label' => 'Tháng 6', 'value' => Lead::count() + 15],
-        ];
+        $monthlyLeads = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $month = $date->month;
+            $year = $date->year;
+
+            $count = Lead::whereMonth('created_at', $month)
+                ->whereYear('created_at', $year)
+                ->count();
+
+            $monthlyLeads[] = [
+                'label' => 'Tháng ' . $month,
+                'value' => $count,
+            ];
+        }
 
         return Inertia::render('Dashboard', [
             'stats' => $stats,
