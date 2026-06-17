@@ -12,13 +12,18 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ preview?: string; secret?: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
+  const sParams = await searchParams;
+  const preview = sParams?.preview === "true";
+  const secret = sParams?.secret || "";
   const locale = await getLocaleServer();
-  const product = await api.getProduct(id).catch(() => null);
-
+  const product = await api.getProduct(id, preview, secret).catch(() => null);
+  
   if (!product) return {};
 
   const customTitle = product.seo_title ? getVal(product.seo_title, locale) : "";
@@ -75,15 +80,20 @@ export async function generateMetadata({
 
 export default async function FoodProductDetail({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ preview?: string; secret?: string }>;
 }) {
   const { id } = await params;
+  const sParams = await searchParams;
+  const preview = sParams?.preview === "true";
+  const secret = sParams?.secret || "";
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
 
   // Fetch product from Laravel API
-  const product = await api.getProduct(id).catch(() => null);
+  const product = await api.getProduct(id, preview, secret).catch(() => null);
   if (!product || product.type !== 'food') {
     notFound();
   }

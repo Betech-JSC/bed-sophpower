@@ -3,8 +3,8 @@
     <div class="bg-white p-8 rounded-xl border border-gray-150 shadow-xs max-w-4xl">
       <form @submit.prevent="submit" class="space-y-6">
         
-        <!-- Common Fields (Author, Date, Category) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-gray-100 pb-6">
+        <!-- Common Fields (Author, Date, Category, Status) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 border-b border-gray-100 pb-6">
           <!-- Author -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Tác giả *</label>
@@ -40,6 +40,21 @@
               </a-select-option>
             </a-select>
             <p v-if="form.errors.article_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.article_category_id }}</p>
+          </div>
+
+          <!-- Status -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Trạng thái bài viết *</label>
+            <a-select
+              v-model:value="form.status"
+              placeholder="Chọn trạng thái..."
+              class="w-full"
+              size="large"
+            >
+              <a-select-option value="published">Đã xuất bản (Published)</a-select-option>
+              <a-select-option value="draft">Bản nháp (Draft)</a-select-option>
+            </a-select>
+            <p v-if="form.errors.status" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.status }}</p>
           </div>
         </div>
 
@@ -82,26 +97,46 @@
 
           <!-- ENGLISH TAB -->
           <a-tab-pane key="en" tab="Tiếng Anh (English)">
+            <div class="flex justify-end mb-4">
+              <a-button type="primary" size="small" class="bg-emerald-600 hover:bg-emerald-750 border-none font-bold rounded-md flex items-center gap-1.5 shadow-sm" :loading="translatingAll" @click="translateAllFields">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5c-.313 1.562-.977 3.062-1.92 4.414" /></svg>
+                Dịch tất cả các trường (VI ➔ EN)
+              </a-button>
+            </div>
+            
             <div class="space-y-6 mt-4">
               <!-- Title EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Tiêu đề bài viết (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Tiêu đề bài viết (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750 flex items-center gap-1" :loading="translatingFields['title']" @click="translateField('title')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <a-input v-model:value="form.title.en" placeholder="Enter news title in English..." size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
 
-
-
               <!-- Summary EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt ngắn (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Tóm tắt ngắn (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750 flex items-center gap-1" :loading="translatingFields['summary']" @click="translateField('summary')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <RichTextEditor v-model:value="form.summary.en" placeholder="Enter short summary in English..." />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
 
               <!-- Content EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung chi tiết (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Nội dung chi tiết (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750 flex items-center gap-1" :loading="translatingFields['content']" @click="translateField('content')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <RichTextEditor v-model:value="form.content.en" placeholder="Enter detailed content in English..." />
                 <p v-if="form.errors['content.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['content.en'] }}</p>
               </div>
@@ -151,15 +186,30 @@
                 <a-tab-pane key="seo_en" tab="SEO Tiếng Anh">
                   <div class="space-y-4 mt-3">
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ tiêu đề SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ tiêu đề SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_title']" @click="translateField('seo_title')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_title.en" placeholder="Mặc định lấy theo tiêu đề bài viết..." size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ mô tả SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ mô tả SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_desc']" @click="translateField('seo_desc')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-textarea v-model:value="form.seo_desc.en" placeholder="Mặc định lấy theo tóm tắt bài viết..." :rows="3" size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Từ khóa SEO (Keywords - EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Từ khóa SEO (Keywords - EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_keywords']" @click="translateField('seo_keywords')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_keywords.en" placeholder="e.g., sophpower news, cosmetic ingredients, new technology (separated by commas)" size="large" />
                     </div>
                   </div>
@@ -215,7 +265,7 @@
                   <div v-if="ogImagePreview || form.og_image" class="w-24 h-24 rounded-lg border border-gray-200 overflow-hidden bg-gray-50 flex items-center justify-center relative group shadow-2xs">
                     <img :src="ogImagePreview || form.og_image" alt="OG Preview" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                      <button type="button" @click="removeOgImage" class="p-1 rounded-full bg-white text-red-650 hover:bg-red-50 transition-colors shadow-sm">
+                      <button type="button" @click="removeOgImage" class="p-1 rounded-full bg-white text-red-655 hover:bg-red-50 transition-colors shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -286,11 +336,22 @@
         />
 
         <!-- Buttons -->
-        <div class="flex items-center gap-3 border-t border-gray-150 pt-6">
-          <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
-          <a-button type="primary" size="large" class="bg-emerald-700 hover:bg-emerald-800 border-none font-bold rounded-lg" :loading="form.processing" html-type="submit">
-            {{ isEdit ? 'Cập nhật bài viết' : 'Đăng bài viết' }}
-          </a-button>
+        <div class="flex items-center justify-between border-t border-gray-150 pt-6">
+          <div class="flex items-center gap-3">
+            <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
+            <a-button type="primary" size="large" class="bg-emerald-700 hover:bg-emerald-800 border-none font-bold rounded-lg" :loading="form.processing" html-type="submit">
+              {{ isEdit ? 'Cập nhật bài viết' : 'Đăng bài viết' }}
+            </a-button>
+          </div>
+          <div v-if="isEdit">
+            <a-button type="default" size="large" class="border-emerald-600 text-emerald-700 hover:text-emerald-850 hover:border-emerald-750 font-bold rounded-lg flex items-center gap-2" @click="handlePreview">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Xem trước
+            </a-button>
+          </div>
         </div>
       </form>
     </div>
@@ -303,6 +364,7 @@ import RichTextEditor from '@/Components/RichTextEditor.vue';
 import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { translateSingle, translateHtml } from '@/Utils/translator';
 
 const props = defineProps({
   article: Object,
@@ -318,6 +380,49 @@ const showAdvancedSeo = ref(false);
 const showOgMediaModal = ref(false);
 const ogFileInput = ref(null);
 const ogImagePreview = ref(null);
+
+const translatingFields = ref({});
+const translatingAll = ref(false);
+
+async function translateField(field) {
+  translatingFields.value[field] = true;
+  try {
+    const viVal = form[field].vi;
+    if (viVal) {
+      if (field === 'summary' || field === 'content') {
+        form[field].en = await translateHtml(viVal);
+      } else {
+        form[field].en = await translateSingle(viVal);
+      }
+    }
+  } catch (error) {
+    console.error(`Translation error for field ${field}:`, error);
+  } finally {
+    translatingFields.value[field] = false;
+  }
+}
+
+async function translateAllFields() {
+  translatingAll.value = true;
+  try {
+    const textFields = ['title', 'seo_title', 'seo_desc', 'seo_keywords'];
+    for (const field of textFields) {
+      if (form[field] && form[field].vi) {
+        form[field].en = await translateSingle(form[field].vi);
+      }
+    }
+    if (form.summary && form.summary.vi) {
+      form.summary.en = await translateHtml(form.summary.vi);
+    }
+    if (form.content && form.content.vi) {
+      form.content.en = await translateHtml(form.content.vi);
+    }
+  } catch (error) {
+    console.error('Translate all error:', error);
+  } finally {
+    translatingAll.value = false;
+  }
+}
 
 // Format date to YYYY-MM-DD for input type="date"
 const formattedDate = computed(() => {
@@ -348,6 +453,7 @@ const form = useForm({
   image_file: null,
   article_category_id: props.article?.article_category_id || null,
   author: props.article?.author || '',
+  status: props.article?.status || 'published',
   seo_title: {
     vi: props.article?.seo_title?.vi || '',
     en: props.article?.seo_title?.en || '',
@@ -420,6 +526,12 @@ function handleOgMediaSelect(file) {
   form.og_image_file = null;
   ogImagePreview.value = null;
   showOgMediaModal.value = false;
+}
+
+function handlePreview() {
+  const storefrontUrl = 'http://localhost:3000';
+  const previewUrl = `${storefrontUrl}/news/${props.article.slug || props.article.id}?preview=true&secret=SophpowerPreview2026`;
+  window.open(previewUrl, '_blank');
 }
 
 function goBack() {

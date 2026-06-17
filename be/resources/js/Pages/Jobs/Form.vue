@@ -112,10 +112,22 @@
 
           <!-- ENGLISH TAB -->
           <a-tab-pane key="en" tab="Tiếng Anh (English)">
+            <div class="flex justify-end mb-4">
+              <a-button type="primary" size="small" class="bg-emerald-600 hover:bg-emerald-750 border-none font-bold rounded-md flex items-center gap-1.5 shadow-sm" :loading="translatingAll" @click="translateAllFields">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5c-.313 1.562-.977 3.062-1.92 4.414" /></svg>
+                Dịch tất cả các trường (VI ➔ EN)
+              </a-button>
+            </div>
+            
             <div class="space-y-6 mt-4">
               <!-- Title EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Chức danh / Vị trí tuyển dụng (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Chức danh / Vị trí tuyển dụng (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750 flex items-center gap-1" :loading="translatingFields['title']" @click="translateField('title')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <a-input v-model:value="form.title.en" placeholder="Ví dụ: B2B Sales Executive" size="large" />
                 <p v-if="form.errors['title.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['title.en'] }}</p>
               </div>
@@ -123,21 +135,36 @@
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Department EN -->
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Bộ phận tuyển dụng (EN) *</label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-bold text-gray-700">Bộ phận tuyển dụng (EN) *</label>
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['department']" @click="translateField('department')">
+                      Dịch tự động
+                    </a-button>
+                  </div>
                   <a-input v-model:value="form.department.en" placeholder="Ví dụ: Sales Department" size="large" />
                   <p v-if="form.errors['department.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['department.en'] }}</p>
                 </div>
 
                 <!-- Location EN -->
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Địa điểm làm việc (EN) *</label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-bold text-gray-700">Địa điểm làm việc (EN) *</label>
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['location']" @click="translateField('location')">
+                      Dịch tự động
+                    </a-button>
+                  </div>
                   <a-input v-model:value="form.location.en" placeholder="Ví dụ: Ho Chi Minh City" size="large" />
                   <p v-if="form.errors['location.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['location.en'] }}</p>
                 </div>
 
                 <!-- Salary EN -->
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Mức lương (EN) *</label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-bold text-gray-700">Mức lương (EN) *</label>
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['salary']" @click="translateField('salary')">
+                      Dịch tự động
+                    </a-button>
+                  </div>
                   <a-input v-model:value="form.salary.en" placeholder="Ví dụ: Negotiable" size="large" />
                   <p v-if="form.errors['salary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['salary.en'] }}</p>
                 </div>
@@ -145,7 +172,12 @@
 
               <!-- Summary EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Tóm tắt công việc (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Tóm tắt công việc (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['summary']" @click="translateField('summary')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <RichTextEditor v-model:value="form.summary.en" placeholder="Enter short job summary in English..." />
                 <p v-if="form.errors['summary.en']" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors['summary.en'] }}</p>
               </div>
@@ -161,6 +193,9 @@
                 <div class="space-y-2">
                   <div v-for="(item, index) in form.responsibilities.en" :key="index" class="flex items-center gap-2">
                     <a-input v-model:value="form.responsibilities.en[index]" placeholder="Ví dụ: Pitch clients, negotiate contracts..." class="flex-1" />
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields[`responsibilities_${index}`]" @click="translateField('responsibilities', index)">
+                      Dịch
+                    </a-button>
                     <a-button type="link" danger class="p-0 font-bold" @click="removeItem('responsibilities', 'en', index)">Xóa</a-button>
                   </div>
                 </div>
@@ -177,6 +212,9 @@
                 <div class="space-y-2">
                   <div v-for="(item, index) in form.requirements.en" :key="index" class="flex items-center gap-2">
                     <a-input v-model:value="form.requirements.en[index]" placeholder="Ví dụ: Bachelor's degree in Chemistry..." class="flex-1" />
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields[`requirements_${index}`]" @click="translateField('requirements', index)">
+                      Dịch
+                    </a-button>
                     <a-button type="link" danger class="p-0 font-bold" @click="removeItem('requirements', 'en', index)">Xóa</a-button>
                   </div>
                 </div>
@@ -193,6 +231,9 @@
                 <div class="space-y-2">
                   <div v-for="(item, index) in form.benefits.en" :key="index" class="flex items-center gap-2">
                     <a-input v-model:value="form.benefits.en[index]" placeholder="Ví dụ: Competitive salary, health coverage..." class="flex-1" />
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields[`benefits_${index}`]" @click="translateField('benefits', index)">
+                      Dịch
+                    </a-button>
                     <a-button type="link" danger class="p-0 font-bold" @click="removeItem('benefits', 'en', index)">Xóa</a-button>
                   </div>
                 </div>
@@ -243,15 +284,30 @@
                 <a-tab-pane key="seo_en" tab="SEO Tiếng Anh">
                   <div class="space-y-4 mt-3">
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ tiêu đề SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ tiêu đề SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_title']" @click="translateField('seo_title')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_title.en" placeholder="Mặc định lấy theo vị trí tuyển dụng..." size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ mô tả SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ mô tả SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_desc']" @click="translateField('seo_desc')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-textarea v-model:value="form.seo_desc.en" placeholder="Mặc định lấy theo tóm tắt công việc..." :rows="3" size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Từ khóa SEO (Keywords - EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Từ khóa SEO (Keywords - EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_keywords']" @click="translateField('seo_keywords')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_keywords.en" placeholder="e.g., sophpower recruitment, chemical engineering jobs (separated by commas)" size="large" />
                     </div>
                   </div>
@@ -346,6 +402,7 @@ import RichTextEditor from '@/Components/RichTextEditor.vue';
 import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { translateSingle, translateHtml } from '@/Utils/translator';
 
 const props = defineProps({
   job: Object,
@@ -356,6 +413,64 @@ const showAdvancedSeo = ref(false);
 const showOgMediaModal = ref(false);
 const ogFileInput = ref(null);
 const ogImagePreview = ref(null);
+
+const translatingFields = ref({});
+const translatingAll = ref(false);
+
+async function translateField(field, index = null) {
+  const loadingKey = index !== null ? `${field}_${index}` : field;
+  translatingFields.value[loadingKey] = true;
+  try {
+    if (index !== null) {
+      const viVal = form[field].vi[index];
+      if (viVal) {
+        form[field].en[index] = await translateSingle(viVal);
+      }
+    } else {
+      const viVal = form[field].vi;
+      if (viVal) {
+        if (field === 'summary') {
+          form[field].en = await translateHtml(viVal);
+        } else {
+          form[field].en = await translateSingle(viVal);
+        }
+      }
+    }
+  } catch (error) {
+    console.error(`Translation error for field ${field}:`, error);
+  } finally {
+    translatingFields.value[loadingKey] = false;
+  }
+}
+
+async function translateAllFields() {
+  translatingAll.value = true;
+  try {
+    const textFields = ['title', 'department', 'location', 'salary', 'seo_title', 'seo_desc', 'seo_keywords'];
+    for (const field of textFields) {
+      if (form[field] && form[field].vi) {
+        form[field].en = await translateSingle(form[field].vi);
+      }
+    }
+    if (form.summary && form.summary.vi) {
+      form.summary.en = await translateHtml(form.summary.vi);
+    }
+    const arrayFields = ['responsibilities', 'requirements', 'benefits'];
+    for (const field of arrayFields) {
+      if (form[field] && form[field].vi) {
+        form[field].en = await Promise.all(
+          form[field].vi.map(async (viItem) => {
+            return await translateSingle(viItem);
+          })
+        );
+      }
+    }
+  } catch (error) {
+    console.error('Translate all error:', error);
+  } finally {
+    translatingAll.value = false;
+  }
+}
 
 // Format date to YYYY-MM-DD for input type="date"
 const formattedDeadline = computed(() => {

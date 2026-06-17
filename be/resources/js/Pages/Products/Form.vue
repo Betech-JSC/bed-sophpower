@@ -4,7 +4,7 @@
       <form @submit.prevent="submit" class="space-y-6">
         
         <!-- Type Selection & Image (Common Fields) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-gray-100 pb-6">
           <!-- Type -->
           <div>
             <label class="block text-sm font-bold text-gray-700 mb-1">Phân loại hệ thống *</label>
@@ -38,8 +38,23 @@
             <p v-if="form.errors.product_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.product_category_id }}</p>
           </div>
 
+          <!-- Status -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Trạng thái sản phẩm *</label>
+            <a-select
+              v-model:value="form.status"
+              placeholder="Chọn trạng thái..."
+              class="w-full"
+              size="large"
+            >
+              <a-select-option value="published">Đã xuất bản (Published)</a-select-option>
+              <a-select-option value="draft">Bản nháp (Draft)</a-select-option>
+            </a-select>
+            <p v-if="form.errors.status" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.status }}</p>
+          </div>
+
           <!-- Custom Slug -->
-          <div class="md:col-span-2">
+          <div class="md:col-span-3">
             <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn thân thiện (Custom URL Slug)</label>
             <a-input v-model:value="form.slug" placeholder="Ví dụ: tinh-chat-tra-xanh (Mặc định tự sinh từ Tên sản phẩm tiếng Việt)" size="large" />
             <p v-if="form.errors.slug" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.slug }}</p>
@@ -112,11 +127,23 @@
 
           <!-- ENGLISH TAB -->
           <a-tab-pane key="en" tab="Tiếng Anh (English)">
+            <div class="flex justify-end mb-4">
+              <a-button type="primary" size="small" class="bg-emerald-600 hover:bg-emerald-750 border-none font-bold rounded-md flex items-center gap-1.5 shadow-sm" :loading="translatingAll" @click="translateAllFields">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5c-.313 1.562-.977 3.062-1.92 4.414" /></svg>
+                Dịch tất cả các trường (VI ➔ EN)
+              </a-button>
+            </div>
+
             <div class="space-y-6 mt-4">
               <div class="grid grid-cols-1 gap-6">
                 <!-- Name EN -->
                 <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-1">Tên sản phẩm (EN) *</label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-bold text-gray-700">Tên sản phẩm (EN) *</label>
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750 flex items-center gap-1" :loading="translatingFields['name']" @click="translateField('name')">
+                      Dịch tự động
+                    </a-button>
+                  </div>
                   <a-input v-model:value="form.name.en" placeholder="Ví dụ: Beta-carotene Powder" size="large" />
                   <p v-if="form.errors['name.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['name.en'] }}</p>
                 </div>
@@ -124,14 +151,24 @@
 
               <!-- Packaging EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Quy cách đóng gói (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Quy cách đóng gói (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['packaging']" @click="translateField('packaging')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <a-input v-model:value="form.packaging.en" placeholder="Ví dụ: 20kg drum or custom packaging" size="large" />
                 <p v-if="form.errors['packaging.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['packaging.en'] }}</p>
               </div>
 
               <!-- Description EN -->
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">Mô tả sản phẩm (EN) *</label>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block text-sm font-bold text-gray-700">Mô tả sản phẩm (EN) *</label>
+                  <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['desc']" @click="translateField('desc')">
+                    Dịch tự động
+                  </a-button>
+                </div>
                 <RichTextEditor v-model:value="form.desc.en" placeholder="Nhập mô tả sản phẩm bằng tiếng Anh..." />
                 <p v-if="form.errors['desc.en']" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors['desc.en'] }}</p>
               </div>
@@ -147,6 +184,9 @@
                 <div class="space-y-2">
                   <div v-for="(spec, index) in form.specs.en" :key="index" class="flex items-center gap-2">
                     <a-input v-model:value="form.specs.en[index]" placeholder="Ví dụ: Content: 10%" class="flex-1" />
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields[`specs_${index}`]" @click="translateField('specs', index)">
+                      Dịch
+                    </a-button>
                     <a-button type="link" danger class="p-0 font-bold" @click="removeSpec('en', index)">Xóa</a-button>
                   </div>
                   <p v-if="form.specs.en.length === 0" class="text-xs text-gray-400 italic">Chưa có thông số nào. Nhấn Thêm thông số để thiết lập.</p>
@@ -164,6 +204,9 @@
                 <div class="space-y-2">
                   <div v-for="(app, index) in form.applications.en" :key="index" class="flex items-center gap-2">
                     <a-input v-model:value="form.applications.en[index]" placeholder="Ví dụ: Production of soft drinks" class="flex-1" />
+                    <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields[`applications_${index}`]" @click="translateField('applications', index)">
+                      Dịch
+                    </a-button>
                     <a-button type="link" danger class="p-0 font-bold" @click="removeApp('en', index)">Xóa</a-button>
                   </div>
                   <p v-if="form.applications.en.length === 0" class="text-xs text-gray-400 italic">Chưa có ứng dụng nào. Nhấn Thêm ứng dụng để thiết lập.</p>
@@ -215,15 +258,30 @@
                 <a-tab-pane key="seo_en" tab="SEO Tiếng Anh">
                   <div class="space-y-4 mt-3">
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ tiêu đề SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ tiêu đề SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_title']" @click="translateField('seo_title')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_title.en" placeholder="Mặc định lấy theo tên sản phẩm..." size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Thẻ mô tả SEO (EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Thẻ mô tả SEO (EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_desc']" @click="translateField('seo_desc')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-textarea v-model:value="form.seo_desc.en" placeholder="Mặc định lấy theo mô tả sản phẩm..." :rows="3" size="large" />
                     </div>
                     <div>
-                      <label class="block text-xs font-bold text-gray-700 mb-1">Từ khóa SEO (Keywords - EN)</label>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-bold text-gray-700">Từ khóa SEO (Keywords - EN)</label>
+                        <a-button type="link" size="small" class="p-0 text-xs font-semibold text-emerald-600 hover:text-emerald-750" :loading="translatingFields['seo_keywords']" @click="translateField('seo_keywords')">
+                          Dịch tự động
+                        </a-button>
+                      </div>
                       <a-input v-model:value="form.seo_keywords.en" placeholder="e.g., turmeric powder, starch, curcumin (separated by commas)" size="large" />
                     </div>
                   </div>
@@ -279,7 +337,7 @@
                   <div v-if="ogImagePreview || form.og_image" class="w-24 h-24 rounded-lg border border-gray-200 overflow-hidden bg-gray-50 flex items-center justify-center relative group shadow-2xs">
                     <img :src="ogImagePreview || form.og_image" alt="OG Preview" class="w-full h-full object-cover" />
                     <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                      <button type="button" @click="removeOgImage" class="p-1 rounded-full bg-white text-red-650 hover:bg-red-50 transition-colors shadow-sm">
+                      <button type="button" @click="removeOgImage" class="p-1 rounded-full bg-white text-red-655 hover:bg-red-50 transition-colors shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -325,7 +383,7 @@
             <div v-if="imagePreview || form.image" class="w-32 h-32 rounded-lg border border-gray-200 overflow-hidden bg-gray-50 flex items-center justify-center relative group">
               <img :src="imagePreview || form.image" alt="Preview" class="w-full h-full object-cover" />
               <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                <button type="button" @click="removeImage" class="p-1.5 rounded-full bg-white text-red-650 hover:bg-red-50 transition-colors">
+                <button type="button" @click="removeImage" class="p-1.5 rounded-full bg-white text-red-655 hover:bg-red-50 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
@@ -350,11 +408,22 @@
         />
 
         <!-- Buttons -->
-        <div class="flex items-center gap-3 border-t border-gray-150 pt-6">
-          <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
-          <a-button type="primary" size="large" class="bg-emerald-700 hover:bg-emerald-800 border-none font-bold rounded-lg" :loading="form.processing" html-type="submit">
-            {{ isEdit ? 'Cập nhật sản phẩm' : 'Lưu sản phẩm' }}
-          </a-button>
+        <div class="flex items-center justify-between border-t border-gray-150 pt-6">
+          <div class="flex items-center gap-3">
+            <a-button size="large" class="rounded-lg font-bold" @click="goBack">Hủy bỏ</a-button>
+            <a-button type="primary" size="large" class="bg-emerald-700 hover:bg-emerald-800 border-none font-bold rounded-lg" :loading="form.processing" html-type="submit">
+              {{ isEdit ? 'Cập nhật sản phẩm' : 'Lưu sản phẩm' }}
+            </a-button>
+          </div>
+          <div v-if="isEdit">
+            <a-button type="default" size="large" class="border-emerald-600 text-emerald-700 hover:text-emerald-850 hover:border-emerald-750 font-bold rounded-lg flex items-center gap-2" @click="handlePreview">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Xem trước
+            </a-button>
+          </div>
         </div>
       </form>
     </div>
@@ -367,6 +436,7 @@ import RichTextEditor from '@/Components/RichTextEditor.vue';
 import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { translateSingle, translateHtml } from '@/Utils/translator';
 
 const props = defineProps({
   product: Object,
@@ -382,6 +452,9 @@ const showAdvancedSeo = ref(false);
 const showOgMediaModal = ref(false);
 const ogFileInput = ref(null);
 const ogImagePreview = ref(null);
+
+const translatingFields = ref({});
+const translatingAll = ref(false);
 
 const form = useForm({
   name: {
@@ -409,6 +482,7 @@ const form = useForm({
     en: props.product?.packaging?.en || '',
   },
   type: props.product?.type || 'food',
+  status: props.product?.status || 'published',
   seo_title: {
     vi: props.product?.seo_title?.vi || '',
     en: props.product?.seo_title?.en || '',
@@ -426,6 +500,61 @@ const form = useForm({
   og_image: props.product?.og_image || '',
   og_image_file: null,
 });
+
+async function translateField(field, index = null) {
+  const loadingKey = index !== null ? `${field}_${index}` : field;
+  translatingFields.value[loadingKey] = true;
+  try {
+    if (index !== null) {
+      const viVal = form[field].vi[index];
+      if (viVal) {
+        form[field].en[index] = await translateSingle(viVal);
+      }
+    } else {
+      const viVal = form[field].vi;
+      if (viVal) {
+        if (field === 'desc') {
+          form[field].en = await translateHtml(viVal);
+        } else {
+          form[field].en = await translateSingle(viVal);
+        }
+      }
+    }
+  } catch (error) {
+    console.error(`Translation error for field ${field}:`, error);
+  } finally {
+    translatingFields.value[loadingKey] = false;
+  }
+}
+
+async function translateAllFields() {
+  translatingAll.value = true;
+  try {
+    const textFields = ['name', 'packaging', 'seo_title', 'seo_desc', 'seo_keywords'];
+    for (const field of textFields) {
+      if (form[field] && form[field].vi) {
+        form[field].en = await translateSingle(form[field].vi);
+      }
+    }
+    if (form.desc && form.desc.vi) {
+      form.desc.en = await translateHtml(form.desc.vi);
+    }
+    const arrayFields = ['specs', 'applications'];
+    for (const field of arrayFields) {
+      if (form[field] && form[field].vi) {
+        form[field].en = await Promise.all(
+          form[field].vi.map(async (viItem) => {
+            return await translateSingle(viItem);
+          })
+        );
+      }
+    }
+  } catch (error) {
+    console.error('Translate all error:', error);
+  } finally {
+    translatingAll.value = false;
+  }
+}
 
 const filteredCategories = computed(() => {
   return props.categories ? props.categories.filter(c => c.type === form.type) : [];
@@ -505,6 +634,13 @@ function handleOgMediaSelect(file) {
   form.og_image_file = null;
   ogImagePreview.value = null;
   showOgMediaModal.value = false;
+}
+
+function handlePreview() {
+  const storefrontUrl = 'http://localhost:3000';
+  const path = props.product.type === 'food' ? 'nguyen-lieu-thuc-pham' : 'nguyen-lieu-my-pham';
+  const previewUrl = `${storefrontUrl}/${path}/${props.product.slug || props.product.id}?preview=true&secret=SophpowerPreview2026`;
+  window.open(previewUrl, '_blank');
 }
 
 function goBack() {

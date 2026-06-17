@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Article;
 use App\Models\RecruitmentJob;
 use App\Models\Lead;
+use App\Models\ProductQuestion;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -21,6 +22,9 @@ class DashboardController extends Controller
             'total_jobs' => RecruitmentJob::count(),
             'pending_leads' => Lead::where('status', 'pending')->count(),
             'total_leads' => Lead::count(),
+            'total_questions' => ProductQuestion::count(),
+            'replied_questions' => ProductQuestion::where('status', 'replied')->orWhereNotNull('answer')->count(),
+            'pending_questions' => ProductQuestion::where('status', 'pending')->whereNull('answer')->count(),
         ];
 
         $recentLeads = Lead::latest()->take(5)->get();
@@ -41,10 +45,22 @@ class DashboardController extends Controller
             ];
         }
 
+        // Daily leads for the last 30 days
+        $dailyLeads = [];
+        for ($i = 29; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $count = Lead::whereDate('created_at', $date->toDateString())->count();
+            $dailyLeads[] = [
+                'label' => $date->format('d/m'),
+                'value' => $count,
+            ];
+        }
+
         return Inertia::render('Dashboard', [
             'stats' => $stats,
             'recentLeads' => $recentLeads,
             'monthlyLeads' => $monthlyLeads,
+            'dailyLeads' => $dailyLeads,
         ]);
     }
 }

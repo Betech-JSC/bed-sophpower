@@ -12,6 +12,10 @@ class ProductApiController extends Controller
     {
         $query = Product::with('productCategory');
 
+        if (!$request->input('preview') || $request->input('secret') !== env('PREVIEW_SECRET', 'SophpowerPreview2026')) {
+            $query->where('status', 'published');
+        }
+
         if ($request->has('type')) {
             $query->where('type', $request->type);
         }
@@ -36,6 +40,10 @@ class ProductApiController extends Controller
         $query = Product::with(['productCategory', 'questions' => function($q) {
             $q->whereIn('status', ['approved', 'replied']);
         }]);
+
+        if (!request()->input('preview') || request()->input('secret') !== env('PREVIEW_SECRET', 'SophpowerPreview2026')) {
+            $query->where('status', 'published');
+        }
 
         if (is_numeric($idOrSlug)) {
             $product = $query->where(function($q) use ($idOrSlug) {

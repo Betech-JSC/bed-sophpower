@@ -75,6 +75,7 @@ class ArticleController extends Controller
             'canonical_url' => ['nullable', 'string', 'max:255'],
             'og_image_file' => ['nullable', 'image', 'max:2048'],
             'og_image' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'in:draft,published'],
         ]);
 
         if (empty($validated['title']['en'])) {
@@ -161,6 +162,7 @@ class ArticleController extends Controller
             'canonical_url' => ['nullable', 'string', 'max:255'],
             'og_image_file' => ['nullable', 'image', 'max:2048'],
             'og_image' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'in:draft,published'],
         ]);
 
         if (empty($validated['title']['en'])) {

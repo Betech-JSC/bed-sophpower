@@ -195,8 +195,15 @@ export const api = {
     return data.products || data;
   },
 
-  async getProduct(id: string | number): Promise<Product> {
-    const data = await fetchAPI(`/products/${id}`);
+  async getProduct(id: string | number, preview?: boolean, secret?: string): Promise<Product> {
+    const params = new URLSearchParams();
+    if (preview) {
+      params.append('preview', 'true');
+      if (secret) params.append('secret', secret);
+    }
+    const queryString = params.toString();
+    const endpoint = queryString ? `/products/${id}?${queryString}` : `/products/${id}`;
+    const data = await fetchAPI(endpoint);
     return data.product || data;
   },
 
@@ -207,8 +214,15 @@ export const api = {
     return data.articles || data;
   },
 
-  async getArticle(id: string | number): Promise<Article> {
-    const data = await fetchAPI(`/news/${id}`);
+  async getArticle(id: string | number, preview?: boolean, secret?: string): Promise<Article> {
+    const params = new URLSearchParams();
+    if (preview) {
+      params.append('preview', 'true');
+      if (secret) params.append('secret', secret);
+    }
+    const queryString = params.toString();
+    const endpoint = queryString ? `/news/${id}?${queryString}` : `/news/${id}`;
+    const data = await fetchAPI(endpoint);
     return data.article || data;
   },
 

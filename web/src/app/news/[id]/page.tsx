@@ -12,12 +12,17 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ preview?: string; secret?: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
+  const sParams = await searchParams;
+  const preview = sParams?.preview === "true";
+  const secret = sParams?.secret || "";
   const locale = await getLocaleServer();
-  const article = await api.getArticle(id).catch(() => null);
+  const article = await api.getArticle(id, preview, secret).catch(() => null);
   
   if (!article) return {};
 
@@ -75,15 +80,20 @@ export async function generateMetadata({
 
 export default async function NewsDetail({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ preview?: string; secret?: string }>;
 }) {
   const { id } = await params;
+  const sParams = await searchParams;
+  const preview = sParams?.preview === "true";
+  const secret = sParams?.secret || "";
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   
   // Fetch article detail from Laravel API
-  const article = await api.getArticle(id).catch(() => null);
+  const article = await api.getArticle(id, preview, secret).catch(() => null);
   if (!article) {
     notFound();
   }

@@ -16,6 +16,7 @@ class Product extends Model
         'category',
         'desc',
         'image',
+        'status',
         'specs',
         'applications',
         'packaging',

@@ -84,6 +84,7 @@ class ProductController extends Controller
             'canonical_url' => ['nullable', 'string', 'max:255'],
             'og_image_file' => ['nullable', 'image', 'max:2048'],
             'og_image' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'in:draft,published'],
         ]);
 
         if (empty($validated['name']['en'])) {
@@ -175,6 +176,7 @@ class ProductController extends Controller
             'canonical_url' => ['nullable', 'string', 'max:255'],
             'og_image_file' => ['nullable', 'image', 'max:2048'],
             'og_image' => ['nullable', 'string'],
+            'status' => ['nullable', 'string', 'in:draft,published'],
         ]);
 
         if (empty($validated['name']['en'])) {

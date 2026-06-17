@@ -12,6 +12,10 @@ class ArticleApiController extends Controller
     {
         $query = Article::with('articleCategory');
 
+        if (!$request->input('preview') || $request->input('secret') !== env('PREVIEW_SECRET', 'SophpowerPreview2026')) {
+            $query->where('status', 'published');
+        }
+
         if ($request->has('category') && $request->category !== 'Tất cả') {
             $query->where('category', $request->category);
         }
@@ -30,6 +34,10 @@ class ArticleApiController extends Controller
     public function show($idOrSlug)
     {
         $query = Article::with('articleCategory');
+
+        if (!request()->input('preview') || request()->input('secret') !== env('PREVIEW_SECRET', 'SophpowerPreview2026')) {
+            $query->where('status', 'published');
+        }
 
         if (is_numeric($idOrSlug)) {
             $article = $query->where(function($q) use ($idOrSlug) {

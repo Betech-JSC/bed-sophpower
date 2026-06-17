@@ -64,22 +64,123 @@
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-      <!-- Leads Bar Chart Card -->
-      <div class="bg-white rounded-xl border border-gray-150 shadow-xs p-6 lg:col-span-2 flex flex-col justify-between">
+      <!-- Leads Analytics Chart Card -->
+      <div class="bg-white rounded-xl border border-gray-150 shadow-xs p-6 lg:col-span-2 flex flex-col justify-between relative">
         <div>
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 border-b border-gray-100 pb-4">
             <div>
-              <h3 class="font-bold text-gray-900 text-base">Yêu cầu liên hệ theo tháng</h3>
-              <p class="text-xs text-gray-400">Xu hướng gửi biểu mẫu liên hệ trong 6 tháng gần nhất</p>
+              <h3 class="font-bold text-gray-900 text-base">Phân tích yêu cầu liên hệ</h3>
+              <p class="text-xs text-gray-400">Xem tiến độ gửi biểu mẫu liên hệ của khách hàng</p>
             </div>
-            <span class="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full">
-              Tổng số: {{ stats.total_leads }} leads
-            </span>
+            
+            <!-- Tab Controls -->
+            <div class="flex bg-gray-100 p-0.5 rounded-lg">
+              <button 
+                type="button" 
+                class="px-3 py-1 text-xs font-bold rounded-md transition-all"
+                :class="activeLeadsTab === 'daily' ? 'bg-white text-emerald-800 shadow-xs' : 'text-gray-500 hover:text-gray-900'"
+                @click="activeLeadsTab = 'daily'"
+              >
+                30 ngày qua
+              </button>
+              <button 
+                type="button" 
+                class="px-3 py-1 text-xs font-bold rounded-md transition-all"
+                :class="activeLeadsTab === 'monthly' ? 'bg-white text-emerald-800 shadow-xs' : 'text-gray-500 hover:text-gray-900'"
+                @click="activeLeadsTab = 'monthly'"
+              >
+                6 tháng gần đây
+              </button>
+            </div>
           </div>
 
-          <!-- SVG Bar Chart -->
-          <div class="relative w-full overflow-hidden pt-2">
-            <svg viewBox="0 0 600 240" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Tab Content 1: Daily Line Chart -->
+          <div v-if="activeLeadsTab === 'daily'" class="relative w-full overflow-hidden pt-2">
+            <svg viewBox="0 0 600 220" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg" @mousemove="handleLineMouseMove" @mouseleave="hoveredPoint = null">
+              <defs>
+                <linearGradient id="lineAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#106d38" stop-opacity="0.18" />
+                  <stop offset="100%" stop-color="#106d38" stop-opacity="0.0" />
+                </linearGradient>
+                <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#34d399" />
+                  <stop offset="100%" stop-color="#106d38" />
+                </linearGradient>
+              </defs>
+              
+              <!-- Grid Lines -->
+              <line x1="45" y1="30" x2="575" y2="30" stroke="#f3f4f6" stroke-width="1" />
+              <line x1="45" y1="75" x2="575" y2="75" stroke="#f3f4f6" stroke-width="1" />
+              <line x1="45" y1="120" x2="575" y2="120" stroke="#f3f4f6" stroke-width="1" />
+              <line x1="45" y1="165" x2="575" y2="165" stroke="#f3f4f6" stroke-width="1" />
+              
+              <!-- Baseline -->
+              <line x1="45" y1="170" x2="575" y2="170" stroke="#e5e7eb" stroke-width="1.5" />
+
+              <!-- Y Axis Labels -->
+              <text x="35" y="34" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">{{ Math.round(maxDailyValue) }}</text>
+              <text x="35" y="102" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">{{ Math.round(maxDailyValue / 2) }}</text>
+              <text x="35" y="174" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">0</text>
+
+              <!-- Line Chart Paths -->
+              <path :d="areaPath" fill="url(#lineAreaGrad)" />
+              <path :d="linePath" fill="none" stroke="url(#lineGrad)" stroke-width="3" stroke-linecap="round" />
+
+              <!-- Interactive Hover Vertical Guide Line -->
+              <line 
+                v-if="hoveredPoint"
+                :x1="hoveredPoint.x"
+                y1="30"
+                :x2="hoveredPoint.x"
+                y2="170"
+                stroke="#106d38"
+                stroke-opacity="0.3"
+                stroke-width="1.5"
+                stroke-dasharray="3 3"
+              />
+
+              <!-- Daily Vertices / Data Points -->
+              <g v-for="(pt, idx) in dailyPoints" :key="idx">
+                <circle 
+                  :cx="pt.x" 
+                  :cy="pt.y" 
+                  r="3.5" 
+                  fill="#ffffff" 
+                  stroke="#106d38" 
+                  stroke-width="2" 
+                  class="transition-all duration-150 cursor-pointer"
+                  :class="{ 'r-5 stroke-[3px]': hoveredPoint?.index === idx }"
+                />
+              </g>
+
+              <!-- Date Label ticks (sampled to avoid overlap) -->
+              <g v-for="(pt, idx) in dailyPoints" :key="'lbl-' + idx">
+                <text 
+                  v-if="idx % 5 === 0 || idx === dailyPoints.length - 1"
+                  :x="pt.x" 
+                  y="190" 
+                  text-anchor="middle" 
+                  class="text-[9px] fill-gray-400 font-bold"
+                >
+                  {{ pt.label }}
+                </text>
+              </g>
+            </svg>
+
+            <!-- Floating Tooltip Box -->
+            <div 
+              v-if="hoveredPoint"
+              class="absolute z-10 bg-gray-900/95 text-white text-xs font-bold rounded-lg px-2.5 py-1.5 shadow-lg border border-gray-800 transition-all pointer-events-none transform -translate-x-1/2 -translate-y-full mb-2"
+              :style="{ left: hoveredPoint.left + 'px', top: (hoveredPoint.top + 45) + 'px' }"
+            >
+              <p class="text-[9px] text-gray-400 font-normal">Ngày {{ hoveredPoint.label }}</p>
+              <p class="text-sm font-extrabold text-emerald-400">{{ hoveredPoint.value }} leads</p>
+            </div>
+          </div>
+
+          <!-- Tab Content 2: Monthly Bar Chart -->
+          <div v-else class="relative w-full overflow-hidden pt-2">
+            <svg viewBox="0 0 600 220" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#106d38" />
@@ -89,58 +190,53 @@
               
               <!-- Y Axis Lines -->
               <line x1="50" y1="30" x2="560" y2="30" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
-              <line x1="50" y1="80" x2="560" y2="80" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
-              <line x1="50" y1="130" x2="560" y2="130" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
-              <line x1="50" y1="180" x2="560" y2="180" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
+              <line x1="50" y1="75" x2="560" y2="75" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
+              <line x1="50" y1="120" x2="560" y2="120" stroke="#f3f4f6" stroke-dasharray="3 3" stroke-width="1.5" />
               
               <!-- Baseline -->
-              <line x1="50" y1="200" x2="560" y2="200" stroke="#e5e7eb" stroke-width="2" />
+              <line x1="50" y1="165" x2="560" y2="165" stroke="#e5e7eb" stroke-width="2" />
 
               <!-- Y Axis Labels -->
-              <text x="35" y="34" text-anchor="end" class="text-[10px] fill-gray-400 font-bold">{{ Math.round(maxLeadsValue) }}</text>
-              <text x="35" y="119" text-anchor="end" class="text-[10px] fill-gray-400 font-bold">{{ Math.round(maxLeadsValue / 2) }}</text>
-              <text x="35" y="204" text-anchor="end" class="text-[10px] fill-gray-400 font-bold">0</text>
+              <text x="35" y="34" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">{{ Math.round(maxLeadsValue) }}</text>
+              <text x="35" y="102" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">{{ Math.round(maxLeadsValue / 2) }}</text>
+              <text x="35" y="169" text-anchor="end" class="text-[9px] fill-gray-400 font-bold">0</text>
 
               <!-- Columns Loop -->
               <g v-for="(item, idx) in monthlyLeads" :key="idx">
-                <!-- Hover highlight background column -->
                 <rect 
                   :x="60 + idx * 80" 
                   y="20" 
                   width="60" 
-                  height="180" 
+                  height="145" 
                   fill="#f9fafb" 
                   opacity="0" 
                   class="hover:opacity-100 transition-opacity duration-150 cursor-pointer"
                 />
 
-                <!-- Actual Bar -->
                 <rect 
                   :x="75 + idx * 80" 
-                  :y="200 - (item.value / maxLeadsValue) * 160" 
+                  :y="165 - (item.value / maxLeadsValue) * 130" 
                   width="30" 
-                  :height="(item.value / maxLeadsValue) * 160" 
+                  :height="(item.value / maxLeadsValue) * 130" 
                   fill="url(#barGrad)" 
-                  rx="6" 
+                  rx="4" 
                   class="transition-all duration-500 ease-out cursor-pointer hover:brightness-105"
                 />
 
-                <!-- Value text on top of bar (always visible, style optimized) -->
                 <text 
                   :x="90 + idx * 80" 
-                  :y="190 - (item.value / maxLeadsValue) * 160" 
+                  :y="155 - (item.value / maxLeadsValue) * 130" 
                   text-anchor="middle" 
-                  class="text-[11px] fill-emerald-800 font-extrabold"
+                  class="text-[10px] fill-emerald-800 font-extrabold"
                 >
                   {{ item.value }}
                 </text>
 
-                <!-- Month text label -->
                 <text 
                   :x="90 + idx * 80" 
-                  y="218" 
+                  y="182" 
                   text-anchor="middle" 
-                  class="text-[11px] fill-gray-500 font-bold"
+                  class="text-[10px] fill-gray-500 font-bold"
                 >
                   {{ item.label }}
                 </text>
@@ -150,11 +246,11 @@
         </div>
       </div>
 
-      <!-- Breakdown / Share Card -->
+      <!-- Breakdown & Performance Gauge Card -->
       <div class="bg-white rounded-xl border border-gray-150 shadow-xs p-6 flex flex-col justify-between">
         <div>
-          <h3 class="font-bold text-gray-900 text-base mb-1">Cơ cấu & Hiệu suất</h3>
-          <p class="text-xs text-gray-400 mb-6">Trực quan hóa tỷ lệ sản phẩm và hiệu suất liên hệ</p>
+          <h3 class="font-bold text-gray-900 text-base mb-1">Cơ cấu & Giải quyết</h3>
+          <p class="text-xs text-gray-400 mb-6">Đo lường tỷ lệ dữ liệu sản phẩm và hỏi đáp</p>
 
           <div class="space-y-6">
             <!-- Product Category Share Gauge -->
@@ -191,29 +287,55 @@
 
             <hr class="border-gray-100" />
 
-            <!-- Leads Resolution Share Gauge -->
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-xs font-bold text-gray-700 uppercase">Hiệu suất xử lý liên hệ</span>
-                <span class="text-xs font-bold" :class="resolutionPct >= 80 ? 'text-emerald-700' : 'text-amber-700'">
-                  Đã giải quyết: {{ resolutionPct }}%
-                </span>
+            <!-- Product Questions Doughnut Chart Gauge -->
+            <div class="flex items-center gap-4">
+              <div class="relative flex-shrink-0">
+                <svg viewBox="0 0 120 120" class="w-24 h-24">
+                  <!-- Outer circle track -->
+                  <circle cx="60" cy="60" r="45" fill="none" stroke="#f3f4f6" stroke-width="10" />
+                  <!-- Replied stroke -->
+                  <circle 
+                    cx="60" 
+                    cy="60" 
+                    r="45" 
+                    fill="none" 
+                    stroke="#106d38" 
+                    stroke-width="10" 
+                    stroke-linecap="round"
+                    :stroke-dasharray="repliedDashArray"
+                    transform="rotate(-90 60 60)"
+                    class="transition-all duration-500 ease-out"
+                  />
+                  <!-- Center details -->
+                  <text x="60" y="62" text-anchor="middle" class="text-sm font-extrabold fill-gray-900 leading-none">
+                    {{ questionReplyRate }}%
+                  </text>
+                  <text x="60" y="76" text-anchor="middle" class="text-[8px] font-bold fill-gray-400 uppercase tracking-wider">
+                    Phản hồi
+                  </text>
+                </svg>
               </div>
-              <div class="w-full h-4 bg-red-100 rounded-full overflow-hidden flex">
-                <div 
-                  class="h-full bg-emerald-600 transition-all duration-500" 
-                  :style="{ width: resolutionPct + '%' }"
-                  title="Đã xử lý"
-                ></div>
-              </div>
-              <div class="flex justify-between items-center mt-2 text-[11px] font-bold">
-                <div class="flex items-center gap-1.5 text-emerald-700">
-                  <span class="w-2.5 h-2.5 bg-emerald-600 rounded-xs"></span>
-                  Đã xử lý ({{ processedLeadsCount }})
-                </div>
-                <div class="flex items-center gap-1.5 text-red-650">
-                  <span class="w-2.5 h-2.5 bg-red-150 rounded-xs"></span>
-                  Đang chờ ({{ stats.pending_leads }})
+              <div class="flex-1 space-y-1">
+                <span class="text-xs font-bold text-gray-700 uppercase block mb-1">Hỏi đáp sản phẩm</span>
+                <div class="text-[11px] font-semibold text-gray-500 space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-1.5 text-emerald-700">
+                      <span class="w-2 h-2 bg-emerald-600 rounded-full"></span>
+                      Đã trả lời:
+                    </span>
+                    <span class="font-bold text-gray-800">{{ stats.replied_questions }}</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="flex items-center gap-1.5 text-amber-600">
+                      <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
+                      Chờ trả lời:
+                    </span>
+                    <span class="font-bold text-gray-800">{{ stats.pending_questions }}</span>
+                  </div>
+                  <div class="text-[10px] text-gray-400 mt-2 border-t border-gray-100 pt-1 flex justify-between">
+                    <span>Tổng số câu hỏi:</span>
+                    <span class="font-bold text-gray-600">{{ stats.total_questions }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -226,7 +348,7 @@
             i
           </div>
           <p class="text-xs text-gray-500 leading-relaxed">
-            Hệ thống đang lưu trữ <span class="font-semibold text-gray-900">{{ stats.total_products }}</span> nguyên liệu cùng <span class="font-semibold text-gray-900">{{ stats.total_articles }}</span> tin bài để cung cấp dữ liệu động hiển thị trên Next.js storefront.
+            Hệ thống đang hoạt động ổn định. Đã phản hồi <span class="font-semibold text-gray-900">{{ stats.replied_questions }}</span> câu hỏi của khách hàng về sản phẩm.
           </p>
         </div>
       </div>
@@ -335,19 +457,89 @@
 <script setup>
 import CrmLayout from '@/Layouts/CrmLayout.vue';
 import { Link } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   stats: Object,
   recentLeads: Array,
   monthlyLeads: Array,
+  dailyLeads: Array,
 });
+
+const activeLeadsTab = ref('daily');
+const hoveredPoint = ref(null);
 
 const maxLeadsValue = computed(() => {
   if (!props.monthlyLeads || props.monthlyLeads.length === 0) return 10;
   const values = props.monthlyLeads.map(d => d.value);
   return Math.max(...values, 10);
 });
+
+// Daily leads calculations
+const maxDailyValue = computed(() => {
+  if (!props.dailyLeads || props.dailyLeads.length === 0) return 5;
+  const values = props.dailyLeads.map(d => d.value);
+  return Math.max(...values, 5);
+});
+
+const dailyPoints = computed(() => {
+  if (!props.dailyLeads || props.dailyLeads.length === 0) return [];
+  const width = 530;
+  const height = 130;
+  const step = width / (props.dailyLeads.length - 1);
+  return props.dailyLeads.map((d, idx) => {
+    const x = 45 + idx * step;
+    const y = 160 - (d.value / maxDailyValue.value) * height;
+    return { x, y, label: d.label, value: d.value };
+  });
+});
+
+const linePath = computed(() => {
+  const pts = dailyPoints.value;
+  if (pts.length === 0) return '';
+  return pts.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
+});
+
+const areaPath = computed(() => {
+  const pts = dailyPoints.value;
+  if (pts.length === 0) return '';
+  const first = pts[0];
+  const last = pts[pts.length - 1];
+  return `${linePath.value} L ${last.x} 170 L ${first.x} 170 Z`;
+});
+
+function handleLineMouseMove(e) {
+  const svg = e.currentTarget;
+  const rect = svg.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  
+  const pts = dailyPoints.value;
+  if (pts.length === 0) return;
+  
+  let closest = pts[0];
+  let minDiff = Math.abs(pts[0].x - (mouseX / rect.width) * 600);
+  let closestIdx = 0;
+  
+  for (let i = 1; i < pts.length; i++) {
+    const diff = Math.abs(pts[i].x - (mouseX / rect.width) * 600);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = pts[i];
+      closestIdx = i;
+    }
+  }
+  
+  if (minDiff < 25) {
+    hoveredPoint.value = {
+      ...closest,
+      index: closestIdx,
+      left: (closest.x / 600) * rect.width,
+      top: (closest.y / 220) * rect.height,
+    };
+  } else {
+    hoveredPoint.value = null;
+  }
+}
 
 // Product category ratios
 const totalProducts = computed(() => props.stats.total_products || 1);
@@ -358,4 +550,19 @@ const cosmeticPct = computed(() => 100 - foodPct.value);
 const totalLeads = computed(() => props.stats.total_leads || 1);
 const processedLeadsCount = computed(() => Math.max(0, props.stats.total_leads - props.stats.pending_leads));
 const resolutionPct = computed(() => Math.round((processedLeadsCount.value / totalLeads.value) * 100));
+
+// Doughnut chart calculation for questions
+const repliedDashArray = computed(() => {
+  const total = props.stats.total_questions || 0;
+  if (total === 0) return '0 283';
+  const pct = props.stats.replied_questions / total;
+  const strokeLength = pct * 282.7;
+  return `${strokeLength} 283`;
+});
+
+const questionReplyRate = computed(() => {
+  const total = props.stats.total_questions || 0;
+  if (total === 0) return 0;
+  return Math.round((props.stats.replied_questions / total) * 100);
+});
 </script>
