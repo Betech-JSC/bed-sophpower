@@ -193,6 +193,14 @@ export type SiteDictionary = {
     foodIngredient: string;
     cosmeticIngredient: string;
   };
+  share: {
+    title: string;
+    facebook: string;
+    zalo: string;
+    twitter: string;
+    copy: string;
+    copied: string;
+  };
 };
 
 const dicts = {
@@ -389,6 +397,14 @@ const dicts = {
       foodIngredient: "Nguyên liệu thực phẩm",
       cosmeticIngredient: "Nguyên liệu mỹ phẩm",
     },
+    share: {
+      title: "Chia sẻ bài viết:",
+      facebook: "Chia sẻ lên Facebook",
+      zalo: "Chia sẻ lên Zalo",
+      twitter: "Chia sẻ lên Twitter/X",
+      copy: "Sao chép liên kết",
+      copied: "Đã sao chép!",
+    },
   },
   en: {
     header: {
@@ -582,6 +598,14 @@ const dicts = {
       productDetails: "PRODUCT DETAILS",
       foodIngredient: "Food ingredient",
       cosmeticIngredient: "Cosmetic ingredient",
+    },
+    share: {
+      title: "Share article:",
+      facebook: "Share on Facebook",
+      zalo: "Share on Zalo",
+      twitter: "Share on Twitter/X",
+      copy: "Copy link",
+      copied: "Copied!",
     },
   },
 };

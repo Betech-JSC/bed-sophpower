@@ -231,7 +231,7 @@ export const api = {
 
     const result = await res.json();
     if (!res.ok) {
-      throw { errors: result.errors, message: result.message || 'Gửi yêu cầu thất bại.' };
+      throw { errors: result.errors, message: result.message };
     }
     return result;
   },
@@ -280,7 +280,7 @@ export const api = {
 
     const result = await res.json();
     if (!res.ok) {
-      throw { errors: result.errors, message: result.message || 'Gửi câu hỏi thất bại.' };
+      throw { errors: result.errors, message: result.message };
     }
     return result;
   },

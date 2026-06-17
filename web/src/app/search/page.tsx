@@ -50,9 +50,11 @@ export default async function SearchPage({
             {t.search.bannerTitle}
           </h1>
           <p className="mt-2 text-white/80 text-sm">
-            {locale === "vi"
-              ? `Tìm thấy ${results.length} sản phẩm phù hợp cho từ khóa "${keyword}"`
-              : `Found ${results.length} matching products for keyword "${keyword}"`}
+            {results.length > 0
+              ? t.search.foundResults
+                  .replace("{{count}}", String(results.length))
+                  .replace("{{keyword}}", keyword)
+              : t.search.notFoundResults.replace("{{keyword}}", keyword)}
           </p>
         </div>
       </section>

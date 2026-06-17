@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { Phone, Mail, ArrowUp } from "lucide-react";
+import { useI18n } from "@/i18n/provider";
 
 export default function Toolbar() {
+  const { locale } = useI18n();
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Toolbar() {
       {showScroll && (
         <button
           onClick={scrollToTop}
-          title="Lên đầu trang"
+          title={locale === "vi" ? "Lên đầu trang" : "Scroll to top"}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 border border-gray-200 text-gray-700 shadow-md transition-all hover:bg-gray-200 hover:scale-110 cursor-pointer"
         >
           <ArrowUp className="h-5 w-5" />

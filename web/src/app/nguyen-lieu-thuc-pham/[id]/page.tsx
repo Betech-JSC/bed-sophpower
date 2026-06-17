@@ -147,7 +147,7 @@ export default async function FoodProductDetail({
           {/* Inquiry & Zalo buttons */}
           <div className="flex flex-col sm:flex-row gap-4 pt-6">
             <Link
-              href="/page_5"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white hover:bg-brand-green-hover transition-colors shadow-md shadow-brand-green/10 text-sm sm:text-base"
             >
               <Mail className="h-4 w-4" />

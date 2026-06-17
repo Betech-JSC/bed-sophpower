@@ -2,12 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { Link2, Check } from "lucide-react";
+import { useI18n } from "@/i18n/provider";
+import { siteDictionaries } from "@/i18n/site-dictionaries";
 
 interface ShareSocialProps {
   title: string;
 }
 
 export default function ShareSocial({ title }: ShareSocialProps) {
+  const { locale } = useI18n();
+  const t = siteDictionaries[locale];
   const [shareUrl, setShareUrl] = useState("");
   const [copied, setCopied] = useState(false);
 
@@ -36,14 +40,14 @@ export default function ShareSocial({ title }: ShareSocialProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-3 py-6 border-t border-b border-gray-100 my-8">
-      <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">Chia sẻ bài viết:</span>
+      <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">{t.share.title}</span>
       <div className="flex items-center gap-2">
         {/* Facebook */}
         <a
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
-          title="Chia sẻ lên Facebook"
+          title={t.share.facebook}
           className="w-9 h-9 rounded-full bg-[#1877F2] hover:bg-[#166fe5] text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-sm"
         >
           <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -56,7 +60,7 @@ export default function ShareSocial({ title }: ShareSocialProps) {
           href={shareLinks.zalo}
           target="_blank"
           rel="noopener noreferrer"
-          title="Chia sẻ lên Zalo"
+          title={t.share.zalo}
           className="w-9 h-9 rounded-full bg-[#0068ff] hover:bg-[#0056d6] text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-sm font-black text-[11px] tracking-tighter uppercase select-none italic"
         >
           Zalo
@@ -67,7 +71,7 @@ export default function ShareSocial({ title }: ShareSocialProps) {
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          title="Chia sẻ lên Twitter/X"
+          title={t.share.twitter}
           className="w-9 h-9 rounded-full bg-black hover:bg-gray-900 text-white flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-sm"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -78,7 +82,7 @@ export default function ShareSocial({ title }: ShareSocialProps) {
         {/* Copy Link */}
         <button
           onClick={handleCopyLink}
-          title="Sao chép liên kết"
+          title={t.share.copy}
           className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 shadow-sm relative"
         >
           {copied ? (
@@ -90,7 +94,7 @@ export default function ShareSocial({ title }: ShareSocialProps) {
           {/* Copied Tooltip */}
           {copied && (
             <span className="absolute -top-9 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none whitespace-nowrap">
-              Đã sao chép!
+              {t.share.copied}
             </span>
           )}
         </button>

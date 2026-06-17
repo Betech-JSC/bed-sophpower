@@ -108,7 +108,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6 space-y-12">
           
           {/* Featured Post */}
-          {selectedCategory === "Tất cả" && featuredArticle && (
+          {isAllSelected && featuredArticle && (
             <div className="space-y-4">
               <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-gray-950">
                 {t.newsList.featuredTitle}
@@ -225,7 +225,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
             <div className="text-center py-16 bg-gray-50 border border-gray-200 rounded-xl p-8 max-w-sm mx-auto space-y-3">
               <p className="text-gray-500 text-sm">{t.newsList.emptyText}</p>
               <button
-                onClick={() => setSelectedCategory("Tất cả")}
+                onClick={() => setSelectedCategory(t.newsList.allTab)}
                 className="text-sm font-bold text-brand-green uppercase tracking-wide hover:underline cursor-pointer"
               >
                 {t.newsList.backButton}

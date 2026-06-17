@@ -30,7 +30,7 @@ export default function Header() {
     { name: t.header.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
     { name: t.header.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
     { name: t.header.news, path: "/news" },
-    { name: t.header.contact, path: "/page_5" },
+    { name: t.header.contact, path: "/contact" },
   ];
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);

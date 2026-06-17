@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import Contact from "@/app/page_5/page";
+import Contact from "@/app/contact/page";
 
 // Mock out Lucide icons
 jest.mock("lucide-react", () => ({
