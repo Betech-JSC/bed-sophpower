@@ -151,8 +151,8 @@ class CmsSeeder extends Seeder
 
             'contact_phone' => '+84 28 3824 0000',
             'contact_email' => 'info@sophpower.com',
-            'contact_address_vi' => 'Tòa nhà Sophpower, Quận 1, TP. Hồ Chí Minh',
-            'contact_address_en' => 'Sophpower Building, District 1, Ho Chi Minh City',
+            'contact_address_vi' => 'Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam',
+            'contact_address_en' => 'No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam',
 
             'header_scripts' => '<!-- Google Analytics -->',
             'footer_scripts' => '<!-- Live Chat Widget -->',

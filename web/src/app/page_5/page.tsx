@@ -24,6 +24,12 @@ export default function Contact() {
   const [settings, setSettings] = useState<any>(null);
   const [bannerImage, setBannerImage] = useState("/images/banner-contact.jpg");
 
+  const addressToSearch = locale === "vi"
+    ? (settings?.contact_address_vi || "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam")
+    : (settings?.contact_address_en || "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam");
+
+  const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(addressToSearch)}&output=embed&z=16`;
+
   useEffect(() => {
     api.getSettings()
       .then(setSettings)
@@ -296,7 +302,7 @@ export default function Contact() {
           <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
             <iframe
               title="Sophpower Vietnam Office Location"
-              src="https://maps.google.com/maps?q=No.+37,+19E+Street,+An+Lac+Ward,+Binh+Tan+District,+Ho+Chi+Minh+City,+Vietnam&output=embed&z=16"
+              src={mapUrl}
               width="100%"
               height="420"
               style={{ border: 0, display: "block" }}
