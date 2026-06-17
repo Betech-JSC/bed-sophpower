@@ -149,34 +149,61 @@ export default function Header() {
               {/* Mobile menu button */}
               <button
                 onClick={toggleMobileMenu}
-                className="inline-flex lg:hidden p-2 text-white hover:text-[#10e660] transition-colors cursor-pointer"
+                className="inline-flex lg:hidden p-2 text-white hover:text-[#10e660] transition-colors cursor-pointer focus:outline-none"
                 aria-label="Toggle Menu"
               >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+                  <span
+                    className={`block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'
+                    }`}
+                  />
+                  <span
+                    className={`block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'
+                    }`}
+                  />
+                  <span
+                    className={`block absolute h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                      mobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'
+                    }`}
+                  />
+                </div>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-white/10 bg-brand-green px-4 py-3 space-y-2 shadow-inner">
-            {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-colors duration-150 ${
-                  isActive(item.path)
-                    ? "bg-white/10 text-[#10e660]"
-                    : "text-white hover:bg-white/5 hover:text-[#10e660]"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Mobile Navigation Drawer with smooth transitions */}
+        <div 
+          className={`lg:hidden border-t border-white/10 bg-brand-green px-4 py-3 space-y-2 shadow-inner transition-all duration-350 ease-out origin-top overflow-hidden ${
+            mobileMenuOpen 
+              ? 'opacity-100 max-h-96 translate-y-0 scale-y-100 visible' 
+              : 'opacity-0 max-h-0 -translate-y-2 scale-y-95 invisible'
+          }`}
+        >
+          {menuItems.map((item, idx) => (
+            <Link
+              key={item.path}
+              href={item.path}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
+              }}
+              className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 transform ${
+                mobileMenuOpen 
+                  ? 'translate-x-0 opacity-100' 
+                  : '-translate-x-3 opacity-0'
+              } ${
+                isActive(item.path)
+                  ? "bg-white/10 text-[#10e660]"
+                  : "text-white hover:bg-white/5 hover:text-[#10e660]"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
       </header>
 
       {/* Search Overlay */}
