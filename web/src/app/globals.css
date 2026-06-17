@@ -122,12 +122,57 @@ body {
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Premium UX Transitions & Animations */
+.transition-spring {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 400ms;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    box-shadow: 0 4px 20px -2px rgba(16, 109, 56, 0.04);
+  }
+  50% {
+    box-shadow: 0 4px 30px 4px rgba(16, 109, 56, 0.12);
+  }
+}
+
+.animate-card-glow {
+  animation: cardGlow 3s infinite ease-in-out;
+}
+
+.card-flip-3d {
+  perspective: 1000px;
+}
+
+/* Reduce motion accessiblity fallback */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }
 

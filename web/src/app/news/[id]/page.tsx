@@ -8,6 +8,7 @@ import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import type { Metadata } from "next";
 import ShareSocial from "@/components/ShareSocial";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export async function generateMetadata({
   params,
@@ -115,19 +116,21 @@ export default async function NewsDetail({
 
       {/* Article Container */}
       <article className="space-y-8">
-        <div className="space-y-4">
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
-            {getVal(article.title, locale)}
-          </h1>
-          <div className="flex items-center gap-4 text-sm text-gray-405 font-medium">
-            <span className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4 text-brand-green" />
-              {formatDate(article.date)}
-            </span>
-            <span className="text-gray-300">•</span>
-            <span>{t.newsList.authorLabel}: {article.author}</span>
+        <ScrollReveal direction="up" duration={600}>
+          <div className="space-y-4">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+              {getVal(article.title, locale)}
+            </h1>
+            <div className="flex items-center gap-4 text-sm text-gray-405 font-medium">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4 text-brand-green" />
+                {formatDate(article.date)}
+              </span>
+              <span className="text-gray-300">•</span>
+              <span>{t.newsList.authorLabel}: {article.author}</span>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="h-0.5 w-full bg-gray-100 relative">
           <div className="absolute left-0 top-0 h-full w-24 bg-brand-green" />
@@ -135,23 +138,29 @@ export default async function NewsDetail({
 
         {/* Feature Image */}
         {article.image && (
-          <div className="rounded-2xl overflow-hidden bg-gray-55 border border-gray-150">
-            <img
-              src={api.getImageUrl(article.image)}
-              alt={getVal(article.title, locale)}
-              className="w-full h-auto object-cover max-h-[450px]"
-            />
-          </div>
+          <ScrollReveal direction="up" delay={100} duration={600}>
+            <div className="rounded-2xl overflow-hidden bg-gray-55 border border-gray-150">
+              <img
+                src={api.getImageUrl(article.image)}
+                alt={getVal(article.title, locale)}
+                className="w-full h-auto object-cover max-h-[450px]"
+              />
+            </div>
+          </ScrollReveal>
         )}
 
         {/* Article content */}
-        <div 
-          className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4"
-          dangerouslySetInnerHTML={{ __html: articleContent }}
-        />
+        <ScrollReveal direction="up" delay={150} duration={600}>
+          <div 
+            className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4"
+            dangerouslySetInnerHTML={{ __html: articleContent }}
+          />
+        </ScrollReveal>
 
         {/* Social Share Buttons */}
-        <ShareSocial title={getVal(article.title, locale)} />
+        <ScrollReveal direction="up" delay={200} duration={600}>
+          <ShareSocial title={getVal(article.title, locale)} />
+        </ScrollReveal>
       </article>
     </div>
   );

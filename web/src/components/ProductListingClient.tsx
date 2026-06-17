@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { useI18n } from "@/i18n/provider";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import ScrollReveal from "@/components/ScrollReveal";
 
 type ProductType = "food" | "cosmetic";
 
@@ -140,37 +141,38 @@ export default function ProductListingClient({
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {paginatedProducts.map((prod) => (
-                  <Link
-                    key={prod.id}
-                    href={`${basePath}/${prod.slug || prod.id}`}
-                    className="group flex flex-col sm:flex-row rounded-2xl bg-white border border-gray-150 overflow-hidden hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="flex-1 p-8 flex flex-col justify-between space-y-6">
-                      <div className="space-y-4">
-                        <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-green transition-colors line-clamp-2">
-                          {prod.name}
-                        </h3>
-                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">
-                          {prod.desc}
-                        </p>
+                {paginatedProducts.map((prod, index) => (
+                  <ScrollReveal key={prod.id} direction="up" delay={(index % 2) * 100} duration={600} className="h-full">
+                    <Link
+                      href={`${basePath}/${prod.slug || prod.id}`}
+                      className="group flex flex-col sm:flex-row h-full rounded-2xl bg-white border border-gray-150 overflow-hidden hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="flex-1 p-8 flex flex-col justify-between space-y-6">
+                        <div className="space-y-4">
+                          <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand-green transition-colors line-clamp-2">
+                            {prod.name}
+                          </h3>
+                          <p className="text-gray-550 text-sm leading-relaxed line-clamp-3">
+                            {prod.desc}
+                          </p>
+                        </div>
+                        <div className="pt-2">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors">
+                            {t.products.viewMore}
+                            <ArrowRight className="h-4 w-4" />
+                          </span>
+                        </div>
                       </div>
-                      <div className="pt-2">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-700 group-hover:text-brand-green uppercase tracking-wide transition-colors">
-                          {t.products.viewMore}
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      </div>
-                    </div>
 
-                    <div className="w-full sm:w-[45%] h-56 sm:h-auto relative bg-gray-100 shrink-0">
-                      <img
-                        src={prod.image}
-                        alt={prod.name}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-550 group-hover:scale-105"
-                      />
-                    </div>
-                  </Link>
+                      <div className="w-full sm:w-[45%] h-56 sm:h-auto relative bg-gray-100 shrink-0">
+                        <img
+                          src={prod.image}
+                          alt={prod.name}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-550 group-hover:scale-105"
+                        />
+                      </div>
+                    </Link>
+                  </ScrollReveal>
                 ))}
               </div>
 

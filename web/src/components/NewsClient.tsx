@@ -7,6 +7,7 @@ import { useI18n } from "@/i18n/provider";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api } from "@/lib/api";
+import ScrollReveal from "@/components/ScrollReveal";
 
 interface Article {
   id: number;
@@ -110,115 +111,122 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
           {/* Featured Post */}
           {isAllSelected && featuredArticle && (
             <div className="space-y-4">
-              <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-gray-950">
-                {t.newsList.featuredTitle}
-              </h2>
-              <Link
-                href={`/news/${featuredArticle.slug || featuredArticle.id}`}
-                className="group relative flex flex-col lg:flex-row rounded-xl border border-gray-200 overflow-hidden bg-white shadow-xs hover:border-brand-green transition-all duration-300"
-              >
-                {/* Image */}
-                <div className="w-full lg:w-[50%] h-64 sm:h-80 lg:h-auto relative bg-gray-55 overflow-hidden shrink-0">
-                  <img
-                    src={api.getImageUrl(featuredArticle.image)}
-                    alt={featuredArticle.title}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 p-8 sm:p-10 flex flex-col justify-between space-y-6 group-hover:bg-brand-green transition-colors duration-300">
-                  <div className="space-y-3">
-                    <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors duration-300">
-                      <Calendar className="h-4 w-4 text-brand-green group-hover:text-white/95 transition-colors duration-300 shrink-0" />
-                      <span className="text-gray-500 group-hover:text-white/95">{formatDate(featuredArticle.date)}</span>
-                      <span className="text-gray-300 group-hover:text-white/60">&nbsp;•&nbsp;</span>
-                      <span className="text-brand-green group-hover:text-white/95">{getVal(featuredArticle.category, locale)}</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300 leading-snug leading-snug line-clamp-2">
-                      {getVal(featuredArticle.title, locale)}
-                    </h3>
-                  </div>
-                  <div>
-                    <span
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-green group-hover:text-white hover:underline uppercase tracking-wider transition-colors duration-300"
-                    >
-                      {t.products.viewMore}
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          )}
-
-          {/* Category Tabs & Title */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-150 pb-5">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-950 tracking-wider uppercase flex items-center gap-2">
-              <span className="h-5 sm:h-6 w-1 bg-brand-green" />
-              {t.newsList.allTitle}
-            </h2>
-
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap gap-1.5">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`rounded-md px-4 py-2 text-sm font-bold tracking-wide transition-all cursor-pointer ${
-                    selectedCategory === cat
-                      ? "bg-brand-green text-white shadow-xs"
-                      : "bg-white border border-gray-250 text-gray-650 hover:bg-gray-55 hover:text-brand-green"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Articles Grid */}
-          {gridArticles.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {gridArticles.map((art) => (
+              <ScrollReveal direction="up" duration={600}>
+                <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-wider text-gray-950">
+                  {t.newsList.featuredTitle}
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={100} duration={600}>
                 <Link
-                  key={art.id}
-                  href={`/news/${art.slug || art.id}`}
-                  className="group flex flex-col rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-md hover:shadow-brand-green/5 transition-all duration-300"
+                  href={`/news/${featuredArticle.slug || featuredArticle.id}`}
+                  className="group relative flex flex-col lg:flex-row rounded-xl border border-gray-200 overflow-hidden bg-white shadow-xs hover:border-brand-green transition-all duration-300"
                 >
-                  {/* Card Image */}
-                  <div className="h-48 relative bg-gray-55 overflow-hidden shrink-0">
+                  {/* Image */}
+                  <div className="w-full lg:w-[50%] h-64 sm:h-80 lg:h-auto relative bg-gray-55 overflow-hidden shrink-0">
                     <img
-                      src={api.getImageUrl(art.image)}
-                      alt={art.title}
+                      src={api.getImageUrl(featuredArticle.image)}
+                      alt={featuredArticle.title}
                       className="absolute inset-0 h-full w-full object-cover"
                     />
                   </div>
 
-                  {/* Card Content */}
-                  <div className="flex-1 p-6 flex flex-col justify-between space-y-5 group-hover:bg-brand-green transition-colors duration-300">
+                  {/* Content */}
+                  <div className="flex-1 p-8 sm:p-10 flex flex-col justify-between space-y-6 group-hover:bg-brand-green transition-colors duration-300">
                     <div className="space-y-3">
-                      <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-colors duration-300">
+                      <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold uppercase tracking-wider flex items-center gap-1.5 transition-colors duration-300">
                         <Calendar className="h-4 w-4 text-brand-green group-hover:text-white/95 transition-colors duration-300 shrink-0" />
-                        <span className="text-gray-500 group-hover:text-white/95">{formatDate(art.date)}</span>
+                        <span className="text-gray-500 group-hover:text-white/95">{formatDate(featuredArticle.date)}</span>
                         <span className="text-gray-300 group-hover:text-white/60">&nbsp;•&nbsp;</span>
-                        <span className="text-brand-green group-hover:text-white/95">{getVal(art.category, locale)}</span>
+                        <span className="text-brand-green group-hover:text-white/95">{getVal(featuredArticle.category, locale)}</span>
                       </div>
-                      <h3 className="text-sm sm:text-base font-bold text-gray-950 group-hover:text-white transition-colors duration-300 leading-snug line-clamp-2">
-                        {getVal(art.title, locale)}
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-white transition-colors duration-300 leading-snug leading-snug line-clamp-2">
+                        {getVal(featuredArticle.title, locale)}
                       </h3>
                     </div>
-
-                    <div className="pt-3 border-t border-gray-100 group-hover:border-white/20 flex justify-between items-center transition-colors duration-300">
+                    <div>
                       <span
                         className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-green group-hover:text-white hover:underline uppercase tracking-wider transition-colors duration-300"
                       >
-                        {t.home.readMore.toUpperCase()}
+                        {t.products.viewMore}
                         <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
                 </Link>
+              </ScrollReveal>
+            </div>
+          )}
+
+          {/* Category Tabs & Title */}
+          <ScrollReveal direction="up" duration={600}>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-150 pb-5">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-950 tracking-wider uppercase flex items-center gap-2">
+                <span className="h-5 sm:h-6 w-1 bg-brand-green" />
+                {t.newsList.allTitle}
+              </h2>
+
+              {/* Filter Tabs */}
+              <div className="flex flex-wrap gap-1.5">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`rounded-md px-4 py-2 text-sm font-bold tracking-wide transition-all cursor-pointer ${
+                      selectedCategory === cat
+                        ? "bg-brand-green text-white shadow-xs"
+                        : "bg-white border border-gray-250 text-gray-655 hover:bg-gray-55 hover:text-brand-green"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Articles Grid */}
+          {gridArticles.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {gridArticles.map((art, index) => (
+                <ScrollReveal key={art.id} direction="up" delay={(index % 3) * 100} duration={600} className="h-full">
+                  <Link
+                    href={`/news/${art.slug || art.id}`}
+                    className="group flex flex-col h-full rounded-xl border border-gray-200 overflow-hidden bg-white hover:shadow-md hover:shadow-brand-green/5 transition-all duration-300"
+                  >
+                    {/* Card Image */}
+                    <div className="h-48 relative bg-gray-55 overflow-hidden shrink-0">
+                      <img
+                        src={api.getImageUrl(art.image)}
+                        alt={art.title}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-550 group-hover:scale-105"
+                      />
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="flex-1 p-6 flex flex-col justify-between space-y-5 group-hover:bg-brand-green transition-colors duration-300">
+                      <div className="space-y-3">
+                        <div className="text-sm text-brand-green group-hover:text-white/95 font-semibold tracking-wider uppercase flex items-center gap-1.5 transition-colors duration-300">
+                          <Calendar className="h-4 w-4 text-brand-green group-hover:text-white/95 transition-colors duration-300 shrink-0" />
+                          <span className="text-gray-500 group-hover:text-white/95">{formatDate(art.date)}</span>
+                          <span className="text-gray-300 group-hover:text-white/60">&nbsp;•&nbsp;</span>
+                          <span className="text-brand-green group-hover:text-white/95">{getVal(art.category, locale)}</span>
+                        </div>
+                        <h3 className="text-sm sm:text-base font-bold text-gray-950 group-hover:text-white transition-colors duration-300 leading-snug line-clamp-2">
+                          {getVal(art.title, locale)}
+                        </h3>
+                      </div>
+
+                      <div className="pt-3 border-t border-gray-100 group-hover:border-white/20 flex justify-between items-center transition-colors duration-300">
+                        <span
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-green group-hover:text-white hover:underline uppercase tracking-wider transition-colors duration-300"
+                        >
+                          {t.home.readMore.toUpperCase()}
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </ScrollReveal>
               ))}
             </div>
           ) : (

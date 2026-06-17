@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Contact() {
   const { locale } = useI18n();
@@ -97,67 +98,70 @@ export default function Contact() {
         <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
           <div className="flex flex-col lg:flex-row rounded-2xl bg-white overflow-hidden shadow-xl border border-gray-150">
             {/* Info Cards (Left) */}
-            <div className="w-full lg:w-[45%] bg-brand-green p-8 sm:p-12 text-white flex flex-col justify-between space-y-10">
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-white/60">
-                    {t.contact.contactUs}
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">SOPHPOWER VIETNAM</h2>
-                </div>
-                <div className="h-0.5 w-16 bg-brand-green" />
-                <p className="text-white/80 text-sm leading-relaxed text-justify">
-                  {t.contact.description}
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                {/* Email card */}
-                <div className="flex items-start gap-4">
-                  <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
-                    <Mail className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.email}</h3>
-                    <a
-                      href={`mailto:${settings?.contact_email || "info@sophchem.com"}`}
-                      className="text-sm font-semibold hover:text-brand-green-light transition-colors"
-                    >
-                      {settings?.contact_email || "info@sophchem.com"}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Phone Card */}
-                <div className="flex items-start gap-4">
-                  <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
-                    <Phone className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.hotlineZalo}</h3>
-                    <span className="text-sm font-semibold">{"0969 700 520"}</span>
-                  </div>
-                </div>
-
-                {/* Address Card */}
-                <div className="flex items-start gap-4">
-                  <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
-                    <MapPin className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.officeAddress}</h3>
-                    <span className="text-sm font-semibold leading-relaxed block">
-                      {locale === "vi"
-                        ? (settings?.contact_address_vi || "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam")
-                        : (settings?.contact_address_en || "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam")}
+            <ScrollReveal direction="up" duration={600} className="w-full lg:w-[45%] flex">
+              <div className="w-full bg-brand-green p-8 sm:p-12 text-white flex flex-col justify-between space-y-10 h-full">
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-white/60">
+                      {t.contact.contactUs}
                     </span>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">SOPHPOWER VIETNAM</h2>
+                  </div>
+                  <div className="h-0.5 w-16 bg-brand-green" />
+                  <p className="text-white/80 text-sm leading-relaxed text-justify">
+                    {t.contact.description}
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Email card */}
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
+                      <Mail className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.email}</h3>
+                      <a
+                        href={`mailto:${settings?.contact_email || "info@sophchem.com"}`}
+                        className="text-sm font-semibold hover:text-brand-green-light transition-colors"
+                      >
+                        {settings?.contact_email || "info@sophchem.com"}
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Phone Card */}
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
+                      <Phone className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.hotlineZalo}</h3>
+                      <span className="text-sm font-semibold">{"0969 700 520"}</span>
+                    </div>
+                  </div>
+
+                  {/* Address Card */}
+                  <div className="flex items-start gap-4">
+                    <div className="rounded-xl bg-white/10 p-3 text-brand-green-light shrink-0">
+                      <MapPin className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold tracking-wider text-white/60">{t.contact.officeAddress}</h3>
+                      <span className="text-sm font-semibold leading-relaxed block">
+                        {locale === "vi"
+                          ? (settings?.contact_address_vi || "Số 37, Đường 19E, Phường An Lạc, Quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam")
+                          : (settings?.contact_address_en || "No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam")}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Form (Right) */}
-            <div className="flex-1 p-8 sm:p-12 space-y-8">
+            <ScrollReveal direction="up" delay={150} duration={600} className="flex-1">
+              <div className="p-8 sm:p-12 space-y-8 h-full">
               <div className="space-y-2">
                 <h3 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">
                   {t.contact.sendRequest}
@@ -286,7 +290,8 @@ export default function Contact() {
                   </button>
                 </form>
               )}
-            </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
