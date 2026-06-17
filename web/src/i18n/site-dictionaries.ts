@@ -660,7 +660,7 @@ const dicts = {
       qnaNamePlaceholder: "Enter your name",
       qnaEmailLabel: "Contact Email",
       qnaPhoneLabel: "Phone Number",
-      qnaPhonePlaceholder: "Enter phone number (optional)",
+      qnaPhonePlaceholder: "Enter Phone Number",
       qnaQuestionLabel: "Question Content",
       qnaQuestionPlaceholder: "Enter your question about this product...",
       qnaSending: "Sending...",

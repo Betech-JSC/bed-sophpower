@@ -494,9 +494,9 @@
     "key": "phoneLabel",
     "text": {
       "vi": "Số điện thoại",
-      "en": "Phone Number (optional)",
-      "zh": "Phone Number (optional)",
-      "ja": "Phone Number (optional)"
+      "en": "PHONE NUMBER",
+      "zh": "PHONE NUMBER",
+      "ja": "PHONE NUMBER"
     }
   },
   {
