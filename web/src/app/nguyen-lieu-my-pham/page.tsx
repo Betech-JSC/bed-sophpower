@@ -21,12 +21,13 @@ export default async function CosmeticIngredients({
 }) {
   const { page = "1" } = await searchParams;
   const currentPage = parseInt(page) || 1;
+  const locale = await getLocaleServer();
 
   return (
     <ProductListingClient
       type="cosmetic"
       currentPage={currentPage}
-      basePath="/nguyen-lieu-my-pham"
+      basePath={locale === "vi" ? "/nguyen-lieu-my-pham" : "/cosmetic-ingredients"}
       bannerImage="/images/banner-cosmetic.png"
     />
   );

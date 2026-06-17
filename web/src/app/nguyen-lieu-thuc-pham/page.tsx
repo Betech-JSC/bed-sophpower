@@ -21,12 +21,13 @@ export default async function FoodIngredients({
 }) {
   const { page = "1" } = await searchParams;
   const currentPage = parseInt(page) || 1;
+  const locale = await getLocaleServer();
 
   return (
     <ProductListingClient
       type="food"
       currentPage={currentPage}
-      basePath="/nguyen-lieu-thuc-pham"
+      basePath={locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients"}
       bannerImage="/images/banner-food.png"
     />
   );
