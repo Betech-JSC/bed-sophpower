@@ -13,10 +13,8 @@ function mergeDeep(target: any, source: any) {
   }
 }
 
-let merged = false;
-
 export function applyDynamicTranslations(data: any) {
-  if (!data || merged) return;
+  if (!data) return;
   
   if (data.site) {
     for (const locale of Object.keys(data.site)) {
@@ -33,6 +31,4 @@ export function applyDynamicTranslations(data: any) {
       }
     }
   }
-  
-  merged = true;
 }

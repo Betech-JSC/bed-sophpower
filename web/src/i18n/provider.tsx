@@ -31,8 +31,8 @@ export function I18nProvider({ children, initialTranslations }: { children: Reac
     const setLocale = useCallback((next: Locale) => {
         if (next === locale) return;
         setStoredLocale(next);
-        router.refresh();
-    }, [locale, router]);
+        window.location.reload();
+    }, [locale]);
 
     const value: I18nValue = {
         locale,
