@@ -333,7 +333,7 @@ export default function Home() {
 
       {/* Food Ingredients Section (Nguyên liệu Thực phẩm) */}
       <section className="bg-white py-20 border-t border-gray-150">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
+        <div className="mx-auto max-w-7xl 3xl:max-w-[90rem] 4xl:max-w-[100rem] px-3 sm:px-4 lg:px-6">
           {/* Header Title Section */}
           <ScrollReveal direction="up" duration={600}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
