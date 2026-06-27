@@ -59,8 +59,6 @@ be/database/*.sqlite
 be/database/*.sqlite-journal
 
 # Environment & Private configurations
-.env
-.env.*
 !.env.example
 be/.env
 be/.env.*
@@ -81,3 +79,4 @@ scratch_step_*.txt
 # Excluded directories (project-specific)
 tests
 others
+config.bat
