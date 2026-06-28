@@ -1,10 +1,10 @@
 <template>
   <div class="flex h-screen bg-gray-50 font-sans text-gray-800">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-150 flex flex-col justify-between shrink-0">
-      <div>
+    <aside class="w-64 bg-white border-r border-gray-150 flex flex-col justify-between shrink-0 h-full overflow-hidden">
+      <div class="flex flex-col overflow-hidden">
         <!-- Brand logo / title -->
-        <div class="h-16 flex items-center px-6 border-b border-gray-150 bg-gray-50/50">
+        <div class="h-16 flex items-center px-6 border-b border-gray-150 bg-gray-50/50 shrink-0">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-emerald-700 flex items-center justify-center text-white font-extrabold text-sm tracking-wider">
               SP
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="p-4 space-y-1">
+        <nav class="p-4 space-y-1 overflow-y-auto flex-1">
           <Link
             v-for="item in filteredMenuItems"
             :key="item.path"
@@ -36,7 +36,7 @@
       </div>
 
       <!-- User Info & Logout -->
-      <div class="p-4 border-t border-gray-150 bg-gray-50/50">
+      <div class="p-4 border-t border-gray-150 bg-gray-50/50 shrink-0">
         <div class="flex items-center justify-between">
           <Link
             href="/admin/profile"
