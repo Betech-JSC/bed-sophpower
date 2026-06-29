@@ -233,8 +233,8 @@ export default function Home() {
         category: getVal(art.category, locale),
       }));
     }
-    return mockArticles;
-  }, [rawArticles, mockArticles, locale]);
+    return [];
+  }, [rawArticles, locale]);
 
   // Auto transition banner slider
   useEffect(() => {
