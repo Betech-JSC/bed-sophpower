@@ -17,6 +17,7 @@ Route::get('/products', [ProductApiController::class, 'index']);
 Route::get('/products/{id}', [ProductApiController::class, 'show']);
 
 Route::get('/news', [ArticleApiController::class, 'index']);
+Route::get('/news/categories', [ArticleApiController::class, 'categories']);
 Route::get('/news/{id}', [ArticleApiController::class, 'show']);
 
 Route::get('/recruitment', [JobApiController::class, 'index']);
