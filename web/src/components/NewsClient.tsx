@@ -6,7 +6,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
-import { api } from "@/lib/api";
+import { api, type ArticleCategory } from "@/lib/api";
 import ScrollReveal from "@/components/ScrollReveal";
 
 interface Article {
@@ -24,13 +24,8 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
   const [bannerImage, setBannerImage] = useState("/images/banner-news.png");
-  const categories = [
-    t.newsList.allTab,
-    t.newsList.cosmeticTab,
-    t.newsList.foodTab,
-    t.newsList.marketTab,
-  ];
-  const [selectedCategory, setSelectedCategory] = useState(t.newsList.allTab);
+  const [categories, setCategories] = useState<ArticleCategory[]>([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">("all");
 
   useEffect(() => {
     let cancelled = false;
@@ -43,36 +38,35 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
       if (!cancelled) setBannerImage("/images/banner-news.png");
     });
 
+    api.getNewsCategories().then((cats) => {
+      if (cancelled) return;
+      setCategories(cats);
+    }).catch((err) => {
+      console.error("Failed to load news categories dynamically:", err);
+    });
+
     return () => {
       cancelled = true;
     };
   }, []);
 
-  const isAllSelected = 
-    selectedCategory === t.newsList.allTab || 
-    selectedCategory === "Tất cả" || 
-    selectedCategory === "All";
+  const isAllSelected = selectedCategoryId === "all";
 
   const filteredArticles = isAllSelected
     ? initialArticles
     : initialArticles.filter((art) => {
-        const cat = getVal(art.category, locale).toLowerCase();
-        const selCat = selectedCategory.toLowerCase();
-        
-        const isCosmeticTab = selectedCategory === t.newsList.cosmeticTab || selCat.includes("cosmetic") || selCat.includes("mỹ phẩm");
-        const isFoodTab = selectedCategory === t.newsList.foodTab || selCat.includes("food") || selCat.includes("thực phẩm");
-        const isMarketTab = selectedCategory === t.newsList.marketTab || selCat.includes("market") || selCat.includes("thị trường");
+        if (art.article_category_id === selectedCategoryId) {
+          return true;
+        }
 
-        if (isCosmeticTab) {
-          return cat.includes("mỹ phẩm") || cat.includes("cosmetic");
+        const selectedCatObj = categories.find((c) => c.id === selectedCategoryId);
+        if (selectedCatObj && art.category) {
+          const cat = getVal(art.category, locale).toLowerCase();
+          const targetCatVi = getVal(selectedCatObj.name, "vi").toLowerCase();
+          const targetCatEn = getVal(selectedCatObj.name, "en").toLowerCase();
+          return cat.includes(targetCatVi) || cat.includes(targetCatEn);
         }
-        if (isFoodTab) {
-          return cat.includes("thực phẩm") || cat.includes("food");
-        }
-        if (isMarketTab) {
-          return cat.includes("thị trường") || cat.includes("market");
-        }
-        return cat.includes(selCat);
+        return false;
       });
 
   const featuredArticle = initialArticles[0];
@@ -167,17 +161,27 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
 
               {/* Filter Tabs */}
               <div className="flex flex-wrap gap-1.5">
+                <button
+                  onClick={() => setSelectedCategoryId("all")}
+                  className={`rounded-md px-4 py-2 text-sm font-bold tracking-wide transition-all cursor-pointer ${
+                    selectedCategoryId === "all"
+                      ? "bg-brand-green text-white shadow-xs"
+                      : "bg-white border border-gray-250 text-gray-655 hover:bg-gray-55 hover:text-brand-green"
+                  }`}
+                >
+                  {t.newsList.allTab}
+                </button>
                 {categories.map((cat) => (
                   <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
+                    key={cat.id}
+                    onClick={() => setSelectedCategoryId(cat.id)}
                     className={`rounded-md px-4 py-2 text-sm font-bold tracking-wide transition-all cursor-pointer ${
-                      selectedCategory === cat
+                      selectedCategoryId === cat.id
                         ? "bg-brand-green text-white shadow-xs"
                         : "bg-white border border-gray-250 text-gray-655 hover:bg-gray-55 hover:text-brand-green"
                     }`}
                   >
-                    {cat}
+                    {getVal(cat.name, locale)}
                   </button>
                 ))}
               </div>
@@ -233,7 +237,7 @@ export default function NewsClient({ initialArticles }: { initialArticles: any[]
             <div className="text-center py-16 bg-gray-50 border border-gray-200 rounded-xl p-8 max-w-sm mx-auto space-y-3">
               <p className="text-gray-500 text-sm">{t.newsList.emptyText}</p>
               <button
-                onClick={() => setSelectedCategory(t.newsList.allTab)}
+                onClick={() => setSelectedCategoryId("all")}
                 className="text-sm font-bold text-brand-green uppercase tracking-wide hover:underline cursor-pointer"
               >
                 {t.newsList.backButton}

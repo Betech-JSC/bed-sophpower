@@ -53,6 +53,14 @@ export interface Article {
   og_image?: string;
 }
 
+export interface ArticleCategory {
+  id: number;
+  name: string | LocalizedString;
+  slug: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface RecruitmentJob {
   id: number;
   slug?: string;
@@ -224,6 +232,10 @@ export const api = {
     const endpoint = queryString ? `/news/${id}?${queryString}` : `/news/${id}`;
     const data = await fetchAPI(endpoint);
     return data.article || data;
+  },
+
+  async getNewsCategories(): Promise<ArticleCategory[]> {
+    return await fetchAPI('/news/categories');
   },
 
   // Recruitment

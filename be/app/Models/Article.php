@@ -47,9 +47,9 @@ class Article extends Model
     public function toArray()
     {
         $array = parent::toArray();
-        if ($this->relationLoaded('articleCategory')) {
-            $array['category'] = $this->articleCategory ? $this->articleCategory->name : null;
-        } elseif (isset($array['article_category'])) {
+        if ($this->relationLoaded('articleCategory') && $this->articleCategory) {
+            $array['category'] = $this->articleCategory->name;
+        } elseif (isset($array['article_category']) && $array['article_category']) {
             $array['category'] = $array['article_category']['name'] ?? null;
         }
         return $array;
