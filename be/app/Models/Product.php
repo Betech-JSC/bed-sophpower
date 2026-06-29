@@ -49,9 +49,9 @@ class Product extends Model
     public function toArray()
     {
         $array = parent::toArray();
-        if ($this->relationLoaded('productCategory')) {
-            $array['category'] = $this->productCategory ? $this->productCategory->name : null;
-        } elseif (isset($array['product_category'])) {
+        if ($this->relationLoaded('productCategory') && $this->productCategory) {
+            $array['category'] = $this->productCategory->name;
+        } elseif (isset($array['product_category']) && $array['product_category']) {
             $array['category'] = $array['product_category']['name'] ?? null;
         }
         return $array;

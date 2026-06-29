@@ -53,4 +53,10 @@ class ArticleApiController extends Controller
 
         return response()->json($article);
     }
+
+    public function categories()
+    {
+        $categories = \App\Models\ArticleCategory::orderBy('id', 'asc')->get();
+        return response()->json($categories);
+    }
 }
