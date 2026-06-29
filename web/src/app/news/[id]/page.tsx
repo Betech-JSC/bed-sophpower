@@ -9,6 +9,7 @@ import { siteDictionaries } from "@/i18n/site-dictionaries";
 import type { Metadata } from "next";
 import ShareSocial from "@/components/ShareSocial";
 import ScrollReveal from "@/components/ScrollReveal";
+import TableOfContents from "@/components/TableOfContents";
 
 export async function generateMetadata({
   params,
@@ -78,6 +79,67 @@ export async function generateMetadata({
   };
 }
 
+interface HeadingItem {
+  text: string;
+  id: string;
+  level: number;
+}
+
+function extractHeadingsAndInsertIds(htmlContent: string): {
+  modifiedHtml: string;
+  headings: HeadingItem[];
+} {
+  const headings: HeadingItem[] = [];
+  let idCounter = 1;
+
+  const slugify = (text: string) => {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // Remove tone marks/accents
+      .replace(/[đĐ]/g, "d")
+      .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+      .trim()
+      .replace(/\s+/g, "-") // Replace spaces with dashes
+      .replace(/-+/g, "-"); // Collapse duplicate dashes
+  };
+
+  const modifiedHtml = htmlContent.replace(
+    /<(h[23])(\s+[^>]*)?>(.*?)<\/\1>/gi,
+    (match, tag, attrs = "", content) => {
+      // Strip inner tags to get plain text for slugification
+      const plainText = content.replace(/<[^>]*>/g, "").trim();
+      if (!plainText) return match;
+
+      let headingId = slugify(plainText);
+      if (!headingId) {
+        headingId = `heading-${idCounter++}`;
+      }
+
+      // Ensure uniqueness
+      let finalId = headingId;
+      let counter = 1;
+      while (headings.some((h) => h.id === finalId)) {
+        finalId = `${headingId}-${counter++}`;
+      }
+
+      headings.push({
+        text: plainText,
+        id: finalId,
+        level: tag.toLowerCase() === "h2" ? 2 : 3,
+      });
+
+      // Filter out existing id attribute if any
+      const cleanAttrs = attrs.replace(/\bid\s*=\s*['"][^'"]*['"]/gi, "").trim();
+      const updatedAttrs = cleanAttrs ? ` id="${finalId}" ${cleanAttrs}` : ` id="${finalId}"`;
+
+      return `<${tag}${updatedAttrs}>${content}</${tag}>`;
+    }
+  );
+
+  return { modifiedHtml, headings };
+}
+
 export default async function NewsDetail({
   params,
   searchParams,
@@ -108,8 +170,9 @@ export default async function NewsDetail({
     return `${day}/${month}/${year}`;
   };
 
-  // Get dynamic HTML content
-  const articleContent = getVal(article.content, locale) || "";
+  // Get dynamic HTML content and extract TOC
+  const articleRawContent = getVal(article.content, locale) || "";
+  const { modifiedHtml: articleContent, headings } = extractHeadingsAndInsertIds(articleRawContent);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const articleUrl = `${baseUrl}/news/${article.slug || article.id}`;
@@ -186,6 +249,18 @@ export default async function NewsDetail({
                 className="w-full h-auto object-cover max-h-[450px]"
               />
             </div>
+          </ScrollReveal>
+        )}
+
+        {/* Table of Contents */}
+        {headings.length > 0 && (
+          <ScrollReveal direction="up" delay={120} duration={600}>
+            <TableOfContents
+              headings={headings}
+              title={t.newsList.tocTitle}
+              hideLabel={t.newsList.tocHide}
+              showLabel={t.newsList.tocShow}
+            />
           </ScrollReveal>
         )}
 

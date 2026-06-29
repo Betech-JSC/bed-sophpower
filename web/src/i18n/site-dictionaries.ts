@@ -206,6 +206,9 @@ export type SiteDictionary = {
     cosmeticTab: string;
     foodTab: string;
     marketTab: string;
+    tocTitle: string;
+    tocHide: string;
+    tocShow: string;
   };
   policies: {
     bannerTitle: string;
@@ -444,6 +447,9 @@ const dicts = {
       cosmeticTab: "Nguyên liệu mỹ phẩm",
       foodTab: "Nguyên liệu thực phẩm",
       marketTab: "Thị trường",
+      tocTitle: "Mục Lục",
+      tocHide: "[Ẩn]",
+      tocShow: "[Hiện]",
     },
     policies: {
       bannerTitle: "CHÍNH SÁCH",
@@ -680,6 +686,9 @@ const dicts = {
       cosmeticTab: "Cosmetic Ingredients",
       foodTab: "Food Ingredients",
       marketTab: "Market",
+      tocTitle: "Table of Contents",
+      tocHide: "[Hide]",
+      tocShow: "[Show]",
     },
     policies: {
       bannerTitle: "POLICIES",
