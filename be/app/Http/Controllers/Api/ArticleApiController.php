@@ -10,7 +10,10 @@ class ArticleApiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Article::with('articleCategory');
+        $query = Article::select([
+            'id', 'title', 'summary', 'date', 'image', 'category', 'author', 'slug',
+            'article_category_id', 'status', 'created_at', 'updated_at'
+        ])->with('articleCategory');
 
         if (!$request->input('preview') || $request->input('secret') !== env('PREVIEW_SECRET', 'SophpowerPreview2026')) {
             $query->where('status', 'published');
