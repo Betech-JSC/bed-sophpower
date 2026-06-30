@@ -23,9 +23,7 @@ Route::get('/news/{id}', [ArticleApiController::class, 'show']);
 Route::get('/recruitment', [JobApiController::class, 'index']);
 Route::get('/recruitment/{id}', [JobApiController::class, 'show']);
 
-Route::get('/leads', [LeadApiController::class, 'index']);
 Route::post('/contact', [LeadApiController::class, 'store']);
-Route::patch('/leads/{id}/status', [LeadApiController::class, 'updateStatus']);
 
 Route::get('/banners', [BannerApiController::class, 'index']);
 Route::get('/faqs', [FaqApiController::class, 'index']);

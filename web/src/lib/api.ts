@@ -340,30 +340,5 @@ export const api = {
       console.error("Failed to fetch redirects from backend:", e);
       return [];
     }
-  },
-
-  // Leads
-  async getLeads(): Promise<any[]> {
-    const data = await fetchAPI('/leads', { cache: 'no-store' });
-    return data.leads || data;
-  },
-
-  async updateLeadStatus(id: string | number, status: 'pending' | 'processed'): Promise<any> {
-    const url = `${API_BASE_URL}/leads/${id}/status`;
-    const res = await fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ status }),
-      cache: 'no-store',
-    });
-
-    const result = await res.json();
-    if (!res.ok) {
-      throw { errors: result.errors, message: result.message };
-    }
-    return result;
   }
 };
