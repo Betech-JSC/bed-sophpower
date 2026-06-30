@@ -105,10 +105,16 @@ function extractHeadingsAndInsertIds(htmlContent: string): {
   };
 
   const modifiedHtml = htmlContent.replace(
-    /<(h[23])(\s+[^>]*)?>(.*?)<\/\1>/gi,
+    /<(h[2-4])(\s+[^>]*)?>([\s\S]*?)<\/\1>/gi,
     (match, tag, attrs = "", content) => {
       // Strip inner tags to get plain text for slugification
-      const plainText = content.replace(/<[^>]*>/g, "").trim();
+      let plainText = content
+        .replace(/<[^>]*>/g, "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .trim();
       if (!plainText) return match;
 
       let headingId = slugify(plainText);
@@ -123,10 +129,13 @@ function extractHeadingsAndInsertIds(htmlContent: string): {
         finalId = `${headingId}-${counter++}`;
       }
 
+      const lowerTag = tag.toLowerCase();
+      const level = lowerTag === "h2" ? 2 : lowerTag === "h3" ? 3 : 4;
+
       headings.push({
         text: plainText,
         id: finalId,
-        level: tag.toLowerCase() === "h2" ? 2 : 3,
+        level,
       });
 
       // Filter out existing id attribute if any

@@ -74,17 +74,26 @@ export default function TableOfContents({
         <ul className="mt-4 space-y-2.5 list-none pl-0">
           {headings.map((heading, index) => {
             const isH3 = heading.level === 3;
+            const isH4 = heading.level === 4;
+            
+            let itemClass = "text-gray-700 font-medium";
+            if (isH3) {
+              itemClass = "pl-6 text-sm text-gray-500";
+            } else if (isH4) {
+              itemClass = "pl-12 text-sm text-gray-400";
+            }
+
             return (
               <li
                 key={index}
-                className={`${
-                  isH3 ? "pl-6 text-sm text-gray-500" : "text-gray-700 font-medium"
-                } relative flex items-start gap-2`}
+                className={`${itemClass} relative flex items-start gap-2`}
               >
                 {/* Custom dot indicator */}
                 <span 
                   className={`inline-block rounded-full bg-brand-green/80 shrink-0 ${
-                    isH3 ? "w-1 h-1 mt-2 bg-brand-green/40" : "w-1.5 h-1.5 mt-2"
+                    isH3 ? "w-1 h-1 mt-2 bg-brand-green/40" : 
+                    isH4 ? "w-1 h-1 mt-2 bg-brand-green/20" : 
+                    "w-1.5 h-1.5 mt-2"
                   }`} 
                 />
                 <a
