@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, Loader2 } from "lucide-react";
@@ -9,6 +9,7 @@ import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api, Product, Article } from "@/lib/api";
 import { getVal } from "@/lib/i18n-utils";
+import { localizeLink } from "@/lib/localize-link";
 
 export default function Header() {
   const pathname = usePathname();
@@ -118,7 +119,7 @@ export default function Header() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
+              <Link href={localizeLink("/", locale)} className="hover:opacity-90 transition-opacity flex items-center">
                 <img
                   src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
                   alt="Sophpower Logo"
@@ -132,7 +133,7 @@ export default function Header() {
               {menuItems.map((item) => (
                 <Link
                   key={item.path}
-                  href={item.path}
+                  href={localizeLink(item.path, locale)}
                   className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
                     isActive(item.path)
                       ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
@@ -147,7 +148,9 @@ export default function Header() {
             {/* Actions */}
             <div className="flex items-center gap-4">
               {/* Language Toggle */}
-              <LanguageToggle />
+              <Suspense fallback={<div className="w-10 h-10" />}>
+                <LanguageToggle />
+              </Suspense>
 
               {/* Search Toggle */}
               <button
@@ -197,7 +200,7 @@ export default function Header() {
           {menuItems.map((item, idx) => (
             <Link
               key={item.path}
-              href={item.path}
+              href={localizeLink(item.path, locale)}
               onClick={() => setMobileMenuOpen(false)}
               style={{
                 transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
@@ -229,7 +232,7 @@ export default function Header() {
               <X className="h-6 w-6" />
             </button>
             <h3 className="text-lg font-bold text-gray-900 mb-4">{t.header.searchTitle}</h3>
-            <form action="/search" method="get" className="flex gap-2">
+            <form action={localizeLink("/search", locale)} method="get" className="flex gap-2">
               <input
                 type="text"
                 name="keyword"
@@ -282,7 +285,12 @@ export default function Header() {
                             {suggestions.products.map((prod) => (
                               <Link
                                 key={prod.id}
-                                href={prod.type === 'food' ? `/nguyen-lieu-thuc-pham/${prod.slug || prod.id}` : `/nguyen-lieu-my-pham/${prod.slug || prod.id}`}
+                                href={localizeLink(
+                                  prod.type === 'food' 
+                                    ? `/nguyen-lieu-thuc-pham/${prod.slug || prod.id}` 
+                                    : `/nguyen-lieu-my-pham/${prod.slug || prod.id}`,
+                                  locale
+                                )}
                                 onClick={toggleSearch}
                                 className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-150 transition-all duration-150"
                               >
@@ -315,7 +323,7 @@ export default function Header() {
                             {suggestions.articles.map((art) => (
                               <Link
                                 key={art.id}
-                                href={`/news/${art.slug || art.id}`}
+                                href={localizeLink(`/news/${art.slug || art.id}`, locale)}
                                 onClick={toggleSearch}
                                 className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-150 transition-all duration-150"
                               >
@@ -371,10 +379,15 @@ export default function Header() {
                         {t.header.searchSuggestedProducts}
                       </p>
                       <div className="space-y-1.5">
-                        {initialProducts.map((prod) => (
+                         {initialProducts.map((prod) => (
                           <Link
                             key={prod.id}
-                            href={prod.type === 'food' ? `/nguyen-lieu-thuc-pham/${prod.slug || prod.id}` : `/nguyen-lieu-my-pham/${prod.slug || prod.id}`}
+                            href={localizeLink(
+                              prod.type === 'food' 
+                                ? `/nguyen-lieu-thuc-pham/${prod.slug || prod.id}` 
+                                : `/nguyen-lieu-my-pham/${prod.slug || prod.id}`,
+                              locale
+                            )}
                             onClick={toggleSearch}
                             className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-150 transition-all duration-150"
                           >

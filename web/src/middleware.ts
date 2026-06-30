@@ -23,6 +23,34 @@ export async function middleware(request: NextRequest) {
     console.error("SEO Redirect middleware error:", error);
   }
 
+  // Handle URL-based language routing
+  const localeMatch = pathname.match(/^\/(en|vi|zh|ja)(\/|$)/);
+  if (localeMatch) {
+    const locale = localeMatch[1];
+    const rest = pathname.substring(locale.length + 1) || "/";
+    
+    const rewrittenUrl = new URL(rest, request.url);
+    rewrittenUrl.search = request.nextUrl.search;
+
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", locale);
+
+    const response = NextResponse.rewrite(rewrittenUrl, {
+      request: {
+        headers: requestHeaders,
+      }
+    });
+
+    // Synchronize client-side and SSR cookie
+    response.cookies.set("ag-kit-locale", locale, { 
+      path: "/", 
+      maxAge: 31536000, 
+      sameSite: "lax" 
+    });
+
+    return response;
+  }
+
   return NextResponse.next();
 }
 

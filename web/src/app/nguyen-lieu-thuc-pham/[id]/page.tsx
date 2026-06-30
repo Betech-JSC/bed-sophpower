@@ -55,7 +55,13 @@ export async function generateMetadata({
     keywords: customKeywords || undefined,
     robots: robots || undefined,
     alternates: {
-      canonical: product.canonical_url || `${baseUrl}/${locale === "vi" ? "nguyen-lieu-thuc-pham" : "food-ingredients"}/${id}`,
+      canonical: product.canonical_url || `${baseUrl}/${locale === "vi" ? "nguyen-lieu-thuc-pham" : "food-ingredients"}/${product.slug || id}`,
+      languages: {
+        vi: `${baseUrl}/nguyen-lieu-thuc-pham/${product.slug || id}`,
+        en: `${baseUrl}/en/food-ingredients/${product.slug || id}`,
+        zh: `${baseUrl}/zh/food-ingredients/${product.slug || id}`,
+        ja: `${baseUrl}/ja/food-ingredients/${product.slug || id}`,
+      }
     },
     openGraph: {
       type: "website",

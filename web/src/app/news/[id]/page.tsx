@@ -56,7 +56,13 @@ export async function generateMetadata({
     keywords: customKeywords || undefined,
     robots: robots || undefined,
     alternates: {
-      canonical: article.canonical_url || `${baseUrl}/news/${id}`,
+      canonical: article.canonical_url || `${baseUrl}/news/${article.slug || id}`,
+      languages: {
+        vi: `${baseUrl}/news/${article.slug || id}`,
+        en: `${baseUrl}/en/news/${article.slug || id}`,
+        zh: `${baseUrl}/zh/news/${article.slug || id}`,
+        ja: `${baseUrl}/ja/news/${article.slug || id}`,
+      }
     },
     openGraph: {
       type: "article",

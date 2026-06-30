@@ -6,6 +6,7 @@ import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-re
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api } from "@/lib/api";
+import { localizeLink } from "@/lib/localize-link";
 
 export default function Footer() {
   const { locale } = useI18n();
@@ -93,7 +94,7 @@ export default function Footer() {
 
           {/* Left: Brand Logo */}
           <div className="shrink-0">
-            <Link href="/" className="block">
+            <Link href={localizeLink("/", locale)} className="block">
               <img
                 src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
                 alt="Sophpower Logo"
@@ -109,11 +110,11 @@ export default function Footer() {
               <h3 className="text-xs font-bold tracking-widest text-brand-green-light uppercase">
                 {categories.ingredients.title}
               </h3>
-              <ul className="space-y-2.5">
+               <ul className="space-y-2.5">
                 {categories.ingredients.links.map((link) => (
                   <li key={link.path}>
                     <Link
-                      href={link.path}
+                      href={localizeLink(link.path, locale)}
                       className="text-sm text-gray-300 hover:text-white transition-colors font-medium"
                     >
                       {link.name}
@@ -132,7 +133,7 @@ export default function Footer() {
                 {categories.company.links.map((link) => (
                   <li key={link.path}>
                     <Link
-                      href={link.path}
+                      href={localizeLink(link.path, locale)}
                       className="text-sm text-gray-300 hover:text-white transition-colors font-medium"
                     >
                       {link.name}

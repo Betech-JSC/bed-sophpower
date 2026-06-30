@@ -136,6 +136,12 @@ export async function generateMetadata({
     robots: robots || undefined,
     alternates: {
       canonical: canonical || `${baseUrl}/policies/${id}`,
+      languages: {
+        vi: `${baseUrl}/policies/${id}`,
+        en: `${baseUrl}/en/policies/${id}`,
+        zh: `${baseUrl}/zh/policies/${id}`,
+        ja: `${baseUrl}/ja/policies/${id}`,
+      }
     },
     openGraph: {
       type: "website",

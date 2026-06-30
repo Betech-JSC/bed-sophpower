@@ -60,6 +60,15 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: settings?.site_favicon ? api.getImageUrl(settings.site_favicon) : "/favicon.ico",
     },
+    alternates: {
+      canonical: baseUrl,
+      languages: {
+        vi: `${baseUrl}`,
+        en: `${baseUrl}/en`,
+        zh: `${baseUrl}/zh`,
+        ja: `${baseUrl}/ja`,
+      }
+    },
     openGraph: {
       type: "website",
       url: baseUrl,

@@ -44,7 +44,13 @@ export async function generateMetadata({
     keywords: customKeywords || undefined,
     robots: robots || undefined,
     alternates: {
-      canonical: job.canonical_url || `${baseUrl}/recruitment/${id}`,
+      canonical: job.canonical_url || `${baseUrl}/recruitment/${job.slug || id}`,
+      languages: {
+        vi: `${baseUrl}/recruitment/${job.slug || id}`,
+        en: `${baseUrl}/en/recruitment/${job.slug || id}`,
+        zh: `${baseUrl}/zh/recruitment/${job.slug || id}`,
+        ja: `${baseUrl}/ja/recruitment/${job.slug || id}`,
+      }
     },
     openGraph: {
       type: "website",
