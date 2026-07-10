@@ -37,8 +37,16 @@
       >
         <!-- Custom body cell rendering -->
         <template #bodyCell="{ column, record }">
+          <!-- Name Column -->
+          <template v-if="column.key === 'name'">
+            <div class="font-semibold text-gray-900">{{ record.name }}</div>
+            <div v-if="record.company" class="text-xs text-gray-400 font-normal mt-0.5" title="Công ty">
+              {{ record.company }}
+            </div>
+          </template>
+
           <!-- Status Column -->
-          <template v-if="column.key === 'status'">
+          <template v-else-if="column.key === 'status'">
             <a-tag :color="record.status === 'pending' ? 'red' : 'green'">
               {{ record.status === 'pending' ? 'Chờ xử lý' : 'Đã xử lý' }}
             </a-tag>
@@ -101,8 +109,9 @@
             <p class="font-bold text-gray-900 mt-0.5">{{ activeLead.name }}</p>
           </div>
           <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Thời gian gửi</p>
-            <p class="text-gray-700 mt-0.5">{{ formatDateTime(activeLead.created_at) }}</p>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Tên công ty</p>
+            <p class="font-bold text-gray-900 mt-0.5" v-if="activeLead.company">{{ activeLead.company }}</p>
+            <p class="text-gray-400 italic mt-0.5 font-normal" v-else>Chưa cung cấp</p>
           </div>
         </div>
 
@@ -122,23 +131,29 @@
           </div>
         </div>
 
-        <div class="border-b border-gray-100 pb-4">
-          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Trạng thái hiện tại</p>
-          <div class="mt-1 flex items-center gap-2">
-            <a-tag :color="activeLead.status === 'pending' ? 'red' : 'green'">
-              {{ activeLead.status === 'pending' ? 'Chờ xử lý' : 'Đã xử lý' }}
-            </a-tag>
-            
-            <a-button
-              size="small"
-              class="rounded text-xs"
-              :type="activeLead.status === 'pending' ? 'primary' : 'default'"
-              :class="activeLead.status === 'pending' ? 'bg-emerald-700 hover:bg-emerald-800 border-none' : ''"
-              @click="toggleStatus(activeLead)"
-              :loading="statusLoading"
-            >
-              {{ activeLead.status === 'pending' ? 'Đánh dấu đã xử lý' : 'Đánh dấu chưa xử lý' }}
-            </a-button>
+        <div class="grid grid-cols-2 gap-4 border-b border-gray-100 pb-4">
+          <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Thời gian gửi</p>
+            <p class="text-gray-700 mt-0.5">{{ formatDateTime(activeLead.created_at) }}</p>
+          </div>
+          <div>
+            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Trạng thái hiện tại</p>
+            <div class="mt-1 flex flex-wrap items-center gap-2">
+              <a-tag :color="activeLead.status === 'pending' ? 'red' : 'green'">
+                {{ activeLead.status === 'pending' ? 'Chờ xử lý' : 'Đã xử lý' }}
+              </a-tag>
+              
+              <a-button
+                size="small"
+                class="rounded text-xs"
+                :type="activeLead.status === 'pending' ? 'primary' : 'default'"
+                :class="activeLead.status === 'pending' ? 'bg-emerald-700 hover:bg-emerald-800 border-none' : ''"
+                @click="toggleStatus(activeLead)"
+                :loading="statusLoading"
+              >
+                {{ activeLead.status === 'pending' ? 'Đánh dấu đã xử lý' : 'Đánh dấu chưa xử lý' }}
+              </a-button>
+            </div>
           </div>
         </div>
 

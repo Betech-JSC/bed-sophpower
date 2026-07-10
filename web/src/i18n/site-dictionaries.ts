@@ -72,10 +72,12 @@ export type SiteDictionary = {
     nameLabel: string;
     emailLabel: string;
     phoneLabel: string;
+    companyLabel: string;
     messageLabel: string;
     namePlaceholder: string;
     emailPlaceholder: string;
     phonePlaceholder: string;
+    companyPlaceholder: string;
     messagePlaceholder: string;
     sendBtn: string;
     sendingBtn: string;
@@ -313,10 +315,12 @@ const dicts = {
       nameLabel: "Họ và tên",
       emailLabel: "Địa chỉ email",
       phoneLabel: "Số điện thoại",
+      companyLabel: "Tên công ty",
       messageLabel: "Nội dung tin nhắn",
       namePlaceholder: "Nhập họ và tên của bạn",
       emailPlaceholder: "Nhập địa chỉ email để liên hệ",
       phonePlaceholder: "Nhập số điện thoại của bạn",
+      companyPlaceholder: "Nhập tên công ty của bạn (nếu có)",
       messagePlaceholder: "Nhập nội dung yêu cầu tư vấn...",
       sendBtn: "Gửi yêu cầu",
       sendingBtn: "Đang gửi...",
@@ -552,10 +556,12 @@ const dicts = {
       nameLabel: "Full Name",
       emailLabel: "Email Address",
       phoneLabel: "Phone Number",
+      companyLabel: "Company Name",
       messageLabel: "Message Content",
       namePlaceholder: "Enter your full name",
       emailPlaceholder: "Enter contact email address",
       phonePlaceholder: "Enter your phone number",
+      companyPlaceholder: "Enter your company name (optional)",
       messagePlaceholder: "Enter consultation request content...",
       sendBtn: "Send Request",
       sendingBtn: "Sending...",

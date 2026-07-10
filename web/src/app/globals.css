@@ -292,3 +292,27 @@ body {
     background-size: 480px 480px;
   }
 }
+
+/* Custom Rich Text rendering rules to ensure list styles display correctly */
+.rich-text ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.rich-text ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.rich-text li {
+  list-style: inherit !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.rich-text p {
+  margin-bottom: 0.75rem !important;
+}

@@ -132,7 +132,7 @@ export default function ProductTabs({ product }: { product: any }) {
           <div className="space-y-4">
             <h3 className="text-lg font-bold text-gray-900 mb-2">{t.products.tabDesc}</h3>
             <div
-              className="text-justify text-gray-605 leading-relaxed text-sm sm:text-base [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
+              className="rich-text text-justify text-gray-605 leading-relaxed text-sm sm:text-base"
               dangerouslySetInnerHTML={{ __html: getVal(product.desc, locale) }}
             />
           </div>

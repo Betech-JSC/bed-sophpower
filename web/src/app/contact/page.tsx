@@ -15,6 +15,7 @@ export default function Contact() {
     name: "",
     email: "",
     phone: "",
+    company: "",
     message: "",
   });
 
@@ -52,11 +53,12 @@ export default function Contact() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone || undefined,
+        company: formData.company || undefined,
         message: formData.message,
       });
 
       setSubmitted(true);
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
       // Clear success notification after 7 seconds
       setTimeout(() => setSubmitted(false), 7000);
     } catch (err: any) {
@@ -189,24 +191,46 @@ export default function Contact() {
                     </div>
                   )}
 
-                  {/* Name Input */}
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                      {t.contact.nameLabel.toUpperCase()} <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder={t.contact.namePlaceholder}
-                      disabled={loading}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
-                    />
-                    {errors.name && (
-                      <p className="text-xs text-red-600 font-semibold">{errors.name[0]}</p>
-                    )}
+                  {/* Name & Company Input */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Name Input */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-gray-700 tracking-wide block">
+                        {t.contact.nameLabel.toUpperCase()} <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder={t.contact.namePlaceholder}
+                        disabled={loading}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
+                      />
+                      {errors.name && (
+                        <p className="text-xs text-red-600 font-semibold">{errors.name[0]}</p>
+                      )}
+                    </div>
+
+                    {/* Company Input */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-gray-700 tracking-wide block">
+                        {t.contact.companyLabel.toUpperCase()}
+                      </label>
+                      <input
+                        type="text"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        placeholder={t.contact.companyPlaceholder}
+                        disabled={loading}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 text-sm focus:border-brand-green focus:ring-1 focus:ring-brand-green focus:outline-hidden disabled:bg-gray-100"
+                      />
+                      {errors.company && (
+                        <p className="text-xs text-red-600 font-semibold">{errors.company[0]}</p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

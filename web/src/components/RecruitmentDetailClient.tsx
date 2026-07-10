@@ -107,8 +107,8 @@ export default function RecruitmentDetailClient({ id }: { id: string }) {
 
           {job.summary && (
             <ScrollReveal direction="up" delay={100} duration={600}>
-              <div
-                className="text-gray-655 text-sm sm:text-base leading-relaxed text-justify border-l-4 border-brand-green/30 pl-4 py-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-2"
+               <div
+                className="rich-text text-gray-655 text-sm sm:text-base leading-relaxed text-justify border-l-4 border-brand-green/30 pl-4 py-1"
                 dangerouslySetInnerHTML={{ __html: job.summary }}
               />
             </ScrollReveal>
