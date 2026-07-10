@@ -249,7 +249,7 @@ export const api = {
   },
 
   // Contact
-  async submitContact(data: { name: string; email: string; phone?: string; company?: string; message: string }) {
+  async submitContact(data: { name: string; email: string; phone?: string; company: string; message: string }) {
     const url = `${API_BASE_URL}/contact`;
     const res = await fetch(url, {
       method: 'POST',

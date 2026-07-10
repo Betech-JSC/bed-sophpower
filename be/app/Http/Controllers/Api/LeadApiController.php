@@ -15,7 +15,7 @@ class LeadApiController extends Controller
             'name' => 'required|string|min:2|max:100',
             'email' => 'required|email|max:100',
             'phone' => 'nullable|string|regex:/^[0-9+ ]{9,15}$/',
-            'company' => 'nullable|string|max:150',
+            'company' => 'required|string|min:2|max:150',
             'message' => 'required|string|min:10|max:1000',
         ]);
 

@@ -53,7 +53,7 @@ export default function Contact() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone || undefined,
-        company: formData.company || undefined,
+        company: formData.company,
         message: formData.message,
       });
 
@@ -216,10 +216,11 @@ export default function Contact() {
                     {/* Company Input */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-700 tracking-wide block">
-                        {t.contact.companyLabel.toUpperCase()}
+                        {t.contact.companyLabel.toUpperCase()} <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
+                        required
                         name="company"
                         value={formData.company}
                         onChange={handleInputChange}
