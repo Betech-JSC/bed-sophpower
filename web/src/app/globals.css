@@ -313,6 +313,49 @@ body {
   margin-bottom: 0.25rem !important;
 }
 
+/* Quill 2.0 List Rendering Support (bullet, ordered, checklist) */
+.rich-text li[data-list="bullet"] {
+  list-style-type: none !important;
+  position: relative !important;
+  padding-left: 0.25rem !important;
+}
+
+.rich-text li[data-list="bullet"]::before {
+  content: "•" !important;
+  position: absolute !important;
+  left: -1rem !important;
+  font-size: 1.25rem !important;
+  line-height: 1.2 !important;
+  top: -0.05rem !important;
+  color: inherit !important;
+}
+
+.rich-text li[data-list="ordered"] {
+  list-style-type: decimal !important;
+}
+
+.rich-text li[data-list="checked"],
+.rich-text li[data-list="unchecked"] {
+  list-style-type: none !important;
+  position: relative !important;
+  padding-left: 0.25rem !important;
+}
+
+.rich-text li[data-list="checked"]::before {
+  content: "✓" !important;
+  position: absolute !important;
+  left: -1rem !important;
+  color: #106d38 !important;
+  font-weight: bold !important;
+}
+
+.rich-text li[data-list="unchecked"]::before {
+  content: "☐" !important;
+  position: absolute !important;
+  left: -1rem !important;
+  color: #9ca3af !important;
+}
+
 .rich-text p {
   margin-bottom: 0.75rem !important;
 }
