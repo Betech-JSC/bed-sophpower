@@ -104,34 +104,49 @@ export default function ProductListingClient({
     };
   }, [locale, type]);
 
+  const getFoodSubCategory = (prod: ListedProduct): "phu-gia" | "bot-trai-cay" | "huong-lieu" => {
+    const cat = (prod.categoryName || "").toLowerCase();
+    const name = (prod.name || "").toLowerCase();
+
+    // 1. Check Hương liệu (Must check first so "Hương liệu phụ gia" is assigned to huong-lieu, NOT phu-gia)
+    if (
+      name.includes("hương liệu") ||
+      name.includes("flavor") ||
+      cat.includes("hương liệu") ||
+      cat.includes("flavor") ||
+      cat.includes("fragrance")
+    ) {
+      return "huong-lieu";
+    }
+
+    // 2. Check Bột trái cây
+    if (
+      name.includes("bột nước") ||
+      name.includes("bột trái") ||
+      name.includes("bột quả") ||
+      name.includes("coconut water powder") ||
+      (cat.includes("bột") && (cat.includes("trái") || cat.includes("quả") || cat.includes("juice") || cat.includes("fruit"))) ||
+      (name.includes("powder") && (name.includes("coconut") || name.includes("fruit") || name.includes("juice")))
+    ) {
+      return "bot-trai-cay";
+    }
+
+    // 3. Phụ gia
+    return "phu-gia";
+  };
+
   const matchCategoryKey = (prod: ListedProduct, key?: string) => {
     if (!key || key === "all") return true;
-    const cat = prod.categoryName.toLowerCase();
-    const name = prod.name.toLowerCase();
+    const subCat = getFoodSubCategory(prod);
 
     if (key === "huong-lieu" || key === "flavors") {
-      return cat.includes("hương liệu") || cat.includes("flavor") || name.includes("flavor") || name.includes("hương");
+      return subCat === "huong-lieu";
     }
     if (key === "bot-trai-cay" || key === "fruit-powders") {
-      return (
-        (cat.includes("bột") && (cat.includes("quả") || cat.includes("trái") || cat.includes("juice") || cat.includes("fruit"))) ||
-        (name.includes("powder") && (name.includes("coconut") || name.includes("fruit") || name.includes("juice"))) ||
-        name.includes("bột nước") ||
-        name.includes("bột trái")
-      );
+      return subCat === "bot-trai-cay";
     }
     if (key === "phu-gia" || key === "additives") {
-      return (
-        cat.includes("màu") ||
-        cat.includes("tạo màu") ||
-        cat.includes("làm dày") ||
-        cat.includes("ổn định") ||
-        cat.includes("phụ gia") ||
-        cat.includes("additive") ||
-        cat.includes("color") ||
-        cat.includes("stabilizer") ||
-        (!cat.includes("hương liệu") && !cat.includes("flavor") && !cat.includes("bột nước") && !name.includes("coconut water powder"))
-      );
+      return subCat === "phu-gia";
     }
     return true;
   };
