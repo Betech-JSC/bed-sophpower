@@ -23,6 +23,10 @@ export type SiteDictionary = {
     searchNews: string;
     searchPopularKeywords: string;
     searchSuggestedProducts: string;
+    additives: string;
+    fruitPowders: string;
+    flavors: string;
+    allCategories: string;
   };
   footer: {
     products: string;
@@ -266,6 +270,10 @@ const dicts = {
       searchNews: "Tin tức & Bài viết",
       searchPopularKeywords: "Từ khóa phổ biến",
       searchSuggestedProducts: "Sản phẩm gợi ý",
+      additives: "Phụ gia",
+      fruitPowders: "Bột trái cây",
+      flavors: "Hương liệu",
+      allCategories: "Tất cả",
     },
     footer: {
       products: "SẢN PHẨM",
@@ -507,6 +515,10 @@ const dicts = {
       searchNews: "News & Articles",
       searchPopularKeywords: "Popular Keywords",
       searchSuggestedProducts: "Suggested Products",
+      additives: "Additives",
+      fruitPowders: "Fruit Powders",
+      flavors: "Flavors",
+      allCategories: "All",
     },
     footer: {
       products: "PRODUCTS",

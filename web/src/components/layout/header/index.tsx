@@ -3,18 +3,30 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, Loader2 } from "lucide-react";
+import { Menu, X, Search, Loader2, ChevronDown } from "lucide-react";
 import LanguageToggle from "./components/language-toggle";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api, Product, Article } from "@/lib/api";
 import { getVal } from "@/lib/i18n-utils";
 
+interface SubMenuItem {
+  name: string;
+  path: string;
+}
+
+interface MenuItem {
+  name: string;
+  path: string;
+  subItems?: SubMenuItem[];
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandedMobileSubmenu, setExpandedMobileSubmenu] = useState<string | null>(null);
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
 
@@ -25,15 +37,23 @@ export default function Header() {
       .catch((err) => console.error("Failed to load settings in header:", err));
   }, []);
 
-  const menuItems = [
+  const foodBasePath = locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients";
+  const cosmeticBasePath = locale === "vi" ? "/nguyen-lieu-my-pham" : "/cosmetic-ingredients";
+
+  const menuItems: MenuItem[] = [
     { name: t.header.about, path: "/about" },
     { 
       name: t.header.foodIngredients, 
-      path: locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients" 
+      path: foodBasePath,
+      subItems: [
+        { name: t.header.additives, path: `${foodBasePath}?category=phu-gia` },
+        { name: t.header.fruitPowders, path: `${foodBasePath}?category=bot-trai-cay` },
+        { name: t.header.flavors, path: `${foodBasePath}?category=huong-lieu` },
+      ]
     },
     { 
       name: t.header.cosmeticIngredients, 
-      path: locale === "vi" ? "/nguyen-lieu-my-pham" : "/cosmetic-ingredients" 
+      path: cosmeticBasePath 
     },
     { name: t.header.news, path: "/news" },
     { name: t.header.contact, path: "/contact" },
@@ -102,10 +122,11 @@ export default function Header() {
     if (path === "/") {
       return pathname === "/";
     }
+    const cleanPath = path.split("?")[0];
     const normalizedPathname = pathname
       .replace("/food-ingredients", "/nguyen-lieu-thuc-pham")
       .replace("/cosmetic-ingredients", "/nguyen-lieu-my-pham");
-    const normalizedPath = path
+    const normalizedPath = cleanPath
       .replace("/food-ingredients", "/nguyen-lieu-thuc-pham")
       .replace("/cosmetic-ingredients", "/nguyen-lieu-my-pham");
     return normalizedPathname.startsWith(normalizedPath);
@@ -128,20 +149,59 @@ export default function Header() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex space-x-8">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
-                    isActive(item.path)
-                      ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
-                      : "text-white hover:text-[#10e660]"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {menuItems.map((item) => {
+                const itemIsActive = isActive(item.path);
+                if (item.subItems) {
+                  return (
+                    <div key={item.path} className="relative group py-6">
+                      <Link
+                        href={item.path}
+                        className={`inline-flex items-center gap-1.5 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                          itemIsActive
+                            ? "text-[#10e660]"
+                            : "text-white group-hover:text-[#10e660]"
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 text-white/80 group-hover:text-[#10e660]" />
+                      </Link>
+                      {itemIsActive && (
+                        <span className="absolute bottom-4 left-0 h-0.5 w-full bg-[#10e660]" />
+                      )}
+
+                      {/* Dropdown Menu */}
+                      <div className="absolute top-full left-0 w-56 pt-1 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
+                        <div className="bg-white rounded-xl shadow-xl border border-gray-150 py-2 text-gray-800 text-sm font-semibold overflow-hidden">
+                          {item.subItems.map((sub) => (
+                            <Link
+                              key={sub.path}
+                              href={sub.path}
+                              className="block px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                      itemIsActive
+                        ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
+                        : "text-white hover:text-[#10e660]"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Actions */}
@@ -186,35 +246,84 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer with smooth transitions */}
+        {/* Mobile Navigation Drawer */}
         <div 
           className={`lg:hidden border-t border-white/10 bg-brand-green px-4 py-3 space-y-2 shadow-inner transition-all duration-350 ease-out origin-top overflow-hidden ${
             mobileMenuOpen 
-              ? 'opacity-100 max-h-96 translate-y-0 scale-y-100 visible' 
+              ? 'opacity-100 max-h-[500px] translate-y-0 scale-y-100 visible' 
               : 'opacity-0 max-h-0 -translate-y-2 scale-y-95 invisible'
           }`}
         >
-          {menuItems.map((item, idx) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
-              }}
-              className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 transform ${
-                mobileMenuOpen 
-                  ? 'translate-x-0 opacity-100' 
-                  : '-translate-x-3 opacity-0'
-              } ${
-                isActive(item.path)
-                  ? "bg-white/10 text-[#10e660]"
-                  : "text-white hover:bg-white/5 hover:text-[#10e660]"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {menuItems.map((item, idx) => {
+            const itemIsActive = isActive(item.path);
+            const isExpanded = expandedMobileSubmenu === item.path;
+
+            if (item.subItems) {
+              return (
+                <div key={item.path} className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
+                      }}
+                      className={`flex-1 px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 ${
+                        itemIsActive
+                          ? "bg-white/10 text-[#10e660]"
+                          : "text-white hover:bg-white/5 hover:text-[#10e660]"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                    <button
+                      onClick={() => setExpandedMobileSubmenu(isExpanded ? null : item.path)}
+                      className="p-3 text-white hover:text-[#10e660] transition-colors cursor-pointer"
+                      aria-label="Toggle submenu"
+                    >
+                      <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                    </button>
+                  </div>
+
+                  {/* Submenu links */}
+                  <div className={`pl-4 border-l-2 border-white/20 ml-3 space-y-1 overflow-hidden transition-all duration-300 ${isExpanded || itemIsActive ? 'max-h-48 py-1' : 'max-h-0 py-0'}`}>
+                    {item.subItems.map((sub) => (
+                      <Link
+                        key={sub.path}
+                        href={sub.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block px-3 py-2 rounded-md text-sm font-semibold text-white/90 hover:text-[#10e660] hover:bg-white/5 transition-colors"
+                      >
+                        • {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
+                }}
+                className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 transform ${
+                  mobileMenuOpen 
+                    ? 'translate-x-0 opacity-100' 
+                    : '-translate-x-3 opacity-0'
+                } ${
+                  itemIsActive
+                    ? "bg-white/10 text-[#10e660]"
+                    : "text-white hover:bg-white/5 hover:text-[#10e660]"
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
       </header>
 
@@ -328,9 +437,9 @@ export default function Header() {
                                   <h4 className="text-xs font-bold text-gray-900 truncate">
                                     {getVal(art.title, locale)}
                                   </h4>
-                                  <span className="text-[10px] text-gray-500 block mt-0.5">
-                                    {art.author}
-                                  </span>
+                                  <p className="text-[10px] text-gray-400 truncate mt-0.5">
+                                    {art.date}
+                                  </p>
                                 </div>
                               </Link>
                             ))}
@@ -342,21 +451,21 @@ export default function Header() {
                 </>
               )}
 
-              {/* 3. Empty input suggestions (Initial state) */}
+              {/* 3. Pre-search default state (Popular keywords & Recommended products) */}
               {!loading && searchQuery.trim().length < 2 && (
-                <>
+                <div className="py-3 space-y-5">
                   {/* Popular Keywords */}
-                  <div className="py-3 space-y-2">
+                  <div className="space-y-2">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                       {t.header.searchPopularKeywords}
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {popularKeywords.map((kw) => (
                         <button
                           key={kw}
                           type="button"
                           onClick={() => handleKeywordClick(kw)}
-                          className="px-2.5 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-xs text-gray-650 hover:bg-emerald-50 hover:border-brand-green hover:text-emerald-800 transition-all font-bold cursor-pointer"
+                          className="px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-brand-green/10 text-gray-600 hover:text-brand-green text-xs font-semibold transition-colors cursor-pointer"
                         >
                           {kw}
                         </button>
@@ -364,9 +473,9 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Suggested Products */}
+                  {/* Initial Product Suggestions */}
                   {initialProducts.length > 0 && (
-                    <div className="py-3 space-y-2">
+                    <div className="space-y-2 pt-2 border-t border-gray-100">
                       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                         {t.header.searchSuggestedProducts}
                       </p>
@@ -396,7 +505,7 @@ export default function Header() {
                       </div>
                     </div>
                   )}
-                </>
+                </div>
               )}
             </div>
           </div>
