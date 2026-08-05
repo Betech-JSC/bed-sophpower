@@ -25,7 +25,7 @@ class JobController extends Controller
             });
         }
 
-        $jobs = $query->latest()->paginate(10)->withQueryString();
+        $jobs = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('Jobs/Index', [
             'jobs' => $jobs,

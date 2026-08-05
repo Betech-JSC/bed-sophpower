@@ -24,7 +24,7 @@ class LeadController extends Controller
             $query->where('status', $request->status);
         }
 
-        $leads = $query->latest()->paginate(10)->withQueryString();
+        $leads = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('Leads/Index', [
             'leads' => $leads,
