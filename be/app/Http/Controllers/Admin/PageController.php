@@ -22,7 +22,7 @@ class PageController extends Controller
                   ->orWhere('title->en', 'like', '%' . $search . '%');
         }
 
-        $pages = $query->latest()->paginate(10)->withQueryString();
+        $pages = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('Pages/Index', [
             'pages' => $pages,

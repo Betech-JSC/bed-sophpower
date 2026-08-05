@@ -28,7 +28,7 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->latest()->paginate(10)->withQueryString();
+        $articles = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('News/Index', [
             'articles' => $articles,

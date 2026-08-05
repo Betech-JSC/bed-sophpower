@@ -28,7 +28,7 @@ class ProductQuestionController extends Controller
             $query->where('status', $request->status);
         }
 
-        $questions = $query->latest()->paginate(10)->withQueryString();
+        $questions = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('ProductQuestions/Index', [
             'questions' => $questions,
