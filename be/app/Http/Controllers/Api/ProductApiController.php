@@ -21,14 +21,32 @@ class ProductApiController extends Controller
         }
 
         if ($request->has('category')) {
-            $query->where('category', $request->category);
+            $category = $request->category;
+            $query->where(function($q) use ($category) {
+                if (is_numeric($category)) {
+                    $q->where('product_category_id', $category);
+                } else {
+                    $q->whereHas('productCategory', function($subQuery) use ($category) {
+                        $subQuery->where('slug', $category)
+                                 ->orWhere('name->vi', 'like', '%' . $category . '%')
+                                 ->orWhere('name->en', 'like', '%' . $category . '%');
+                    })->orWhere('category->vi', 'like', '%' . $category . '%')
+                      ->orWhere('category->en', 'like', '%' . $category . '%');
+                }
+            });
         }
 
         if ($request->has('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                  ->orWhere('desc', 'like', '%' . $search . '%');
+                $q->where('name->vi', 'like', '%' . $search . '%')
+                  ->orWhere('name->en', 'like', '%' . $search . '%')
+                  ->orWhere('desc->vi', 'like', '%' . $search . '%')
+                  ->orWhere('desc->en', 'like', '%' . $search . '%')
+                  ->orWhereHas('productCategory', function($subQuery) use ($search) {
+                      $subQuery->where('name->vi', 'like', '%' . $search . '%')
+                               ->orWhere('name->en', 'like', '%' . $search . '%');
+                  });
             });
         }
 

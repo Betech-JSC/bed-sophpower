@@ -313,7 +313,32 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($products as $prod) {
-            Product::updateOrCreate(['id' => $prod['id']], $prod);
+            $product = Product::updateOrCreate(['id' => $prod['id']], $prod);
+
+            // Auto-create and link ProductCategory
+            if (!empty($product->category) && !empty($product->category['vi'])) {
+                $viName = $product->category['vi'];
+                $existingCategory = \App\Models\ProductCategory::where('type', $product->type)
+                    ->where('name->vi', $viName)
+                    ->first();
+                if (!$existingCategory) {
+                    $baseSlug = \Illuminate\Support\Str::slug($viName);
+                    if (empty($baseSlug)) {
+                        $baseSlug = 'category';
+                    }
+                    $slug = $baseSlug;
+                    $count = 1;
+                    while (\App\Models\ProductCategory::where('slug', $slug)->exists()) {
+                        $slug = $baseSlug . '-' . $count++;
+                    }
+                    $existingCategory = \App\Models\ProductCategory::create([
+                        'name' => $product->category,
+                        'slug' => $slug,
+                        'type' => $product->type,
+                    ]);
+                }
+                $product->update(['product_category_id' => $existingCategory->id]);
+            }
         }
 
         // 3. Seed Articles
@@ -397,7 +422,29 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($articles as $art) {
-            Article::updateOrCreate(['id' => $art['id']], $art);
+            $article = Article::updateOrCreate(['id' => $art['id']], $art);
+
+            // Auto-create and link ArticleCategory
+            if (!empty($article->category) && !empty($article->category['vi'])) {
+                $viName = $article->category['vi'];
+                $existingCategory = \App\Models\ArticleCategory::where('name->vi', $viName)->first();
+                if (!$existingCategory) {
+                    $baseSlug = \Illuminate\Support\Str::slug($viName);
+                    if (empty($baseSlug)) {
+                        $baseSlug = 'category';
+                    }
+                    $slug = $baseSlug;
+                    $count = 1;
+                    while (\App\Models\ArticleCategory::where('slug', $slug)->exists()) {
+                        $slug = $baseSlug . '-' . $count++;
+                    }
+                    $existingCategory = \App\Models\ArticleCategory::create([
+                        'name' => $article->category,
+                        'slug' => $slug,
+                    ]);
+                }
+                $article->update(['article_category_id' => $existingCategory->id]);
+            }
         }
 
         // 4. Seed Recruitment Jobs

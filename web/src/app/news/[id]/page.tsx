@@ -173,6 +173,7 @@ export default async function NewsDetail({
   // Get dynamic HTML content and extract TOC
   const articleRawContent = getVal(article.content, locale) || "";
   const { modifiedHtml: articleContent, headings } = extractHeadingsAndInsertIds(articleRawContent);
+  const articleSummary = getVal(article.summary, locale) || "";
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const articleUrl = `${baseUrl}/news/${article.slug || article.id}`;
@@ -238,6 +239,15 @@ export default async function NewsDetail({
         <div className="h-0.5 w-full bg-gray-100 relative">
           <div className="absolute left-0 top-0 h-full w-24 bg-brand-green" />
         </div>
+
+        {/* Article Summary */}
+        {articleSummary && (
+          <ScrollReveal direction="up" delay={50} duration={600}>
+            <div className="p-4 sm:p-6 bg-gray-50 border-l-4 border-brand-green rounded-r-xl text-gray-700 italic text-base leading-relaxed">
+              <div dangerouslySetInnerHTML={{ __html: articleSummary }} />
+            </div>
+          </ScrollReveal>
+        )}
 
         {/* Feature Image */}
         {article.image && (
