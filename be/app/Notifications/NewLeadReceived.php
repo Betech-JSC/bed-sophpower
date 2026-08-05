@@ -43,6 +43,7 @@ class NewLeadReceived extends Notification implements ShouldQueue
             ->line('Hệ thống vừa nhận được một yêu cầu liên hệ mới từ khách hàng.')
             ->line('Thông tin chi tiết như sau:')
             ->line('Họ tên: ' . $this->lead->name)
+            ->line('Công ty: ' . ($this->lead->company ?: 'Chưa cung cấp'))
             ->line('Email: ' . $this->lead->email)
             ->line('Số điện thoại: ' . ($this->lead->phone ?: 'Chưa cung cấp'))
             ->line('Nội dung yêu cầu:')

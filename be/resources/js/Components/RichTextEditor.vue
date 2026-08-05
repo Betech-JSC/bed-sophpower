@@ -1,11 +1,19 @@
 <template>
   <div class="rich-text-editor-container">
     <div ref="editorElement" class="min-h-[250px] bg-white text-gray-800"></div>
+    
+    <!-- Media Selector Modal for selecting files from Library -->
+    <MediaSelectorModal
+      :open="showMediaModal"
+      @close="showMediaModal = false"
+      @select="insertImageFromMedia"
+    />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, watch } from 'vue';
+import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 
 const props = defineProps({
   value: {
@@ -21,7 +29,20 @@ const props = defineProps({
 const emit = defineEmits(['update:value']);
 
 const editorElement = ref(null);
+const showMediaModal = ref(false);
 let quill = null;
+
+// Handle selected image insertion
+function insertImageFromMedia(file) {
+  showMediaModal.value = false;
+  if (quill && file && file.url) {
+    const range = quill.getSelection(true);
+    // Insert image URL
+    quill.insertEmbed(range.index, 'image', file.url);
+    // Move cursor past image
+    quill.setSelection(range.index + 1);
+  }
+}
 
 onMounted(() => {
   if (typeof window !== 'undefined' && window.Quill) {
@@ -30,14 +51,25 @@ onMounted(() => {
       placeholder: props.placeholder,
       modules: {
         toolbar: [
-          [{ 'header': [1, 2, 3, 4, false] }],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
           ['bold', 'italic', 'underline', 'strike'],
           [{ 'color': [] }, { 'background': [] }],
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'script': 'sub'}, { 'script': 'super' }],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+          [{ 'indent': '-1'}, { 'indent': '+1' }],
           [{ 'align': [] }],
-          ['link', 'image', 'clean']
+          ['blockquote', 'code-block'],
+          ['link', 'image', 'video'],
+          ['clean']
         ]
       }
+    });
+
+    // Custom Image Handler to open Media Selector Modal
+    const toolbar = quill.getModule('toolbar');
+    toolbar.addHandler('image', () => {
+      showMediaModal.value = true;
     });
 
     // Set initial content
@@ -72,6 +104,9 @@ onMounted(() => {
   border-top-right-radius: 0.5rem;
   background-color: #f9fafb;
   padding: 8px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 .ql-container.ql-snow {
   border: 1px solid #e5e7eb !important;

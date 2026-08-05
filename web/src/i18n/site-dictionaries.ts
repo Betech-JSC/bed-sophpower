@@ -23,6 +23,10 @@ export type SiteDictionary = {
     searchNews: string;
     searchPopularKeywords: string;
     searchSuggestedProducts: string;
+    additives: string;
+    fruitPowders: string;
+    flavors: string;
+    allCategories: string;
   };
   footer: {
     products: string;
@@ -72,10 +76,12 @@ export type SiteDictionary = {
     nameLabel: string;
     emailLabel: string;
     phoneLabel: string;
+    companyLabel: string;
     messageLabel: string;
     namePlaceholder: string;
     emailPlaceholder: string;
     phonePlaceholder: string;
+    companyPlaceholder: string;
     messagePlaceholder: string;
     sendBtn: string;
     sendingBtn: string;
@@ -206,6 +212,9 @@ export type SiteDictionary = {
     cosmeticTab: string;
     foodTab: string;
     marketTab: string;
+    tocTitle: string;
+    tocHide: string;
+    tocShow: string;
   };
   policies: {
     bannerTitle: string;
@@ -261,6 +270,10 @@ const dicts = {
       searchNews: "Tin tức & Bài viết",
       searchPopularKeywords: "Từ khóa phổ biến",
       searchSuggestedProducts: "Sản phẩm gợi ý",
+      additives: "Phụ gia",
+      fruitPowders: "Bột trái cây",
+      flavors: "Hương liệu",
+      allCategories: "Tất cả",
     },
     footer: {
       products: "SẢN PHẨM",
@@ -310,10 +323,12 @@ const dicts = {
       nameLabel: "Họ và tên",
       emailLabel: "Địa chỉ email",
       phoneLabel: "Số điện thoại",
+      companyLabel: "Tên công ty",
       messageLabel: "Nội dung tin nhắn",
       namePlaceholder: "Nhập họ và tên của bạn",
       emailPlaceholder: "Nhập địa chỉ email để liên hệ",
       phonePlaceholder: "Nhập số điện thoại của bạn",
+      companyPlaceholder: "Nhập tên công ty của bạn (nếu có)",
       messagePlaceholder: "Nhập nội dung yêu cầu tư vấn...",
       sendBtn: "Gửi yêu cầu",
       sendingBtn: "Đang gửi...",
@@ -444,6 +459,9 @@ const dicts = {
       cosmeticTab: "Nguyên liệu mỹ phẩm",
       foodTab: "Nguyên liệu thực phẩm",
       marketTab: "Thị trường",
+      tocTitle: "Mục Lục",
+      tocHide: "[Ẩn]",
+      tocShow: "[Hiện]",
     },
     policies: {
       bannerTitle: "CHÍNH SÁCH",
@@ -497,6 +515,10 @@ const dicts = {
       searchNews: "News & Articles",
       searchPopularKeywords: "Popular Keywords",
       searchSuggestedProducts: "Suggested Products",
+      additives: "Additives",
+      fruitPowders: "Fruit Powders",
+      flavors: "Flavors",
+      allCategories: "All",
     },
     footer: {
       products: "PRODUCTS",
@@ -546,10 +568,12 @@ const dicts = {
       nameLabel: "Full Name",
       emailLabel: "Email Address",
       phoneLabel: "Phone Number",
+      companyLabel: "Company Name",
       messageLabel: "Message Content",
       namePlaceholder: "Enter your full name",
       emailPlaceholder: "Enter contact email address",
       phonePlaceholder: "Enter your phone number",
+      companyPlaceholder: "Enter your company name (optional)",
       messagePlaceholder: "Enter consultation request content...",
       sendBtn: "Send Request",
       sendingBtn: "Sending...",
@@ -680,6 +704,9 @@ const dicts = {
       cosmeticTab: "Cosmetic Ingredients",
       foodTab: "Food Ingredients",
       marketTab: "Market",
+      tocTitle: "Table of Contents",
+      tocHide: "[Hide]",
+      tocShow: "[Show]",
     },
     policies: {
       bannerTitle: "POLICIES",

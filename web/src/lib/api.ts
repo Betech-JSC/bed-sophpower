@@ -142,18 +142,17 @@ export interface SystemSettings {
 }
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
-  // Use server-side cache options for SEO
+  // Disable server-side fetch cache to ensure website updates immediately
   const url = `${API_BASE_URL}${endpoint}`;
   try {
     const res = await fetch(url, {
+      cache: 'no-store',
       ...options,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         ...(options.headers || {}),
       },
-      // Revalidate cache every 10 seconds for ISR
-      next: { revalidate: 10 },
     });
 
     if (!res.ok) {
@@ -250,7 +249,7 @@ export const api = {
   },
 
   // Contact
-  async submitContact(data: { name: string; email: string; phone?: string; message: string }) {
+  async submitContact(data: { name: string; email: string; phone?: string; company: string; message: string }) {
     const url = `${API_BASE_URL}/contact`;
     const res = await fetch(url, {
       method: 'POST',
@@ -322,7 +321,7 @@ export const api = {
   async getTranslations(): Promise<any> {
     try {
       return await fetchAPI('/translations', {
-        next: { revalidate: 60 } // Cache for 60 seconds (ISR)
+        cache: 'no-store'
       });
     } catch (e) {
       console.error("Failed to fetch dynamic translations from backend:", e);
@@ -334,7 +333,7 @@ export const api = {
   async getRedirects(): Promise<{ source_url: string; target_url: string; http_code: number }[]> {
     try {
       return await fetchAPI('/redirects', {
-        next: { revalidate: 60 } // Cache redirects for 60s
+        cache: 'no-store'
       });
     } catch (e) {
       console.error("Failed to fetch redirects from backend:", e);

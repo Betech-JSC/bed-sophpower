@@ -16,7 +16,8 @@ class LeadController extends Controller
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%')
                   ->orWhere('email', 'like', '%' . $request->search . '%')
-                  ->orWhere('phone', 'like', '%' . $request->search . '%');
+                  ->orWhere('phone', 'like', '%' . $request->search . '%')
+                  ->orWhere('company', 'like', '%' . $request->search . '%');
         }
 
         if ($request->filled('status')) {

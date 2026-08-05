@@ -5,6 +5,8 @@ import { api } from "@/lib/api";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  let response = NextResponse.next();
+
   try {
     // Fetch active redirects list from CMS backend
     const redirects = await api.getRedirects();
@@ -17,13 +19,18 @@ export async function middleware(request: NextRequest) {
     if (match) {
       // Perform 301 (Permanent) or 302 (Temporary) redirect
       const redirectUrl = new URL(match.target_url, request.url);
-      return NextResponse.redirect(redirectUrl, match.http_code);
+      response = NextResponse.redirect(redirectUrl, match.http_code);
     }
   } catch (error) {
     console.error("SEO Redirect middleware error:", error);
   }
 
-  return NextResponse.next();
+  // Prevent browser and proxy caching to ensure CMS updates are immediately visible
+  response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  response.headers.set("Pragma", "no-cache");
+  response.headers.set("Expires", "0");
+
+  return response;
 }
 
 export const config = {

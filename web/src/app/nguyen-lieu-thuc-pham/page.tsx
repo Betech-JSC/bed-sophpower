@@ -17,9 +17,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function FoodIngredients({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; category?: string }>;
 }) {
-  const { page = "1" } = await searchParams;
+  const { page = "1", category } = await searchParams;
   const currentPage = parseInt(page) || 1;
   const locale = await getLocaleServer();
 
@@ -27,6 +27,7 @@ export default async function FoodIngredients({
     <ProductListingClient
       type="food"
       currentPage={currentPage}
+      selectedCategory={category}
       basePath={locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients"}
       bannerImage="/images/banner-food.png"
     />

@@ -229,7 +229,7 @@ export default async function PolicyDetail({
         </div>
 
         {/* Content */}
-        <div className="space-y-6 text-gray-750 text-base leading-relaxed text-justify [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-4">
+        <div className="rich-text text-gray-750 text-base leading-relaxed text-justify">
           {contentHtml ? (
             <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
           ) : (
