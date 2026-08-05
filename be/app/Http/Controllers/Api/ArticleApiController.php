@@ -20,14 +20,32 @@ class ArticleApiController extends Controller
         }
 
         if ($request->has('category') && $request->category !== 'Tất cả') {
-            $query->where('category', $request->category);
+            $category = $request->category;
+            $query->where(function($q) use ($category) {
+                if (is_numeric($category)) {
+                    $q->where('article_category_id', $category);
+                } else {
+                    $q->whereHas('articleCategory', function($subQuery) use ($category) {
+                        $subQuery->where('slug', $category)
+                                 ->orWhere('name->vi', 'like', '%' . $category . '%')
+                                 ->orWhere('name->en', 'like', '%' . $category . '%');
+                    })->orWhere('category->vi', 'like', '%' . $category . '%')
+                      ->orWhere('category->en', 'like', '%' . $category . '%');
+                }
+            });
         }
 
         if ($request->has('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('summary', 'like', '%' . $search . '%');
+                $q->where('title->vi', 'like', '%' . $search . '%')
+                  ->orWhere('title->en', 'like', '%' . $search . '%')
+                  ->orWhere('summary->vi', 'like', '%' . $search . '%')
+                  ->orWhere('summary->en', 'like', '%' . $search . '%')
+                  ->orWhereHas('articleCategory', function($subQuery) use ($search) {
+                      $subQuery->where('name->vi', 'like', '%' . $search . '%')
+                               ->orWhere('name->en', 'like', '%' . $search . '%');
+                  });
             });
         }
 
