@@ -143,10 +143,19 @@ class ProductCategoryController extends Controller
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
             'name.en' => ['nullable', 'string', 'max:255'],
-            'type' => ['required', 'string', 'in:food,cosmetic'],
+            'type' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', 'exists:product_categories,id'],
             'slug' => ['nullable', 'string', 'max:255'],
         ]);
+
+        if (empty($validated['type'])) {
+            if (!empty($validated['parent_id'])) {
+                $parent = ProductCategory::find($validated['parent_id']);
+                $validated['type'] = $parent->type ?? 'food';
+            } else {
+                $validated['type'] = 'food';
+            }
+        }
 
         if (empty($validated['name']['en'])) {
             $validated['name']['en'] = $validated['name']['vi'];
@@ -168,7 +177,7 @@ class ProductCategoryController extends Controller
 
         ActivityLogger::log('create_product_category', "Đã tạo danh mục sản phẩm mới ID: {$category->id}, tên: {$category->name['vi']}");
 
-        if ($request->wantsJson() || $request->ajax()) {
+        if (!$request->header('X-Inertia') && ($request->wantsJson() || $request->expectsJson())) {
             return response()->json([
                 'success' => true,
                 'category' => $category,
@@ -200,10 +209,19 @@ class ProductCategoryController extends Controller
             'name' => ['required', 'array'],
             'name.vi' => ['required', 'string', 'max:255'],
             'name.en' => ['nullable', 'string', 'max:255'],
-            'type' => ['required', 'string', 'in:food,cosmetic'],
+            'type' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', 'exists:product_categories,id', 'different:' . $productCategory->id],
             'slug' => ['nullable', 'string', 'max:255'],
         ]);
+
+        if (empty($validated['type'])) {
+            if (!empty($validated['parent_id'])) {
+                $parent = ProductCategory::find($validated['parent_id']);
+                $validated['type'] = $parent->type ?? $productCategory->type ?? 'food';
+            } else {
+                $validated['type'] = $productCategory->type ?? 'food';
+            }
+        }
 
         if (empty($validated['name']['en'])) {
             $validated['name']['en'] = $validated['name']['vi'];
