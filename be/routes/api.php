@@ -12,7 +12,9 @@ use App\Http\Controllers\Api\SettingApiController;
 use App\Http\Controllers\Api\ProductQuestionApiController;
 use App\Http\Controllers\Api\TranslationApiController;
 use App\Http\Controllers\Api\RedirectApiController;
+use App\Http\Controllers\Api\ProductCategoryApiController;
 
+Route::get('/product-categories', [ProductCategoryApiController::class, 'index']);
 Route::get('/products', [ProductApiController::class, 'index']);
 Route::get('/products/{id}', [ProductApiController::class, 'show']);
 

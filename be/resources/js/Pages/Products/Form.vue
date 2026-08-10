@@ -17,7 +17,16 @@
 
           <!-- Product Category -->
           <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục sản phẩm *</label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-sm font-bold text-gray-700">Danh mục sản phẩm *</label>
+              <button 
+                type="button" 
+                class="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 cursor-pointer"
+                @click="openQuickCategoryModal"
+              >
+                + Tạo danh mục mới
+              </button>
+            </div>
             <a-select
               v-model:value="form.product_category_id"
               placeholder="Chọn danh mục sản phẩm..."
@@ -32,7 +41,7 @@
                 :value="cat.id"
                 :label="cat.name?.vi"
               >
-                {{ cat.name?.vi }} ({{ cat.name?.en }})
+                {{ cat.parent ? '└── ' : '🌐 ' }}{{ cat.name?.vi }} ({{ cat.name?.en }})
               </a-select-option>
             </a-select>
             <p v-if="form.errors.product_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.product_category_id }}</p>
@@ -407,6 +416,44 @@
           @select="handleOgMediaSelect"
         />
 
+        <!-- QUICK CATEGORY MODAL -->
+        <a-modal
+          v-model:open="quickCategoryModalVisible"
+          title="✨ Tạo Danh Mục Sản Phẩm Mới Nhanh"
+          width="550px"
+          :footer="null"
+          destroyOnClose
+          centered
+        >
+          <div class="py-4 space-y-5">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Tên danh mục (Tiếng Việt) *</label>
+              <a-input v-model:value="quickCatForm.name.vi" placeholder="Ví dụ: Phụ gia thực phẩm, Chất bảo quản..." size="large" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Tên danh mục (Tiếng Anh)</label>
+              <a-input v-model:value="quickCatForm.name.en" placeholder="Ví dụ: Food Additives..." size="large" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Danh mục cha (Tùy chọn):</label>
+              <a-select v-model:value="quickCatForm.parent_id" placeholder="Mặc định là Danh mục Gốc (Cấp 1)" class="w-full" allow-clear size="large">
+                <a-select-option v-for="cat in localCategories" :key="cat.id" :value="cat.id">
+                  {{ cat.parent_id ? '└── ' : '📁 ' }}{{ cat.name?.vi }}
+                </a-select-option>
+              </a-select>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+              <a-button @click="quickCategoryModalVisible = false">Hủy</a-button>
+              <a-button type="primary" class="bg-emerald-700 hover:bg-emerald-800 border-none font-bold" :loading="quickCatSubmitting" @click="submitQuickCategory">
+                Tạo & Chọn Danh Mục Này
+              </a-button>
+            </div>
+          </div>
+        </a-modal>
+
         <!-- Buttons -->
         <div class="flex items-center justify-between border-t border-gray-150 pt-6">
           <div class="flex items-center gap-3">
@@ -437,6 +484,8 @@ import MediaSelectorModal from '@/Components/MediaSelectorModal.vue';
 import { useForm } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { translateSingle, translateHtml } from '@/Utils/translator';
+import axios from 'axios';
+import { message } from 'ant-design-vue';
 
 const props = defineProps({
   product: Object,
@@ -556,9 +605,61 @@ async function translateAllFields() {
   }
 }
 
+const localCategories = ref([...(props.categories || [])]);
+
 const filteredCategories = computed(() => {
-  return props.categories ? props.categories.filter(c => c.type === form.type) : [];
+  return localCategories.value ? localCategories.value.filter(c => c.type === form.type) : [];
 });
+
+const quickCategoryModalVisible = ref(false);
+const quickCatSubmitting = ref(false);
+const quickCatForm = ref({
+  name: { vi: '', en: '' },
+  type: form.type,
+  parent_id: null,
+});
+
+function openQuickCategoryModal() {
+  quickCatForm.value = {
+    name: { vi: '', en: '' },
+    type: form.type,
+    parent_id: null,
+  };
+  quickCategoryModalVisible.value = true;
+}
+
+async function submitQuickCategory() {
+  if (!quickCatForm.value.name.vi || !quickCatForm.value.name.vi.trim()) {
+    message.warning('Vui lòng nhập tên danh mục Tiếng Việt!');
+    return;
+  }
+
+  quickCatSubmitting.value = true;
+  try {
+    const res = await axios.post('/admin/product-categories', {
+      name: quickCatForm.value.name,
+      type: form.type,
+      parent_id: quickCatForm.value.parent_id,
+    }, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    quickCatSubmitting.value = false;
+    quickCategoryModalVisible.value = false;
+    message.success('Đã tạo và chọn danh mục mới thành công!');
+
+    if (res.data && res.data.category) {
+      localCategories.value.push(res.data.category);
+      form.product_category_id = res.data.category.id;
+    }
+  } catch (error) {
+    quickCatSubmitting.value = false;
+    const msg = error.response?.data?.message || 'Có lỗi xảy ra khi tạo danh mục.';
+    message.error(msg);
+  }
+}
 
 function handleTypeChange() {
   form.product_category_id = null;
