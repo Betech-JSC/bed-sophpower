@@ -30,6 +30,7 @@ interface ProductListingClientProps {
   selectedCategory?: string;
   basePath: string;
   bannerImage: string;
+  rootCategorySlug?: string;
 }
 
 export default function ProductListingClient({
@@ -38,6 +39,7 @@ export default function ProductListingClient({
   selectedCategory,
   basePath,
   bannerImage,
+  rootCategorySlug,
 }: ProductListingClientProps) {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
@@ -47,9 +49,14 @@ export default function ProductListingClient({
   const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 6;
   const isFood = type === "food";
-  const title = isFood ? t.products.foodTitle : t.products.cosmeticTitle;
-  const emptyText = isFood ? t.products.emptyFood : t.products.emptyCosmetic;
   const pageKey = isFood ? "food" : "cosmetic";
+
+  // Derive target root slug from prop or basePath
+  const targetRootSlug = useMemo(() => {
+    if (rootCategorySlug) return rootCategorySlug;
+    const clean = basePath.replace(/^\//, "").split("?")[0];
+    return clean || (isFood ? "nguyen-lieu-thuc-pham" : "nguyen-lieu-my-pham");
+  }, [rootCategorySlug, basePath, isFood]);
 
   // Fetch Page Banner dynamically
   useEffect(() => {
@@ -83,6 +90,25 @@ export default function ProductListingClient({
       cancelled = true;
     };
   }, [type]);
+
+  // Identify current root category
+  const currentRootCategory = useMemo(() => {
+    if (!categories || categories.length === 0) return null;
+    return categories.find((c) => c.slug === targetRootSlug);
+  }, [categories, targetRootSlug]);
+
+  // Dynamic Title
+  const title = useMemo(() => {
+    if (currentRootCategory) {
+      return getVal(currentRootCategory.name, locale);
+    }
+    return isFood ? t.products.foodTitle : t.products.cosmeticTitle;
+  }, [currentRootCategory, locale, isFood, t.products]);
+
+  // Dynamic Empty Text
+  const emptyText = useMemo(() => {
+    return `Không tìm thấy sản phẩm nào thuộc danh mục ${title}.`;
+  }, [title]);
 
   // Fetch Products dynamically
   useEffect(() => {
@@ -133,7 +159,7 @@ export default function ProductListingClient({
     };
   }, [locale, type]);
 
-  // Helper map for hierarchical category matching (Level 2 & Level 3)
+  // Helper map for hierarchical category matching
   const getCategoryAndDescendantSlugs = useMemo(() => {
     const map = new Map<string, Set<string>>();
 
@@ -161,42 +187,29 @@ export default function ProductListingClient({
     return map;
   }, [categories]);
 
-  // Legacy helper for old products
-  const getFoodSubCategory = (prod: ListedProduct): "phu-gia" | "bot-trai-cay" | "huong-lieu" => {
-    const cat = (prod.categoryName || "").toLowerCase();
-    const name = (prod.name || "").toLowerCase();
+  // Root Category & Descendants filter set
+  const currentRootAllowedSlugs = useMemo(() => {
+    if (!currentRootCategory) return null;
+    return getCategoryAndDescendantSlugs.get(currentRootCategory.slug?.toLowerCase() || "");
+  }, [currentRootCategory, getCategoryAndDescendantSlugs]);
 
-    if (
-      name.includes("hương liệu") ||
-      name.includes("flavor") ||
-      cat.includes("hương liệu") ||
-      cat.includes("flavor") ||
-      cat.includes("fragrance")
-    ) {
-      return "huong-lieu";
-    }
-
-    if (
-      name.includes("bột nước") ||
-      name.includes("bột trái") ||
-      name.includes("bột quả") ||
-      name.includes("coconut water powder") ||
-      (cat.includes("bột") && (cat.includes("trái") || cat.includes("quả") || cat.includes("juice") || cat.includes("fruit"))) ||
-      (name.includes("powder") && (name.includes("coconut") || name.includes("fruit") || name.includes("juice")))
-    ) {
-      return "bot-trai-cay";
-    }
-
-    return "phu-gia";
-  };
-
+  // Filter logic
   const matchCategoryKey = (prod: ListedProduct, key?: string) => {
+    // If we are on a specific root category page (e.g. Chiết xuất Thực vật), first check if product belongs to this root tree
+    if (currentRootAllowedSlugs) {
+      const belongsToRoot =
+        (prod.productCategorySlug && currentRootAllowedSlugs.has(prod.productCategorySlug.toLowerCase())) ||
+        (prod.productCategoryId && currentRootAllowedSlugs.has(String(prod.productCategoryId)));
+
+      if (!belongsToRoot) return false;
+    }
+
     if (!key || key === "all") return true;
 
     const keyLower = key.toLowerCase();
     const descendantSlugs = getCategoryAndDescendantSlugs.get(keyLower);
 
-    // 1. Match via Category Hierarchy (Level 2 or Level 3)
+    // 1. Match via Category Hierarchy
     if (descendantSlugs) {
       if (prod.productCategorySlug && descendantSlugs.has(prod.productCategorySlug.toLowerCase())) {
         return true;
@@ -206,7 +219,7 @@ export default function ProductListingClient({
       }
     }
 
-    // 2. Direct slug match with backend category
+    // 2. Direct slug match
     if (prod.productCategorySlug && prod.productCategorySlug.toLowerCase() === keyLower) {
       return true;
     }
@@ -227,18 +240,6 @@ export default function ProductListingClient({
       return true;
     }
 
-    // 5. Fallback matching for old static category keys
-    const subCat = getFoodSubCategory(prod);
-    if (key === "huong-lieu" || key === "flavors") {
-      return subCat === "huong-lieu";
-    }
-    if (key === "bot-trai-cay" || key === "fruit-powders") {
-      return subCat === "bot-trai-cay";
-    }
-    if (key === "phu-gia" || key === "additives") {
-      return subCat === "phu-gia";
-    }
-
     return false;
   };
 
@@ -251,18 +252,21 @@ export default function ProductListingClient({
     currentPage * itemsPerPage
   );
 
-  // Dynamic Category Filter Tabs from Backend API (supporting Level 2 & Level 3 with unified UI)
+  // Dynamic Category Filter Tabs for current Root Category
   const categoryFilterTabs = useMemo(() => {
     const tabs: { key: string; label: string; path: string }[] = [
       { key: "all", label: t.header.allCategories, path: basePath }
     ];
 
-    if (categories && categories.length > 0) {
+    const sourceCategories = currentRootCategory
+      ? (currentRootCategory.children || [])
+      : (categories || []);
+
+    if (sourceCategories && sourceCategories.length > 0) {
       const addCategoryTab = (cat: ProductCategory) => {
         const catName = getVal(cat.name, locale) || cat.slug;
         const catSlug = cat.slug || String(cat.id);
-        
-        // Avoid duplicate tab keys
+
         if (!tabs.some((t) => t.key === catSlug)) {
           tabs.push({
             key: catSlug,
@@ -278,29 +282,13 @@ export default function ProductListingClient({
         }
       };
 
-      // Add all level 2 and level 3 categories under root categories
-      categories.forEach((root) => {
-        if (root.children && root.children.length > 0) {
-          root.children.forEach((child) => {
-            addCategoryTab(child);
-          });
-        } else if (root.parent_id !== null) {
-          addCategoryTab(root);
-        }
+      sourceCategories.forEach((cat) => {
+        addCategoryTab(cat);
       });
-    } else {
-      // Fallback tabs if backend categories are loading or not yet created
-      if (isFood) {
-        tabs.push(
-          { key: "phu-gia", label: t.header.additives, path: `${basePath}?category=phu-gia` },
-          { key: "bot-trai-cay", label: t.header.fruitPowders, path: `${basePath}?category=bot-trai-cay` },
-          { key: "huong-lieu", label: t.header.flavors, path: `${basePath}?category=huong-lieu` }
-        );
-      }
     }
 
     return tabs;
-  }, [categories, locale, basePath, t.header.allCategories, t.header.additives, t.header.fruitPowders, t.header.flavors, isFood]);
+  }, [currentRootCategory, categories, locale, basePath, t.header.allCategories]);
 
   const categoryQueryStr = selectedCategory ? `&category=${selectedCategory}` : "";
 
@@ -327,7 +315,7 @@ export default function ProductListingClient({
             <div className="h-0.5 w-16 bg-brand-green mx-auto" />
           </div>
 
-          {/* Dynamic Category Filter Tabs (Unified UI for all levels) */}
+          {/* Dynamic Category Filter Tabs */}
           {categoryFilterTabs.length > 1 && (
             <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mb-12">
               {categoryFilterTabs.map((tab) => {
