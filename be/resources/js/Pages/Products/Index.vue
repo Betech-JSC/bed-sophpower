@@ -14,14 +14,16 @@
           />
           
           <a-select
-            v-model:value="type"
-            placeholder="Phân loại"
-            style="width: 150px"
+            v-model:value="categoryId"
+            placeholder="Lọc theo danh mục..."
+            class="min-w-[240px] sm:min-w-[280px]"
+            :dropdown-match-select-width="false"
             @change="handleFilterChange"
             allow-clear
           >
-            <a-select-option value="food">Nguyên liệu thực phẩm</a-select-option>
-            <a-select-option value="cosmetic">Nguyên liệu mỹ phẩm</a-select-option>
+            <a-select-option v-for="cat in categories" :key="cat.id" :value="cat.id">
+              {{ cat.parent_id ? '└── ' : '📁 ' }}{{ cat.name?.vi }}
+            </a-select-option>
           </a-select>
         </div>
 
@@ -141,11 +143,15 @@ import { ref, watch } from 'vue';
 
 const props = defineProps({
   products: Object,
+  categories: {
+    type: Array,
+    default: () => [],
+  },
   filters: Object,
 });
 
 const search = ref(props.filters.search || '');
-const type = ref(props.filters.type || undefined);
+const categoryId = ref(props.filters.category_id ? Number(props.filters.category_id) : undefined);
 const currentPage = ref(props.products.current_page);
 const pageSize = ref(props.products.per_page);
 const loading = ref(false);
@@ -209,7 +215,7 @@ function handleSearch(val) {
   loading.value = true;
   router.get(
     '/admin/products',
-    { search: val, type: type.value, page: 1 },
+    { search: val, category_id: categoryId.value, page: 1 },
     {
       preserveState: true,
       onFinish: () => {
@@ -223,7 +229,7 @@ function handleFilterChange() {
   loading.value = true;
   router.get(
     '/admin/products',
-    { search: search.value, type: type.value, page: 1 },
+    { search: search.value, category_id: categoryId.value, page: 1 },
     {
       preserveState: true,
       onFinish: () => {
@@ -237,7 +243,7 @@ function handlePageChange(page) {
   loading.value = true;
   router.get(
     '/admin/products',
-    { search: search.value, type: type.value, page: page },
+    { search: search.value, category_id: categoryId.value, page: page },
     {
       onFinish: () => {
         loading.value = false;

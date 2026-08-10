@@ -32,11 +32,16 @@ class ProductController extends Controller
             $query->where('type', $request->type);
         }
 
+        if ($request->filled('category_id')) {
+            $query->where('product_category_id', $request->category_id);
+        }
+
         $products = $query->latest('id')->paginate(10)->withQueryString();
 
         return Inertia::render('Products/Index', [
             'products' => $products,
-            'filters' => $request->only(['search', 'type']),
+            'categories' => ProductCategory::orderBy('sort_order', 'asc')->get(),
+            'filters' => $request->only(['search', 'type', 'category_id']),
         ]);
     }
 
@@ -70,7 +75,7 @@ class ProductController extends Controller
             'packaging' => ['required', 'array'],
             'packaging.vi' => ['required', 'string'],
             'packaging.en' => ['nullable', 'string'],
-            'type' => ['required', 'in:food,cosmetic'],
+            'type' => ['nullable', 'string', 'max:255'],
             'seo_title' => ['nullable', 'array'],
             'seo_title.vi' => ['nullable', 'string', 'max:255'],
             'seo_title.en' => ['nullable', 'string', 'max:255'],
@@ -97,9 +102,12 @@ class ProductController extends Controller
             $validated['packaging']['en'] = $validated['packaging']['vi'];
         }
 
-        // Keep database column 'category' populated for constraints and fallbacks
+        // Keep database column 'category' and 'type' populated from ProductCategory
         $category = ProductCategory::find($validated['product_category_id']);
         $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+        if (empty($validated['type'])) {
+            $validated['type'] = $category->type ?? 'food';
+        }
 
         // Generate unique slug
         $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['name']['vi']);
@@ -162,7 +170,7 @@ class ProductController extends Controller
             'packaging' => ['required', 'array'],
             'packaging.vi' => ['required', 'string'],
             'packaging.en' => ['nullable', 'string'],
-            'type' => ['required', 'in:food,cosmetic'],
+            'type' => ['nullable', 'string', 'max:255'],
             'seo_title' => ['nullable', 'array'],
             'seo_title.vi' => ['nullable', 'string', 'max:255'],
             'seo_title.en' => ['nullable', 'string', 'max:255'],
@@ -192,6 +200,9 @@ class ProductController extends Controller
         // Keep database column 'category' populated for constraints and fallbacks
         $category = ProductCategory::find($validated['product_category_id']);
         $validated['category'] = $category ? $category->name : ['vi' => '', 'en' => ''];
+        if (empty($validated['type'])) {
+            $validated['type'] = $category->type ?? $product->type ?? 'food';
+        }
 
         // Generate unique slug
         $baseSlug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($validated['name']['vi']);

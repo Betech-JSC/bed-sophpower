@@ -3,30 +3,11 @@
     <div class="bg-white p-8 rounded-xl border border-gray-150 shadow-xs max-w-4xl">
       <form @submit.prevent="submit" class="space-y-6">
         
-        <!-- Type Selection & Image (Common Fields) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-gray-100 pb-6">
-          <!-- Type -->
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1">Phân loại hệ thống *</label>
-            <a-select v-model:value="form.type" placeholder="Chọn phân loại" class="w-full" size="large" @change="handleTypeChange">
-              <a-select-option value="food">Nguyên liệu thực phẩm (Food Ingredients)</a-select-option>
-              <a-select-option value="cosmetic">Nguyên liệu mỹ phẩm (Cosmetic Ingredients)</a-select-option>
-            </a-select>
-            <p v-if="form.errors.type" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.type }}</p>
-          </div>
-
+        <!-- Product Category & Status (Common Fields) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-b border-gray-100 pb-6">
           <!-- Product Category -->
           <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block text-sm font-bold text-gray-700">Danh mục sản phẩm *</label>
-              <button 
-                type="button" 
-                class="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 cursor-pointer"
-                @click="openQuickCategoryModal"
-              >
-                + Tạo danh mục mới
-              </button>
-            </div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục sản phẩm *</label>
             <a-select
               v-model:value="form.product_category_id"
               placeholder="Chọn danh mục sản phẩm..."
@@ -36,12 +17,12 @@
               option-filter-prop="label"
             >
               <a-select-option
-                v-for="cat in filteredCategories"
+                v-for="cat in props.categories"
                 :key="cat.id"
                 :value="cat.id"
                 :label="cat.name?.vi"
               >
-                {{ cat.parent ? '└── ' : '🌐 ' }}{{ cat.name?.vi }} ({{ cat.name?.en }})
+                {{ cat.parent_id ? '└── ' : '🌐 ' }}{{ cat.name?.vi }} ({{ cat.name?.en }})
               </a-select-option>
             </a-select>
             <p v-if="form.errors.product_category_id" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.product_category_id }}</p>
@@ -61,14 +42,14 @@
             </a-select>
             <p v-if="form.errors.status" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.status }}</p>
           </div>
+        </div>
 
           <!-- Custom Slug -->
-          <div class="md:col-span-3">
+          <div class="pt-2">
             <label class="block text-sm font-bold text-gray-700 mb-1">Đường dẫn thân thiện (Custom URL Slug)</label>
             <a-input v-model:value="form.slug" placeholder="Ví dụ: tinh-chat-tra-xanh (Mặc định tự sinh từ Tên sản phẩm tiếng Việt)" size="large" />
             <p v-if="form.errors.slug" class="mt-1 text-xs text-red-655 font-semibold">{{ form.errors.slug }}</p>
           </div>
-        </div>
 
         <!-- Tabs for Bilingual Inputs -->
         <a-tabs default-active-key="vi" class="mb-6">
