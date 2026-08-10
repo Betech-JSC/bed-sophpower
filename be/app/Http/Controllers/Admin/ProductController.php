@@ -33,7 +33,20 @@ class ProductController extends Controller
         }
 
         if ($request->filled('category_id')) {
-            $query->where('product_category_id', $request->category_id);
+            $catId = $request->category_id;
+            $category = ProductCategory::with('children.children')->find($catId);
+            if ($category) {
+                $categoryIds = [$category->id];
+                foreach ($category->children as $child) {
+                    $categoryIds[] = $child->id;
+                    foreach ($child->children as $grandchild) {
+                        $categoryIds[] = $grandchild->id;
+                    }
+                }
+                $query->whereIn('product_category_id', array_unique($categoryIds));
+            } else {
+                $query->where('product_category_id', $catId);
+            }
         }
 
         $products = $query->latest('id')->paginate(10)->withQueryString();
