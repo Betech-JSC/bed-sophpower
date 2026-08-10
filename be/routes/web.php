@@ -84,6 +84,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/product-categories', [ProductCategoryController::class, 'index'])->middleware('permission:product-categories.view')->name('admin.product-categories.index');
     Route::get('/admin/product-categories/create', [ProductCategoryController::class, 'create'])->middleware('permission:product-categories.manage')->name('admin.product-categories.create');
     Route::post('/admin/product-categories', [ProductCategoryController::class, 'store'])->middleware('permission:product-categories.manage')->name('admin.product-categories.store');
+    Route::post('/admin/product-categories/{productCategory}/bulk-children', [ProductCategoryController::class, 'storeBulkChildren'])->middleware('permission:product-categories.manage')->name('admin.product-categories.store-bulk-children');
+    Route::patch('/admin/product-categories/{productCategory}/sort-order', [ProductCategoryController::class, 'updateSortOrder'])->middleware('permission:product-categories.manage')->name('admin.product-categories.update-sort-order');
     Route::get('/admin/product-categories/{productCategory}/edit', [ProductCategoryController::class, 'edit'])->middleware('permission:product-categories.manage')->name('admin.product-categories.edit');
     Route::put('/admin/product-categories/{productCategory}', [ProductCategoryController::class, 'update'])->middleware('permission:product-categories.manage')->name('admin.product-categories.update');
     Route::delete('/admin/product-categories/{productCategory}', [ProductCategoryController::class, 'destroy'])->middleware('permission:product-categories.manage')->name('admin.product-categories.destroy');

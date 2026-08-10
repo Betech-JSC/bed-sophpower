@@ -17,6 +17,8 @@ export interface Product {
   slug?: string;
   name: string | LocalizedString;
   category: string | LocalizedString;
+  product_category_id?: number | null;
+  productCategory?: ProductCategory | null;
   desc: string | LocalizedString;
   image: string;
   specs: string[] | LocalizedArray;
@@ -57,6 +59,17 @@ export interface ArticleCategory {
   id: number;
   name: string | LocalizedString;
   slug: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ProductCategory {
+  id: number;
+  parent_id?: number | null;
+  name: string | LocalizedString;
+  slug: string;
+  type: 'food' | 'cosmetic';
+  children?: ProductCategory[];
   created_at?: string;
   updated_at?: string;
 }
@@ -212,6 +225,12 @@ export const api = {
     const endpoint = queryString ? `/products/${id}?${queryString}` : `/products/${id}`;
     const data = await fetchAPI(endpoint);
     return data.product || data;
+  },
+
+  async getProductCategories(type?: 'food' | 'cosmetic'): Promise<ProductCategory[]> {
+    const endpoint = type ? `/product-categories?type=${type}` : '/product-categories';
+    const data = await fetchAPI(endpoint);
+    return Array.isArray(data) ? data : (data.categories || []);
   },
 
   // News

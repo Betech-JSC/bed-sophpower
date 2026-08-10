@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { api } from "@/lib/api";
+import { api, ProductCategory } from "@/lib/api";
 import { useI18n } from "@/i18n/provider";
 import { getVal } from "@/lib/i18n-utils";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
@@ -18,6 +18,9 @@ interface ListedProduct {
   desc: string;
   image: string;
   categoryName: string;
+  productCategoryId?: number | null;
+  productCategorySlug?: string;
+  productCategoryName?: string;
   typeCategory: ProductType;
 }
 
@@ -39,6 +42,7 @@ export default function ProductListingClient({
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
   const [products, setProducts] = useState<ListedProduct[]>([]);
+  const [categories, setCategories] = useState<ProductCategory[]>([]);
   const [activeBannerImage, setActiveBannerImage] = useState(bannerImage);
   const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 6;
@@ -47,6 +51,7 @@ export default function ProductListingClient({
   const emptyText = isFood ? t.products.emptyFood : t.products.emptyCosmetic;
   const pageKey = isFood ? "food" : "cosmetic";
 
+  // Fetch Page Banner dynamically
   useEffect(() => {
     let cancelled = false;
 
@@ -63,6 +68,23 @@ export default function ProductListingClient({
     };
   }, [bannerImage, pageKey]);
 
+  // Fetch Product Categories from Backend API dynamically
+  useEffect(() => {
+    let cancelled = false;
+
+    api.getProductCategories(type).then((cats) => {
+      if (cancelled) return;
+      setCategories(cats);
+    }).catch((err) => {
+      console.error(`Failed to load categories for ${type}:`, err);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [type]);
+
+  // Fetch Products dynamically
   useEffect(() => {
     let cancelled = false;
     setIsLoading(true);
@@ -80,6 +102,10 @@ export default function ProductListingClient({
       const mapped = sortedData.map((p) => {
         const rawDesc = getVal(p.desc, locale) || "";
         const cleanDesc = rawDesc.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+        const pCatSlug = p.productCategory?.slug;
+        const pCatName = getVal(p.productCategory?.name, locale);
+        const pCatId = p.product_category_id || p.productCategory?.id;
+
         return {
           id: String(p.id),
           slug: p.slug,
@@ -87,6 +113,9 @@ export default function ProductListingClient({
           desc: cleanDesc,
           image: p.image ? api.getImageUrl(p.image) : "/images/placeholder.jpg",
           categoryName: getVal(p.category, locale),
+          productCategoryId: pCatId,
+          productCategorySlug: pCatSlug,
+          productCategoryName: pCatName,
           typeCategory: p.type === "food" ? ("food" as const) : ("cosmetic" as const),
         };
       });
@@ -104,11 +133,39 @@ export default function ProductListingClient({
     };
   }, [locale, type]);
 
+  // Helper map for hierarchical category matching (Level 2 & Level 3)
+  const getCategoryAndDescendantSlugs = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+
+    const registerCategory = (cat: ProductCategory): Set<string> => {
+      const slugs = new Set<string>();
+      if (cat.slug) slugs.add(cat.slug.toLowerCase());
+      slugs.add(String(cat.id));
+
+      if (cat.children && cat.children.length > 0) {
+        cat.children.forEach((child) => {
+          const childSlugs = registerCategory(child);
+          childSlugs.forEach((s) => slugs.add(s));
+        });
+      }
+
+      if (cat.slug) map.set(cat.slug.toLowerCase(), slugs);
+      map.set(String(cat.id), slugs);
+      return slugs;
+    };
+
+    categories.forEach((root) => {
+      registerCategory(root);
+    });
+
+    return map;
+  }, [categories]);
+
+  // Legacy helper for old products
   const getFoodSubCategory = (prod: ListedProduct): "phu-gia" | "bot-trai-cay" | "huong-lieu" => {
     const cat = (prod.categoryName || "").toLowerCase();
     const name = (prod.name || "").toLowerCase();
 
-    // 1. Check Hương liệu (Must check first so "Hương liệu phụ gia" is assigned to huong-lieu, NOT phu-gia)
     if (
       name.includes("hương liệu") ||
       name.includes("flavor") ||
@@ -119,7 +176,6 @@ export default function ProductListingClient({
       return "huong-lieu";
     }
 
-    // 2. Check Bột trái cây
     if (
       name.includes("bột nước") ||
       name.includes("bột trái") ||
@@ -131,14 +187,48 @@ export default function ProductListingClient({
       return "bot-trai-cay";
     }
 
-    // 3. Phụ gia
     return "phu-gia";
   };
 
   const matchCategoryKey = (prod: ListedProduct, key?: string) => {
     if (!key || key === "all") return true;
-    const subCat = getFoodSubCategory(prod);
 
+    const keyLower = key.toLowerCase();
+    const descendantSlugs = getCategoryAndDescendantSlugs.get(keyLower);
+
+    // 1. Match via Category Hierarchy (Level 2 or Level 3)
+    if (descendantSlugs) {
+      if (prod.productCategorySlug && descendantSlugs.has(prod.productCategorySlug.toLowerCase())) {
+        return true;
+      }
+      if (prod.productCategoryId && descendantSlugs.has(String(prod.productCategoryId))) {
+        return true;
+      }
+    }
+
+    // 2. Direct slug match with backend category
+    if (prod.productCategorySlug && prod.productCategorySlug.toLowerCase() === keyLower) {
+      return true;
+    }
+
+    // 3. Direct ID match
+    if (prod.productCategoryId && String(prod.productCategoryId) === key) {
+      return true;
+    }
+
+    // 4. Category Name match
+    const pCatName = (prod.productCategoryName || "").toLowerCase();
+    if (pCatName && (pCatName === keyLower || pCatName.includes(keyLower))) {
+      return true;
+    }
+
+    const legacyCatName = (prod.categoryName || "").toLowerCase();
+    if (legacyCatName && legacyCatName.includes(keyLower)) {
+      return true;
+    }
+
+    // 5. Fallback matching for old static category keys
+    const subCat = getFoodSubCategory(prod);
     if (key === "huong-lieu" || key === "flavors") {
       return subCat === "huong-lieu";
     }
@@ -148,7 +238,8 @@ export default function ProductListingClient({
     if (key === "phu-gia" || key === "additives") {
       return subCat === "phu-gia";
     }
-    return true;
+
+    return false;
   };
 
   const filteredProducts = products.filter((p) => matchCategoryKey(p, selectedCategory));
@@ -160,12 +251,56 @@ export default function ProductListingClient({
     currentPage * itemsPerPage
   );
 
-  const foodCategoryTabs = [
-    { key: "all", label: t.header.allCategories, path: basePath },
-    { key: "phu-gia", label: t.header.additives, path: `${basePath}?category=phu-gia` },
-    { key: "bot-trai-cay", label: t.header.fruitPowders, path: `${basePath}?category=bot-trai-cay` },
-    { key: "huong-lieu", label: t.header.flavors, path: `${basePath}?category=huong-lieu` },
-  ];
+  // Dynamic Category Filter Tabs from Backend API (supporting Level 2 & Level 3 with unified UI)
+  const categoryFilterTabs = useMemo(() => {
+    const tabs: { key: string; label: string; path: string }[] = [
+      { key: "all", label: t.header.allCategories, path: basePath }
+    ];
+
+    if (categories && categories.length > 0) {
+      const addCategoryTab = (cat: ProductCategory) => {
+        const catName = getVal(cat.name, locale) || cat.slug;
+        const catSlug = cat.slug || String(cat.id);
+        
+        // Avoid duplicate tab keys
+        if (!tabs.some((t) => t.key === catSlug)) {
+          tabs.push({
+            key: catSlug,
+            label: catName,
+            path: `${basePath}?category=${catSlug}`,
+          });
+        }
+
+        if (cat.children && cat.children.length > 0) {
+          cat.children.forEach((child) => {
+            addCategoryTab(child);
+          });
+        }
+      };
+
+      // Add all level 2 and level 3 categories under root categories
+      categories.forEach((root) => {
+        if (root.children && root.children.length > 0) {
+          root.children.forEach((child) => {
+            addCategoryTab(child);
+          });
+        } else if (root.parent_id !== null) {
+          addCategoryTab(root);
+        }
+      });
+    } else {
+      // Fallback tabs if backend categories are loading or not yet created
+      if (isFood) {
+        tabs.push(
+          { key: "phu-gia", label: t.header.additives, path: `${basePath}?category=phu-gia` },
+          { key: "bot-trai-cay", label: t.header.fruitPowders, path: `${basePath}?category=bot-trai-cay` },
+          { key: "huong-lieu", label: t.header.flavors, path: `${basePath}?category=huong-lieu` }
+        );
+      }
+    }
+
+    return tabs;
+  }, [categories, locale, basePath, t.header.allCategories, t.header.additives, t.header.fruitPowders, t.header.flavors, isFood]);
 
   const categoryQueryStr = selectedCategory ? `&category=${selectedCategory}` : "";
 
@@ -192,11 +327,12 @@ export default function ProductListingClient({
             <div className="h-0.5 w-16 bg-brand-green mx-auto" />
           </div>
 
-          {/* Sub-category Filter Tabs for Food Ingredients */}
-          {isFood && (
+          {/* Dynamic Category Filter Tabs (Unified UI for all levels) */}
+          {categoryFilterTabs.length > 1 && (
             <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mb-12">
-              {foodCategoryTabs.map((tab) => {
+              {categoryFilterTabs.map((tab) => {
                 const isActiveTab = (!selectedCategory && tab.key === "all") || selectedCategory === tab.key;
+
                 return (
                   <Link
                     key={tab.key}

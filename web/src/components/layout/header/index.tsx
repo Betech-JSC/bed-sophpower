@@ -3,22 +3,20 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, Loader2, ChevronDown } from "lucide-react";
+import { Menu, X, Search, Loader2, ChevronDown, ChevronRight } from "lucide-react";
 import LanguageToggle from "./components/language-toggle";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
-import { api, Product, Article } from "@/lib/api";
+import { api, Product, Article, ProductCategory } from "@/lib/api";
 import { getVal } from "@/lib/i18n-utils";
 
-interface SubMenuItem {
+interface DynamicCategoryItem {
+  id: number;
   name: string;
   path: string;
-}
-
-interface MenuItem {
-  name: string;
-  path: string;
-  subItems?: SubMenuItem[];
+  slug: string;
+  type: 'food' | 'cosmetic';
+  children?: ProductCategory[];
 }
 
 export default function Header() {
@@ -26,38 +24,32 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [expandedMobileSubmenu, setExpandedMobileSubmenu] = useState<string | null>(null);
+  const [expandedMobileSubmenu, setExpandedMobileSubmenu] = useState<string | number | null>(null);
+  const [expandedMobileChildSubmenu, setExpandedMobileChildSubmenu] = useState<string | number | null>(null);
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
 
   const [settings, setSettings] = useState<any>(null);
+  const [rootCategories, setRootCategories] = useState<ProductCategory[]>([]);
+
   useEffect(() => {
     api.getSettings()
       .then(setSettings)
       .catch((err) => console.error("Failed to load settings in header:", err));
+
+    api.getProductCategories()
+      .then((data) => {
+        setRootCategories(data);
+      })
+      .catch((err) => console.error("Failed to load product categories in header:", err));
   }, []);
 
   const foodBasePath = locale === "vi" ? "/nguyen-lieu-thuc-pham" : "/food-ingredients";
   const cosmeticBasePath = locale === "vi" ? "/nguyen-lieu-my-pham" : "/cosmetic-ingredients";
 
-  const menuItems: MenuItem[] = [
-    { name: t.header.about, path: "/about" },
-    { 
-      name: t.header.foodIngredients, 
-      path: foodBasePath,
-      subItems: [
-        { name: t.header.additives, path: `${foodBasePath}?category=phu-gia` },
-        { name: t.header.fruitPowders, path: `${foodBasePath}?category=bot-trai-cay` },
-        { name: t.header.flavors, path: `${foodBasePath}?category=huong-lieu` },
-      ]
-    },
-    { 
-      name: t.header.cosmeticIngredients, 
-      path: cosmeticBasePath 
-    },
-    { name: t.header.news, path: "/news" },
-    { name: t.header.contact, path: "/contact" },
-  ];
+  const getBasePathForType = (type: 'food' | 'cosmetic') => {
+    return type === 'food' ? foodBasePath : cosmeticBasePath;
+  };
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const toggleSearch = () => {
@@ -132,6 +124,10 @@ export default function Header() {
     return normalizedPathname.startsWith(normalizedPath);
   };
 
+  // Fallback static root categories if API has not finished loading
+  const foodCategoryFromApi = rootCategories.find(c => c.type === 'food' || c.slug === 'nguyen-lieu-thuc-pham');
+  const cosmeticCategoryFromApi = rootCategories.find(c => c.type === 'cosmetic' || c.slug === 'nguyen-lieu-my-pham');
+
   return (
     <>
       <header className="sticky top-0 z-40 w-full bg-brand-green shadow-md">
@@ -150,58 +146,144 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
-              {menuItems.map((item) => {
-                const itemIsActive = isActive(item.path);
-                if (item.subItems) {
+              {/* About Link */}
+              <Link
+                href="/about"
+                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                  isActive("/about")
+                    ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
+                    : "text-white hover:text-[#10e660]"
+                }`}
+              >
+                {t.header.about}
+              </Link>
+
+              {/* Dynamic Root Product Categories from Backend */}
+              {rootCategories.length > 0 ? (
+                rootCategories.map((rootCat) => {
+                  const basePath = getBasePathForType(rootCat.type);
+                  const rootName = getVal(rootCat.name, locale);
+                  const itemIsActive = isActive(basePath);
+                  const hasChildren = rootCat.children && rootCat.children.length > 0;
+
                   return (
-                    <div key={item.path} className="relative group py-6">
+                    <div key={rootCat.id} className="relative group py-6">
                       <Link
-                        href={item.path}
-                        className={`inline-flex items-center gap-1.5 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                        href={basePath}
+                        className={`inline-flex items-center gap-1.5 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
                           itemIsActive
                             ? "text-[#10e660]"
                             : "text-white group-hover:text-[#10e660]"
                         }`}
                       >
-                        <span>{item.name}</span>
-                        <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 text-white/80 group-hover:text-[#10e660]" />
+                        <span>{rootName}</span>
+                        {hasChildren && (
+                          <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 text-white/80 group-hover:text-[#10e660]" />
+                        )}
                       </Link>
                       {itemIsActive && (
                         <span className="absolute bottom-4 left-0 h-0.5 w-full bg-[#10e660]" />
                       )}
 
-                      {/* Dropdown Menu */}
-                      <div className="absolute top-full left-0 w-56 pt-1 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
-                        <div className="bg-white rounded-xl shadow-xl border border-gray-150 py-2 text-gray-800 text-sm font-semibold overflow-hidden">
-                          {item.subItems.map((sub) => (
-                            <Link
-                              key={sub.path}
-                              href={sub.path}
-                              className="block px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
+                      {/* Dropdown Menu (Level 2) */}
+                      {hasChildren && (
+                        <div className="absolute top-full left-0 w-64 pt-1 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
+                          <div className="bg-white rounded-xl shadow-xl border border-gray-150 py-2 text-gray-800 text-sm font-semibold overflow-visible">
+                            {rootCat.children!.map((childCat) => {
+                              const childName = getVal(childCat.name, locale);
+                              const hasSubChildren = childCat.children && childCat.children.length > 0;
+                              const childPath = `${basePath}?category=${childCat.slug}`;
+
+                              if (hasSubChildren) {
+                                return (
+                                  <div key={childCat.id} className="relative group/sub">
+                                    <Link
+                                      href={childPath}
+                                      className="flex items-center justify-between px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
+                                    >
+                                      <span>{childName}</span>
+                                      <ChevronRight className="h-4 w-4 text-gray-400 group-hover/sub:text-brand-green" />
+                                    </Link>
+
+                                    {/* Sub-dropdown Menu (Level 3 Flyout) */}
+                                    <div className="absolute left-full top-0 ml-1 w-56 pt-0 opacity-0 invisible translate-x-2 group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover/sub:pointer-events-auto">
+                                      <div className="bg-white rounded-xl shadow-xl border border-gray-150 py-2 text-gray-800 text-sm font-semibold overflow-hidden">
+                                        {childCat.children!.map((subChild) => (
+                                          <Link
+                                            key={subChild.id}
+                                            href={`${basePath}?category=${subChild.slug}`}
+                                            className="block px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
+                                          >
+                                            {getVal(subChild.name, locale)}
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              }
+
+                              return (
+                                <Link
+                                  key={childCat.id}
+                                  href={childPath}
+                                  className="block px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
+                                >
+                                  {childName}
+                                </Link>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   );
-                }
-
-                return (
+                })
+              ) : (
+                /* Fallback static navigation while loading */
+                <>
                   <Link
-                    key={item.path}
-                    href={item.path}
-                    className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
-                      itemIsActive
-                        ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
-                        : "text-white hover:text-[#10e660]"
+                    href={foodBasePath}
+                    className={`relative py-2 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
+                      isActive(foodBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
                     }`}
                   >
-                    {item.name}
+                    {t.header.foodIngredients}
                   </Link>
-                );
-              })}
+                  <Link
+                    href={cosmeticBasePath}
+                    className={`relative py-2 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
+                      isActive(cosmeticBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
+                    }`}
+                  >
+                    {t.header.cosmeticIngredients}
+                  </Link>
+                </>
+              )}
+
+              {/* News Link */}
+              <Link
+                href="/news"
+                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                  isActive("/news")
+                    ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
+                    : "text-white hover:text-[#10e660]"
+                }`}
+              >
+                {t.header.news}
+              </Link>
+
+              {/* Contact Link */}
+              <Link
+                href="/contact"
+                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                  isActive("/contact")
+                    ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
+                    : "text-white hover:text-[#10e660]"
+                }`}
+              >
+                {t.header.contact}
+              </Link>
             </nav>
 
             {/* Actions */}
@@ -250,34 +332,44 @@ export default function Header() {
         <div 
           className={`lg:hidden border-t border-white/10 bg-brand-green px-4 py-3 space-y-2 shadow-inner transition-all duration-350 ease-out origin-top overflow-hidden ${
             mobileMenuOpen 
-              ? 'opacity-100 max-h-[500px] translate-y-0 scale-y-100 visible' 
+              ? 'opacity-100 max-h-[700px] translate-y-0 scale-y-100 visible overflow-y-auto' 
               : 'opacity-0 max-h-0 -translate-y-2 scale-y-95 invisible'
           }`}
         >
-          {menuItems.map((item, idx) => {
-            const itemIsActive = isActive(item.path);
-            const isExpanded = expandedMobileSubmenu === item.path;
+          {/* About */}
+          <Link
+            href="/about"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 ${
+              isActive("/about") ? "bg-white/10 text-[#10e660]" : "text-white hover:bg-white/5 hover:text-[#10e660]"
+            }`}
+          >
+            {t.header.about}
+          </Link>
 
-            if (item.subItems) {
+          {/* Dynamic Categories Mobile */}
+          {rootCategories.map((rootCat) => {
+            const basePath = getBasePathForType(rootCat.type);
+            const rootName = getVal(rootCat.name, locale);
+            const itemIsActive = isActive(basePath);
+            const isExpanded = expandedMobileSubmenu === rootCat.id;
+            const hasChildren = rootCat.children && rootCat.children.length > 0;
+
+            if (hasChildren) {
               return (
-                <div key={item.path} className="space-y-1">
+                <div key={rootCat.id} className="space-y-1">
                   <div className="flex items-center justify-between">
                     <Link
-                      href={item.path}
+                      href={basePath}
                       onClick={() => setMobileMenuOpen(false)}
-                      style={{
-                        transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
-                      }}
-                      className={`flex-1 px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 ${
-                        itemIsActive
-                          ? "bg-white/10 text-[#10e660]"
-                          : "text-white hover:bg-white/5 hover:text-[#10e660]"
+                      className={`flex-1 px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 uppercase ${
+                        itemIsActive ? "bg-white/10 text-[#10e660]" : "text-white hover:bg-white/5 hover:text-[#10e660]"
                       }`}
                     >
-                      {item.name}
+                      {rootName}
                     </Link>
                     <button
-                      onClick={() => setExpandedMobileSubmenu(isExpanded ? null : item.path)}
+                      onClick={() => setExpandedMobileSubmenu(isExpanded ? null : rootCat.id)}
                       className="p-3 text-white hover:text-[#10e660] transition-colors cursor-pointer"
                       aria-label="Toggle submenu"
                     >
@@ -285,18 +377,61 @@ export default function Header() {
                     </button>
                   </div>
 
-                  {/* Submenu links */}
-                  <div className={`pl-4 border-l-2 border-white/20 ml-3 space-y-1 overflow-hidden transition-all duration-300 ${isExpanded || itemIsActive ? 'max-h-48 py-1' : 'max-h-0 py-0'}`}>
-                    {item.subItems.map((sub) => (
-                      <Link
-                        key={sub.path}
-                        href={sub.path}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block px-3 py-2 rounded-md text-sm font-semibold text-white/90 hover:text-[#10e660] hover:bg-white/5 transition-colors"
-                      >
-                        • {sub.name}
-                      </Link>
-                    ))}
+                  {/* Level 2 Children */}
+                  <div className={`pl-4 border-l-2 border-white/20 ml-3 space-y-1 overflow-hidden transition-all duration-300 ${isExpanded || itemIsActive ? 'max-h-96 py-1' : 'max-h-0 py-0'}`}>
+                    {rootCat.children!.map((childCat) => {
+                      const childName = getVal(childCat.name, locale);
+                      const childPath = `${basePath}?category=${childCat.slug}`;
+                      const hasSubChildren = childCat.children && childCat.children.length > 0;
+                      const isChildExpanded = expandedMobileChildSubmenu === childCat.id;
+
+                      if (hasSubChildren) {
+                        return (
+                          <div key={childCat.id} className="space-y-1">
+                            <div className="flex items-center justify-between">
+                              <Link
+                                href={childPath}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="block px-3 py-2 rounded-md text-sm font-semibold text-white/90 hover:text-[#10e660] hover:bg-white/5 transition-colors"
+                              >
+                                • {childName}
+                              </Link>
+                              <button
+                                onClick={() => setExpandedMobileChildSubmenu(isChildExpanded ? null : childCat.id)}
+                                className="p-2 text-white/80 hover:text-[#10e660] transition-colors"
+                              >
+                                <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isChildExpanded ? "rotate-180" : ""}`} />
+                              </button>
+                            </div>
+
+                            {/* Level 3 Subchildren */}
+                            <div className={`pl-4 border-l border-white/10 ml-4 space-y-1 overflow-hidden transition-all duration-300 ${isChildExpanded ? 'max-h-48 py-1' : 'max-h-0 py-0'}`}>
+                              {childCat.children!.map((subChild) => (
+                                <Link
+                                  key={subChild.id}
+                                  href={`${basePath}?category=${subChild.slug}`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                  className="block px-3 py-1.5 rounded-md text-xs font-normal text-white/80 hover:text-[#10e660] transition-colors"
+                                >
+                                  - {getVal(subChild.name, locale)}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      return (
+                        <Link
+                          key={childCat.id}
+                          href={childPath}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 rounded-md text-sm font-semibold text-white/90 hover:text-[#10e660] hover:bg-white/5 transition-colors"
+                        >
+                          • {childName}
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -304,26 +439,39 @@ export default function Header() {
 
             return (
               <Link
-                key={item.path}
-                href={item.path}
+                key={rootCat.id}
+                href={basePath}
                 onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  transitionDelay: mobileMenuOpen ? `${idx * 40}ms` : '0ms',
-                }}
-                className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 transform ${
-                  mobileMenuOpen 
-                    ? 'translate-x-0 opacity-100' 
-                    : '-translate-x-3 opacity-0'
-                } ${
-                  itemIsActive
-                    ? "bg-white/10 text-[#10e660]"
-                    : "text-white hover:bg-white/5 hover:text-[#10e660]"
+                className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 uppercase ${
+                  itemIsActive ? "bg-white/10 text-[#10e660]" : "text-white hover:bg-white/5 hover:text-[#10e660]"
                 }`}
               >
-                {item.name}
+                {rootName}
               </Link>
             );
           })}
+
+          {/* News */}
+          <Link
+            href="/news"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 ${
+              isActive("/news") ? "bg-white/10 text-[#10e660]" : "text-white hover:bg-white/5 hover:text-[#10e660]"
+            }`}
+          >
+            {t.header.news}
+          </Link>
+
+          {/* Contact */}
+          <Link
+            href="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`block px-3 py-3 rounded-md text-base font-bold tracking-wide transition-all duration-300 ${
+              isActive("/contact") ? "bg-white/10 text-[#10e660]" : "text-white hover:bg-white/5 hover:text-[#10e660]"
+            }`}
+          >
+            {t.header.contact}
+          </Link>
         </div>
       </header>
 

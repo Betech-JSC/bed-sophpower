@@ -13,11 +13,26 @@ class ProductCategory extends Model
         'name',
         'slug',
         'type',
+        'parent_id',
+        'sort_order',
     ];
 
     protected $casts = [
         'name' => 'array',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(ProductCategory::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(ProductCategory::class, 'parent_id')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('id', 'asc')
+            ->with('children');
+    }
 
     public function products()
     {
