@@ -40,7 +40,7 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Index', [
             'products' => $products,
-            'categories' => ProductCategory::orderBy('sort_order', 'asc')->get(),
+            'categories' => ProductCategory::whereNull('parent_id')->with('children.children')->orderBy('sort_order', 'asc')->get(),
             'filters' => $request->only(['search', 'type', 'category_id']),
         ]);
     }

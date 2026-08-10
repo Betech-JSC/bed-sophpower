@@ -46,20 +46,53 @@
           <div>
             <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2 mb-2">
               <span class="w-1.5 h-6 bg-emerald-700 rounded-full"></span>
-              1. Quản lý Sản phẩm & Danh mục
+              1. Quản lý Danh mục & Sản phẩm
             </h2>
             <p class="text-gray-500 text-sm mb-4">
-              Module quản lý danh sách nguyên liệu dùng cho ngành thực phẩm và mỹ phẩm.
+              Hướng dẫn cấu hình hệ thống cây danh mục đa cấp động và quản lý kho nguyên liệu thực phẩm, mỹ phẩm.
             </p>
-            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 space-y-4 text-sm text-gray-650">
-              <p><strong>Tính năng cốt lõi:</strong></p>
-              <ul class="list-disc pl-5 space-y-2">
-                <li><strong>Danh mục sản phẩm:</strong> Phân loại nguyên liệu theo các nhóm chức năng chính (VD: Chất bảo quản, Hương liệu, Hoạt chất dưỡng ẩm,...). Phải tạo danh mục trước khi tạo sản phẩm.</li>
-                <li><strong>Hỗ trợ đa ngôn ngữ:</strong> Mỗi sản phẩm cho phép nhập tên, mô tả, quy cách đóng gói và thông số riêng biệt cho cả tiếng Việt (VI) và tiếng Anh (EN).</li>
-                <li><strong>Custom URL Slug:</strong> Cho phép nhập slug tùy chỉnh cho đường dẫn (VD: <code class="bg-gray-200 px-1 rounded text-red-600">tinh-chat-tra-xanh</code>). Nếu bỏ trống, hệ thống sẽ tự sinh slug duy nhất từ tên tiếng Việt.</li>
-                <li><strong>Thông số kỹ thuật & Ứng dụng:</strong> Thêm bớt các thông số và ứng dụng động bằng công cụ nhập liệu trực quan dạng danh sách.</li>
-                <li><strong>SEO Meta:</strong> Nhập tiêu đề SEO và mô tả SEO riêng biệt để tối ưu hiển thị trên công cụ tìm kiếm của Google.</li>
-              </ul>
+
+            <div class="space-y-4">
+              <!-- Sub-section: Quản lý Danh mục -->
+              <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-100 space-y-3 text-sm text-gray-700">
+                <div class="flex items-center gap-2 text-emerald-900 font-bold text-base">
+                  <span>🌐</span> A. Hướng dẫn Tạo & Quản lý Cây Danh mục (Cấp 1, Cấp 2, Cấp 3)
+                </div>
+                <ul class="list-disc pl-5 space-y-2.5 leading-relaxed text-gray-650">
+                  <li>
+                    <strong>Danh mục Gốc Cấp 1 (Menu Header):</strong> 
+                    Mỗi Danh mục Gốc Cấp 1 được tạo sẽ tự động xuất hiện làm nút <strong>Menu chính trên thanh Header Website</strong> (VD: <em>NGUYÊN LIỆU THỰC PHẨM</em>, <em>NGUYÊN LIỆU MỸ PHẨM</em>, <em>CHIẾT XUẤT THỰC VẬT</em>). Đồng thời hệ thống tự sinh một trang giao diện riêng trên website tương ứng với đường dẫn slug (VD: <code class="bg-emerald-100 text-emerald-900 px-1.5 py-0.5 rounded text-xs font-mono">/chiet-xuat-thuc-vat</code>).
+                  </li>
+                  <li>
+                    <strong>Thêm & Quản lý Danh mục Con (Cấp 2 & Cấp 3):</strong>
+                    Tại màn hình <em>Quản lý danh mục</em>, nhấp vào nút <span class="bg-emerald-700 text-white px-2 py-0.5 rounded text-xs font-bold">📂 Quản lý & Thêm danh mục con</span> ở từng dòng danh mục gốc.
+                    <ul class="list-circle pl-5 mt-1.5 space-y-1 text-xs text-gray-600">
+                      <li>• <strong>Danh mục Cấp 2:</strong> Là các nhóm chính thuộc danh mục gốc (VD: <em>Phụ gia</em>, <em>Bột trái cây</em>, <em>Hương liệu</em>). Hiển thị dạng Menu sổ xuống (Dropdown Menu) trên thanh Header và làm các tab lọc nhanh trên trang sản phẩm.</li>
+                      <li>• <strong>Danh mục Cấp 3:</strong> Là các nhóm chi tiết nằm bên trong danh mục Cấp 2 (VD: <em>Chất làm dày</em>, <em>Chất ổn định</em> nằm bên trong nhóm <em>Phụ gia</em>).</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <strong>Thêm nhanh hàng loạt (Bulk Insert):</strong> Trong cửa sổ popup quản lý danh mục con, nhấp nút <strong>"Thêm danh mục Cấp 2"</strong> hoặc <strong>"Thêm danh mục Cấp 3"</strong> để mở công cụ nhập nhanh nhiều danh mục liên tiếp cùng lúc.
+                  </li>
+                  <li>
+                    <strong>Thứ tự hiển thị (Sort Order):</strong> Nhập số thứ tự tại cột <em>"Thứ tự (Header)"</em> để sắp xếp vị trí xuất hiện của các nút menu trên thanh Header website từ trái qua phải.
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Sub-section: Quản lý Sản phẩm -->
+              <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 space-y-3 text-sm text-gray-650">
+                <div class="flex items-center gap-2 text-gray-900 font-bold text-base">
+                  <span>📦</span> B. Hướng dẫn Quản lý & Gắn Sản phẩm
+                </div>
+                <ul class="list-disc pl-5 space-y-2 leading-relaxed">
+                  <li><strong>Gắn Danh mục cho Sản phẩm:</strong> Khi thêm hoặc sửa sản phẩm, chọn danh mục phù hợp trong ô <em>"Danh mục sản phẩm *"</em>. Hệ thống hiển thị dạng cây phân cấp thụt lề trực quan (<code class="bg-gray-200 px-1 rounded">📁 Gốc ➔ 📂 Cấp 2 ➔ 📄 Cấp 3</code>) giúp gán chính xác sản phẩm vào phân loại mong muốn.</li>
+                  <li><strong>Hỗ trợ đa ngôn ngữ:</strong> Mỗi sản phẩm cho phép nhập tên, mô tả, quy cách đóng gói và thông số kỹ thuật riêng biệt cho cả tiếng Việt (VI) và tiếng Anh (EN).</li>
+                  <li><strong>Custom URL Slug:</strong> Cho phép nhập slug tùy chỉnh cho đường dẫn (VD: <code class="bg-gray-200 px-1 rounded text-emerald-700">tinh-chat-tra-xanh</code>). Nếu bỏ trống, hệ thống sẽ tự sinh slug duy nhất từ tên tiếng Việt.</li>
+                  <li><strong>Thông số kỹ thuật & Ứng dụng:</strong> Thêm bớt các thông số và ứng dụng động bằng công cụ nhập liệu trực quan dạng danh sách.</li>
+                  <li><strong>Lọc sản phẩm thông minh:</strong> Màn hình quản lý sản phẩm có ô chọn lọc động theo cây danh mục phân cấp giúp tìm kiếm nguyên liệu nhanh chóng.</li>
+                </ul>
+              </div>
             </div>
           </div>
 

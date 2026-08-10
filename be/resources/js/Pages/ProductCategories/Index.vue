@@ -25,22 +25,11 @@
             <a-input-search
               v-model:value="search"
               placeholder="Tìm theo tên danh mục..."
-              style="width: 260px"
+              style="width: 280px"
               @search="handleSearch"
               allow-clear
               size="large"
             />
-            <a-select
-              v-model:value="selectedType"
-              placeholder="Tất cả mảng sản phẩm"
-              style="width: 220px"
-              @change="handleSearch"
-              allow-clear
-              size="large"
-            >
-              <a-select-option value="food">🥗 Thực phẩm (Food)</a-select-option>
-              <a-select-option value="cosmetic">💄 Mỹ phẩm (Cosmetic)</a-select-option>
-            </a-select>
           </div>
 
           <a-button type="primary" class="bg-emerald-700 hover:bg-emerald-800 border-none flex items-center gap-1.5 h-11 font-bold px-5" @click="goToCreate">
@@ -69,13 +58,6 @@
                   <div class="text-xs text-gray-400 italic">{{ record.name?.en }}</div>
                 </div>
               </div>
-            </template>
-
-            <!-- Cột 2: Mảng sản phẩm -->
-            <template v-else-if="column.key === 'type'">
-              <a-tag :color="record.type === 'food' ? 'green' : 'orange'" class="font-bold px-3 py-1 text-xs">
-                {{ record.type === 'food' ? '🥗 Thực phẩm' : '💄 Mỹ phẩm' }}
-              </a-tag>
             </template>
 
             <!-- Cột 3: Thứ tự hiển thị -->
@@ -387,11 +369,10 @@ const currentPage = ref(props.categories.current_page);
 const pageSize = ref(props.categories.per_page);
 
 const columns = [
-  { title: 'Danh mục Gốc (Menu Header)', key: 'name', width: '26%' },
-  { title: 'Mảng sản phẩm', key: 'type', width: '15%' },
-  { title: 'Thứ tự (Header)', key: 'sort_order', width: '12%', align: 'center' },
+  { title: 'Danh mục Gốc (Menu Header)', key: 'name', width: '35%' },
+  { title: 'Thứ tự (Header)', key: 'sort_order', width: '15%', align: 'center' },
   { title: 'Danh mục con & phụ', key: 'children_summary', width: '35%' },
-  { title: 'Hành động', key: 'action', width: '12%', align: 'right' },
+  { title: 'Hành động', key: 'action', width: '15%', align: 'right' },
 ];
 
 async function updateSortOrder(record) {

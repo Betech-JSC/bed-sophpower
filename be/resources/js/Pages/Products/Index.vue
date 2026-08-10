@@ -16,13 +16,13 @@
           <a-select
             v-model:value="categoryId"
             placeholder="Lọc theo danh mục..."
-            class="min-w-[240px] sm:min-w-[280px]"
+            class="min-w-[240px] sm:min-w-[300px]"
             :dropdown-match-select-width="false"
             @change="handleFilterChange"
             allow-clear
           >
-            <a-select-option v-for="cat in categories" :key="cat.id" :value="cat.id">
-              {{ cat.parent_id ? '└── ' : '📁 ' }}{{ cat.name?.vi }}
+            <a-select-option v-for="cat in formattedCategories" :key="cat.id" :value="cat.id">
+              {{ cat.label }}
             </a-select-option>
           </a-select>
         </div>
@@ -139,7 +139,7 @@
 import CrmLayout from '@/Layouts/CrmLayout.vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import { router } from '@inertiajs/vue3';
-import { ref, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const props = defineProps({
   products: Object,
@@ -155,6 +155,41 @@ const categoryId = ref(props.filters.category_id ? Number(props.filters.category
 const currentPage = ref(props.products.current_page);
 const pageSize = ref(props.products.per_page);
 const loading = ref(false);
+
+const formattedCategories = computed(() => {
+  const result = [];
+  if (!props.categories) return result;
+
+  props.categories.forEach(root => {
+    result.push({
+      id: root.id,
+      label: `📁 ${root.name?.vi || root.name}`,
+      isRoot: true,
+    });
+
+    if (root.children && root.children.length > 0) {
+      root.children.forEach(child => {
+        result.push({
+          id: child.id,
+          label: `├── 📂 ${child.name?.vi || child.name}`,
+          isRoot: false,
+        });
+
+        if (child.children && child.children.length > 0) {
+          child.children.forEach(subchild => {
+            result.push({
+              id: subchild.id,
+              label: `│   └── 📄 ${subchild.name?.vi || subchild.name}`,
+              isRoot: false,
+            });
+          });
+        }
+      });
+    }
+  });
+
+  return result;
+});
 
 const columns = [
   {
