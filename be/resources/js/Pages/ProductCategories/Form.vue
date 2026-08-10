@@ -82,39 +82,21 @@
       <div class="bg-white rounded-2xl border border-gray-200 shadow-xl overflow-hidden">
         <form @submit.prevent="submit" class="p-8 space-y-6">
 
-          <!-- Type & Parent Select Row -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Mảng sản phẩm -->
-            <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Mảng sản phẩm *</label>
-              <a-select 
-                v-model:value="form.type" 
-                class="w-full" 
-                size="large"
-                @change="setProductType"
-              >
-                <a-select-option value="food">🥗 Nguyên liệu Thực phẩm (Food)</a-select-option>
-                <a-select-option value="cosmetic">💄 Nguyên liệu Mỹ phẩm (Cosmetic)</a-select-option>
-              </a-select>
-              <p v-if="form.errors.type" class="mt-1 text-xs text-red-650 font-semibold">{{ form.errors.type }}</p>
-            </div>
-
-            <!-- Danh mục Cha -->
-            <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục Cha (Tùy chọn)</label>
-              <a-select 
-                v-model:value="form.parent_id" 
-                placeholder="-- Là Danh mục Gốc (Cấp 1) --" 
-                class="w-full" 
-                size="large"
-                allow-clear
-              >
-                <a-select-option v-for="pCat in formattedParentCategories" :key="pCat.id" :value="pCat.id">
-                  {{ pCat.parent_id ? '└── ' : '📁 ' }}{{ pCat.name?.vi }}
-                </a-select-option>
-              </a-select>
-              <p class="mt-1 text-[11px] text-gray-400">Bỏ trống nếu muốn tạo làm Danh mục Gốc (Cấp 1) hiển thị trên Header.</p>
-            </div>
+          <!-- Parent Select Row -->
+          <div class="mb-6">
+            <label class="block text-sm font-bold text-gray-700 mb-1">Danh mục Cha (Tùy chọn)</label>
+            <a-select 
+              v-model:value="form.parent_id" 
+              placeholder="-- Là Danh mục Gốc (Cấp 1) --" 
+              class="w-full" 
+              size="large"
+              allow-clear
+            >
+              <a-select-option v-for="pCat in props.parentCategories" :key="pCat.id" :value="pCat.id">
+                {{ pCat.parent_id ? '└── ' : '📁 ' }}{{ pCat.name?.vi }}
+              </a-select-option>
+            </a-select>
+            <p class="mt-1 text-[11px] text-gray-400">Bỏ trống nếu muốn tạo làm Danh mục Gốc (Cấp 1) đứng độc lập hiển thị trên Header.</p>
           </div>
 
           <!-- Tên danh mục VI & EN -->

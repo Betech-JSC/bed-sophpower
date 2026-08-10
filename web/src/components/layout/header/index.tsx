@@ -131,8 +131,8 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full bg-brand-green shadow-md">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-6">
-          <div className="flex h-20 items-center justify-between">
+        <div className="mx-auto max-w-[1440px] px-3 sm:px-4 lg:px-6">
+          <div className="flex h-20 items-center justify-between gap-4">
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
@@ -145,40 +145,40 @@ export default function Header() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center gap-3 xl:gap-6 shrink-0">
               {/* About Link */}
               <Link
                 href="/about"
-                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/about")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
                 }`}
               >
-                {t.header.about}
+                <span className="whitespace-nowrap">{t.header.about}</span>
               </Link>
 
               {/* Dynamic Root Product Categories from Backend */}
               {rootCategories.length > 0 ? (
                 rootCategories.map((rootCat) => {
-                  const basePath = getBasePathForType(rootCat.type);
+                  const rootPath = rootCat.slug ? `/${rootCat.slug}` : getBasePathForType(rootCat.type);
                   const rootName = getVal(rootCat.name, locale);
-                  const itemIsActive = isActive(basePath);
+                  const itemIsActive = isActive(rootPath);
                   const hasChildren = rootCat.children && rootCat.children.length > 0;
 
                   return (
                     <div key={rootCat.id} className="relative group py-6">
                       <Link
-                        href={basePath}
-                        className={`inline-flex items-center gap-1.5 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
+                        href={rootPath}
+                        className={`inline-flex items-center gap-1 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                           itemIsActive
                             ? "text-[#10e660]"
                             : "text-white group-hover:text-[#10e660]"
                         }`}
                       >
-                        <span>{rootName}</span>
+                        <span className="whitespace-nowrap">{rootName}</span>
                         {hasChildren && (
-                          <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 text-white/80 group-hover:text-[#10e660]" />
+                          <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 text-white/80 group-hover:text-[#10e660] shrink-0" />
                         )}
                       </Link>
                       {itemIsActive && (
@@ -192,7 +192,7 @@ export default function Header() {
                             {rootCat.children!.map((childCat) => {
                               const childName = getVal(childCat.name, locale);
                               const hasSubChildren = childCat.children && childCat.children.length > 0;
-                              const childPath = `${basePath}?category=${childCat.slug}`;
+                              const childPath = `${rootPath}?category=${childCat.slug}`;
 
                               if (hasSubChildren) {
                                 return (
@@ -211,7 +211,7 @@ export default function Header() {
                                         {childCat.children!.map((subChild) => (
                                           <Link
                                             key={subChild.id}
-                                            href={`${basePath}?category=${subChild.slug}`}
+                                            href={`${rootPath}?category=${subChild.slug}`}
                                             className="block px-4 py-2.5 hover:bg-gray-50 hover:text-brand-green transition-colors border-b border-gray-100 last:border-b-0"
                                           >
                                             {getVal(subChild.name, locale)}
@@ -244,19 +244,19 @@ export default function Header() {
                 <>
                   <Link
                     href={foodBasePath}
-                    className={`relative py-2 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
+                    className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                       isActive(foodBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
                     }`}
                   >
-                    {t.header.foodIngredients}
+                    <span className="whitespace-nowrap">{t.header.foodIngredients}</span>
                   </Link>
                   <Link
                     href={cosmeticBasePath}
-                    className={`relative py-2 text-sm font-bold tracking-wider uppercase transition-colors duration-200 ${
+                    className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                       isActive(cosmeticBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
                     }`}
                   >
-                    {t.header.cosmeticIngredients}
+                    <span className="whitespace-nowrap">{t.header.cosmeticIngredients}</span>
                   </Link>
                 </>
               )}
@@ -264,25 +264,25 @@ export default function Header() {
               {/* News Link */}
               <Link
                 href="/news"
-                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/news")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
                 }`}
               >
-                {t.header.news}
+                <span className="whitespace-nowrap">{t.header.news}</span>
               </Link>
 
               {/* Contact Link */}
               <Link
                 href="/contact"
-                className={`relative py-2 text-sm font-bold tracking-wider transition-colors duration-200 ${
+                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/contact")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
                 }`}
               >
-                {t.header.contact}
+                <span className="whitespace-nowrap">{t.header.contact}</span>
               </Link>
             </nav>
 

@@ -10,7 +10,7 @@ class ProductCategoryApiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = ProductCategory::whereNull('parent_id')->with('children');
+        $query = ProductCategory::whereNull('parent_id')->with('children.children');
 
         if ($request->filled('type')) {
             $query->where('type', $request->type);
