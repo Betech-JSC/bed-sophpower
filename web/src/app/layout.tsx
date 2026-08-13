@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Google_Sans_Flex } from "next/font/google";
+import { Google_Sans_Flex, Merriweather_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { I18nProvider } from "@/i18n/provider";
@@ -16,6 +16,13 @@ const googleSansFlex = Google_Sans_Flex({
   variable: "--font-google-sans",
   display: "swap",
   adjustFontFallback: false,
+});
+
+const merriweatherSans = Merriweather_Sans({
+  weight: ["400", "600", "700", "800"],
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-merriweather-sans",
+  display: "swap",
 });
 
 export const dynamic = "force-dynamic";
@@ -128,7 +135,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={locale} suppressHydrationWarning className={googleSansFlex.variable}>
+    <html lang={locale} suppressHydrationWarning className={`${googleSansFlex.variable} ${merriweatherSans.variable}`}>
       <body className="antialiased font-sans">
         <script
           type="application/ld+json"
