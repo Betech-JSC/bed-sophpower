@@ -18,6 +18,8 @@ const googleSansFlex = Google_Sans_Flex({
   adjustFontFallback: false,
 });
 
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = {
   themeColor: "#106d38",
   width: "device-width",
