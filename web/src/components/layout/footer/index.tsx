@@ -31,7 +31,7 @@ export default function Footer() {
       ],
     },
     company: {
-      title: "SOPHPOWER",
+      title: "SOPHCHEM",
       links: [
         { name: t.footer.aboutUs, path: "/about" },
         { name: t.footer.newsEvents, path: "/news" },
@@ -182,7 +182,7 @@ export default function Footer() {
               )}
               {(settings === null || settings?.social_globe) && (
                 <a
-                  href={settings?.social_globe || "https://sophpower.com"}
+                  href={settings?.social_globe || "https://www.sophpower.net"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-brand-green-light hover:text-white hover:scale-110 active:scale-95 transition-all duration-300 p-1"
@@ -236,6 +236,17 @@ export default function Footer() {
           </div>
 
           <div className="space-y-1.5 md:text-right text-gray-400 shrink-0">
+            <p className="font-medium text-gray-300">
+              Website:{" "}
+              <a
+                href="https://www.sophpower.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-green-light hover:underline font-semibold"
+              >
+                www.sophpower.net
+              </a>
+            </p>
             <p className="font-medium text-gray-300">Email: {settings?.contact_email || "vnsp4@sophpower.com"}</p>
             <p>
               {locale === "vi"
