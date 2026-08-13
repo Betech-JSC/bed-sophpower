@@ -143,7 +143,7 @@ export default function Header() {
                     className="h-10 w-auto brightness-0 invert"
                   />
                 ) : (
-                  <span className="text-2xl sm:text-3xl font-black tracking-widest text-white uppercase font-logo">
+                  <span className="text-2xl sm:text-3xl font-bold tracking-wider text-white uppercase font-logo">
                     SOPHCHEM
                   </span>
                 )}

@@ -119,7 +119,7 @@ export default function Footer() {
                   className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
                 />
               ) : (
-                <span className="text-3xl sm:text-4xl font-black tracking-widest text-white uppercase font-logo">
+                <span className="text-3xl sm:text-4xl font-bold tracking-wider text-white uppercase font-logo">
                   SOPHCHEM
                 </span>
               )}
