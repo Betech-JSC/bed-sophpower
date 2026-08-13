@@ -93,13 +93,18 @@ export default function Footer() {
 
           {/* Left: Brand Logo */}
           <div className="shrink-0">
-            <Link href="/" className="block">
+            <a
+              href={settings?.social_globe || "https://www.sophpower.net"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
               <img
                 src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
-                alt="Sophpower Logo"
+                alt="Sophchem Logo"
                 className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
               />
-            </Link>
+            </a>
           </div>
 
           {/* Center: Multi-column link directories */}
