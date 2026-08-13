@@ -6,10 +6,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   return {
-    title: `${t.header.contact} - Sophpower Vietnam`,
+    title: `${t.header.contact} - Sophchem Vietnam`,
     description: locale === "vi" 
-      ? "Liên hệ với Sophpower Vietnam để nhận tư vấn chuyên sâu và báo giá các loại nguyên liệu thực phẩm, nguyên liệu mỹ phẩm chất lượng cao."
-      : "Contact Sophpower Vietnam to get professional consultation and quotations on premium food and cosmetic ingredients.",
+      ? "Liên hệ với Sophchem Vietnam để nhận tư vấn chuyên sâu và báo giá các loại nguyên liệu thực phẩm, nguyên liệu mỹ phẩm chất lượng cao."
+      : "Contact Sophchem Vietnam to get professional consultation and quotations on premium food and cosmetic ingredients.",
   };
 }
 

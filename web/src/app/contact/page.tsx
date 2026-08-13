@@ -107,7 +107,7 @@ export default function Contact() {
                     <span className="text-xs font-bold uppercase tracking-wider text-white/60">
                       {t.contact.contactUs}
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">SOPHPOWER VIETNAM</h2>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">SOPHCHEM VIETNAM</h2>
                   </div>
                   <div className="h-0.5 w-16 bg-brand-green" />
                   <p className="text-white/80 text-sm leading-relaxed text-justify">

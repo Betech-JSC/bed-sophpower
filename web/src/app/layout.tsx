@@ -45,12 +45,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   const title = locale === "vi"
-    ? (settings?.meta_title_vi || "Sophpower Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm")
-    : (settings?.meta_title_en || "Sophpower Vietnam - Premium Food & Cosmetic Ingredients");
+    ? (settings?.meta_title_vi || "Sophchem Vietnam - Nguyên liệu Thực phẩm & Mỹ phẩm")
+    : (settings?.meta_title_en || "Sophchem Vietnam - Premium Food & Cosmetic Ingredients");
 
   const description = locale === "vi"
-    ? (settings?.meta_desc_vi || "Sophpower là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, chuyên cung cấp các giải pháp nguyên liệu thực phẩm và mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế.")
-    : (settings?.meta_desc_en || "Sophpower is a multinational trading company based in Vietnam, supplying premium, safe, and internationally certified food and cosmetic ingredients.");
+    ? (settings?.meta_desc_vi || "Sophchem là công ty thương mại đa quốc gia có trụ sở tại Việt Nam, chuyên cung cấp các giải pháp nguyên liệu thực phẩm và mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế.")
+    : (settings?.meta_desc_en || "Sophchem is a multinational trading company based in Vietnam, supplying premium, safe, and internationally certified food and cosmetic ingredients.");
 
   const keywords = locale === "vi"
     ? (settings?.meta_keywords_vi || "phụ gia thực phẩm, nguyên liệu mỹ phẩm, Beta-carotene, Carmine, Niacinamide")
@@ -74,12 +74,12 @@ export async function generateMetadata(): Promise<Metadata> {
       url: baseUrl,
       title,
       description,
-      siteName: "Sophpower Vietnam",
+      siteName: "Sophchem Vietnam",
       images: [{
         url: shareImageUrl,
         width: 800,
         height: 800,
-        alt: "Sophpower Vietnam Logo",
+        alt: "Sophchem Vietnam Logo",
       }],
     },
     twitter: {
@@ -118,7 +118,7 @@ export default async function RootLayout({
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Sophpower Vietnam",
+    "name": "Sophchem Vietnam",
     "url": baseUrl,
     "logo": settings?.site_logo ? api.getImageUrl(settings.site_logo) : `${baseUrl}/images/logo.png`,
     "contactPoint": settings?.contact_phone ? {

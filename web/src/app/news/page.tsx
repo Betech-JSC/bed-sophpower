@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   return {
-    title: `${t.header.news} - Sophpower Vietnam`,
+    title: `${t.header.news} - Sophchem Vietnam`,
     description: locale === "vi" 
       ? "Cập nhật các tin tức mới nhất, sự kiện nổi bật và kiến thức hữu ích về nguyên liệu thực phẩm, nguyên liệu mỹ phẩm."
       : "Stay updated with the latest news, events, and professional insights on food and cosmetic ingredients.",

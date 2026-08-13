@@ -7,7 +7,7 @@
           SP
         </div>
         <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight">
-          Sophpower Vietnam
+          Sophchem Vietnam
         </h2>
         <p class="mt-2 text-sm text-gray-500">
           Đăng nhập vào hệ thống quản trị nội dung (CMS)

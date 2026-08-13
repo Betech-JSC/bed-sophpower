@@ -38,7 +38,7 @@ class NewLeadReceived extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('[Sophpower CMS] Khách hàng liên hệ mới - ' . $this->lead->name)
+            ->subject('[Sophchem CMS] Khách hàng liên hệ mới - ' . $this->lead->name)
             ->greeting('Xin chào Quản trị viên,')
             ->line('Hệ thống vừa nhận được một yêu cầu liên hệ mới từ khách hàng.')
             ->line('Thông tin chi tiết như sau:')

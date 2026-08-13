@@ -12,10 +12,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   return {
-    title: `${t.about.title} - Sophpower Vietnam`,
+    title: `${t.about.title} - Sophchem Vietnam`,
     description: locale === "vi" 
-      ? "Tìm hiểu về Sophpower Vietnam - nhà cung cấp hàng đầu nguyên liệu thực phẩm và nguyên liệu mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế."
-      : "Learn more about Sophpower Vietnam - a leading supplier of premium, safe, and internationally certified food and cosmetic ingredients.",
+      ? "Tìm hiểu về Sophchem Vietnam - nhà cung cấp hàng đầu nguyên liệu thực phẩm và nguyên liệu mỹ phẩm chất lượng cao, an toàn và đạt tiêu chuẩn quốc tế."
+      : "Learn more about Sophchem Vietnam - a leading supplier of premium, safe, and internationally certified food and cosmetic ingredients.",
   };
 }
 
@@ -55,7 +55,7 @@ export default async function About() {
                     {t.about.overview}
                   </span>
                   <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight leading-tight">
-                    Sophpower Vietnam
+                    Sophchem Vietnam
                   </h2>
                 </div>
               </ScrollReveal>

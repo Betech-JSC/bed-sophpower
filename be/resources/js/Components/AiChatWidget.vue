@@ -39,7 +39,7 @@
             </svg>
           </div>
           <div>
-            <h3 class="text-sm font-bold tracking-tight">Trợ lý AI Sophpower</h3>
+            <h3 class="text-sm font-bold tracking-tight">Trợ lý AI Sophchem</h3>
             <p class="text-[10px] text-emerald-250 flex items-center gap-1">
               <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               Trực tuyến • Gemini AI

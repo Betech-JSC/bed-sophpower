@@ -27,7 +27,7 @@ export async function generateMetadata({
         : currentCategory.name;
 
       return {
-        title: `${name} - Sophpower Vietnam`,
+        title: `${name} - Sophchem Vietnam`,
         description: `Cung cấp ${name} chất lượng cao, an toàn và đạt các tiêu chuẩn quốc tế.`,
       };
     }
@@ -36,7 +36,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Danh mục Sản phẩm - Sophpower Vietnam`,
+    title: `Danh mục Sản phẩm - Sophchem Vietnam`,
   };
 }
 

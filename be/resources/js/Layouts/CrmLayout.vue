@@ -9,7 +9,7 @@
             <div class="w-8 h-8 rounded-lg bg-emerald-700 flex items-center justify-center text-white font-extrabold text-sm tracking-wider">
               SP
             </div>
-            <span class="text-base font-bold text-gray-900 tracking-tight">SOPHPOWER</span>
+            <span class="text-base font-bold text-gray-900 tracking-tight">SOPHCHEM</span>
             <span class="text-xs font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 uppercase tracking-wide border border-emerald-100">
               CMS
             </span>

@@ -7,14 +7,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocaleServer();
   const t = siteDictionaries[locale];
   return {
-    title: `${t.footer.careers} - Sophpower Vietnam`,
+    title: `${t.footer.careers} - Sophchem Vietnam`,
     description: locale === "vi" 
-      ? "Khám phá các cơ hội nghề nghiệp hấp dẫn tại Sophpower Vietnam. Gia nhập đội ngũ của chúng tôi để cùng phát triển sự nghiệp."
-      : "Explore exciting career opportunities at Sophpower Vietnam. Join our team and grow your career with us.",
+      ? "Khám phá các cơ hội nghề nghiệp hấp dẫn tại Sophchem Vietnam. Gia nhập đội ngũ của chúng tôi để cùng phát triển sự nghiệp."
+      : "Explore exciting career opportunities at Sophchem Vietnam. Join our team and grow your career with us.",
   };
 }
 
 export default function Recruitment() {
   return <RecruitmentClient />;
-}
 

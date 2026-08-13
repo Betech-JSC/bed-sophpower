@@ -94,7 +94,7 @@ export default function Home() {
     : [
         {
           image: "/images/banner1.jpg",
-          title: "Sophpower Vietnam",
+          title: "Sophchem Vietnam",
           desc: t.home.banner1Desc,
         },
         {
