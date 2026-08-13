@@ -97,13 +97,19 @@ export default function Footer() {
               href={settings?.social_globe || "https://www.sophpower.net"}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className="block hover:opacity-90 transition-opacity"
             >
-              <img
-                src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
-                alt="Sophchem Logo"
-                className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
-              />
+              {settings?.site_logo ? (
+                <img
+                  src={api.getImageUrl(settings.site_logo)}
+                  alt="Sophchem Logo"
+                  className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
+                />
+              ) : (
+                <span className="text-3xl sm:text-4xl font-extrabold tracking-wider text-white uppercase font-sans">
+                  SOPHCHEM
+                </span>
+              )}
             </a>
           </div>
 

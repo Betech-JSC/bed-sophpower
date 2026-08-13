@@ -136,11 +136,17 @@ export default function Header() {
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
-                <img
-                  src={settings?.site_logo ? api.getImageUrl(settings.site_logo) : "/images/f_logo.png"}
-                  alt="Sophpower Logo"
-                  className="h-10 w-auto brightness-0 invert"
-                />
+                {settings?.site_logo ? (
+                  <img
+                    src={api.getImageUrl(settings.site_logo)}
+                    alt="Sophchem Logo"
+                    className="h-10 w-auto brightness-0 invert"
+                  />
+                ) : (
+                  <span className="text-2xl sm:text-3xl font-extrabold tracking-wider text-white uppercase font-sans">
+                    SOPHCHEM
+                  </span>
+                )}
               </Link>
             </div>
 
