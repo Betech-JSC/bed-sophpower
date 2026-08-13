@@ -5,30 +5,43 @@ import Link from "next/link";
 import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
-import { api } from "@/lib/api";
+import { api, ProductCategory } from "@/lib/api";
+import { getVal } from "@/lib/i18n-utils";
 
 export default function Footer() {
   const { locale } = useI18n();
   const t = siteDictionaries[locale];
 
   const [settings, setSettings] = useState<any>(null);
+  const [rootCategories, setRootCategories] = useState<ProductCategory[]>([]);
 
   useEffect(() => {
     api.getSettings()
       .then(setSettings)
       .catch((err) => console.error("Failed to load settings in footer:", err));
+
+    api.getProductCategories()
+      .then(setRootCategories)
+      .catch((err) => console.error("Failed to load product categories in footer:", err));
   }, []);
 
   const rawPhone = settings?.contact_phone || "0969 700 520";
   const sanitizedPhone = rawPhone.replace(/[^0-9]/g, "");
 
+  const productLinks = rootCategories.length > 0
+    ? rootCategories.map((cat) => ({
+        name: getVal(cat.name, locale),
+        path: cat.slug ? `/${cat.slug}` : (cat.type === 'food' ? '/nguyen-lieu-thuc-pham' : '/nguyen-lieu-my-pham'),
+      }))
+    : [
+        { name: t.footer.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
+        { name: t.footer.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
+      ];
+
   const categories = {
     ingredients: {
       title: t.footer.products.toUpperCase(),
-      links: [
-        { name: t.footer.foodIngredients, path: "/nguyen-lieu-thuc-pham" },
-        { name: t.footer.cosmeticIngredients, path: "/nguyen-lieu-my-pham" },
-      ],
+      links: productLinks,
     },
     company: {
       title: "SOPHCHEM",
