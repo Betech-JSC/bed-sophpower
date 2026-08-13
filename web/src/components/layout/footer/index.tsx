@@ -105,25 +105,36 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 pb-12 border-b border-white/10">
 
           {/* Left: Brand Logo */}
-          <div className="shrink-0">
+          <div className="shrink-0 space-y-2">
             <a
-              href="https://www.sophpower.net"
+              href={settings?.social_globe || "https://www.sophpower.net"}
               target="_blank"
               rel="noopener noreferrer"
-              className="block hover:opacity-90 transition-opacity cursor-pointer"
+              className="block hover:opacity-90 transition-opacity"
             >
               {settings?.site_logo ? (
                 <img
                   src={api.getImageUrl(settings.site_logo)}
-                  alt="Sophpower Logo"
+                  alt="Sophchem Logo"
                   className="h-14 w-auto object-contain hover:scale-102 transition-transform duration-300"
                 />
               ) : (
                 <span className="text-3xl sm:text-4xl font-bold tracking-wider text-white uppercase font-logo">
-                  SOPHPOWER
+                  SOPHCHEM
                 </span>
               )}
             </a>
+            <div className="pt-1">
+              <a
+                href="https://www.sophpower.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs sm:text-sm text-brand-green-light hover:text-white hover:underline transition-colors font-medium flex items-center gap-1.5"
+              >
+                <span className="opacity-90">website:</span>
+                <span className="font-semibold text-white">www.sophpower.net</span>
+              </a>
+            </div>
           </div>
 
           {/* Center: Multi-column link directories */}
