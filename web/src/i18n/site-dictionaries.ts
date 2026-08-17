@@ -45,6 +45,8 @@ export type SiteDictionary = {
     emailSuccess: string;
     address: string;
     emailSubmitAria: string;
+    companyName: string;
+    divisionText: string;
   };
   recruitment: {
     title: string;
@@ -292,6 +294,8 @@ const dicts = {
       emailSuccess: "Cảm ơn bạn! Chúng tôi đã nhận được email và sẽ liên hệ tư vấn trong thời gian sớm nhất.",
       address: "Địa chỉ: Số 37, đường 19E, phường An Lạc, quận Bình Tân, Thành phố Hồ Chí Minh, Việt Nam",
       emailSubmitAria: "Gửi email",
+      companyName: "SOPHPOWER VIET NAM CO., LTD",
+      divisionText: "SOPHCHEM là thương hiệu trực thuộc",
     },
     recruitment: {
       title: "RECRUITMENT",
@@ -537,6 +541,8 @@ const dicts = {
       emailSuccess: "Thank you! We have received your email and will contact you for consultation as soon as possible.",
       address: "Address: No. 37, 19E Street, An Lac Ward, Binh Tan District, Ho Chi Minh City, Vietnam",
       emailSubmitAria: "Submit email",
+      companyName: "SOPHPOWER VIET NAM CO., LTD",
+      divisionText: "SOPHCHEM is a division of",
     },
     recruitment: {
       title: "RECRUITMENT",

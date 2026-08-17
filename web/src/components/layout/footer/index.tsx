@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-react";
+import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe, ExternalLink } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api, ProductCategory } from "@/lib/api";
@@ -105,7 +105,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between items-start gap-12 pb-12 border-b border-white/10">
 
           {/* Left: Brand Logo */}
-          <div className="shrink-0 space-y-2">
+          <div className="shrink-0 space-y-2.5 max-w-xs sm:max-w-sm">
             <a
               href={settings?.social_globe || "https://www.sophpower.net"}
               target="_blank"
@@ -124,15 +124,19 @@ export default function Footer() {
                 </span>
               )}
             </a>
-            <div className="pt-1">
+            <p className="text-xs sm:text-sm font-semibold tracking-wider text-gray-300 uppercase">
+              {t.footer.companyName}
+            </p>
+            <div className="pt-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+              <span className="text-brand-green-light font-medium">{t.footer.divisionText}</span>
               <a
                 href="https://www.sophpower.net"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs sm:text-sm text-brand-green-light hover:text-white hover:underline transition-colors font-medium flex items-center gap-1.5"
+                className="inline-flex items-center gap-1.5 bg-emerald-800/60 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1 rounded-md border border-emerald-600/40 hover:border-emerald-400/60 transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 text-xs"
               >
-                <span className="opacity-90">website:</span>
-                <span className="font-semibold text-white">www.sophpower.net</span>
+                <span>SOPHPOWER</span>
+                <ExternalLink className="w-3.5 h-3.5 text-emerald-300" />
               </a>
             </div>
           </div>
