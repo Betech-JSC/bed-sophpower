@@ -85,6 +85,19 @@ interface HeadingItem {
   level: number;
 }
 
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCharCode(Number(dec)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+}
+
 function extractHeadingsAndInsertIds(htmlContent: string): {
   modifiedHtml: string;
   headings: HeadingItem[];
@@ -108,7 +121,8 @@ function extractHeadingsAndInsertIds(htmlContent: string): {
     /<(h[23])(\s+[^>]*)?>(.*?)<\/\1>/gi,
     (match, tag, attrs = "", content) => {
       // Strip inner tags to get plain text for slugification
-      const plainText = content.replace(/<[^>]*>/g, "").trim();
+      const rawText = content.replace(/<[^>]*>/g, "").trim();
+      const plainText = decodeHtmlEntities(rawText);
       if (!plainText) return match;
 
       let headingId = slugify(plainText);

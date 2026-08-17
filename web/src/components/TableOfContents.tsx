@@ -16,6 +16,17 @@ interface TableOfContentsProps {
   showLabel?: string;
 }
 
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ");
+}
+
 export default function TableOfContents({
   headings,
   title = "Mục Lục",
@@ -92,7 +103,7 @@ export default function TableOfContents({
                   onClick={(e) => handleScroll(e, heading.id)}
                   className="hover:text-brand-green hover:underline decoration-brand-green/30 transition-colors"
                 >
-                  {heading.text}
+                  {decodeHtmlEntities(heading.text)}
                 </a>
               </li>
             );
