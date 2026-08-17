@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe, ExternalLink } from "lucide-react";
+import { ArrowRight, Phone, Facebook, Linkedin, Youtube, Globe } from "lucide-react";
 import { useI18n } from "@/i18n/provider";
 import { siteDictionaries } from "@/i18n/site-dictionaries";
 import { api, ProductCategory } from "@/lib/api";
@@ -136,7 +136,6 @@ export default function Footer() {
                 className="inline-flex items-center gap-1.5 bg-emerald-800/60 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1 rounded-md border border-emerald-600/40 hover:border-emerald-400/60 transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 text-xs"
               >
                 <span>SOPHPOWER</span>
-                <ExternalLink className="w-3.5 h-3.5 text-emerald-300" />
               </a>
             </div>
           </div>
