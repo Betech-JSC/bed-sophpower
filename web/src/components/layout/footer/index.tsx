@@ -127,15 +127,15 @@ export default function Footer() {
             <p className="text-xs sm:text-sm font-semibold tracking-wider text-gray-300 uppercase">
               {t.footer.companyName}
             </p>
-            <div className="pt-1 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+            <div className="pt-1 flex flex-wrap items-center gap-1.5 text-xs sm:text-sm">
               <span className="text-brand-green-light font-medium">{t.footer.divisionText}</span>
               <a
                 href="https://www.sophpower.net"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-emerald-800/60 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1 rounded-md border border-emerald-600/40 hover:border-emerald-400/60 transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 text-xs"
+                className="text-brand-green-light font-bold hover:underline transition-colors"
               >
-                <span>SOPHPOWER</span>
+                SOPHPOWER
               </a>
             </div>
           </div>
