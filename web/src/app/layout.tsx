@@ -181,10 +181,7 @@ export default async function RootLayout({
             dangerouslySetInnerHTML={{ __html: settings.footer_scripts }}
           />
         )}
-      {/* impeccable-live-start */}
-<script async src="http://localhost:8400/live.js"></script>
-{/* impeccable-live-end */}
-</body>
+      </body>
     </html>
   );
 }
