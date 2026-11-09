@@ -10,6 +10,7 @@ Thumbs.db
 
 
 .idea/
+/.vscode
 
 .cursor/
 
@@ -54,3 +55,4 @@ others
 .claude
 
 config.bat
+.env
