@@ -21,6 +21,7 @@ Thumbs.db
 # IDE & Editor files
 
 .idea/
+/.vscode
 
 
 .cursor/
@@ -160,3 +161,4 @@ tests
 others
 
 config.bat
+.env
