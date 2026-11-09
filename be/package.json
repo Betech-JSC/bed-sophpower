@@ -2,8 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node init && php artisan migrate --force && vite build && (sudo systemctl restart php8.3-fpm || true)",
-    "dev": "node init && vite"
+    "build": "php artisan migrate --force && vite build && (sudo systemctl restart php8.3-fpm || true)",
+    "dev": "vite"
   },
   "dependencies": {
     "@inertiajs/vue3": "^3.4.0",
