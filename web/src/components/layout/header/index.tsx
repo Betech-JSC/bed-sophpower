@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, Loader2, ChevronDown, ChevronRight } from "lucide-react";
@@ -31,6 +31,49 @@ export default function Header() {
 
   const [settings, setSettings] = useState<any>(null);
   const [rootCategories, setRootCategories] = useState<ProductCategory[]>([]);
+
+  // Header nav scroll ngang được, nên panel dropdown phải dùng position: fixed
+  // (absolute sẽ bị overflow-x của nav cắt mất).
+  const [openCat, setOpenCat] = useState<{ id: number; left: number; top: number } | null>(null);
+  const hideDropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showCategoryDropdown = (id: number, el: HTMLElement) => {
+    if (hideDropdownTimer.current) clearTimeout(hideDropdownTimer.current);
+    const rect = el.getBoundingClientRect();
+    setOpenCat({ id, left: rect.left, top: rect.bottom });
+  };
+
+  const hideCategoryDropdown = () => {
+    if (hideDropdownTimer.current) clearTimeout(hideDropdownTimer.current);
+    hideDropdownTimer.current = setTimeout(() => setOpenCat(null), 150);
+  };
+
+  const keepCategoryDropdownOpen = () => {
+    if (hideDropdownTimer.current) clearTimeout(hideDropdownTimer.current);
+  };
+
+  useEffect(() => () => {
+    if (hideDropdownTimer.current) clearTimeout(hideDropdownTimer.current);
+  }, []);
+
+  // Con lăn chuột (wheel dọc) -> cuộn ngang thanh menu.
+  const navRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (el.scrollWidth <= el.clientWidth + 1) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return; // trackpad ngang: để mặc định
+      const atStart = el.scrollLeft <= 0;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+      // Hết chỗ để cuộn về hướng đó thì nhường cho trang (đừng chặn scroll dọc)
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   useEffect(() => {
     api.getSettings()
@@ -151,11 +194,15 @@ export default function Header() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-3 xl:gap-6 shrink-0">
+            <nav
+              ref={navRef}
+              className="hidden lg:flex min-w-0 flex-1 items-center gap-3 xl:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              onScroll={() => setOpenCat(null)}
+            >
               {/* About Link */}
               <Link
                 href="/about"
-                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
+                className={`relative py-2 shrink-0 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/about")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
@@ -173,7 +220,12 @@ export default function Header() {
                   const hasChildren = rootCat.children && rootCat.children.length > 0;
 
                   return (
-                    <div key={rootCat.id} className="relative group py-6">
+                    <div
+                      key={rootCat.id}
+                      className="relative group py-6 shrink-0"
+                      onMouseEnter={(e) => { if (hasChildren) showCategoryDropdown(rootCat.id, e.currentTarget); }}
+                      onMouseLeave={() => { if (hasChildren) hideCategoryDropdown(); }}
+                    >
                       <Link
                         href={rootPath}
                         className={`inline-flex items-center gap-1 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
@@ -192,8 +244,13 @@ export default function Header() {
                       )}
 
                       {/* Dropdown Menu (Level 2) */}
-                      {hasChildren && (
-                        <div className="absolute top-full left-0 w-64 pt-1 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out z-50 pointer-events-none group-hover:pointer-events-auto">
+                      {hasChildren && openCat?.id === rootCat.id && (
+                        <div
+                          className="fixed w-64 pt-1 z-50"
+                          style={{ left: openCat.left, top: openCat.top }}
+                          onMouseEnter={keepCategoryDropdownOpen}
+                          onMouseLeave={hideCategoryDropdown}
+                        >
                           <div className="bg-white rounded-xl shadow-xl border border-gray-150 py-2 text-gray-800 text-sm font-semibold overflow-visible">
                             {rootCat.children!.map((childCat) => {
                               const childName = getVal(childCat.name, locale);
@@ -250,7 +307,7 @@ export default function Header() {
                 <>
                   <Link
                     href={foodBasePath}
-                    className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
+                    className={`relative py-2 shrink-0 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                       isActive(foodBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
                     }`}
                   >
@@ -258,7 +315,7 @@ export default function Header() {
                   </Link>
                   <Link
                     href={cosmeticBasePath}
-                    className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
+                    className={`relative py-2 shrink-0 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                       isActive(cosmeticBasePath) ? "text-[#10e660]" : "text-white hover:text-[#10e660]"
                     }`}
                   >
@@ -270,7 +327,7 @@ export default function Header() {
               {/* News Link */}
               <Link
                 href="/news"
-                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
+                className={`relative py-2 shrink-0 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/news")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
@@ -282,7 +339,7 @@ export default function Header() {
               {/* Contact Link */}
               <Link
                 href="/contact"
-                className={`relative py-2 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
+                className={`relative py-2 shrink-0 text-xs xl:text-sm font-bold tracking-wider uppercase transition-colors duration-200 whitespace-nowrap ${
                   isActive("/contact")
                     ? "text-[#10e660] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#10e660]"
                     : "text-white hover:text-[#10e660]"
@@ -293,7 +350,7 @@ export default function Header() {
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 shrink-0">
               {/* Language Toggle */}
               <LanguageToggle />
 
@@ -667,4 +724,4 @@ export default function Header() {
       )}
     </>
   );
-}
+}

@@ -3,6 +3,13 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // Repo có 2 lockfile (root + web/). Không cố định root thì Next suy ra root là
+  // gốc monorepo và build ra .next/standalone/web/server.js (lệch với hướng dẫn
+  // deploy `pm2 start .next/standalone/server.js`).
+  outputFileTracingRoot: __dirname,
+  turbopack: {
+    root: __dirname,
+  },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   async rewrites() {

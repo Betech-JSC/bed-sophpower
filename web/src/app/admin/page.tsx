@@ -16,6 +16,11 @@ import {
   Edit2
 } from "lucide-react";
 
+// CMS Laravel chạy cùng host với API (vd: https://api.sophchem.com/admin).
+// NEXT_PUBLIC_* được nhúng lúc build, nên đổi .env phải build lại.
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api").replace(/\/+$/, "");
+const ADMIN_CMS_URL = `${API_BASE.replace(/\/api$/, "")}/admin`;
+
 interface Lead {
   id: string;
   name: string;
@@ -201,12 +206,12 @@ export default function AdminDashboard() {
             </p>
           </div>
           <a
-            href="http://localhost:8000/admin"
+            href={ADMIN_CMS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg bg-brand-green hover:bg-brand-green/90 px-4 py-2.5 text-xs font-bold text-white transition-all whitespace-nowrap cursor-pointer shadow-md inline-flex items-center"
           >
-            Mở cổng Laravel CMS (Port 8000)
+            Mở cổng Laravel CMS
           </a>
         </div>
 

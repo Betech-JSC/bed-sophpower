@@ -182,28 +182,41 @@ sudo systemctl enable laravel-worker.service
     ```bash
     cd /var/www/sophpower/web
     ```
-2.  Cài đặt dependencies:
+2.  Cài đặt dependencies (dùng `npm ci`, **không** dùng `--omit=dev`):
     ```bash
-    npm install --omit=dev
+    npm ci
     ```
-3.  Tạo file `.env` bằng `nano .env`:
+    > `next build` cần devDependencies (`typescript`, `@tailwindcss/postcss`, `eslint-config-next`…),
+    > nên cài thiếu dev sẽ làm bước build thất bại.
+3.  Tạo file `.env.production` bằng `nano .env.production`:
     ```ini
     NEXT_PUBLIC_API_URL=https://api.sophpower.vn/api
     NEXT_PUBLIC_SITE_URL=https://sophpower.vn
     ```
+    > Đây là biến **nhúng cứng vào bundle lúc build** (`NEXT_PUBLIC_*`). Sửa file này phải
+    > build lại mới có hiệu lực; đừng đặt dấu `/` ở cuối giá trị.
 4.  Build dự án thành phiên bản tối ưu chạy độc lập (Standalone):
     ```bash
     npm run build
     ```
-5.  Khởi chạy Next.js ngầm bằng **PM2**:
+5.  Copy asset tĩnh vào thư mục standalone (bắt buộc — thiếu bước này CSS/JS/ảnh sẽ 404):
     ```bash
-    # Chạy Next.js từ thư mục build standalone (.next/standalone/server.js)
-    pm2 start .next/standalone/server.js --name "sophpower-frontend" --env PORT=3000
-    
+    cp -r public .next/standalone/public
+    mkdir -p .next/standalone/.next
+    cp -r .next/static .next/standalone/.next/static
+    ```
+6.  Khởi chạy Next.js ngầm bằng **PM2**:
+    ```bash
+    # Ecosystem đã cấu hình sẵn PORT=3000, HOSTNAME=127.0.0.1 (chỉ Nginx được truy cập)
+    pm2 start /var/www/sophpower/deploy/ecosystem.config.js
+
     # Lưu trạng thái PM2 để tự khởi chạy lại khi VPS restart
     pm2 save
     pm2 startup
     ```
+    > Cách nhanh hơn cho các lần deploy sau (pull → install → build → copy → reload):
+    > `bash /var/www/sophpower/deploy/deploy-web.sh`
+    > Chi tiết chuyển UI từ Vercel về VPS: xem [deploy/README.md](deploy/README.md).
 
 ---
 

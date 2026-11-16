@@ -162,3 +162,6 @@ others
 
 config.bat
 .env
+
+# Anh chup man hinh kiem tra (khong commit de nhe repo)
+doc/screenshots/
