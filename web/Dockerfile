@@ -4,8 +4,8 @@ FROM node:22-alpine AS base
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY web/package.json web/package-lock.json ./
-RUN npm ci
+COPY web/package.json web/yarn.lock ./
+RUN npm i -g yarn@1.22.22 --no-audit --no-fund && yarn install --frozen-lockfile --non-interactive
 
 # --- Build ---
 FROM base AS builder

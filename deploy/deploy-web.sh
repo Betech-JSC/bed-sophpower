@@ -28,10 +28,16 @@ if [ ! -f .env.production ]; then
   exit 1
 fi
 
-# npm ci cài CẢ devDependencies: bắt buộc, vì next build cần typescript,
+# Cài CẢ devDependencies: bắt buộc, vì next build cần typescript,
 # tailwind/postcss, eslint-config-next... (đừng dùng --omit=dev ở bước build).
+# Repo dùng yarn.lock làm lockfile chuẩn (package-lock.json đã lệch) ->
+# ưu tiên yarn, chỉ fallback npm ci khi không có yarn.lock.
 echo "==> [2/5] Cài dependencies"
-npm ci --no-audit --no-fund
+if [ -f yarn.lock ]; then
+  yarn install --frozen-lockfile --non-interactive
+else
+  npm ci --no-audit --no-fund
+fi
 
 echo "==> [3/5] Build (.env.production được nhúng vào bundle tại bước này)"
 npm run build
