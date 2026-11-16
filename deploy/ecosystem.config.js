@@ -26,7 +26,7 @@ module.exports = {
       instances: 1,
       env: {
         NODE_ENV: "production",
-        PORT: "3000",
+        PORT: process.env.PORT || "3006",
         // Chỉ lắng nghe loopback, Nginx là cửa ngõ duy nhất ra ngoài.
         HOSTNAME: "127.0.0.1",
         NEXT_TELEMETRY_DISABLED: "1",

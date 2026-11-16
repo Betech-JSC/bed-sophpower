@@ -57,15 +57,25 @@ cp -r public "$STANDALONE_DIR/public"
 mkdir -p "$STANDALONE_DIR/.next"
 cp -r .next/static "$STANDALONE_DIR/.next/static"
 
-echo "==> [5/5] Reload PM2"
-if pm2 describe "$APP_NAME" >/dev/null 2>&1; then
-  pm2 restart "$APP_NAME" --update-env
-else
-  pm2 start "$STANDALONE_DIR/server.js" --name "$APP_NAME" --cwd "$STANDALONE_DIR" --update-env
-fi
-pm2 save
+APP_PORT="${PORT:-3006}"
 
-echo "==> Health check http://127.0.0.1:${PORT:-3006}/"
-sleep 2
-curl -fsS -o /dev/null -w "   HTTP %{http_code} — %{time_total}s\n" "http://127.0.0.1:${PORT:-3006}/" \
-  || echo "!! Không kết nối được Next.js, xem: pm2 logs $APP_NAME --lines 100"
+# Next đổi được đường dẫn server.js giữa các lần build (standalone/ vs
+# standalone/<app>/) => "pm2 restart" giữ path cũ sẽ chết. Luôn start lại từ
+# đường dẫn vừa phát hiện, giữ nguyên tên process.
+echo "==> [5/5] Start lại PM2 (port $APP_PORT)"
+pm2 delete "$APP_NAME" >/dev/null 2>&1 || true
+( cd "$STANDALONE_DIR" && PORT="$APP_PORT" HOSTNAME=127.0.0.1 NODE_ENV=production \
+    pm2 start server.js --name "$APP_NAME" --update-env >/dev/null )
+pm2 save >/dev/null 2>&1
+
+echo "==> Health check http://127.0.0.1:${APP_PORT}/"
+code=000
+for i in 1 2 3 4 5 6 7 8 9 10; do
+  code=$(curl -s -o /dev/null -m 5 -w '%{http_code}' "http://127.0.0.1:${APP_PORT}/" || true)
+  if [ "$code" = "200" ]; then echo "   HTTP 200 (sau ${i}s)"; break; fi
+  sleep 1
+done
+if [ "$code" != "200" ]; then
+  echo "!! Không truy cập được Next.js (HTTP $code) — xem: pm2 logs $APP_NAME --lines 100"
+  exit 1
+fi
