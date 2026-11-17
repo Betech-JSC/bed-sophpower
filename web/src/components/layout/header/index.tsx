@@ -58,6 +58,17 @@ export default function Header() {
 
   // Con lăn chuột (wheel dọc) -> cuộn ngang thanh menu.
   const navRef = useRef<HTMLElement | null>(null);
+  const [isNavOverflowing, setIsNavOverflowing] = useState(false);
+  const [isGrabbing, setIsGrabbing] = useState(false);
+  const dragRef = useRef({
+    isDown: false,
+    isDragging: false,
+    startX: 0,
+    startScrollLeft: 0,
+  });
+  const suppressClickRef = useRef(false);
+  const suppressClickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     const el = navRef.current;
     if (!el) return;
@@ -73,6 +84,89 @@ export default function Header() {
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
+  }, []);
+
+  // Kiểm tra trạng thái tràn ngang (isNavOverflowing)
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+
+    const checkOverflow = () => {
+      setIsNavOverflowing(el.scrollWidth > el.clientWidth + 1);
+    };
+
+    checkOverflow();
+    const rafId = requestAnimationFrame(checkOverflow);
+
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(checkOverflow);
+      ro.observe(el);
+      Array.from(el.children).forEach((child) => ro?.observe(child));
+    }
+
+    window.addEventListener("resize", checkOverflow);
+    return () => {
+      cancelAnimationFrame(rafId);
+      ro?.disconnect();
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [rootCategories, locale]);
+
+  // Kéo thả chuột trực tiếp (Click & Drag-to-scroll) trên Desktop Header Nav
+  const handleNavMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.button !== 0) return;
+    const el = navRef.current;
+    if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+    dragRef.current.isDown = true;
+    dragRef.current.isDragging = false;
+    dragRef.current.startX = e.clientX;
+    dragRef.current.startScrollLeft = el.scrollLeft;
+  };
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragRef.current.isDown) return;
+      const el = navRef.current;
+      if (!el) return;
+
+      const dx = e.clientX - dragRef.current.startX;
+      if (!dragRef.current.isDragging && Math.abs(dx) > 5) {
+        dragRef.current.isDragging = true;
+        suppressClickRef.current = true;
+        setIsGrabbing(true);
+        if (hideDropdownTimer.current) clearTimeout(hideDropdownTimer.current);
+        setOpenCat(null);
+      }
+
+      if (dragRef.current.isDragging) {
+        e.preventDefault();
+        el.scrollLeft = dragRef.current.startScrollLeft - dx;
+      }
+    };
+
+    const onMouseUp = () => {
+      if (!dragRef.current.isDown) return;
+      const wasDragging = dragRef.current.isDragging;
+      dragRef.current.isDown = false;
+      dragRef.current.isDragging = false;
+      setIsGrabbing(false);
+
+      if (wasDragging) {
+        if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current);
+        suppressClickTimerRef.current = setTimeout(() => {
+          suppressClickRef.current = false;
+        }, 50);
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -196,8 +290,23 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav
               ref={navRef}
-              className="hidden lg:flex min-w-0 flex-1 items-center gap-3 xl:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className={`hidden lg:flex min-w-0 flex-1 items-center gap-3 xl:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain select-none header-nav-scroll ${
+                isGrabbing
+                  ? "cursor-grabbing [&_*]:!cursor-grabbing"
+                  : isNavOverflowing
+                  ? "cursor-grab"
+                  : ""
+              }`}
               onScroll={() => setOpenCat(null)}
+              onMouseDown={handleNavMouseDown}
+              onDragStart={(e) => e.preventDefault()}
+              onClickCapture={(e) => {
+                if (suppressClickRef.current) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  suppressClickRef.current = false;
+                }
+              }}
             >
               {/* About Link */}
               <Link
@@ -223,7 +332,11 @@ export default function Header() {
                     <div
                       key={rootCat.id}
                       className="relative group py-6 shrink-0"
-                      onMouseEnter={(e) => { if (hasChildren) showCategoryDropdown(rootCat.id, e.currentTarget); }}
+                      onMouseEnter={(e) => {
+                        if (hasChildren && !dragRef.current.isDragging) {
+                          showCategoryDropdown(rootCat.id, e.currentTarget);
+                        }
+                      }}
                       onMouseLeave={() => { if (hasChildren) hideCategoryDropdown(); }}
                     >
                       <Link
