@@ -290,7 +290,7 @@ export default function Header() {
             {/* Desktop Navigation */}
             <nav
               ref={navRef}
-              className={`hidden lg:flex min-w-0 flex-1 items-center gap-3 xl:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain select-none header-nav-scroll ${
+              className={`hidden lg:flex min-w-0 flex-1 items-center overflow-x-auto overflow-y-hidden overscroll-x-contain select-none header-nav-scroll ${
                 isGrabbing
                   ? "cursor-grabbing [&_*]:!cursor-grabbing"
                   : isNavOverflowing
@@ -308,6 +308,7 @@ export default function Header() {
                 }
               }}
             >
+              <div className="mx-auto flex items-center gap-3 xl:gap-6 shrink-0">
               {/* About Link */}
               <Link
                 href="/about"
@@ -460,6 +461,7 @@ export default function Header() {
               >
                 <span className="whitespace-nowrap">{t.header.contact}</span>
               </Link>
+              </div>
             </nav>
 
             {/* Actions */}
